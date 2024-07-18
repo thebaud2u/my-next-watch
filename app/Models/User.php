@@ -21,9 +21,6 @@ use Spatie\Permission\PermissionRegistrar;
 
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Facades\CauserResolver;
-use Spatie\Activitylog\Traits\LogsActivity;
-
-use Cmgmyr\Messenger\Traits\Messagable;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
@@ -38,7 +35,7 @@ use Overtrue\LaravelFollow\Traits\Followable;
 
 class User extends Authenticatable implements HasMedia
 {
-	use Favoriter, Follower, Followable, HasApiTokens, HasRoles, HasSlug, InteractsWithMedia, LogsActivity, Messagable, Notifiable, SoftDeletes;
+	use Favoriter, Follower, Followable, HasApiTokens, HasRoles, HasSlug, InteractsWithMedia, Notifiable, SoftDeletes;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -98,28 +95,7 @@ class User extends Authenticatable implements HasMedia
 	{
 		return SlugOptions::create()
 			->saveSlugsTo('slug')
-			->generateSlugsFrom('name');
-	}
-
-	/**
-	 * Set activity log options
-	 *
-	 * @see https://spatie.be/docs/laravel-activitylog/v4/api/log-options
-	 *
-	 * @return  \Spatie\Activitylog\LogOptions
-	 */
-	public function getActivitylogOptions(): LogOptions
-	{
-		CauserResolver::setCauser((empty(Auth::guard('admin')->user()->id)) ? Auth::guard('web')->user() : Auth::guard('admin')->user());
-		$by = (! empty(Auth::guard('admin')->user()->id)) ? ' by Admin #:causer.id (:causer.email)' : ((! empty(Auth::guard('web')->user()->id) && Auth::guard('web')->user()->id == $this->id) ? '' : ' by CLI/API');
-
-		return LogOptions::defaults()
-			->useLogName('user')
-			->setDescriptionForEvent(fn(string $eventName) => 'User #:subject.id (:subject.email) has been '.$eventName.$by)
-			->logAll()
-			->logExcept(['last_logon', 'updated_at'])
-			->dontLogIfAttributesChangedOnly(['last_logon', 'updated_at'])
-			->logOnlyDirty();
+			->generateSlugsFrom('nickname');
 	}
 
 	public function registerMediaCollections(): void
@@ -147,129 +123,9 @@ class User extends Authenticatable implements HasMedia
 		return $this->belongsTo(Gender::class);
 	}
 
-	public function thematic()
-	{
-		return $this->belongsTo(Thematic::class);
-	}
-
-	public function sector()
-	{
-		return $this->belongsTo(Sector::class);
-	}
-
-	public function activity()
-	{
-		return $this->belongsTo(Activity::class);
-	}
-
-	public function address(): MorphOne
-	{
-		return $this->morphOne(Address::class, 'model');
-	}
-
 	public function posts()
 	{
 		return $this->hasMany(Post::class);
-	}
-
-	public function subscriptions()
-	{
-		return $this->hasMany(Subscription::class);
-	}
-
-	public function latestSubscriptions()
-	{
-		return $this->hasMany(Subscription::class)->latest()->get();
-	}
-
-	// Check if the user has a subscription of the given offer's slug
-	// use isPublishable() on the result to know if a credit is available on the returned offer, is returned any
-	public function hasOfferSubscription($offerSlug)
-	{
-		$found = false;
-
-		foreach($this->latestSubscriptions() as $subscription) {
-			if($subscription->offer->slug == $offerSlug) {
-				$found = $subscription;
-				break;
-			}
-		}
-
-		return $found;
-	}
-
-	public function hasCreditAvailable($offerSlug)
-	{
-		$found = false;
-
-		foreach($this->latestSubscriptions() as $subscription) {
-			if($subscription->offer->slug == $offerSlug && ($subscription->end_date >= now() && $subscription->remaining_quantity > 0)) {
-				$found = true;
-				break;
-			}
-		}
-
-		return $found;
-	}
-
-	public function hasPostCreditAvailable($type)
-	{
-		$query = $this->subscriptions()
-			->whereHas('offer', function($whereHas) {
-				$whereHas->whereIn('type', ['web','print']);
-			})
-			->where('remaining_quantity', '>', 0)
-			->where('end_date', '>=', Carbon::now()->format('Y-m-d'));
-
-		if($type == 'count') $query = $query->count();
-		elseif($type == 'get') $query = $query->get();
-
-		return $query ;
-	}
-
-	public function countCreditAvailable($offerSlug)
-	{
-		$found = 0;
-
-		foreach($this->latestSubscriptions() as $subscription) {
-			if($subscription->offer->slug == $offerSlug && ($subscription->end_date >= now() && $subscription->remaining_quantity > 0)) $found += $subscription->remaining_quantity;
-		}
-
-		return $found;
-	}
-
-	public function contacted($user)
-	{
-		$count = 0;
-
-		foreach($this->posts as $post) {
-			$count += $post->responses()
-				->whereHas('user', function($whereHas) use($user) {
-					$whereHas->where('id', '=', $user->id);
-				})
-				->count();
-		}
-
-		return $count;
-	}
-
-	public function hasApplied(Post $post)
-	{
-		/*
-		En attente de la branche d'Adrien
-		return $post->responses()->whereHas('questioner', function($whereHas) {
-				$whereHas->where('id', '=', $this->id);
-			})
-			->count();
-		*/
-		return 0;
-	}
-
-	public function hasContacted(Post $post)
-	{
-		return $post->responses()
-			->where('questioner_id', Auth::guard('web')->user()->id)
-			->count();
 	}
 
 	/**

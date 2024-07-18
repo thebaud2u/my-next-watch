@@ -17,7 +17,6 @@ use Overtrue\LaravelFavorite\Traits\Favoriteable;
 
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Facades\CauserResolver;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
@@ -32,11 +31,9 @@ use App\Enums\PostStatesEnum;
 
 use App\Models\PostModeration;
 
-use App\Traits\Intra6TM;
-
 class Post extends Model implements Viewable, HasMedia
 {
-	use Favoriteable, HasSlug, InteractsWithMedia, InteractsWithViews, Intra6TM, LogsActivity, SoftDeletes;
+	use Favoriteable, HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
 		'id',

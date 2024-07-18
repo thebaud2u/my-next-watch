@@ -16,7 +16,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Facades\CauserResolver;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 use App\Enums\ResponseStatesEnum;
 
@@ -25,7 +24,7 @@ use App\Enums\ResponseStatesEnum;
 
 class Response extends Model implements HasMedia
 {
-	use InteractsWithMedia, LogsActivity;
+	use InteractsWithMedia;
 
 	protected $fillable = [
 		'post_id',

@@ -13,11 +13,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Facades\CauserResolver;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class Admin extends Authenticatable
 {
-	use HasFactory, HasApiTokens, Notifiable, SoftDeletes, HasRoles, LogsActivity;
+	use HasFactory, HasApiTokens, Notifiable, SoftDeletes, HasRoles;
 
 	/**
 	 * Guard for the Admin model.

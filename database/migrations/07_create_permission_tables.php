@@ -10,7 +10,7 @@ use Spatie\Permission\PermissionRegistrar;
 
 use App\Models\User;
 
-class CreatePermissionTables extends Migration
+return new class extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -188,4 +188,4 @@ class CreatePermissionTables extends Migration
 		Schema::drop($tableNames['roles']);
 		Schema::drop($tableNames['permissions']);
 	}
-}
+};

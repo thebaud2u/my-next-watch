@@ -12,12 +12,9 @@ use Illuminate\Support\Facades\Auth;
 
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Facades\CauserResolver;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class Search extends Model
 {
-	use LogsActivity; // HasUuids, 
-
 	/**
 	 * The attributes that are mass assignable.
 	 *

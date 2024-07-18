@@ -19,13 +19,8 @@ return new class extends Migration
 	{
 		Schema::create('criterias', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('thematic_id')->nullable();
-			$table->unsignedBigInteger('post_type_id')->nullable();
 			$table->string('type');
 			$table->string('name');
-
-			$table->foreign('thematic_id')->references('id')->on('thematics')->onDelete('set null');
-			$table->foreign('post_type_id')->references('id')->on('post_types')->onDelete('set null');
 		});
 
 		$data = [
