@@ -1,0 +1,2 @@
+*.sqlite*
+seeders/json/1/users_sso_new.json
