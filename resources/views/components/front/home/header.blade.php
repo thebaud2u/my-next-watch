@@ -46,12 +46,6 @@
 		</div>
 	</div>
 
-	{{-- Widescreen : Second navigation menu : thematics --}}
-	@include('components.front.home.header.second-menu-wide')
-
-	{{-- Widescreen : third navigation menu : post_types --}}
-	@include('components.front.home.header.third-menu-wide')
-
 	<div :class="{'block': open, 'hidden': ! open}" class="xlsm:hidden shadow-md fixed top-0 bg-white w-full z-50">
 		<div class="flex justify-between items-center px-4">
 			{{-- Logo --}}
@@ -108,12 +102,6 @@
 					{{ Auth::guard('web')->user()->email }}
 				</div>
 			</div>
-
-			{{-- Responsive : Second navigation menu : thematics --}}
-			@include('components.front.home.header.second-menu-responsive')
-
-			{{-- Responsive : third navigation menu : post_types --}}
-			@include('components.front.home.header.third-menu-responsive')
 
 			@include('components.front.home.header.second-logout-responsive')
 		@endauth

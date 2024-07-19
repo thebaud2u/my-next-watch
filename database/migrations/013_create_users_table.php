@@ -19,11 +19,10 @@ return new class extends Migration
 			$table->id();
 			$table->unsignedBigInteger('title_id')->nullable();
 			$table->unsignedBigInteger('gender_id')->nullable();
-			$table->string('nickname');
 			$table->string('slug');
+			$table->string('nickname');
 			$table->string('first_name')->nullable();
 			$table->string('last_name')->nullable();
-			$table->string('job_title')->nullable();
 			$table->string('email')->unique();
 			$table->timestamp('last_logon')->nullable();
 			$table->date('birth_date')->nullable();

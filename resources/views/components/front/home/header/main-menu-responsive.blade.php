@@ -37,43 +37,6 @@
 	</a>
 
 	<div class="w-full flex flex-col mt-6">
-		@foreach($secondMenuThematics as $secondMenuThematic)
-			@php
-				// Si la thematique n'a qu'un seul postType alors on précharge direct vers le seul PostType
-				if($secondMenuThematic->postTypes()->count() > 1) $array = ['thematic' => $secondMenuThematic];
-				else $array = ['thematic' => $secondMenuThematic, 'postType' => $secondMenuThematic->postTypes()->first()];
-			@endphp
 
-			<div x-data="{ deploy: false }">
-				<div class="flex justify-between" x-on:click="deploy = !deploy">
-					<p class="text-base font-semibold text-annonces-black">
-						{{ ucfirst($secondMenuThematic->slug) }}
-					</p>
-
-					<svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="!deploy">
-						<path d="M1.28516 1.5L6.64219 6.5L11.9992 1.5" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-
-					<svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="deploy">
-						<path d="M12 6.5L6.64297 1.5L1.28593 6.5" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</div>
-
-				@php
-					$thirdMenuPostTypes = App\Models\PostType::whereHas('thematic', function($whereHas) use ($secondMenuThematic) {
-							$whereHas->where('slug', '=', $secondMenuThematic->slug);
-						})
-						->get();
-				@endphp
-
-				<div class="pl-8" x-show="deploy">
-					@foreach($thirdMenuPostTypes as $thirdMenuPostType)
-						<x-front.header.responsive-nav-link :href="route('posts', ['thematic' => $secondMenuThematic, 'postType' => $thirdMenuPostType])" :active="$thirdMenuPostType->slug == $currentPostType->slug" :class="'font-normal'">
-							{{ $thirdMenuPostType->name }}
-						</x-front.header.responsive-nav-link>
-					@endforeach
-				</div>
-			</div>
-		@endforeach
 	</div>
 </div>

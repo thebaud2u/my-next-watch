@@ -13,13 +13,16 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('types', function (Blueprint $table) {
+		Schema::create('brands', function (Blueprint $table) {
 			$table->id();
 			$table->string('slug');
 			$table->string('name', 255);
 			$table->text('description')->nullable();
+			$table->unsignedBigInteger('user_id')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
+
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 		});
 	}
 
@@ -30,6 +33,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('types');
+		Schema::dropIfExists('brands');
 	}
 };

@@ -18,8 +18,9 @@ return new class extends Migration
 		Schema::create('watches', function (Blueprint $table) {
 			$table->id();
 			$table->unsignedBigInteger('user_id')->nullable();
-			$table->unsignedBigInteger('brand_id')->nullable();
 			$table->unsignedBigInteger('type_id')->nullable();
+			$table->unsignedBigInteger('brand_id')->nullable();
+			$table->unsignedBigInteger('collection_id')->nullable();
 			$table->string('slug');
 			$table->string('name', 255);
 			$table->text('description')->nullable();
@@ -30,8 +31,9 @@ return new class extends Migration
 			$table->softDeletes();
 
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-			$table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
 			$table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+			$table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
+			$table->foreign('collection_id')->references('id')->on('collections')->onDelete('set null');
 		});
 	}
 

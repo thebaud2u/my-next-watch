@@ -16,20 +16,11 @@
 
 	@stack('styles')
 
-	{{-- <script src="{{ mix('js/tarteaucitron/tarteaucitron.js') }}"></script> --}}
+	<script src="{{ mix('js/tarteaucitron/tarteaucitron.js') }}"></script>
 	<script src="{{ mix('js/app.js') }}"></script>
 
 	@if (app()->environment('production'))
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-			})(window,document,'script','dataLayer','GTM-FC5ZV43');
-		</script>
-	@endif
 
-	@if (!empty($scriptSmartad))
-		{{ $scriptSmartad }}
 	@endif
 
 	@livewireStyles
@@ -43,12 +34,6 @@
 		<header class="z-10">
 			@include('components.front.home.header')
 		</header>
-
-		@if(!empty($bannersSmartad))
-			<div class="w-full max-w-7xl mx-auto flex flex-row justify-center mt-6">
-				{{ $bannersSmartad }}
-			</div>
-		@endif
 
 		<main class="mb-8 mt-[100px]">
 			<div class="max-w-screen-xl mx-auto lg:px-6">
@@ -81,36 +66,7 @@
 							</div>
 						</x-front.alert-message>
 					@endif
-
-					@role('registered')
-						@if(Auth::guard('web')->user()->hasInvitationPending() > 0)
-							@foreach(Auth::guard('web')->user()->getPendingInvitation() as $invitation)
-								<x-front.alert-message :type="'info'" :color="'info'">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-									</svg>
-
-									<div class="ml-3">
-										<span class="font-medium">
-											{{ __('Action needed') }} !
-										</span>
-
-										{!! __('You are invited to collaborate with the “x” company page and manage its ads. You can reply to this invitation directly in the email you received or : do you :accept or :refuse this invitation', ['company' => $invitation->company->name, 'accept' => '<a href="'.route('space.companies.invitation', ['type' => 'member', 'element' => $invitation->id, 'decision' => 'accept']).'" class="underline font-bold text-success-700">'.__('Accept').'</a>', 'refuse' => '<a href="'.route('space.companies.invitation', ['type' => 'member', 'element' => $invitation->id, 'decision' => 'refuse']).'" class="underline font-bold text-danger-700">'.__('Refuse').'</a>']) !!} ?
-									</div>
-								</x-front.alert-message>
-							@endforeach
-						@endif
-					@endrole
 				@endif
-
-				{{-- Breadcrumb --}}
-				@unless (empty($breadcrumb))
-					{{ Breadcrumbs::render($breadcrumb, ...[ // variadic function
-						'thematic' => $currentThematic ?? null,
-						'postType' => $currentPostType ?? null,
-						'post' => $post ?? null,
-					]) }}
-				@endunless
 
 				<div class="flex flex-col max-md:space-y-4 md:flex-row md:space-x-4">
 					{{-- Menu de gauche --}}
@@ -143,8 +99,7 @@
 
 	{{-- @include('components.front.analytics') --}}
 	@if (app()->environment('production'))
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-FC5ZV43" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	@endif
 
+	@endif
 </body>
 </html>

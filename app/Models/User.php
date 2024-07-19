@@ -3,24 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
-use Carbon\Carbon;
-
-use Laravel\Sanctum\HasApiTokens;
 
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\PermissionRegistrar;
-
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Facades\CauserResolver;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
@@ -29,13 +21,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-use Overtrue\LaravelFavorite\Traits\Favoriter;
-use Overtrue\LaravelFollow\Traits\Follower;
-use Overtrue\LaravelFollow\Traits\Followable;
-
 class User extends Authenticatable implements HasMedia
 {
-	use Favoriter, Follower, Followable, HasApiTokens, HasRoles, HasSlug, InteractsWithMedia, Notifiable, SoftDeletes;
+	use HasRoles, HasSlug, InteractsWithMedia, SoftDeletes;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -45,23 +33,17 @@ class User extends Authenticatable implements HasMedia
 	protected $fillable = [
 		'title_id',
 		'gender_id',
-		'thematic_id',
-		'sector_id',
-		'activity_id',
-		'type',
 		'slug',
-		'name',
+		'nickname',
 		'first_name',
 		'last_name',
-		'job_title',
 		'email',
-		'email_verified_at',
 		'last_logon',
 		'birth_date',
-		'other',
 		'phone',
 		'mobile_phone',
-		'values',
+		'created_at',
+		'updated_at',
 		'deleted_at'
 	];
 
@@ -71,20 +53,11 @@ class User extends Authenticatable implements HasMedia
 	 * @var array<string, string>
 	 */
 	protected $casts = [
-		'email_verified_at' => 'datetime',
 		'last_logon' => 'datetime',
 		'created_at' => 'date:Y-m-d h:i:s',
 		'updated_at' => 'date:Y-m-d h:i:s',
-		'deleted_at' => 'datetime',
-		'values' => AsCollection::class
+		'deleted_at' => 'datetime'
 	];
-
-	/**
-	 * The events that wil be automatically logged
-	 *
-	 * @var array<int, string>
-	 */
-	protected static $recordEvents = ['created', 'updated', 'deleted', 'restored'];
 
 	/**
 	 * Get the options for generating the slug.
@@ -100,8 +73,7 @@ class User extends Authenticatable implements HasMedia
 
 	public function registerMediaCollections(): void
 	{
-		$this
-			->addMediaCollection('avatar')
+		$this->addMediaCollection('avatar')
 			->singleFile();
 	}
 
@@ -121,11 +93,6 @@ class User extends Authenticatable implements HasMedia
 	public function gender()
 	{
 		return $this->belongsTo(Gender::class);
-	}
-
-	public function posts()
-	{
-		return $this->hasMany(Post::class);
 	}
 
 	/**
@@ -152,18 +119,18 @@ class User extends Authenticatable implements HasMedia
 	 * @param int id
 	 * @return int
 	 */
-	public function recentlyViewedPosts()
+	public function recentlyViewedWatches()
 	{
-		$viewedPosts = UsersViews::whereHas('user', function($whereHas) {
+		$viewedWatches = UsersViews::whereHas('user', function($whereHas) {
 				$whereHas->where('id', '=', $this->id);
 			})
-			->where('element_type', '=', Post::class)
+			->where('element_type', '=', Watch::class)
 			->select('element_id')
 			->limit(9)
 			->get()
 			->toArray();
 
-		return Post::whereIn('id', $viewedPosts)
+		return Watch::whereIn('id', $viewedWatches)
 			->get();
 	}
 }
