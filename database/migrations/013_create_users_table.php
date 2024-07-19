@@ -26,15 +26,15 @@ return new class extends Migration
 			$table->string('email')->unique();
 			$table->timestamp('last_logon')->nullable();
 			$table->date('birth_date')->nullable();
-			$table->text('other')->nullable();
 			$table->string('phone')->nullable();
 			$table->string('mobile_phone')->nullable();
-			$table->json('values')->nullable();
+			$table->unsignedBigInteger('experience_id')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 
 			$table->foreign('title_id')->references('id')->on('titles')->onDelete('set null');
 			$table->foreign('gender_id')->references('id')->on('genders')->onDelete('set null');
+			$table->foreign('experience_id')->references('id')->on('experiences')->onDelete('set null');
 		});
 
 		$newUser = new User;
@@ -44,6 +44,7 @@ return new class extends Migration
 		$newUser->first_name = 'Jean-Clement';
 		$newUser->last_name = 'Thebaud';
 		$newUser->email = 'thebaud.clement@gmail.com';
+		$newUser->experience_id = 2;
 		$newUser->save();
 	}
 

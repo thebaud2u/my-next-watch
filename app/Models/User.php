@@ -42,6 +42,7 @@ class User extends Authenticatable implements HasMedia
 		'birth_date',
 		'phone',
 		'mobile_phone',
+		'experience_id',
 		'created_at',
 		'updated_at',
 		'deleted_at'
@@ -93,6 +94,11 @@ class User extends Authenticatable implements HasMedia
 	public function gender()
 	{
 		return $this->belongsTo(Gender::class);
+	}
+
+	public function experience()
+	{
+		return $this->belongsTo(Experience::class);
 	}
 
 	/**

@@ -1,25 +1,15 @@
 <div class="hidden xlsm:grid xlsm:grid-cols-3 xlsm:items-center text-xs xlsm:justify-between xlsm:text-sm xl:text-base leading-5 w-full">
-
 	@php
+		$route = route('home');
+
 		if(Auth::guard('web')->check()) {
 			if(Auth::guard('web')->user()->hasRole('registered')) {
-				if($currentThematic->slug)
-					if($currentPostType->slug) $route = route('space.posts.show-offers', ['thematic' => $currentThematic, 'postType' => $currentPostType]);
-					else $route = route('space.posts.show-offers', ['thematic' => $currentThematic]);
-				else $route = route('space.posts.show-offers');
+				if(Auth::guard('web')->user()->experience) {
+					if(Auth::guard('web')->user()->experience->name != 'Beginner') $route = route('search');
+					else $route = route('lets-find-my-next-watch');
+				}
 			}
-			else {
-				if($currentThematic->slug)
-					if($currentPostType->slug) route('register.role.registered').'?'.http_build_query(['r' => route('space.posts.show-offers', ['thematic' => $currentThematic, 'postType' => $currentPostType])]);
-					else $route = route('register.role.registered').'?'.http_build_query(['r' => route('space.posts.show-offers', ['thematic' => $currentThematic])]);
-				else $route = route('register.role.registered').'?'.http_build_query(['r' => route('space.posts.show-offers')]);
-			}
-		}
-		else {
-			if($currentThematic->slug)
-				if($currentPostType->slug) $route = route('login').'?'.http_build_query(['r' => route('space.posts.show-offers', ['thematic' => $currentThematic, 'postType' => $currentPostType])]);
-				else $route = route('login').'?'.http_build_query(['r' => route('space.posts.show-offers', ['thematic' => $currentThematic])]);
-			else $route = route('login').'?'.http_build_query(['r' => route('space.posts.show-offers')]);
+			else $route = route('register.role.registered');
 		}
 	@endphp
 
@@ -30,7 +20,8 @@
 				<path d="M5.36353 8.5H12.6363" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9 4.86377V12.1365" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
-			{{ __('Place a post') }}
+
+			{{ __('Find my next watch') }}
 		</x-front.primary-button>
 	</a>
 
@@ -46,7 +37,9 @@
 				<path d="M18.146 18.647L25.4968 25.9999" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 
-			<p class="max-w-[104px] text-wrap text-center">{{ __('My saved research') }}</p>
+			<p class="max-w-[104px] text-wrap text-center">
+				{{ __('My saved research') }}
+			</p>
 		</x-front.header.picto-link>
 
 		<a href="{{ (Auth::guard('web')->check()) ? ((Auth::guard('web')->user()->hasRole('registered')) ? route('space.dashboard') : route('register.role.registered').'?'.http_build_query(['r' => route('space.dashboard')])) : route('login').'?'.http_build_query(['r' => route('space.dashboard')]) }}">
