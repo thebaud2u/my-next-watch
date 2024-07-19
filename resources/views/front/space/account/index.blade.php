@@ -6,8 +6,6 @@
 		<meta name="robots" content="max-snippet:-1">
 	@endpush
 
-    {{ Breadcrumbs::render('dashboard') }}
-
 	<div class="py-5 px-4 lg:px-6">
 		<div class="flex flex-col s:flex-row lg:min-h-[600px]">
 			<div class="flex-1">
@@ -15,34 +13,24 @@
 					<div class="flex justify-between">
 						<div class="flex flex-row items-center">
 							@php
-								$advertiserImage = null;
-								if(Auth::guard('web')->user()->type == 'Professionnel') {
-									// Si l'utilisateur n'a pas de logo pour son entreprise, on fous son avatar
-									if(!is_null(Auth::guard('web')->user()->getFirstMedia('logo'))) $advertiserImage = Auth::guard('web')->user()->getFirstMedia('logo')->getAvailableUrl(['optimized']);
-									elseif(!is_null(Auth::guard('web')->user()->getFirstMedia('avatar'))) $advertiserImage = Auth::guard('web')->user()->getFirstMedia('avatar')->getAvailableUrl(['optimized']);
-								}
-								elseif(!is_null(Auth::guard('web')->user()->getFirstMedia('avatar'))) $advertiserImage = Auth::guard('web')->user()->getFirstMedia('avatar')->getAvailableUrl(['optimized']);
+								if(!is_null(Auth::guard('web')->user()->getFirstMedia('avatar'))) $avatar = Auth::guard('web')->user()->getFirstMedia('avatar')->getAvailableUrl(['optimized']);
 							@endphp
 
-							@if(is_null($advertiserImage))
+							@if(is_null($avatar))
 								<div class="shrink-0 flex justify-center items-center size-12 rounded-full bg-gray-100 text-gray-500 text-xl font-semibold mr-3">
-									@if(Auth::guard('web')->user()->type == 'Professionnel')
-										{{ \Illuminate\Support\Str::acronym(Auth::guard('web')->user()->values['company_name']) }}
-									@else
-										{{ \Illuminate\Support\Str::acronym(Auth::guard('web')->user()->name) }}
-									@endif
+									{{ \Illuminate\Support\Str::acronym(Auth::guard('web')->user()->nickname) }}
 								</div>
 							@else
 								<div class="aspect-square rounded-full shadow-md bg-white flex justify-center items-center">
 									<div class="w-2/3 aspect-square flex items-center">
-										<img src="{{ $advertiserImage }}" class="object-contain" />
+										<img src="{{ $avatar }}" class="object-contain" />
 									</div>
 								</div>
 							@endif
 
 							<div class="text-base xl:text-lg font-semibold truncate">
-								<span title="{{ Auth::guard('web')->user()->name }}">
-									{{ Auth::guard('web')->user()->name }}
+								<span title="{{ Auth::guard('web')->user()->nickname }}">
+									{{ Auth::guard('web')->user()->nickname }}
 								</span>
 							</div>
 						</div>

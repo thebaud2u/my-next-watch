@@ -6,80 +6,46 @@
 		<meta name="robots" content="max-snippet:-1">
 	@endpush
 
-	@php
-		if (!(is_null(Auth::guard('web')->user()))) {
-			if (Auth::guard('web')->user()->hasRole('applicant')) $roleSmart = 'Transport=candidat';
-			elseif (Auth::guard('web')->user()->hasRole('registered')) $roleSmart = 'Transport=recruteur';
-		}
-		else $roleSmart = 'Transport=generique';
-	@endphp
-
-	{{-- Script smartad Home --}}
-	<x-slot name="scriptSmartad">
-		<script type="application/javascript" src="https://ced.sascdn.com/tag/106/smart.js" async></script>
-		<script type="application/javascript">
-			var sas = sas || {};
-			sas.cmd = sas.cmd || [];
-			sas.cmd.push(function() {
-				sas.setup({ networkid: 106, domain: "https://adapi.smartadserver.com", async: true });
-			});
-			sas.cmd.push(function() {
-				sas.call("onecall", {
-					siteId: 655607,
-					pageId: 1975378,
-					formats: [
-						{ id: 129766 },
-						{ id: 129764 },
-						{ id: 129770 }
-					],
-					target: '{{ $roleSmart }}'
-				});
-			});
-		</script>
-	</x-slot>
-
 	<x-slot name="mainTitle">
 		<div class="h-[450px] bg-cover bg-center flex flex-col lg:flex-row lg:items-center lg:justify-center bg-[url('/storage/header_background/home_search_engine.png')]">
-		{{-- <div class="h-[350px] bg-annonces-darkblue flex flex-col lg:flex-row lg:items-center lg:justify-center"> --}}
 			<div class="py-5 px-4 lg:px-6">
 				<h1 class="text-xl leading-7 text-gray-800">
 					{{-- Job search form --}}
 					<div class="flex flex-row justify-center items-center font-semibold">
 						<h1 class="mb-2 lg:mb-4 text-white text-3xl text-center font-bold">
-							{{-- Temp title --}}
-							Les petites annonces pour les professionnels
+							{{ __('What is the principle') }} ?
 						</h1>
 					</div>
 
 					<p class="mb-2 lg:mb-4 text-white text-center text-sm sm:text-base lg:text-xl lg:tracking-tight font-thin max-w-[650px] mx-auto">
-						Lorem ipsum dolor sit amet consectetur. Amet eleifend consectetur neque rhoncus quis sem nam bibendum. Sed elit ut libero purus amet dolor felis.
+						{{ __(':site allows you to find the watch that matchs your criterias' ,['site' => env('APP_NAME')]) }}<br/>
+						{{ __('follow our steps to help you find your next watch') }}
 					</p>
 
 					<div class="w-full flex flex-col justify-center items-center lg:pt-8 lg:pb-4">
-						<livewire:front.posts.search :withRedirect="true" :wire:key="'home-search-bar'" />
+						<x-front.primary-button :class="'px-4 py-1 mr-2 bg-annonces-blue text-white hover:bg-annonces-blue hover:text-white font-semibold'">
+							<svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
+								<path d="M9 16.5C13.4183 16.5 17 12.9183 17 8.5C17 4.08172 13.4183 0.5 9 0.5C4.58172 0.5 1 4.08172 1 8.5C1 12.9183 4.58172 16.5 9 16.5Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M5.36353 8.5H12.6363" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9 4.86377V12.1365" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+
+							{{ __('Find my next watch') }} !
+						</x-front.primary-button>
 					</div>
 				</h1>
 			</div>
 		</div>
 	</x-slot>
 
-	{{--Banners smartad Home --}}
-	<div id="bannersSmartad" class="w-full flex flex-col items-center p-6">
-		{{-- Banners smartad --}}
-		@include('components.front.home.smartad.smartadsbanners')
-	</div>
-
-	{{-- Thematics --}}
-	<div class="bg-annonces-white">
-		@include('components.front.home.thematics')
-	</div>
-
-	{{-- Recently viewed/published posts --}}
-	<div class="w-full bg-annonces-lightblue">
-		@if(Auth::guard('web')->check())
-			<livewire:front.posts.recently-viewed :wire:key="'recently-viewed'" />
-		@else
-			<livewire:front.posts.recently-published :wire:key="'recently-published'" />
-		@endif
-	</div>
+	{{-- Recently viewed watches --}}
+	@if(Auth::guard('web')->check())
+		<div class="w-full bg-annonces-lightblue">
+			<livewire:front.watches.recently-viewed :wire:key="'recently-viewed'" />
+		</div>
+	@else
+		<div class="w-full bg-annonces-lightblue">
+			<livewire:front.watches.random-watches :wire:key="'random-watches'" />
+		</div>
+	@endif
 </x-app-layout>
