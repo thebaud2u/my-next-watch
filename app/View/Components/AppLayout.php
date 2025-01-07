@@ -4,9 +4,6 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-use App\Models\PostType;
-use App\Models\Thematic;
-
 class AppLayout extends Component
 {
 	/**
@@ -16,7 +13,7 @@ class AppLayout extends Component
 	 * @param Thematic  $currentThematic
 	 * @param PostType  $PostType
 	 */
-	public function __construct(public Thematic $currentThematic, public PostType $currentPostType)
+	public function __construct()
 	{
 	}
 

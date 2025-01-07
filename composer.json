@@ -10,7 +10,7 @@
 		"guzzlehttp/guzzle": "^7.8",
 		"laravel/framework": "^11.0",
 		"laravel/sanctum": "*",
-		"laravel/socialite": "^5.14",
+		"laravel/socialite": "*",
 		"laravel/telescope": "*",
 		"laravel/tinker": "^2.9",
 		"livewire/livewire": "^3.4",

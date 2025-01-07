@@ -1,8 +1,8 @@
 <div class="p-3">
-	<form class="border-b border-annonces-transparentgray pb-6" @if(!empty($response->id)) x-data="{ deploy: false }" @endif>
+	<form class="border-b border-mnw-transparentgray pb-6" @if(!empty($response->id)) x-data="{ deploy: false }" @endif>
 		<div class="flex flex-row justify-between">
 			<div class="flex-1 flex flex-row items-center">
-				<div class="{{ (empty($response->id)) ? 'text-annonces-lightergray' : 'text-annonces-blue' }} mr-3">
+				<div class="{{ (empty($response->id)) ? 'text-mnw-lightergray' : 'text-mnw-blue' }} mr-3">
 					<svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path id="Vector" d="M23.7768 4.88867H17.1101" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 						<path id="Vector_2" d="M5.99889 4.88867H1.55444" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -13,24 +13,24 @@
 					</svg>
 				</div>
 
-				<div class="font-semibold xl:text-lg {{ (empty($response->id)) ? 'text-annonces-headergray' : 'text-black' }}">
+				<div class="font-semibold xl:text-lg {{ (empty($response->id)) ? 'text-mnw-headergray' : 'text-black' }}">
 					{{ __('Filter by') }} :
 				</div>
 			</div>
 
 			<div class="flex-1 flex flex-row justify-end items-center">
 				@if(empty($response->id))
-					<span class="inline-block text-annonces-lightergray xl:text-lg font-semibold">
+					<span class="inline-block text-mnw-lightergray xl:text-lg font-semibold">
 						{{ __('Reinitialize') }}
 					</span>
 
-					<span class="inline-block ml-2 text-annonces-lightergray">
+					<span class="inline-block ml-2 text-mnw-lightergray">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
 						</svg>
 					</span>
 				@else
-					<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="inline-block text-annonces-blue xl:text-lg font-semibold cursor-pointer" />
+					<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="inline-block text-mnw-blue xl:text-lg font-semibold cursor-pointer" />
 
 					<span class="inline-block ml-2 cursor-pointer" x-on:click="deploy=!deploy">
 						<span x-show="deploy">
@@ -52,13 +52,13 @@
 		@if(!empty($response->id))
 			<div x-show="deploy">
 				<div class="relative mt-4">
-					<div class="absolute inset-y-0 right-2 lg:right-3 flex items-center pointer-events-none text-annonces-gray">
+					<div class="absolute inset-y-0 right-2 lg:right-3 flex items-center pointer-events-none text-mnw-gray">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 						</svg>
 					</div>
 
-					<input type="text" placeholder="Mot(s)-clé(s)" wire:model="keywords" wire:keydown.debounce.500ms="search" name="keywords" class="block w-full text-black border-annonces-darkerwhite text-sm xl:text-base bg-white border p-2 focus:border-annonces-blue focus:ring-0 rounded-md" />
+					<input type="text" placeholder="Mot(s)-clé(s)" wire:model="keywords" wire:keydown.debounce.500ms="search" name="keywords" class="block w-full text-black border-mnw-darkerwhite text-sm xl:text-base bg-white border p-2 focus:border-mnw-blue focus:ring-0 rounded-md" />
 				</div>
 			</div>
 		@endif

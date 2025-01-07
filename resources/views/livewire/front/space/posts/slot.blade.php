@@ -85,9 +85,9 @@
 
 						$classes = "";
 
-						if((!empty($product) && $product > 1 && $product != 3)) $classes .= " shadow-lg border-2 border-annonces-blue hover:border-annonces-blue";
+						if((!empty($product) && $product > 1 && $product != 3)) $classes .= " shadow-lg border-2 border-mnw-blue hover:border-mnw-blue";
 						else {
-							if($product == 3) $classes .= " shadow-lg border-2 border-annonces-yellow hover:border-annonces-yellow";
+							if($product == 3) $classes .= " shadow-lg border-2 border-mnw-yellow hover:border-mnw-yellow";
 							else $classes .= " hover:bg-gray-50 border-t border-x border-gray-100 hover:border-gray-200";
 						}
 						@endphp
@@ -104,24 +104,24 @@
 
 								<div class="flex flex-col pt-6 pl-6 text-xs lg:text-sm">
 									@if($post->state->color() == 'blue')
-										<x-front.tag :class="'text-black text-xs font-semibold bg-annonces-gray'">
+										<x-front.tag :class="'text-black text-xs font-semibold bg-mnw-gray'">
 											<span>{{ __('Draft') }}</span>
 										</x-front.tag>
 									@elseif($post->state->color() == 'green')
-										<x-front.tag :class="'text-black text-xs font-semibold bg-annonces-lightgreen'">
+										<x-front.tag :class="'text-black text-xs font-semibold bg-mnw-lightgreen'">
 											<span>{{ __('Published') }}</span>
 										</x-front.tag>
 									@elseif($post->state->color() == 'red')
-										<x-front.tag :class="'text-black text-xs font-semibold bg-annonces-lightyellow'">
+										<x-front.tag :class="'text-black text-xs font-semibold bg-mnw-lightyellow'">
 											<span>{{ __('Archived') }}</span>
 										</x-front.tag>
 									@endif
 
-									<h2 class="text-sm sm:text-base xl:text-lg font-semibold leading-normal" :class="hoverOn ? 'text-annonces-blue': 'text-black'">
+									<h2 class="text-sm sm:text-base xl:text-lg font-semibold leading-normal" :class="hoverOn ? 'text-mnw-blue': 'text-black'">
 										{{ $post->title }}
 									</h2>
 
-									<div class="mb-2 group-hover:text-gray-400 ? 'text-annonces-blue group-hover:text-annonces-blue transition duration-200 ease-in-out">
+									<div class="mb-2 group-hover:text-gray-400 ? 'text-mnw-blue group-hover:text-mnw-blue transition duration-200 ease-in-out">
 										{{ ucfirst($post->thematic->slug) }} / {{ $post->postType->name }}
 									</div>
 
@@ -351,7 +351,7 @@
 										@endif
 
 										@if($post->state->color() == 'green' || $post->user->id == Auth::guard('web')->user()->id)
-											<div class="shrink-0 flex justify-center items-center size-8 rounded-full bg-annonces-lightblue text-annonces-blue">
+											<div class="shrink-0 flex justify-center items-center size-8 rounded-full bg-mnw-lightblue text-mnw-blue">
 												<a href="{{ route('show-post', ['post' => $post]) }}" title="{{ __('Preview this post') }}" target="_blank">
 													<svg width="26" height="17" viewBox="0 0 26 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 														<path d="M24.5 8.50757C24.5 8.50757 20.5 16.0076 13 16.0076C5.5 16.0076 1.5 8.50757 1.5 8.50757C1.5 8.50757 5.5 1.00757 13 1.00757C20.5 1.00757 24.5 8.50757 24.5 8.50757Z" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -361,7 +361,7 @@
 											</div>
 										@endif
 
-										<div class="shrink-0 flex justify-center items-center size-8 rounded-full bg-annonces-lightblue text-annonces-blue">
+										<div class="shrink-0 flex justify-center items-center size-8 rounded-full bg-mnw-lightblue text-mnw-blue">
 											<a href="{{ route('space.posts.edit', ['post' => $post]) }}" title="{{ __('Edit this post') }}" target="_blank">
 												<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 													<path d="M7.55834 2.89136H4.79283C2.75635 2.89136 1.10547 4.54224 1.10547 6.57872V15.7971C1.10547 17.8336 2.75635 19.4845 4.79283 19.4845H14.0112C16.0477 19.4845 17.6986 17.8336 17.6986 15.7971V13.0316" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -371,7 +371,7 @@
 											</a>
 										</div>
 
-										<div class="shrink-0 flex justify-center items-center size-8 rounded-full bg-annonces-lightred text-annonces-red">
+										<div class="shrink-0 flex justify-center items-center size-8 rounded-full bg-mnw-lightred text-mnw-red">
 											<a href="#" x-data="" x-on:click.prevent="$dispatch('open-modal','delete-post-{{ $post->id }}')" title="{{ __('Delete this post') }}">
 												<svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 													<path d="M15.9055 7.56531V19.6108C15.9055 20.6583 15.056 21.5076 14.0079 21.5076H3.91919C2.87117 21.5076 2.02148 20.6585 2.02148 19.6108V7.56531" stroke="#FF2C2C" stroke-width="1.5" stroke-miterlimit="10"/>
@@ -386,9 +386,9 @@
 								</div>
 							</div>
 
-							<div class="flex flex-col justify-between items-center bg-annonces-lightblue">
+							<div class="flex flex-col justify-between items-center bg-mnw-lightblue">
 								<div title="{{ __('Views') }}" class="flex flex-row p-4 gap-2 border-b-2 border-white">
-									<svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-annonces-blue">
+									<svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-mnw-blue">
 										<path d="M5.036 2.23097L6.626 5.06597M11 0.990967V4.35697M16.439 2.23097L15.035 5.06597M1 13.862C1 13.862 4.75 7.83797 11 7.83797C17.25 7.83797 21 13.862 21 13.862C21 13.862 17.25 19.886 11 19.886C4.75 19.886 1 13.862 1 13.862ZM11 17.037C11.961 17.037 12.883 16.702 13.562 16.107C14.242 15.512 14.623 14.704 14.623 13.862C14.623 13.02 14.241 12.212 13.562 11.617C12.882 11.022 11.961 10.687 11 10.687C10.039 10.687 9.117 11.022 8.438 11.617C7.758 12.212 7.377 13.02 7.377 13.862C7.377 14.704 7.759 15.512 8.438 16.107C9.118 16.702 10.039 17.037 11 17.037Z" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round"/>
 									</svg>
 
@@ -396,7 +396,7 @@
 								</div>
 
 								<div title="{{ __('Readen') }}" class="flex flex-row p-4 gap-2 border-b-2 border-white">
-									<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-annonces-blue">
+									<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-mnw-blue">
 										<path d="M20.3306 11.9064L7.51758 7.81042L11.5396 20.7354L14.4456 17.8174L18.0186 21.4314L21.0006 18.4364L17.4266 14.8244L20.3306 11.9074V11.9064Z" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 										<path d="M4.68392 4.90146L2.79492 2.99146" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round"/>
 										<path d="M3.672 7.36342L1 7.35242" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round"/>
@@ -409,7 +409,7 @@
 								</div>
 
 								<div title="{{ __('Favorites') }}" class="flex flex-row p-4 gap-2 border-b-2 border-white">
-									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-annonces-blue">
+									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-mnw-blue">
 										<path d="M11 21.1923C16.5228 21.1923 21 16.7151 21 11.1923C21 5.66941 16.5228 1.19226 11 1.19226C5.47714 1.19226 1 5.66941 1 11.1923C1 16.7151 5.47714 21.1923 11 21.1923Z" stroke="#0082FF" stroke-width="1.5" stroke-miterlimit="10"/>
 										<path d="M16.0842 7.79434C14.8681 6.57816 12.9 6.57816 11.6838 7.79434L11.0031 8.47505L10.3223 7.79434C9.10616 6.57816 7.13807 6.57816 5.9219 7.79434C4.70572 9.01051 4.70572 10.9786 5.9219 12.1948L11.0059 17.2788L16.0899 12.1948C17.3061 10.9786 17.3061 9.01051 16.0899 7.79434H16.0842Z" stroke="#0082FF" stroke-width="1.5" stroke-miterlimit="10"/>
 									</svg>
@@ -418,7 +418,7 @@
 								</div>
 
 								<div title="{{ __('Conversations') }}" class="flex flex-row p-4 gap-2">
-									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-annonces-blue">
+									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-mnw-blue">
 										<path d="M19.4869 16.3388C20.4435 14.8083 21 13.0083 21 11.0692C21 5.54747 16.5217 1.06921 11 1.06921C5.47823 1.06921 1 5.54747 1 11.0692C1 16.591 5.47823 21.0692 11 21.0692C12.9391 21.0692 14.7391 20.5127 16.2695 19.5562L21 21.0692L19.4869 16.3388Z" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 										<path d="M7.08789 8.89539H14.914" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 										<path d="M7.08789 13.2432H12.3053" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -432,7 +432,7 @@
 						<x-front.modal name="delete-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 							<section class="p-10">
 								<header class="flex flex-col flex-wrap content-center">
-									<div class="mt-1 text-sm m-auto text-annonces-blue">
+									<div class="mt-1 text-sm m-auto text-mnw-blue">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
 										</svg>
@@ -465,7 +465,7 @@
 						{!! $posts->links() !!}
 					</div>
 				@else
-					<div class="flex flex-col flex-wrap justify-center content-center h-full bg-annonces-lightblue max-h-[177px]">
+					<div class="flex flex-col flex-wrap justify-center content-center h-full bg-mnw-lightblue max-h-[177px]">
 						<p class="mb-8 text-center">
 							{{ __('You haven\'t created any post yet') }}
 						</p>

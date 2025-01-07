@@ -3,8 +3,8 @@
 		<form>
 			<div class="flex flex-col justify-between">
 				<div class="flex flex-row justify-between">
-					<div class="text-annonces-blue flex items-center mr-3">
-						<div class="text-annonces-blue inline-block mr-3">
+					<div class="text-mnw-blue flex items-center mr-3">
+						<div class="text-mnw-blue inline-block mr-3">
 							<svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path id="Vector" d="M23.7768 4.88867H17.1101" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 								<path id="Vector_2" d="M5.99889 4.88867H1.55444" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -21,25 +21,25 @@
 					</div>
 
 					<div class="inline-block font-semibold">
-						<input type="reset" wire:click="resetForm" x-on:click="loc=''" value="{{ __('Reinitialize') }}" class="underline uppercase underline-offset-4 text-annonces-blue hover:text-annonces-blue cursor-pointer" />
+						<input type="reset" wire:click="resetForm" x-on:click="loc=''" value="{{ __('Reinitialize') }}" class="underline uppercase underline-offset-4 text-mnw-blue hover:text-mnw-blue cursor-pointer" />
 					</div>
 				</div>
 
 				<div class="mb-5 text-sm sm:text-base lg:text-md">
 					<div class="flex flex-col">
-						<div x-data="{ deploy: false }" class="flex flex-col py-4 border-b-2 border-jobboard-transparentgray mt-4">
+						<div x-data="{ deploy: false }" class="flex flex-col py-4 border-b-2 border-mnw-transparentgray mt-4">
 							<span x-on:click="deploy = !deploy" class="flex flex-row cursor-pointer">
-								<span class="flex-1 font-semibold text-jobboard-gray">
+								<span class="flex-1 font-semibold text-mnw-gray">
 									{{ __('Order by') }}
 								</span>
 
-								<span class="inline-block text-jobboard-gray" x-show="deploy">
+								<span class="inline-block text-mnw-gray" x-show="deploy">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
 									</svg>
 								</span>
 
-								<span class="inline-block text-jobboard-gray" x-show="!deploy">
+								<span class="inline-block text-mnw-gray" x-show="!deploy">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
 									</svg>
@@ -48,13 +48,13 @@
 
 							<div x-show="deploy" x-transition class="mt-4 p-4">
 								<div class="flex flex-row mt-2">
-									<input type="radio" name="order" value="revelancy" wire:model="filters.order_by" wire:change="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-									<label for="order" class="text-xs lg:text-sm text-jobboard-blue">{{ __('Relevancy') }}</label>
+									<input type="radio" name="order" value="revelancy" wire:model="filters.order_by" wire:change="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+									<label for="order" class="text-xs lg:text-sm text-mnw-blue">{{ __('Relevancy') }}</label>
 								</div>
 
 								<div class="flex flex-row mt-2">
-									<input type="radio" name="order" value="publication" wire:model="filters.order_by" wire:change="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-									<label for="order" class="text-xs lg:text-sm text-jobboard-blue">{{ __('Publication date') }}</label>
+									<input type="radio" name="order" value="publication" wire:model="filters.order_by" wire:change="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+									<label for="order" class="text-xs lg:text-sm text-mnw-blue">{{ __('Publication date') }}</label>
 								</div>
 							</div>
 						</div>
@@ -78,7 +78,7 @@
 			@endphp
 			<div class="my-6 text-center" x-data="{}">
 				<a href="#" class="mx-auto" x-on:click.prevent="$dispatch('open-modal','save-search')">
-					<x-front.primary-button :class="'gap-2 lg:w-full px-4 py-1 bg-annonces-blue text-white hover:bg-annonces-blue hover:text-white xl:text-sm'">{{-- text-sm xl:text-base font-semibold --}}
+					<x-front.primary-button :class="'gap-2 lg:w-full px-4 py-1 bg-mnw-blue text-white hover:bg-mnw-blue hover:text-white xl:text-sm'">{{-- text-sm xl:text-base font-semibold --}}
 						<svg class="size-5 xl:size-6" viewBox="0 0 19 18" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15.4978 17H3.50136C2.39669 17 1.50195 16.105 1.50195 15V3C1.50195 1.895 2.39669 1 3.50136 1H12.6712C13.201 1 13.7109 1.21001 14.0858 1.58501L16.9124 4.41251C17.2873 4.78751 17.4972 5.2975 17.4972 5.8275V15C17.4972 16.105 16.6025 17 15.4978 17Z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M13.4976 1.17999V6C13.4976 7.105 12.6029 8 11.4982 8H7.49941C6.39474 8 5.5 7.105 5.5 6V1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -93,7 +93,7 @@
 							@csrf
 
 							<header class="flex flex-col flex-wrap content-center">
-								<div class="mt-1 mb-6 text-sm m-auto text-annonces-blue">
+								<div class="mt-1 mb-6 text-sm m-auto text-mnw-blue">
 									<svg class="size-12" viewBox="0 0 19 18" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M15.4978 17H3.50136C2.39669 17 1.50195 16.105 1.50195 15V3C1.50195 1.895 2.39669 1 3.50136 1H12.6712C13.201 1 13.7109 1.21001 14.0858 1.58501L16.9124 4.41251C17.2873 4.78751 17.4972 5.2975 17.4972 5.8275V15C17.4972 16.105 16.6025 17 15.4978 17Z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 										<path d="M13.4976 1.17999V6C13.4976 7.105 12.6029 8 11.4982 8H7.49941C6.39474 8 5.5 7.105 5.5 6V1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>

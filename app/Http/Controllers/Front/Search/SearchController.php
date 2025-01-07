@@ -4,33 +4,20 @@ namespace App\Http\Controllers\Front\Posts;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Request;
+use Auth;
+use Str;
 
 use Carbon\Carbon;
-use Cmgmyr\Messenger\Models\{ Thread, Participant };
 
 use App\Enums\{ PostStatesEnum, ResponseStatesEnum };
 use App\Models\{ Message, Post, PostType, Response, Search, Thematic, UsersViews };
 
 class PostController extends Controller
 {
-	public function index(Thematic $thematic, PostType $postType, ?Search $search = null)
+	public function index()
 	{
-		// Si un post type est définie, on doit afficher la recherche avancer et lister les annonces
-		// Sinon, si une thématique est définie on doit afficher uniquement les cards d'annonces de la thématique
-		// sinon, on affichage toutes les annonces de toutes les thématiques
-		$thematicHome = (!empty($postType->id))? false : true;
-
-		if (empty($search?->user_id) || $search?->user_id != Auth::guard('web')->user()->id) {
-			// 404 ? or :
-			$search = new Search;
-		}
-
-		return view('front.posts.index', compact('thematic', 'postType', 'thematicHome', 'search'));
+		return view('front.search.index');
 	}
 
 	/**

@@ -3,7 +3,7 @@
 		{{-- <div class="grow shadow-lg md:flex md:flex-col md:items-center md:rounded-r-md lg:rounded-l-md bg-white p-3"> --}}
 		<div class="grow shadow-lg flex flex-col items-center md:rounded-l-md lg:rounded-md bg-white p-3">
 			<div>
-				<div class="my-6 text-center text-annonces-blue">
+				<div class="my-6 text-center text-mnw-blue">
 					<svg width="70" height="70" class="mx-auto" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M37.2371 13C46.7493 13 54.459 20.7481 54.459 30.3077C54.459 34.0115 53.2917 37.4365 51.3189 40.2519L54.459 47.6153L47.132 44.4596C44.3306 46.4422 40.9226 47.6153 37.2371 47.6153C27.7249 47.6153 20.0152 39.8673 20.0152 30.3077C20.0152 20.7481 27.7249 13 37.2371 13Z" stroke="#002C6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						<path d="M35.5664 51.0077C32.4225 55.2577 27.4032 58 21.7372 58C18.0518 58 14.6418 56.8231 11.8442 54.8423L4.51538 58L7.65932 50.6346C5.68646 47.8231 4.51538 44.3962 4.51538 40.6924C4.51538 32.5751 10.0685 25.7655 17.5791 23.8962H17.5887" stroke="#002C6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -35,7 +35,7 @@
 	@else
 		<div x-bind:class="(small&&thread)?'block':'hidden'" class="flex-none md:rounded-r-md lg:rounded-md shadow-lg bg-white mb-4 p-3"{{-- md:hidden --}}>
 			<a href="#" class="group" x-on:click.prevent="thread=false">
-				<div class="inline-flex flex-row items-center mt-3 text-sm xl:text-base text-annonces-blue group-hover:text-annonces-darkblue font-semibold">
+				<div class="inline-flex flex-row items-center mt-3 text-sm xl:text-base text-mnw-blue group-hover:text-mnw-darkblue font-semibold">
 					<svg class="size-5 xl:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
 					</svg>
@@ -65,13 +65,13 @@
 							<li class="group">
 								<div class="flex gap-x-3 flex-row-reverse">
 									<div class="shrink-0">
-										<div class="flex justify-center items-center size-8 rounded-full bg-annonces-lightblue text-annonces-darklightblue text-sm font-semibold">
+										<div class="flex justify-center items-center size-8 rounded-full bg-mnw-lightblue text-mnw-darklightblue text-sm font-semibold">
 											{{ \Illuminate\Support\Str::acronym($msg->user_name) }}
 										</div>
 									</div>
 
 									<div class="flex max-w-sm flex-col gap-y-2 items-end" @if($unread) title="{{ __('Message sent but not read yet') }}" @endif >
-										<div class="rounded-lg rounded-tr-none bg-annonces-lightblue px-3 py-2 text-sm xl:text-base text-black">
+										<div class="rounded-lg rounded-tr-none bg-mnw-lightblue px-3 py-2 text-sm xl:text-base text-black">
 											<div class="mb-2">
 												{!! nl2br(e($msg->body)) !!}
 											</div>
@@ -99,7 +99,7 @@
 							@if(!empty($unreadMessages) && $unread && empty($notified))
 								@php $notified = true; @endphp
 								<li>
-									<div class="h-2.5 mb-8 border-b border-annonces-transparentgray text-sm text-center text-gray-500">
+									<div class="h-2.5 mb-8 border-b border-mnw-transparentgray text-sm text-center text-gray-500">
 										<span class="bg-white px-4" >
 											{{ trans_choice('[0,1] :nb unread message|[2,*] :nb unread messages', $unreadMessages->count(), ['nb' => $unreadMessages->count()]) }}
 										</span>
@@ -148,7 +148,7 @@
 								</div>
 							@enderror
 
-							<textarea row="3" wire:model="new" placeholder="Écrivez votre message ..." class="block w-full text-black border-annonces-darkerwhite text-sm xl:text-base bg-white border mb-3 p-2 focus:border-annonces-blue focus:ring-0 rounded-md">{{ $new }}</textarea>
+							<textarea row="3" wire:model="new" placeholder="Écrivez votre message ..." class="block w-full text-black border-mnw-darkerwhite text-sm xl:text-base bg-white border mb-3 p-2 focus:border-mnw-blue focus:ring-0 rounded-md">{{ $new }}</textarea>
 
 							<div class="text-right">
 								<x-front.primary-button>
@@ -166,13 +166,13 @@
 		</div>
 
 		<div x-bind:class="(!small||thread)?'block':'hidden'" class="flex-none md:w-[45%] md:max-w-[300px] md:rounded-l-md lg:rounded-md max-md:mb-4 md:ml-4 bg-white shadow-lg p-3">
-			<div class="flex flex-row items-center border-b border-annonces-transparentgray pb-3">
+			<div class="flex flex-row items-center border-b border-mnw-transparentgray pb-3">
 				@foreach($participants as $participant)
 					{{-- Auteur de l'annonce --}}
 					{{-- @if($participant->user_id == $post->user_id)
 						<div class="shrink-0 flex justify-center items-center size-12 rounded-full
 							@if($participant->self == 1)
-								bg-annonces-lightblue text-annonces-darklightblue
+								bg-mnw-lightblue text-mnw-darklightblue
 							@else
 								bg-gray-100 text-gray-500
 							@endif
@@ -203,7 +203,7 @@
 					{{ $post->title }}
 				</h2>
 
-				<div class="flex flex-row items-center {{ (empty($post->deleted_at)) ? 'border-b border-annonces-transparentgray pb-3' : 'opacity-50' }}">
+				<div class="flex flex-row items-center {{ (empty($post->deleted_at)) ? 'border-b border-mnw-transparentgray pb-3' : 'opacity-50' }}">
 					<div class="flex-none flex justify-center items-center size-20 aspect-square rounded bg-gray-100 text-gray-300">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-12">
 							<path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
@@ -272,7 +272,7 @@
 				</div>
 
 				@if(!empty($post->deleted_at))
-					<div class="border-b border-annonces-transparentgray pb-3">
+					<div class="border-b border-mnw-transparentgray pb-3">
 						<div class="inline-flex flex-row items-center mt-3 text-sm xl:text-base text-red-500 font-semibold">
 							<svg class="size-5 xl:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -286,7 +286,7 @@
 				@endif
 
 				<a href="#" x-on:click.prevent="$dispatch('open-modal','delete-response-{{ $response->id }}')" class="group">
-					<div class="inline-flex flex-row items-center mt-3 text-sm xl:text-base text-annonces-blue group-hover:text-annonces-darkblue font-semibold">
+					<div class="inline-flex flex-row items-center mt-3 text-sm xl:text-base text-mnw-blue group-hover:text-mnw-darkblue font-semibold">
 						<svg class="size-5 xl:size-6" viewBox="0 0 18 22" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M16.0051 7.05762V19.1031C16.0051 20.1506 15.1556 20.9999 14.1076 20.9999H4.0188C2.97077 20.9999 2.12109 20.1508 2.12109 19.1031V7.05762" stroke-width="1.5" stroke-miterlimit="10"/>
 							<path d="M2.26388 3.82782H15.9356C16.6331 3.82782 17.1997 4.39389 17.1997 5.09128V6.9421H1V5.0911C1 4.39389 1.56635 3.82764 2.26407 3.82764L2.26388 3.82782Z" stroke-width="1.5" stroke-miterlimit="10"/>
@@ -304,7 +304,7 @@
 				<x-front.modal name="delete-response-{{ $response->id }}" width="w-full max-w-2xl" wire:key="delete-response-{{ $response->id }}" focusable>
 					<section class="p-10">
 						<header class="flex flex-col flex-wrap content-center">
-							<div class="mt-1 mb-6 text-sm m-auto text-annonces-blue">
+							<div class="mt-1 mb-6 text-sm m-auto text-mnw-blue">
 								<svg class="size-12" viewBox="0 0 18 22" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M16.0051 7.05762V19.1031C16.0051 20.1506 15.1556 20.9999 14.1076 20.9999H4.0188C2.97077 20.9999 2.12109 20.1508 2.12109 19.1031V7.05762" stroke-width="1.5" stroke-miterlimit="10"/>
 									<path d="M2.26388 3.82782H15.9356C16.6331 3.82782 17.1997 4.39389 17.1997 5.09128V6.9421H1V5.0911C1 4.39389 1.56635 3.82764 2.26407 3.82764L2.26388 3.82782Z" stroke-width="1.5" stroke-miterlimit="10"/>

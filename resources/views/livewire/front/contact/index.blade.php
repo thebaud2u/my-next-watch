@@ -2,15 +2,15 @@
 	<div class="flex flex-col lg:min-h-[600px]" x-data="{component:'',filename:''}">
 		<div class="mt-4">
 			<div id="anchor" class="relative overflow-hidden w-fit mx-auto flex flex-row font-semibold">
-				<div class="absolute top-4 w-full border-t-2 border-opacity-50 border-annonces-blue"></div>
+				<div class="absolute top-4 w-full border-t-2 border-opacity-50 border-mnw-blue"></div>
 				@foreach($steps as $k => $step)
 					<div class="flex-none order-1 z-10 w-8 h-8 {{ ($k > 0) ? 'ml-6' : '' }}">
 						@if(($k + 1) == $active)
-							<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-annonces-lightblue border-annonces-blue text-annonces-blue">{{ $k + 1 }}</span>
+							<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-lightblue border-mnw-blue text-mnw-blue">{{ $k + 1 }}</span>
 						@elseif(($k + 1) > $active)
 							<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-gray-200 border-white text-gray-400">{{ $k + 1 }}</span>
 						@else
-							<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-annonces-blue border-white text-white" wire:click="goto({{ $k + 1 }})">{{ $k + 1 }}</button>
+							<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-blue border-white text-white" wire:click="goto({{ $k + 1 }})">{{ $k + 1 }}</button>
 						@endif
 					</div>
 				@endforeach
@@ -29,10 +29,10 @@
 				<div>
 					<div class="flex flex-row">
 						<x-front.input-label for="contact_choice" :value="__('Request type')" />
-						<span class="text-annonces-red block ml-1"> *</span>
+						<span class="text-mnw-red block ml-1"> *</span>
 					</div>
 
-					<select name="contact_choice" wire:model="contact_choice" required class="text-gray-400 mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm flex w-full break-words">
+					<select name="contact_choice" wire:model="contact_choice" required class="text-gray-400 mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm flex w-full break-words">
 						<option class="w-full inline-block break-words" value="">{{ __('Choose a request type') }}</option>
 						<option class="w-full inline-block break-words" value="1">{{ __('I have a specific request to modify ads to do with customer service (non-updatable criterias)') }}</option>
 						<option class="w-full inline-block break-words" value="8">{{ __('I wish to multi-broadcast my post') }}</option>
@@ -177,7 +177,7 @@
 							<x-front.input-label for="body" :value="__('Please explain your request')" :required="true" />
 						@endif
 
-						<textarea name="body" wire:model.lazy="body" cols="30" rows="6" required class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
+						<textarea name="body" wire:model.lazy="body" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
 
 						@error('body')
 							<span class="error text-danger-700">
@@ -198,7 +198,7 @@
 						<div>
 							<x-front.input-label for="file" :value="__('Attachment')" />
 
-							<input type="file" id="file" name="file" wire:model="file" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-annonces-blue file:bg-annonces-blue hover:border-annonces-blue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-annonces-blue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-annonces-blue dark:file:bg-annonces-blue dark:file:text-neutral-100 dark:focus:border-primary" />
+							<input type="file" id="file" name="file" wire:model="file" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-mnw-blue file:bg-mnw-blue hover:border-mnw-blue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-mnw-blue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-mnw-blue dark:file:bg-mnw-blue dark:file:text-neutral-100 dark:focus:border-primary" />
 
 							@error('file')
 								<span class="error text-danger-700">
@@ -210,7 +210,7 @@
 
 					<div>
 						<div class="flex flex-row" x-data="{checked: false}">
-							<input type="checkbox" name="consent" value="true" x-model="checked" wire:model="consent" class="w-4 h-4 mt-2 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+							<input type="checkbox" name="consent" value="true" x-model="checked" wire:model="consent" class="w-4 h-4 mt-2 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 							<x-front.input-label for="consent" x-on:click="checked = !checked" :value="__('By submitting this form, I accept that the information entered is used as part of the contact request')" :required="true" :class="'ml-2 cursor-pointer'"/>
 						</div>
 
@@ -228,7 +228,7 @@
 						<div class="captcha my-2 flex flex-row items-end">
 							<span>{!! $captcha_img !!}</span>
 
-							<button type="button" id="reload" title="{{ __('Reload') }}" wire:click="refreshCaptcha" class="reload ml-4 text-gray-500 hover:text-annonces-blue">
+							<button type="button" id="reload" title="{{ __('Reload') }}" wire:click="refreshCaptcha" class="reload ml-4 text-gray-500 hover:text-mnw-blue">
 								&#x21bb;
 							</button>
 						</div>

@@ -40,9 +40,9 @@
 				<x-front.input-label for="thematic_id" :value="__('Our sectors')" />
 			</div>
 
-			<select name="thematic_id" wire:model="thematic_id" wire:change="selectedThematic" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+			<select name="thematic_id" wire:model="thematic_id" wire:change="selectedThematic" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 				@foreach($thematics as $thematic)
-					<option class="focus:bg-annonces-blue" value="{{ $thematic->id }}">
+					<option class="focus:bg-mnw-blue" value="{{ $thematic->id }}">
 						{{ ucfirst($thematic->slug) }}
 					</option>
 				@endforeach
@@ -93,40 +93,40 @@
 						$text = '';
 						switch ($offer->slug) {
 							case '':
-								$color = 'text-annonces-blue';
-								$bg_primary = 'bg-annonces-blue';
-								$border = 'border-annonces-blue';
-								$bg_secondary = 'bg-annonces-lightblue';
+								$color = 'text-mnw-blue';
+								$bg_primary = 'bg-mnw-blue';
+								$border = 'border-mnw-blue';
+								$bg_secondary = 'bg-mnw-lightblue';
 								break;
 							case '':
-								$color = 'text-annonces-violet';
-								$bg_primary = 'bg-annonces-violet';
-								$border = 'border-annonces-violet';
-								$bg_secondary = 'bg-annonces-lighterviolet';
+								$color = 'text-mnw-violet';
+								$bg_primary = 'bg-mnw-violet';
+								$border = 'border-mnw-violet';
+								$bg_secondary = 'bg-mnw-lighterviolet';
 								break;
 							case '':
-								$color = 'text-annonces-green';
-								$bg_primary = 'bg-annonces-green';
-								$border = 'border-annonces-green';
-								$bg_secondary = 'bg-annonces-lightergreen';
+								$color = 'text-mnw-green';
+								$bg_primary = 'bg-mnw-green';
+								$border = 'border-mnw-green';
+								$bg_secondary = 'bg-mnw-lightergreen';
 								break;
 							case '':
-								$color = 'text-annonces-blue';
-								$bg_primary = 'bg-annonces-blue';
-								$border = 'border-annonces-blue';
-								$bg_secondary = 'bg-annonces-lightblue';
+								$color = 'text-mnw-blue';
+								$bg_primary = 'bg-mnw-blue';
+								$border = 'border-mnw-blue';
+								$bg_secondary = 'bg-mnw-lightblue';
 								break;
 							case '':
-								$color = 'text-annonces-violet';
-								$bg_primary = 'bg-annonces-violet';
-								$border = 'border-annonces-violet';
-								$bg_secondary = 'bg-annonces-lighterviolet';
+								$color = 'text-mnw-violet';
+								$bg_primary = 'bg-mnw-violet';
+								$border = 'border-mnw-violet';
+								$bg_secondary = 'bg-mnw-lighterviolet';
 								break;
 							default:
-								$color = 'text-annonces-blue';
-								$bg_primary = 'bg-annonces-blue';
-								$border = 'border-annonces-blue';
-								$bg_secondary = 'bg-annonces-lightblue';
+								$color = 'text-mnw-blue';
+								$bg_primary = 'bg-mnw-blue';
+								$border = 'border-mnw-blue';
+								$bg_secondary = 'bg-mnw-lightblue';
 								break;
 						}
 					@endphp
@@ -194,7 +194,7 @@
 								@endswitch
 							</div>
 
-							<input type="radio" name="offer_id" value="{{ $offer->id }}" x-on:click="isSelected = {{ $offer->id }}" wire:model="offer_id" class="disabled:bg-gray-200 my-4 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-4 h-4" />
+							<input type="radio" name="offer_id" value="{{ $offer->id }}" x-on:click="isSelected = {{ $offer->id }}" wire:model="offer_id" class="disabled:bg-gray-200 my-4 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4" />
 						</div>
 					</div>
 				@endforeach
@@ -244,7 +244,7 @@
 					{{ __('of print publication from') }}
 
 					@if($this->dateParution['status'] == 'Success')
-						<span class="text-annonces-blue font-bold">
+						<span class="text-mnw-blue font-bold">
 							{{ $dateParution['value'] }}
 						</span>
 						({{ __('Number of :x', ['x' => __(Carbon\Carbon::createFromFormat('d/m/Y', $dateParution['value'])->format('F'))]) }})
@@ -260,7 +260,7 @@
 
 			<div class="flex flex-row justify-around flex-wrap" wire:key="{{ rand() }}">
 				<div class="flex flex-col w-[290px] shadow-md rounded-md mb-4">
-					<div class="flex flex-col bg-annonces-blue items-center w-full py-4 rounded-t-md">
+					<div class="flex flex-col bg-mnw-blue items-center w-full py-4 rounded-t-md">
 						<p class="text-white font-medium">
 							{{ __('Post') }}
 						</p>
@@ -322,12 +322,12 @@
 						@endif
 
 						<div class="p-4 flex flex-col items-center">
-							<div class="my-2 border w-full flex justify-between items-center rounded-md h-[100px] p-2" x-bind:class="{'border-annonces-blue bg-annonces-lightblue':isSelected=={{ $offer->id }}, 'border-gray-300 bg-gray-200':isSelected!={{ $offer->id }}}">
+							<div class="my-2 border w-full flex justify-between items-center rounded-md h-[100px] p-2" x-bind:class="{'border-mnw-blue bg-mnw-lightblue':isSelected=={{ $offer->id }}, 'border-gray-300 bg-gray-200':isSelected!={{ $offer->id }}}">
 								<div class="flex flex-col w-full">
 									<div class="flex flex-row items-center">
-										<input type="radio" name="offer_id" value="{{ $offer->id }}" x-on:click="isSelected = {{ $offer->id }}" wire:model="offer_id" class="disabled:bg-gray-200 my-4 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-4 h-4 mr-2" />
+										<input type="radio" name="offer_id" value="{{ $offer->id }}" x-on:click="isSelected = {{ $offer->id }}" wire:model="offer_id" class="disabled:bg-gray-200 my-4 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4 mr-2" />
 
-										<label class="text-annonces-blue font-bold">
+										<label class="text-mnw-blue font-bold">
 											{{ $offer->name }}
 										</label>
 									</div>

@@ -163,7 +163,7 @@
 								<livewire:front.posts.search :thematic="$post->thematic" :postType="$post->postType" :withRedirect="true" :wire:key="'post-search'" />
 							</div>
 
-							<button class="md:hidden flex justify-center items-center w-[35px] h-[35px] cursor-pointer rounded-full bg-annonces-darkblue" x-on:click="searchVisible = !searchVisible">
+							<button class="md:hidden flex justify-center items-center w-[35px] h-[35px] cursor-pointer rounded-full bg-mnw-darkblue" x-on:click="searchVisible = !searchVisible">
 								<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M7.141 13.7825C8.35553 13.7825 9.54279 13.4224 10.5527 12.7476C11.5625 12.0729 12.3496 11.1138 12.8144 9.99178C13.2793 8.86972 13.4009 7.63502 13.1641 6.44381C12.9272 5.2526 12.3424 4.15838 11.4837 3.2995C10.625 2.44063 9.53083 1.85568 8.33966 1.61861C7.14849 1.38155 5.91377 1.50302 4.79163 1.96766C3.6695 2.4323 2.71033 3.21926 2.03543 4.22901C1.36053 5.23876 1.0002 6.42596 1 7.64049C0.999869 8.44702 1.15861 9.24568 1.46717 9.99086C1.77572 10.736 2.22805 11.4131 2.7983 11.9835C3.36856 12.5538 4.04558 13.0063 4.79071 13.3149C5.53584 13.6236 6.33447 13.7825 7.141 13.7825Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
 									<path d="M15.9987 16.4997L11.5547 12.0557" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
@@ -204,7 +204,7 @@
 
 		{{-- Content --}}
 		<div class="text-sm lg:text-base max-w-[600px]">
-			<div class="px-4 max-sm:pl-4 pl-0 md:border-t md:border-transparent" 
+			<div class="px-4 max-sm:pl-4 pl-0 md:border-t md:border-transparent"
 			x-data="{
 				hideImages:function() {
 					let wideImages = document.getElementsByClassName('wide-galery-image');
@@ -351,7 +351,7 @@
 				{{-- Tag --}}
 				<div class="mt-4">
 					@foreach($post->values_web['goods_type'] as $goodType)
-						<x-front.tag :class="'inline-block bg-annonces-lightblue'">
+						<x-front.tag :class="'inline-block bg-mnw-lightblue'">
 							{{ \App\Models\Criteria::find($goodType)->name }}
 						</x-front.tag>
 					@endforeach
@@ -366,7 +366,7 @@
 				<div class="mt-2 flex flex-row gap-4 text-xs s:text-sm sm:text-base">
 					@include('components.front.posts.post-details.'.$post->thematic->slug.'-sub-title')
 
-					<div class="flex items-center text-annonces-lightergray">
+					<div class="flex items-center text-mnw-lightergray">
 						<svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-none w-4 h-4 s:w-5 s:h-5 mr-1 drop-shadow-lg">
 							<path d="M17.3636 9.43572C17.3636 14.963 9.18182 21.2539 9.18182 21.2539C9.18182 21.2539 1 14.963 1 9.43572C1 3.90845 4.66364 1.25391 9.18182 1.25391C13.7 1.25391 17.3636 3.90845 17.3636 9.43572Z" stroke="#BCBCBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.18129 12.1629C11.1896 12.1629 12.8176 10.5348 12.8176 8.5265C12.8176 6.51819 11.1896 4.89014 9.18129 4.89014C7.17298 4.89014 5.54492 6.51819 5.54492 8.5265C5.54492 10.5348 7.17298 12.1629 9.18129 12.1629Z" stroke="#BCBCBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -375,7 +375,7 @@
 						{{ $location }}
 					</div>
 
-					<div class="flex items-center text-annonces-lightergray">
+					<div class="flex items-center text-mnw-lightergray">
 						<svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-none w-4 h-4 s:w-5 s:h-5 mr-1 drop-shadow-lg">
 							<path d="M6.28125 1.25391V4.25391" stroke="#BCBCBC" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M14.2812 1.25391V4.25391" stroke="#BCBCBC" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -397,7 +397,7 @@
 						@endif
 					</div>
 				</div>
-				<hr class="my-6 h-px border-0 bg-annonces-blue mx-10">
+				<hr class="my-6 h-px border-0 bg-mnw-blue mx-10">
 
 				<div class="lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-6">
 					@include('components.front.posts.post-details.'.$post->thematic->slug.'-criterias')
@@ -416,7 +416,7 @@
 							@role('registered')
 								@if (Auth::guard('web')->user()->id != $post->user_id)
 									@if ($hasContacted || $hasClosed)
-										<div class="flex items-center text-sm font-semibold text-annonces-blue">
+										<div class="flex items-center text-sm font-semibold text-mnw-blue">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
 												<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
 											</svg>
@@ -444,7 +444,7 @@
 										<x-front.modal name="contact" width="w-full max-w-2xl" focusable>
 											<section class="p-10">
 												<header class="flex flex-col flex-wrap content-center">
-													<div class="mt-1 mb-6 text-sm m-auto text-annonces-blue">
+													<div class="mt-1 mb-6 text-sm m-auto text-mnw-blue">
 														<svg class="size-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 															<path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
 														</svg>
@@ -471,7 +471,7 @@
 													@enderror
 
 													<div>
-														<textarea row="3" placeholder="Écrivez votre message ..." class="block w-full text-black border-annonces-darkerwhite text-sm xl:text-base bg-white border mb-3 p-2 focus:border-annonces-blue focus:ring-0 rounded-md" name="message">{{ old('message') }}</textarea>
+														<textarea row="3" placeholder="Écrivez votre message ..." class="block w-full text-black border-mnw-darkerwhite text-sm xl:text-base bg-white border mb-3 p-2 focus:border-mnw-blue focus:ring-0 rounded-md" name="message">{{ old('message') }}</textarea>
 													</div>
 
 													<div class="flex flex-row mt-4 justify-center">
@@ -504,14 +504,14 @@
 							@role('registered')
 								@if(Auth::guard('web')->user()->id != $post->user_id)
 									@if(Auth::user()->hasFavorited($post))
-										<a href="{{ route('space.favorites.favorite', ['post' => $post]) }}" title="{{ __('In my favorites') . ' (' . __('remove') . ')' }}" class="text-annonces-blue hover:text-annonces-blue rounded-full bg-annonces-lightblue flex justify-center items-center w-12 h-12">
+										<a href="{{ route('space.favorites.favorite', ['post' => $post]) }}" title="{{ __('In my favorites') . ' (' . __('remove') . ')' }}" class="text-mnw-blue hover:text-mnw-blue rounded-full bg-mnw-lightblue flex justify-center items-center w-12 h-12">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20" fill="currentColor" class="w-6 h-6 lg:w-7 lg:h-7 pointer-events-none">
 												<path id="ic_coeur_2" d="M19.1075 2.48822C17.1232 0.503926 13.8996 0.503926 11.9087 2.48822L10.7946 3.60233L9.68047 2.48822C7.69617 0.503926 4.47252 0.503926 2.48822 2.48822C0.503926 4.47252 0.503926 7.69617 2.48822 9.68706L10.8012 18L19.1141 9.68706C21.0984 7.70276 21.0984 4.47911 19.1141 2.48822H19.1075Z"/>
 											</svg>
 										</a>
 									@else
-										<a href="{{ route('space.favorites.favorite', ['post' => $post]) }}" title="{{ __('Add to my favorites') }}" class="group text-annonces-blue group-hover:text-annonces-blue rounded-full bg-annonces-lightblue flex justify-center items-center w-12 h-12">
-											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 lg:w-7 lg:h-7 pointer-events-none group-hover:stroke-annonces-blue group-hover:fill-annonces-blue w-6 h-6">
+										<a href="{{ route('space.favorites.favorite', ['post' => $post]) }}" title="{{ __('Add to my favorites') }}" class="group text-mnw-blue group-hover:text-mnw-blue rounded-full bg-mnw-lightblue flex justify-center items-center w-12 h-12">
+											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 lg:w-7 lg:h-7 pointer-events-none group-hover:stroke-mnw-blue group-hover:fill-mnw-blue w-6 h-6">
 												<path id="ic_coeur_2" d="M19.1075 2.48822C17.1232 0.503926 13.8996 0.503926 11.9087 2.48822L10.7946 3.60233L9.68047 2.48822C7.69617 0.503926 4.47252 0.503926 2.48822 2.48822C0.503926 4.47252 0.503926 7.69617 2.48822 9.68706L10.8012 18L19.1141 9.68706C21.0984 7.70276 21.0984 4.47911 19.1141 2.48822H19.1075Z"/>
 											</svg>
 										</a>
@@ -526,7 +526,7 @@
 
 		{{-- Column right --}}
 		<div class="max-lg:mb-10 text-sm lg:text-base w-[300px]">
-			<div class="lg:p-4 lg:border-t lg:border-x lg:border-gray-100 lg:rounded lg:shadow-md bg-annonces-lightblue w-full">
+			<div class="lg:p-4 lg:border-t lg:border-x lg:border-gray-100 lg:rounded lg:shadow-md bg-mnw-lightblue w-full">
 				<div class="flex flex-row">
 					@php
 						$advertiserImage = null;
@@ -566,7 +566,7 @@
 				@if(Auth::guard('web')->check())
 					@role('registered')
 						@if(Auth::guard('web')->user()->id != $post->user_id)
-							<div class="flex flex-row justify-center items-center mt-6 text-annonces-blue font-bold">
+							<div class="flex flex-row justify-center items-center mt-6 text-mnw-blue font-bold">
 								<a href="{{ route('profile', ['user' => $post->user->slug]) }}" target="_blank">
 									{{ __('See the profile') }} →
 								</a>
@@ -574,7 +574,7 @@
 
 							<div class="flex flex-col justify-center items-center mt-6">
 								@if ($hasContacted || $hasClosed)
-									<div class="flex items-center text-sm font-semibold text-annonces-blue">
+									<div class="flex items-center text-sm font-semibold text-mnw-blue">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
 										</svg>
@@ -634,7 +634,7 @@
 								<x-front.modal name="delete-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 									<section class="p-10">
 										<header class="flex flex-col flex-wrap content-center">
-											<div class="mt-1 text-sm m-auto text-annonces-blue">
+											<div class="mt-1 text-sm m-auto text-mnw-blue">
 												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 													<path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
 												</svg>
@@ -678,7 +678,7 @@
 	</div>
 
 	{{-- Recently viewed/published posts --}}
-	<div class="w-full bg-annonces-lightblue">
+	<div class="w-full bg-mnw-lightblue">
 		@if(Auth::guard('web')->check())
 			<livewire:front.posts.recently-viewed :wire:key="'recently-viewed'" />
 		@else

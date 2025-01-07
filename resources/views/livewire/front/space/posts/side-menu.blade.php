@@ -2,7 +2,7 @@
 	<form>
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row items-center">
-				<div class="text-annonces-blue inline-block mr-3">
+				<div class="text-mnw-blue inline-block mr-3">
 					<svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path id="Vector" d="M23.7768 4.88867H17.1101" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 						<path id="Vector_2" d="M5.99889 4.88867H1.55444" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -19,16 +19,16 @@
 			</div>
 
 			<div class="flex-2 inline-block">
-				<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="underline uppercase text-annonces-blue hover:text-annonces-blue cursor-pointer">
+				<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="underline uppercase text-mnw-blue hover:text-mnw-blue cursor-pointer">
 			</div>
 		</div>
 
 		<div class="flex flex-col">
-			<div class="flex flex-row py-4 border-b-2 border-annonces-transparentgray mt-4">
-				<div class="bg-white lg:flex-1 p-0 text-annonces-gray min-w-[250px] ">
+			<div class="flex flex-row py-4 border-b-2 border-mnw-transparentgray mt-4">
+				<div class="bg-white lg:flex-1 p-0 text-mnw-gray min-w-[250px] ">
 					<div class="flex justify-between">
-						<input type="text" wire:model="keywords" wire:keydown.debounce.500ms="search" name="keywords" placeholder="Mot(s)-clé(s)" class="p-0 block w-full text-annonces-gray border-annonces-darkerwhite text-sm xl:text-base bg-white border py-3 px-2 focus:border-annonces-blue focus:ring-0 rounded-md">
-						<div class="text-annonces-gray relative">
+						<input type="text" wire:model="keywords" wire:keydown.debounce.500ms="search" name="keywords" placeholder="Mot(s)-clé(s)" class="p-0 block w-full text-mnw-gray border-mnw-darkerwhite text-sm xl:text-base bg-white border py-3 px-2 focus:border-mnw-blue focus:ring-0 rounded-md">
+						<div class="text-mnw-gray relative">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 absolute left-[-35px] top-[13px]">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
 							</svg>
@@ -37,9 +37,9 @@
 				</div>
 			</div>
 
-			<div class="flex flex-col py-4 border-b-2 border-annonces-transparentgray mt-4" x-data="{ deploy: false }">
+			<div class="flex flex-col py-4 border-b-2 border-mnw-transparentgray mt-4" x-data="{ deploy: false }">
 				<span class="flex flex-row cursor-pointer" x-on:click="deploy = !deploy">
-					<span class="flex-1 font-semibold text-annonces-gray">
+					<span class="flex-1 font-semibold text-mnw-gray">
 						{{ __('Post type') }}
 					</span>
 
@@ -58,17 +58,17 @@
 
 				<div x-show="deploy" x-transition class="mt-4">
 					@foreach($filterPostTypes as $postType)
-						<div class="flex items-center py-1 text-annonces-blue">
-							<input type="checkbox" name="post_types_{{ $postType->id }}" value="{{ $postType->id }}" wire:model="postTypes" wire:change.debounce.500ms="search" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer">
+						<div class="flex items-center py-1 text-mnw-blue">
+							<input type="checkbox" name="post_types_{{ $postType->id }}" value="{{ $postType->id }}" wire:model="postTypes" wire:change.debounce.500ms="search" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer">
 							<label for="post_types_{{ $postType->id }}" class="ml-2 text-xs lg:text-sm cursor-pointer">{{ $postType->name }}</label>
 						</div>
 					@endforeach
 				</div>
 			</div>
 
-			<div class="flex flex-col py-4 border-b-2 border-annonces-transparentgray mt-4" x-data="{ deploy: false }">
+			<div class="flex flex-col py-4 border-b-2 border-mnw-transparentgray mt-4" x-data="{ deploy: false }">
 				<span class="flex flex-row cursor-pointer" x-on:click="deploy = !deploy">
-					<span class="flex-1 font-semibold text-annonces-gray">
+					<span class="flex-1 font-semibold text-mnw-gray">
 						{{ __('Offers') }}
 					</span>
 
@@ -87,17 +87,17 @@
 
 				<div x-show="deploy" x-transition class="mt-4">
 					@foreach($filterOffers as $offer)
-						<div class="flex items-center py-1 text-annonces-blue">
-							<input type="checkbox" name="offers_{{ $offer->id }}" value="{{ $offer->id }}" wire:model="offers" wire:change.debounce.500ms="search" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer">
+						<div class="flex items-center py-1 text-mnw-blue">
+							<input type="checkbox" name="offers_{{ $offer->id }}" value="{{ $offer->id }}" wire:model="offers" wire:change.debounce.500ms="search" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer">
 							<label for="offers_{{ $offer->id }}" class="ml-2 text-xs lg:text-sm cursor-pointer">{{ ucfirst($offer->thematic->slug) }} - {{ $offer->name }}</label>
 						</div>
 					@endforeach
 				</div>
 			</div>
 
-			<div class="flex flex-col py-4 border-b-2 border-annonces-transparentgray mt-4" x-data="{ deploy: false }">
+			<div class="flex flex-col py-4 border-b-2 border-mnw-transparentgray mt-4" x-data="{ deploy: false }">
 				<span class="flex flex-row cursor-pointer" x-on:click="deploy = !deploy">
-					<span class="flex-1 font-semibold text-annonces-gray">
+					<span class="flex-1 font-semibold text-mnw-gray">
 						{{ __('States') }}
 					</span>
 
@@ -117,18 +117,18 @@
 				<div x-show="deploy" x-transition class="mt-4">
 					@foreach($filterStates as $state)
 						<div class="flex items-center py-1">
-							<input type="checkbox" name="states_{{ $state->state }}" value="{{ $state->state }}" wire:model="states" wire:change.debounce.500ms="search" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer">
+							<input type="checkbox" name="states_{{ $state->state }}" value="{{ $state->state }}" wire:model="states" wire:change.debounce.500ms="search" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer">
 							<label for="states_{{ $state->state }}" class="ml-2 text-xs lg:text-sm cursor-pointer">
 								@if($state->state->color() == 'blue')
-									<x-front.tag :class="'text-black text-xs font-semibold bg-annonces-gray'">
+									<x-front.tag :class="'text-black text-xs font-semibold bg-mnw-gray'">
 										<span>{{ __('Draft') }}</span>
 									</x-front.tag>
 								@elseif($state->state->color() == 'green')
-									<x-front.tag :class="'text-black text-xs font-semibold bg-annonces-lightgreen'">
+									<x-front.tag :class="'text-black text-xs font-semibold bg-mnw-lightgreen'">
 										<span>{{ __('Published') }}</span>
 									</x-front.tag>
 								@elseif($state->state->color() == 'red')
-									<x-front.tag :class="'text-black text-xs font-semibold bg-annonces-lightyellow'">
+									<x-front.tag :class="'text-black text-xs font-semibold bg-mnw-lightyellow'">
 										<span>{{ __('Archived') }}</span>
 									</x-front.tag>
 								@endif

@@ -4,7 +4,7 @@
 			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
-		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 			<option value="">{{ __('Choose a post type') }}</option>
 			@foreach($postTypes as $postType)
 				<option value="{{ $postType->id }}" wire:key="post-type-{{ $postType->id }}">
@@ -43,7 +43,7 @@
 							<x-front.input-label for="post.values_web.market_type" :value="__('Market type')" :required="true" />
 						</div>
 
-						<select name="post.values_web.market_type" wire:model="post.values_web.market_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.market_type" wire:model="post.values_web.market_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a market type') }}</option>
 							@foreach($criterias['market-type'] as $marketType)
 								<option value="{{ $marketType->id }}" wire:key="market-type-{{ $marketType->id }}">
@@ -64,7 +64,7 @@
 							<x-front.input-label for="post.values_web.notice_type" :value="__('Notice type')" :required="true" />
 						</div>
 
-						<select name="post.values_web.notice_type" wire:model="post.values_web.notice_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.notice_type" wire:model="post.values_web.notice_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a notice type') }}</option>
 							@foreach($criterias['notice-type'] as $noticeType)
 								<option value="{{ $noticeType->id }}" wire:key="notice-type-{{ $noticeType->id }}">
@@ -101,7 +101,7 @@
 						</div>
 
 						<div wire:ignore>
-							<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the tender\'s description') }}" class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
+							<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the tender\'s description') }}" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
 						</div>
 
 						@error('post.body')

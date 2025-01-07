@@ -4,7 +4,7 @@
 			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
-		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 			<option value="">{{ __('Choose a post type') }}</option>
 			@foreach($postTypes as $postType)
 				<option value="{{ $postType->id }}" wire:key="post-type-{{ $postType->id }}">
@@ -20,7 +20,7 @@
 		@enderror
 
 		@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-			<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+			<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 				{{ __('This field can only be modified on justification with the customer service') }}
 			</div>
 		@endif
@@ -44,7 +44,7 @@
 						@enderror
 
 						@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-							<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+							<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 								{{ __('This field can only be modified on justification with the customer service') }}
 							</div>
 						@endif
@@ -57,7 +57,7 @@
 
 						@foreach($criterias['goods-type'] as $goodType)
 							<div wire:key="goods-type-{{ $goodType->id }}">
-								<input type="checkbox" name="goodsType" value="{{ $goodType->id }}" wire:model="goodsType" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+								<input type="checkbox" name="goodsType" value="{{ $goodType->id }}" wire:model="goodsType" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 								<x-front.input-label for="goodsType" :value="$goodType->name" :class="'ml-2 inline-block font-normal'"/>
 							</div>
 						@endforeach
@@ -74,7 +74,7 @@
 							<x-front.input-label for="post.values_web.starting_point" :value="__('Starting point')" />
 						</div>
 
-						<select name="post.values_web.starting_point" wire:model="post.values_web.starting_point" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.starting_point" wire:model="post.values_web.starting_point" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a starting point') }}</option>
 							@foreach($criterias['starting-point'] as $startingPoint)
 								<option value="{{ $startingPoint->id }}" wire:key="starting-point-{{ $startingPoint->id }}">
@@ -97,7 +97,7 @@
 
 						@foreach($criterias['destinations'] as $destination)
 							<div wire:key="destinations-{{ $destination->id }}">
-								<input type="checkbox" name="destinations" value="{{ $destination->id }}" wire:model="destinations" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+								<input type="checkbox" name="destinations" value="{{ $destination->id }}" wire:model="destinations" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 								<x-front.input-label for="destinations" :value="$destination->name" :class="'ml-2 inline-block font-normal'"/>
 							</div>
 						@endforeach
@@ -116,7 +116,7 @@
 						</div>
 
 						<div wire:ignore>
-							<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the post\'s description') }}" class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
+							<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the post\'s description') }}" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
 						</div>
 
 						@error('post.body')

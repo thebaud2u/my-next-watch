@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\ { TempController, UploadController };
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Front\ { HomeController, ContactController, CmsContentController, UserController };
 
 use App\Models\Media;
@@ -107,13 +107,9 @@ Route::middleware(['auth:web'])->group(function () {
 /* -------------- *
 *      Posts      *
 * --------------- */
-Route::controller(App\Http\Controllers\Front\Posts\PostController::class)->group(function () {
-	Route::get('/posts/{thematic:slug?}/{postType:slug?}/{search:uuid?}', 'index')->name('posts');
-	Route::get('/post/{post:slug}', 'show')->name('show-post');
-
-	Route::middleware(['auth:web'])->group(function () {
-		Route::put('/post/{post:slug}/contact', 'contact')->name('contact-announcer');
-	});
+Route::controller(App\Http\Controllers\Front\Search\SearchController::class)->group(function () {
+	Route::get('/lets-find-my-next-watch', 'index')->name('lets-find-my-next-watch');
+	Route::get('/search', 'searc')->name('search');
 });
 
 /* -------------- *
@@ -151,19 +147,9 @@ Route::middleware(['auth:web'])->group(function () {
  * ===================================================================== */
 
 Route::middleware('guest:web')->group(function () {
-	Route::controller(RegisteredUserController::class)->group(function () {
-		Route::get('/sso/redirect', 'ssoRedirect')->name('login'); // SSO redirect
-		Route::get('/sso/callback', 'ssoCallback'); // SSO callback
-	});
-});
-
-Route::get('/register', [RegisteredUserController::class, 'registerRole'])->name('register.role');
-
-Route::middleware(['auth:web'])->group(function () {
-	Route::post('logout', [RegisteredUserController::class, 'logout'])->name('logout'); // Full logout (app + SSO)
-
-	Route::controller(RegisteredUserController::class)->name('register.role.')->group(function () { // 'register.role.*'
-		Route::get('/register/role', 'registerRole')->name('registered');
+	Route::controller(LoginController::class)->group(function () {
+		Route::get('/login', 'index')->name('login');
+		Route::post('logout', 'logout')->name('logout');
 	});
 });
 
@@ -177,28 +163,6 @@ require __DIR__.'/admin.php';
  * Temporaire / test
  * ===================================================================== */
 if (!app()->environment('production')) {
-	// Authentification auto (user)
-	Route::get('/login/{user}', function(User $user) {
-		Auth::login($user);
-		activity('user')
-			->performedOn($user)
-			->causedBy($user)
-			->event('login')
-			->log('User #:subject.id (:subject.email) logged in');
-		return redirect()->route('home');
-	})->name('login.user');
-
-	// Authentification auto au B.O. (admin)
-	Route::get('/adminlogin/{admin}', function(\App\Models\Admin $admin) {
-		Auth::guard('admin')->login($admin);
-		activity('admin')
-			->performedOn($admin)
-			->causedBy($admin)
-			->event('login')
-			->log('Admin #:subject.id (:subject.email) logged in');
-		return redirect()->route('admin.dashboard');
-	});
-
 	Route::controller(TempController::class)->group(function () {
 		Route::get('/test', 'test');
 	});
@@ -207,18 +171,3 @@ if (!app()->environment('production')) {
 Route::controller(TempController::class)->group(function () {
 	Route::get('/script/{code}', 'script');
 });
-
-/** Tarifs (S-Boutik data) */
-Route::controller(CmsContentController::class)->prefix('/rates')->name('rates.')->group(function () {
-	/** compositionId (par défaut, 26 : tous les tarifs)
-	 *  27 : Annonces
-	 *  28 : Témathèques
-	 *  29 : Pages entreprises
-	 */
-	/** @todo  Autres contenus Drupal, mise en cache, gestion de la synchronisation... */
-	Route::get('/{compositionId?}', 'rates')->name('index');
-});
-Route::get('/ratesraw/{compositionId?}', [CmsContentController::class, 'ratesRaw'])->name('rates.raw'); // (Temp)
-
-/** Set cookie (S-Boutik) */
-Route::get('/sboutik/setcookie', [CmsContentController::class, 'setcookie']);

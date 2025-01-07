@@ -40,7 +40,7 @@
 				<div class="flex flex-row flex-wrap mt-2">
 					@foreach($genders as $gender)
 						<div class="pr-5">
-							<input type="radio" name="user.gender_id" value="{{ $gender->id }}" wire:model="user.gender_id" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-5 h-5" />
+							<input type="radio" name="user.gender_id" value="{{ $gender->id }}" wire:model="user.gender_id" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-5 h-5" />
 							<x-front.input-label for="user.gender_id" :class="'inline-block'" :value="__($gender->name)" />
 						</div>
 					@endforeach
@@ -101,7 +101,7 @@
 						<x-front.input-label for="user.thematic_id" :value="__('Favorite thematic')" />
 					</div>
 
-					<select name="user.thematic_id" wire:model="user.thematic_id" wire:change="thematicSelected" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm w-full">
+					<select name="user.thematic_id" wire:model="user.thematic_id" wire:change="thematicSelected" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm w-full">
 						<option value="">{{ __('Choose your favorite thematic') }}</option>
 						@foreach($thematics as $thematic)
 							<option value="{{ $thematic->id }}">
@@ -146,12 +146,12 @@
 
 					<div class="flex flex-row flex-wrap mt-2">
 						<div class="pr-5">
-							<input type="radio" name="user.type" value="Particulier" wire:model.live="user.type" wire:change="typeChanged" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-5 h-5" />
+							<input type="radio" name="user.type" value="Particulier" wire:model.live="user.type" wire:change="typeChanged" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-5 h-5" />
 							<x-front.input-label for="user.type" :class="'font-normal inline-block'" :value="__('Individual')" />
 						</div>
 
 						<div class="pr-5">
-							<input type="radio" name="user.type" value="Professionnel" wire:model.live="user.type" wire:change="typeChanged" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-5 h-5" />
+							<input type="radio" name="user.type" value="Professionnel" wire:model.live="user.type" wire:change="typeChanged" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-5 h-5" />
 							<x-front.input-label for="user.type" :class="'font-normal inline-block'" :value="__('Professional')" />
 						</div>
 					</div>
@@ -215,7 +215,7 @@
 										<x-front.input-label for="user.sector_id" :value="__('Your sector')" />
 									</div>
 
-									<select name="user.sector_id" wire:model.live="user.sector_id" wire:change="sectorSelected" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm w-full">
+									<select name="user.sector_id" wire:model.live="user.sector_id" wire:change="sectorSelected" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm w-full">
 										@if($user->thematic)
 											<option value="">{{ __('Choose your sector') }}</option>
 											@foreach($sectors as $sector)
@@ -240,7 +240,7 @@
 										<x-front.input-label for="user.activity_id" :value="__('Your activity')" />
 									</div>
 
-									<select name="user.activity_id" wire:model="user.activity_id" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm w-full">
+									<select name="user.activity_id" wire:model="user.activity_id" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm w-full">
 										@if($user->thematic)
 											@if($user->sector)
 												@if($activities->isNotEmpty())
@@ -382,7 +382,7 @@
 						</div>
 
 						<div class="flex flex-row justify-center items-center">
-							<hr class="w-48 h-1 my-8 border-0 bg-annonces-blue">
+							<hr class="w-48 h-1 my-8 border-0 bg-mnw-blue">
 						</div>
 
 						<div>

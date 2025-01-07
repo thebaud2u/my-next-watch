@@ -29,7 +29,7 @@
 </head>
 
 <body class="font-inter text-vj-heavycyan antialiased min-w-[280px]">
-	<div class="flex flex-col min-h-screen bg-annonces-lightgray">
+	<div class="flex flex-col min-h-screen bg-mnw-lightgray">
 		{{-- Navigation --}}
 		<header class="z-10">
 			@include('components.front.home.header')
@@ -39,7 +39,7 @@
 			<div class="max-w-screen-xl mx-auto lg:px-6">
 				{{-- Image (sub)header --}}
 				@if(!empty($navCvtheque))
-					<div class="mb-6 px-4 md:pl-6 py-5 shadow-md lg:rounded-md bg-annonces-blue text-xs xs:text-sm font-medium">
+					<div class="mb-6 px-4 md:pl-6 py-5 shadow-md lg:rounded-md bg-mnw-blue text-xs xs:text-sm font-medium">
 						{{ $navCvtheque }}
 					</div>
 				@endif

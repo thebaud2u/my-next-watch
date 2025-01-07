@@ -8,15 +8,15 @@
 
 		<div class="mt-4">
 			<div id="anchor" class="relative overflow-hidden w-fit mx-auto flex flex-row font-semibold">
-				<div class="absolute top-4 w-full border-t-2 border-opacity-50 border-annonces-blue"></div>
+				<div class="absolute top-4 w-full border-t-2 border-opacity-50 border-mnw-blue"></div>
 				@foreach($steps as $k => $step)
 					<div class="flex-none order-1 z-10 w-8 h-8 {{ ($k > 0) ? 'ml-6' : '' }}">
 						@if(($k + 1) == $active)
-							<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-annonces-lightblue border-annonces-blue text-annonces-blue">{{ $k + 1 }}</span>
+							<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-lightblue border-mnw-blue text-mnw-blue">{{ $k + 1 }}</span>
 						@elseif(($k + 1) > $active)
 							<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-gray-200 border-white text-gray-400">{{ $k + 1 }}</span>
 						@else
-							<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-annonces-blue border-white text-white" wire:click="goto({{ $k + 1 }})">{{ $k + 1 }}</button>
+							<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-blue border-white text-white" wire:click="goto({{ $k + 1 }})">{{ $k + 1 }}</button>
 						@endif
 					</div>
 				@endforeach
@@ -101,7 +101,7 @@
 								@enderror
 
 								<div class="mt-2">
-									<input type="checkbox" name="post.values_web.display_phone_number" value="on" wire:model="post.values_web.display_phone_number" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+									<input type="checkbox" name="post.values_web.display_phone_number" value="on" wire:model="post.values_web.display_phone_number" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 									<x-front.input-label for="post.values_web.display_phone_number" :value="__('Display the phone number')" :class="'ml-2 inline-block font-normal'"/>
 								</div>
 							</div>
@@ -123,12 +123,12 @@
 					<h1 class="mb-1 text-base lg:text-xl font-semibold leading-6">
 						@if($post->state->color() == 'blue')
 							@if($dateParution['status'] == 'Success')
-								<b>{{ __(':x month', ['x' => 1]) }}</b> {{ __('print publication from') }} <span class="text-annonces-blue font-bold">{{ $dateParution['value'] }}</span>
+								<b>{{ __(':x month', ['x' => 1]) }}</b> {{ __('print publication from') }} <span class="text-mnw-blue font-bold">{{ $dateParution['value'] }}</span>
 							@elseif($dateParution['status'] == 'Error')
 								{{ $dateParution['value'] }}</h1>
 							@endif
 						@elseif($post->state->color() == 'green')
-							<b>{{ __(':x month', ['x' => 1]) }}</b> {{ __('print publication from') }} <span class="text-annonces-blue font-bold">{{ $dateParution }}</span>
+							<b>{{ __(':x month', ['x' => 1]) }}</b> {{ __('print publication from') }} <span class="text-mnw-blue font-bold">{{ $dateParution }}</span>
 						@endif
 					</h1>
 				</div>
@@ -268,7 +268,7 @@
 										</div>
 
 										<div class="flex flex-row items-center">
-											<textarea name="body" x-ref="bodyLength" x-on:keyup="countCaractersLeft('bodyLength')" wire:model="post.values_print.body" cols="30" rows="6" placeholder="{{ __('Post description') }}" disabled="{{ !Auth::guard('admin')->check() && $post->state->color() == 'green' }}" class="border-gray-300 w-full focus:border-annonces-darkblue focus:ring-annonces-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
+											<textarea name="body" x-ref="bodyLength" x-on:keyup="countCaractersLeft('bodyLength')" wire:model="post.values_print.body" cols="30" rows="6" placeholder="{{ __('Post description') }}" disabled="{{ !Auth::guard('admin')->check() && $post->state->color() == 'green' }}" class="border-gray-300 w-full focus:border-mnw-darkblue focus:ring-mnw-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
 										</div>
 
 										@error('post.values_print.body')
@@ -286,7 +286,7 @@
 												</div>
 
 												<div class="flex flex-row items-center">
-													<textarea name="body" x-ref="wantedProfileLength" x-on:keyup="countCaractersLeft('wantedProfileLength')" wire:model.lazy="post.values_print.wanted_profile" cols="30" rows="6" placeholder="{{ __('Applicant profile wanted') }}" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-annonces-darkblue focus:ring-annonces-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
+													<textarea name="body" x-ref="wantedProfileLength" x-on:keyup="countCaractersLeft('wantedProfileLength')" wire:model.lazy="post.values_print.wanted_profile" cols="30" rows="6" placeholder="{{ __('Applicant profile wanted') }}" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-mnw-darkblue focus:ring-mnw-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
 												</div>
 
 												@error('post.values_print.wanted_profile')
@@ -304,7 +304,7 @@
 												</div>
 
 												<div class="flex flex-row items-center">
-													<textarea name="experience" x-ref="experiencesLength" x-on:keyup="countCaractersLeft('experiencesLength')" wire:model.lazy="post.values_print.experiences" placeholder="{{ __('Needed experience') }}" cols="30" rows="6" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-annonces-darkblue focus:ring-annonces-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
+													<textarea name="experience" x-ref="experiencesLength" x-on:keyup="countCaractersLeft('experiencesLength')" wire:model.lazy="post.values_print.experiences" placeholder="{{ __('Needed experience') }}" cols="30" rows="6" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-mnw-darkblue focus:ring-mnw-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
 												</div>
 
 												@error('post.values_print.experiences')
@@ -320,7 +320,7 @@
 												</div>
 
 												<div class="flex flex-row items-center">
-													<textarea name="skills" x-ref="skillsLength" x-on:keyup="countCaractersLeft('skillsLength')" wire:model.lazy="post.values_print.skills" placeholder="{{ __('Needed skills') }}" cols="30" rows="6" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-annonces-darkblue focus:ring-annonces-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
+													<textarea name="skills" x-ref="skillsLength" x-on:keyup="countCaractersLeft('skillsLength')" wire:model.lazy="post.values_print.skills" placeholder="{{ __('Needed skills') }}" cols="30" rows="6" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-mnw-darkblue focus:ring-mnw-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
 												</div>
 
 												@error('post.values_print.skills')
@@ -336,7 +336,7 @@
 												</div>
 
 												<div class="flex flex-row items-center">
-													<textarea name="bonuses" x-ref="bonusesLength" x-on:keyup="countCaractersLeft('bonusesLength')" wire:model.lazy="post.values_print.bonus_description" placeholder="{{ __('Bonuses') }}" cols="30" rows="6" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-annonces-darkblue focus:ring-annonces-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
+													<textarea name="bonuses" x-ref="bonusesLength" x-on:keyup="countCaractersLeft('bonusesLength')" wire:model.lazy="post.values_print.bonus_description" placeholder="{{ __('Bonuses') }}" cols="30" rows="6" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="border-gray-300 w-full focus:border-mnw-darkblue focus:ring-mnw-darkblue rounded-md shadow-sm mt-1 block w-full text-gray-400 bg-white"></textarea>
 												</div>
 
 												@error('post.values_print.bonus_description')
@@ -364,7 +364,7 @@
 						</div>
 					</div>
 
-					<div class="mt-4 flex flex-row text-sm text-annonces-headergray">
+					<div class="mt-4 flex flex-row text-sm text-mnw-headergray">
 						{{ __('Non-contractual preview') }}
 					</div>
 				</div>

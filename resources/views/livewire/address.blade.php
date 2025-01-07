@@ -69,7 +69,7 @@
 		<div>
 			<x-front.input-label for="country_id" :value="__('Country')" :required="$country_required" />
 
-			<select id="country_id" name="country_id" wire:model.live="address.country_id" disabled="$disabled" class="text-gray-400 mt-1 block border border-gray-300 rounded-md focus:ring-annonces-blue focus:border-annonces-blue w-full">
+			<select id="country_id" name="country_id" wire:model.live="address.country_id" disabled="$disabled" class="text-gray-400 mt-1 block border border-gray-300 rounded-md focus:ring-mnw-blue focus:border-mnw-blue w-full">
 				@foreach($countries as $country)
 					<option value="{{ $country->id }}" wire:key="country-{{ $country->id }}">
 						{{ $country->name }}
@@ -95,7 +95,7 @@
 				@endphp
 
 				<div class="mt-4">
-					<span class="text-annonces-blue font-semibold">
+					<span class="text-mnw-blue font-semibold">
 						{{ __('Location chosen') }}
 					</span> :<br/>
 

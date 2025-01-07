@@ -71,9 +71,9 @@
 		else $classes .= " opacity-60 hover:opacity-90 ";
 	}
 
-	if((!empty($product) && $product > 1 && $product != 3)) $classes .= " shadow-lg border-2 border-annonces-blue hover:border-annonces-blue";
+	if((!empty($product) && $product > 1 && $product != 3)) $classes .= " shadow-lg border-2 border-mnw-blue hover:border-mnw-blue";
 	else {
-		if($product == 3) $classes .= " shadow-lg border-2 border-annonces-yellow hover:border-annonces-yellow";
+		if($product == 3) $classes .= " shadow-lg border-2 border-mnw-yellow hover:border-mnw-yellow";
 		else $classes .= " hover:bg-gray-50 border border-gray-100 hover:border-gray-200";
 	}
 @endphp
@@ -131,11 +131,11 @@
 			@endif
 
 			{{-- Title --}}
-			<h2 class="mb-2 text-sm sm:text-base xl:text-lg font-semibold leading-normal" :class="hoverOn ? 'text-annonces-blue': 'text-black'">
+			<h2 class="mb-2 text-sm sm:text-base xl:text-lg font-semibold leading-normal" :class="hoverOn ? 'text-mnw-blue': 'text-black'">
 				{{ $post->title }}
 			</h2>
 
-			<div class="mb-2 group-hover:text-gray-700 text-black group-hover:text-annonces-blue transition duration-200 ease-in-out">
+			<div class="mb-2 group-hover:text-gray-700 text-black group-hover:text-mnw-blue transition duration-200 ease-in-out">
 				<span class="capitalize font-semibold">
 					@if($post->user->type == 'Professionnel')
 						{{ $post->user->values['company_name'] }}
@@ -156,7 +156,7 @@
 			@if(Auth::guard('web')->check())
 				@role('registered')
 					@if(Auth::guard('web')->user()->hasApplied($post) > 0)
-						<div class="mt-4 mr-8 flex items-center font-semibold text-annonces-blue group-hover:text-annonces-blue transition duration-200 ease-in-out">
+						<div class="mt-4 mr-8 flex items-center font-semibold text-mnw-blue group-hover:text-mnw-blue transition duration-200 ease-in-out">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
 							</svg>

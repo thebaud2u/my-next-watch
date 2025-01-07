@@ -1,7 +1,7 @@
 <div>
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap max-w-[936px]">
-			<select id="offer" wire:model="offer" class="block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm">
+			<select id="offer" wire:model="offer" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
 				<option value="">{{ __('Select an offer') }}</option>
 				@foreach($offers as $offer)
 					<option value="{{ $offer->id}}">{{ $offer->name }}</option>
@@ -226,7 +226,7 @@
 					<x-front.input-label for="offer_id" :value="__('Offer')" />
 				</div>
 
-				<select name="offer_id" wire:model="newSubscription.offer_id" class="block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm">
+				<select name="offer_id" wire:model="newSubscription.offer_id" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
 					<option value="">{{ __('Select an offer') }}</option>
 					@foreach($offers as $offer)
 						<option value="{{ $offer->id}}">{{ $offer->name }}</option>

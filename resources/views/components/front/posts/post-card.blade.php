@@ -59,7 +59,7 @@
 	}
 	else $classes .= "bg-gray-50";
 
-	if((!empty($product) && $product > 1 && $product != 3)) $classes .= " shadow-lg border-2 border-annonces-blue hover:border-annonces-blue";
+	if((!empty($product) && $product > 1 && $product != 3)) $classes .= " shadow-lg border-2 border-mnw-blue hover:border-mnw-blue";
 @endphp
 
 <a href="{{ route('show-post', ['post' => $post->slug]) }}" class="cursor-pointer">
@@ -74,7 +74,7 @@
 		</div>
 
 		{{-- Title --}}
-		<h2 class="p-3 pb-2 text-md font-semibold leading-normal" :class="hoverOn ? 'text-annonces-blue': 'text-black'">
+		<h2 class="p-3 pb-2 text-md font-semibold leading-normal" :class="hoverOn ? 'text-mnw-blue': 'text-black'">
 			{{ $post->title }}
 		</h2>
 

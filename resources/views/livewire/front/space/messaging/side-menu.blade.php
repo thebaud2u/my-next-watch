@@ -5,8 +5,8 @@
 	@endif
 	x-bind:class="(small&&thread)?'hidden':'block'"
 	x-on:read.window="$wire.read(resp) {{-- ;console.log('read('+resp+')') --}} ">
-	<div class="flex flex-row ml-3 pb-4 @if ($responses->count() > 0) border-b border-annonces-transparentgray @endif ">
-		<div class="flex-none text-annonces-blue mr-3">
+	<div class="flex flex-row ml-3 pb-4 @if ($responses->count() > 0) border-b border-mnw-transparentgray @endif ">
+		<div class="flex-none text-mnw-blue mr-3">
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" class="size-6">
 				<path d="M19.487 16.2696C20.4435 14.7391 21 12.9391 21 11C21 5.47827 16.5217 1 11 1C5.47824 1 1 5.47827 1 11C1 16.5218 5.47824 21 11 21C12.9391 21 14.7391 20.4435 16.2696 19.487L21 21L19.487 16.2696Z" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M7.08594 8.82617H14.912" stroke="#0082FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -18,9 +18,9 @@
 		</div>
 	</div>
 	@foreach ($responses as $response)
-		<a href="#" class="block relative group cursor-pointer border-l-2 border-transparent hover:border-annonces-blue hover:bg-annonces-lightblue transition duration-200 ease-in-out"
+		<a href="#" class="block relative group cursor-pointer border-l-2 border-transparent hover:border-mnw-blue hover:bg-mnw-lightblue transition duration-200 ease-in-out"
 			wire:click.prevent="show({{ $response->id }})" x-ref="link{{ $response->id }}"
-			x-bind:class="{'bg-annonces-lightblue':active=={{ $response->id }}&&!small}"
+			x-bind:class="{'bg-mnw-lightblue':active=={{ $response->id }}&&!small}"
 			x-on:click="active={{ $response->id }};thread=true;resp=({{ $response->id }})"
 			title="{{ $response->post->title }}">
 			<div class="flex flex-row items-center ml-3">

@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-use App\Models\{ Post, PostType, Thematic };
+//use App\Models\{ Post, PostType, Thematic };
 
 class SpaceLayout extends Component
 {
@@ -17,7 +17,7 @@ class SpaceLayout extends Component
 	 * @param Post  $post
 	 * @param string|null  $breadcrumb
 	 */
-	public function __construct(public Thematic $currentThematic, public PostType $currentPostType, public ?Post $post = null, public ?string $breadcrumb = null)
+	public function __construct(/*public Thematic $currentThematic, public PostType $currentPostType, public ?Post $post = null*/)
 	{
 	}
 

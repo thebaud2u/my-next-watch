@@ -35,7 +35,7 @@
 	</div>
 
 	@if(empty(Auth::guard('web')->user()?->id) || ! auth('web')->user()?->hasRole('applicant'))
-		<div class="w-full bg-annonces-blue pt-12">
+		<div class="w-full bg-mnw-blue pt-12">
 			<div class="mb-12 max-w-screen-xl mx-auto flex flex-col items-center">
 				<h2 class="mb-8 text-center leading-10 text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-white font-bold">
 					{{ __('I\'m a registered, looking for talent') }}.

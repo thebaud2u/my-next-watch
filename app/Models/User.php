@@ -139,4 +139,16 @@ class User extends Authenticatable implements HasMedia
 		return Watch::whereIn('id', $viewedWatches)
 			->get();
 	}
+
+	// To Do :)
+	/**
+	 * Returns the number of saved search the current user has
+	 *
+	 * @param class User
+	 * @return int
+	 */
+	public function savedSearch()
+	{
+		return 0;
+	}
 }

@@ -36,17 +36,17 @@
 						</div>
 
 						<div class="flex flex-col items-end">
-							<div class="text-annonces-blue">
+							<div class="text-mnw-blue">
 								<a href="{{ route('profile', ['user' => Auth::guard('web')->user() ]) }}" target="_blank">
 									{{ __('See my profile') }}
 								</a>
 							</div>
 
-							<div class=" text-annonces-red">
+							<div class=" text-mnw-red">
 								<form method="post" action="{{ route('logout') }}">
 									@csrf
 
-									<a href="#" onclick="event.preventDefault();this.closest('form').submit();" class="hover:text-annonces-red focus:text-annonces-red text-annonces-red">
+									<a href="#" onclick="event.preventDefault();this.closest('form').submit();" class="hover:text-mnw-red focus:text-mnw-red text-mnw-red">
 										{{ __('Log out') }}
 									</a>
 								</form>

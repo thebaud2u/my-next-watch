@@ -4,7 +4,7 @@
 			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
-		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 			<option value="">{{ __('Choose a post type') }}</option>
 			@foreach($postTypes as $postType)
 				<option value="{{ $postType->id }}" wire:key="post-type-{{ $postType->id }}">
@@ -20,7 +20,7 @@
 		@enderror
 
 		@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-			<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+			<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 				{{ __('This field can only be modified on justification with the customer service') }}
 			</div>
 		@endif
@@ -35,7 +35,7 @@
 							<x-front.input-label for="post.values_web.tractor_type" :value="__('Tractor type')" />
 						</div>
 
-						<select name="post.values_web.tractor_type" wire:model="post.values_web.tractor_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.tractor_type" wire:model="post.values_web.tractor_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a tractor type') }}</option>
 							@foreach($criterias['tractor-type'] as $tractorType)
 								<option value="{{ $tractorType->id }}" wire:key="tractor-type-{{ $tractorType->id }}">
@@ -74,7 +74,7 @@
 					@enderror
 
 					@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-						<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+						<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 							{{ __('This field can only be modified on justification with the customer service') }}
 						</div>
 					@endif
@@ -88,7 +88,7 @@
 
 						@foreach($criterias['vehicule-type'] as $vehiculeType)
 							<div wire:key="vehicule-type-{{ $vehiculeType->id }}" class="pr-5">
-								<input type="radio" name="post.values_web.vehicule_type" value="{{ $vehiculeType->id }}" wire:model.live="post.values_web.vehicule_type" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-5 h-5" />
+								<input type="radio" name="post.values_web.vehicule_type" value="{{ $vehiculeType->id }}" wire:model.live="post.values_web.vehicule_type" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-5 h-5" />
 								<label class="text-sm inline-block">
 									{{ $vehiculeType->name }}
 								</label>
@@ -166,7 +166,7 @@
 								:disabled="false"
 								:wire:key="'availabilities-'.$post->id" />
 
-							<div class="flex flex-row text-sm text-annonces-gray">
+							<div class="flex flex-row text-sm text-mnw-gray">
 								{{ __('Select a starting date and an ending date to create an availability period. Click on an existing period to delete it') }}.
 							</div>
 						</div>
@@ -177,7 +177,7 @@
 							<x-front.input-label for="post.values_web.sector" :value="__('Sector')" :required="true" />
 						</div>
 
-						<select name="post.values_web.sector" wire:model="post.values_web.sector" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.sector" wire:model="post.values_web.sector" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a sector') }}</option>
 							@foreach($criterias['sector'] as $sector)
 								<option value="{{ $sector->id }}" wire:key="sector-{{ $sector->id }}">
@@ -198,7 +198,7 @@
 							<x-front.input-label for="post.values_web.activity_type" :value="__('Activity type')" :required="true" />
 						</div>
 
-						<select name="post.values_web.activity_type" wire:model="post.values_web.activity_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.activity_type" wire:model="post.values_web.activity_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a sector') }}</option>
 							@foreach($criterias['activity-type'] as $activityType)
 								<option value="{{ $activityType->id }}" wire:key="activity-{{ $activityType->id }}">
@@ -219,7 +219,7 @@
 							<x-front.input-label for="post.values_web.good_type" :value="__('Good type')" :required="true" />
 						</div>
 
-						<select name="post.values_web.good_type" wire:model="post.values_web.good_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.good_type" wire:model="post.values_web.good_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a good type') }}</option>
 							@foreach($criterias['good-type'] as $goodType)
 								<option value="{{ $goodType->id }}" wire:key="good-type-{{ $goodType->id }}">
@@ -240,7 +240,7 @@
 							<x-front.input-label for="post.values_web.market_spectrum" :value="__('Market spectrum')" :required="true" />
 						</div>
 
-						<select name="post.values_web.market_spectrum" wire:model="post.values_web.market_spectrum" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.market_spectrum" wire:model="post.values_web.market_spectrum" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a market spectrum') }}</option>
 							@foreach($criterias['market-spectrum'] as $marketSpectrum)
 								<option value="{{ $marketSpectrum->id }}" wire:key="market-spectrum-{{ $marketSpectrum->id }}">
@@ -261,7 +261,7 @@
 							<x-front.input-label for="post.values_web.market_type" :value="__('Market type')" :required="true" />
 						</div>
 
-						<select name="post.values_web.market_type" wire:model="post.values_web.market_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.market_type" wire:model="post.values_web.market_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a market type') }}</option>
 							@foreach($criterias['market-type'] as $marketType)
 								<option value="{{ $marketType->id }}" wire:key="market-type-{{ $marketSpectrum->id }}">
@@ -282,7 +282,7 @@
 							<x-front.input-label for="post.values_web.notice_type" :value="__('Notice type')" />
 						</div>
 
-						<select name="post.values_web.notice_type" wire:model="post.values_web.notice_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.notice_type" wire:model="post.values_web.notice_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a notice type') }}</option>
 							@foreach($criterias['notice-type'] as $noticeType)
 								<option value="{{ $noticeType->id }}" wire:key="notice-type-{{ $noticeType->id }}">
@@ -325,9 +325,9 @@
 
 					<div wire:ignore>
 						@if($post->postType->slug == 'appel-offre')
-							<textarea id="body" wire:model="post.body" placeholder="{{ __('Call for tender\'s text') }}" class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
+							<textarea id="body" wire:model="post.body" placeholder="{{ __('Call for tender\'s text') }}" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
 						@else
-							<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the post\'s description') }}" class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
+							<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the post\'s description') }}" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
 						@endif
 					</div>
 
@@ -387,14 +387,14 @@
 						</div>
 
 						<div class="pr-5">
-							<input type="radio" name="post.values_web.support" value="yes" wire:model.live="post.values_web.support" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-5 h-5" />
+							<input type="radio" name="post.values_web.support" value="yes" wire:model.live="post.values_web.support" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-5 h-5" />
 							<label class="text-sm inline-block">
 								{{ __('Yes') }}
 							</label>
 						</div>
 
 						<div class="pr-5">
-							<input type="radio" name="post.values_web.support" value="no" wire:model.live="post.values_web.support" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-annonces-blue checked:hover:bg-annonces-blue checked:active:bg-annonces-blue checked:focus:bg-annonces-blue focus:bg-annonces-blue focus:outline-none focus:ring-1 focus:ring-annonces-blue w-5 h-5" />
+							<input type="radio" name="post.values_web.support" value="no" wire:model.live="post.values_web.support" class="mr-1 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-5 h-5" />
 							<label class="text-sm inline-block">
 								{{ __('No') }}
 							</label>
@@ -430,7 +430,7 @@
 
 						@foreach($criterias['characteristics'] as $characteristic)
 							<div wire:key="characteristics-{{ $characteristic->id }}">
-								<input type="checkbox" id="characteristics" name="characteristics" value="{{ $characteristic->id }}" wire:model="characteristics" class="w-4 h-4 text-annonces-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+								<input type="checkbox" id="characteristics" name="characteristics" value="{{ $characteristic->id }}" wire:model="characteristics" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 								<x-front.input-label for="characteristics" :value="$characteristic->name" :class="'ml-2 inline-block font-normal'"/>
 							</div>
 						@endforeach
@@ -503,7 +503,7 @@
 							<x-front.input-label for="post.values_web.energy_class" :value="__('Energy class')" />
 						</div>
 
-						<select name="post.values_web.energy_class" wire:model="post.values_web.energy_class" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.energy_class" wire:model="post.values_web.energy_class" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose an energy class') }}</option>
 							@foreach($criterias['energy-class'] as $energyClass)
 								<option value="{{ $energyClass->id }}" wire:key="energy-class-{{ $energyClass->id }}">
@@ -524,7 +524,7 @@
 							<x-front.input-label for="post.values_web.ges" :value="__('GES')" />
 						</div>
 
-						<select name="post.values_web.ges" wire:model="post.values_web.ges" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+						<select name="post.values_web.ges" wire:model="post.values_web.ges" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 							<option value="">{{ __('Choose a GES') }}</option>
 							@foreach($criterias['GES'] as $ges)
 								<option value="{{ $ges->id }}" wire:key="ges-{{ $ges->id }}">
@@ -559,7 +559,7 @@
 							<x-front.input-label for="post.values_web.desired_profile" :value="__('Desired profile')" />
 						</div>
 
-						<textarea name="post.values_web.desired_profile" wire:model="post.values_web.desired_profile" placeholder="{{ __('Desired profile') }}" class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full"></textarea>
+						<textarea name="post.values_web.desired_profile" wire:model="post.values_web.desired_profile" placeholder="{{ __('Desired profile') }}" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full"></textarea>
 
 						@error('post.values_web.desired_profile')
 							<span class="error text-danger-700">
@@ -591,11 +591,11 @@
 						@endif
 
 						@if($post->postType->slug == 'achat-location-vehicule')
-							<span class="text-sm text-annonces-gray">
+							<span class="text-sm text-mnw-gray">
 								{{ __('If you post a request, please fill in the price you are willing to pay for the rental') }}.
 							</span>
 						@elseif($post->postType->slug != 'transaction-entreprise')
-							<span class="text-sm text-annonces-gray">
+							<span class="text-sm text-mnw-gray">
 								{{ __('If you post a request, please fill in the price you are willing to pay for the purchase') }}.
 							</span>
 						@endif
@@ -675,7 +675,7 @@
 						@enderror
 
 						@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-							<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+							<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 								{{ __('This field can only be modified on justification with the customer service') }}
 							</div>
 						@endif
@@ -715,7 +715,7 @@
 						@enderror
 
 						@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-							<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+							<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 								{{ __('This field can only be modified on justification with the customer service') }}
 							</div>
 						@endif
@@ -759,7 +759,7 @@
 						@enderror
 
 						@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-							<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+							<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 								{{ __('This field can only be modified on justification with the customer service') }}
 							</div>
 						@endif

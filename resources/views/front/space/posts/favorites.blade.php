@@ -22,11 +22,11 @@
 											{{-- Image, logo --}}
 											<div class="relative sm:flex-none flex justify-center items-stretch w-full sm:max-w-[200px] max-h-36 rounded-t sm:rounded-l sm:rounded-tr-none">
 												@if($media = $post->getFirstMedia('image'))
-													<div class="w-full h-20 sm:h-full flex justify-center items-center bg-annonces-lightblue rounded-t-sm sm:rounded-none border-b sm:border border-transparent transition duration-200 ease-in-out">
+													<div class="w-full h-20 sm:h-full flex justify-center items-center bg-mnw-lightblue rounded-t-sm sm:rounded-none border-b sm:border border-transparent transition duration-200 ease-in-out">
 														<img src="{{ $media->getAvailableUrl(['optimized']) }}" title="{{ __('Logo of') }} {{ $post->company->name }}" class="object-cover w-full rounded-t-sm sm:rounded-none" />
 													</div>
 												@else
-													<div class="w-full h-20 sm:h-full flex justify-center items-center bg-annonces-lightblue rounded-t-sm sm:rounded-none border-b sm:border border-transparent transition duration-200 ease-in-out">
+													<div class="w-full h-20 sm:h-full flex justify-center items-center bg-mnw-lightblue rounded-t-sm sm:rounded-none border-b sm:border border-transparent transition duration-200 ease-in-out">
 														<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 max-sm:ml-12 sm:mr-6">
 															<path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
 															<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
@@ -52,11 +52,11 @@
 											<div class="sm:grow max-sm:p-4 max-sm:pt-6 sm:pl-8 text-xs lg:text-sm text-gray-500">
 												{{-- Viewed, premium tag --}}
 
-												<h2 class="mb-2 text-annonces-blue text-sm sm:text-base xl:text-lg font-semibold leading-normal">
+												<h2 class="mb-2 text-mnw-blue text-sm sm:text-base xl:text-lg font-semibold leading-normal">
 													{{ $post->title }}
 												</h2>
 
-												<div class="mb-2 group-hover:text-gray-700? 'text-annonces-blue group-hover:text-annonces-lighterdarkblue transition duration-200 ease-in-out">
+												<div class="mb-2 group-hover:text-gray-700? 'text-mnw-blue group-hover:text-mnw-lighterdarkblue transition duration-200 ease-in-out">
 													<span class="uppercase font-semibold">{{ $post->company->name }}</span>
 													-
 													{{ Str::limit($post->body, 50) }}
@@ -117,19 +117,19 @@
 									</div>
 
 									<div class="flex-1 flex md:flex-col p-4 md:justify-start md:items-center flex-row justify-around content-center flex-wrap">
-										<div class="text-annonces-blue sm:mt-5">
+										<div class="text-mnw-blue sm:mt-5">
 											@role('applicant')
 												<form method="post" action="{{ route('add-to-my-favorites-posts', ['post' => $post]) }}" x-data="{}" x-ref="togglefavorite">
 													@csrf
 
 													@if(Auth::user()->hasFavorited($post))
-														<a href="#removeFromFavorites" title="{{ __('In my favorites').' ('.__('remove').')' }}" class="text-annonces-blue hover:text-annonces-blue" x-on:click.prevent="$refs.togglefavorite.submit()">
+														<a href="#removeFromFavorites" title="{{ __('In my favorites').' ('.__('remove').')' }}" class="text-mnw-blue hover:text-mnw-blue" x-on:click.prevent="$refs.togglefavorite.submit()">
 															<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 lg:w-7 lg:h-7 pointer-events-none">
 																<path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
 															</svg>
 														</a>
 													@else
-														<a href="#addToFavorites" title="{{ __('Add to my favorites') }}" class="text-annonces-lightblue hover:text-annonces-blue" x-on:click.prevent="$refs.togglefavorite.submit()">
+														<a href="#addToFavorites" title="{{ __('Add to my favorites') }}" class="text-mnw-lightblue hover:text-mnw-blue" x-on:click.prevent="$refs.togglefavorite.submit()">
 															<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 lg:w-7 lg:h-7 pointer-events-none">
 																<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
 															</svg>

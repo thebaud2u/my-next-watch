@@ -2,7 +2,7 @@
 	<form>
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row items-center">
-				<div class="text-annonces-blue inline-block mr-3">
+				<div class="text-mnw-blue inline-block mr-3">
 					<svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path id="Vector" d="M23.7768 4.88867H17.1101" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 						<path id="Vector_2" d="M5.99889 4.88867H1.55444" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -19,16 +19,16 @@
 			</div>
 
 			<div class="flex-2 inline-block">
-				<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="underline uppercase text-annonces-blue hover:text-annonces-blue cursor-pointer">
+				<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="underline uppercase text-mnw-blue hover:text-mnw-blue cursor-pointer">
 			</div>
 		</div>
 
 		<div class="flex flex-col">
-			<div class="flex flex-row py-4 border-b-2 border-annonces-transparentgray mt-4">
-				<div class="bg-white lg:flex-1 p-0 text-annonces-gray min-w-[250px] ">
+			<div class="flex flex-row py-4 border-b-2 border-mnw-transparentgray mt-4">
+				<div class="bg-white lg:flex-1 p-0 text-mnw-gray min-w-[250px] ">
 					<div class="flex justify-between">
-						<input type="text" wire:model="keywords" wire:keydown.debounce.500ms="search" name="keywords" placeholder="Mot(s)-clé(s)" class="p-0 block w-full text-annonces-gray border-annonces-darkerwhite text-sm xl:text-base bg-white border py-3 px-2 focus:border-annonces-blue focus:ring-0 rounded-md">
-						<div class="text-annonces-gray relative">
+						<input type="text" wire:model="keywords" wire:keydown.debounce.500ms="search" name="keywords" placeholder="Mot(s)-clé(s)" class="p-0 block w-full text-mnw-gray border-mnw-darkerwhite text-sm xl:text-base bg-white border py-3 px-2 focus:border-mnw-blue focus:ring-0 rounded-md">
+						<div class="text-mnw-gray relative">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 absolute left-[-35px] top-[13px]">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
 							</svg>
@@ -37,9 +37,9 @@
 				</div>
 			</div>
 
-			<div class="flex flex-col py-4 border-b-2 border-annonces-transparentgray mt-4" x-data="{ deploy: false }">
+			<div class="flex flex-col py-4 border-b-2 border-mnw-transparentgray mt-4" x-data="{ deploy: false }">
 				<span class="flex flex-row cursor-pointer" x-on:click="deploy = !deploy">
-					<span class="flex-1 font-semibold text-annonces-gray">
+					<span class="flex-1 font-semibold text-mnw-gray">
 						{{ __('Type') }}
 					</span>
 
@@ -58,18 +58,18 @@
 
 				<div x-show="deploy" x-transition class="mt-4">
 					<div class="flex flex-row mt-2">
-						<input type="radio" name="type" value="all" wire:model="type" wire:change.debounce.500ms="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-						<label for="type" class="text-xs lg:text-sm text-jobboard-blue">{{ __('All') }}</label>
+						<input type="radio" name="type" value="all" wire:model="type" wire:change.debounce.500ms="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+						<label for="type" class="text-xs lg:text-sm text-mnw-blue">{{ __('All') }}</label>
 					</div>
 
 					<div class="flex flex-row mt-2">
-						<input type="radio" name="type" value="favorites" wire:model="type" wire:change.debounce.500ms="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-						<label for="type" class="text-xs lg:text-sm text-jobboard-blue">{{ __('Favorites') }}</label>
+						<input type="radio" name="type" value="favorites" wire:model="type" wire:change.debounce.500ms="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+						<label for="type" class="text-xs lg:text-sm text-mnw-blue">{{ __('Favorites') }}</label>
 					</div>
 
 					<div class="flex flex-row mt-2">
-						<input type="radio" name="type" value="followed" wire:model="type" wire:change.debounce.500ms="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-						<label for="type" class="text-xs lg:text-sm text-jobboard-blue">{{ __('Followed') }}</label>
+						<input type="radio" name="type" value="followed" wire:model="type" wire:change.debounce.500ms="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+						<label for="type" class="text-xs lg:text-sm text-mnw-blue">{{ __('Followed') }}</label>
 					</div>
 				</div>
 			</div>

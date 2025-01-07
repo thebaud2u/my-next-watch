@@ -2,7 +2,7 @@
 	<form x-data="{ deploy: false }">
 		<div class="flex flex-row justify-between">
 			<div class="flex-auto flex flex-row items-center">
-				<div class="{{ ($searches->count() > 0) ? 'text-annonces-blue' : 'text-annonces-lightergray' }} mr-3">
+				<div class="{{ ($searches->count() > 0) ? 'text-mnw-blue' : 'text-mnw-lightergray' }} mr-3">
 					<svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path id="Vector" d="M23.7768 4.88867H17.1101" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 						<path id="Vector_2" d="M5.99889 4.88867H1.55444" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -13,16 +13,16 @@
 					</svg>
 				</div>
 
-				<div class="font-semibold xl:text-lg {{ ($searches->count() > 0) ? 'text-black' : 'text-annonces-headergray' }}">
+				<div class="font-semibold xl:text-lg {{ ($searches->count() > 0) ? 'text-black' : 'text-mnw-headergray' }}">
 					{{ __('Filter by') }}
 				</div>
 			</div>
 
 			<div class="flex-auto text-right">
 				@if ($searches->count() > 0)
-					<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="inline-block text-annonces-blue xl:text-lg font-semibold cursor-pointer" />
+					<input type="reset" wire:click="resetForm" value="{{ __('Reinitialize') }}" class="inline-block text-mnw-blue xl:text-lg font-semibold cursor-pointer" />
 				@else
-					<span class="inline-block text-annonces-lightergray xl:text-lg font-semibold">
+					<span class="inline-block text-mnw-lightergray xl:text-lg font-semibold">
 						{{ __('Reinitialize') }}
 					</span>
 				@endif
@@ -31,17 +31,17 @@
 
 		@if ($searches->count() > 0)
 			<div class="relative mt-6">
-				<div class="absolute inset-y-0 right-2 lg:right-3 flex items-center pointer-events-none text-annonces-gray">
+				<div class="absolute inset-y-0 right-2 lg:right-3 flex items-center pointer-events-none text-mnw-gray">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 					</svg>
 				</div>
-				<input type="text" name="keywords" wire:model="keywords" wire:keydown.debounce.500ms="search" placeholder="Mot(s)-clé(s)" class="block w-full text-black border-annonces-darkerwhite text-sm xl:text-base bg-white border p-2 focus:border-annonces-blue focus:ring-0 rounded-md" />
+				<input type="text" name="keywords" wire:model="keywords" wire:keydown.debounce.500ms="search" placeholder="Mot(s)-clé(s)" class="block w-full text-black border-mnw-darkerwhite text-sm xl:text-base bg-white border p-2 focus:border-mnw-blue focus:ring-0 rounded-md" />
 			</div>
 
 			<div class="flex flex-col mt-6">
 				<span class="flex flex-row cursor-pointer" x-on:click="deploy=!deploy">
-					<span class="flex-1 font-semibold text-annonces-gray">
+					<span class="flex-1 font-semibold text-mnw-gray">
 						{{ __('Date') }}
 					</span>
 					<span class="inline-block cursor-pointer">
@@ -60,23 +60,23 @@
 
 				<div x-show="deploy" class="mt-2">
 					<div class="flex flex-row items-center mt-2">
-						<input type="radio" id="ob0" value="0" name="orderBy" wire:model="orderBy" wire:click="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-						<label for="ob0" class="text-xs lg:text-sm text-jobboard-blue">{{ __('Newest to oldest') }}</label>
+						<input type="radio" id="ob0" value="0" name="orderBy" wire:model="orderBy" wire:click="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+						<label for="ob0" class="text-xs lg:text-sm text-mnw-blue">{{ __('Newest to oldest') }}</label>
 					</div>
 					<div class="flex flex-row items-center mt-2">
-						<input type="radio" id="ob1" value="1" name="orderBy" wire:model="orderBy" wire:click="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-jobboard-blue checked:hover:bg-jobboard-blue checked:active:bg-jobboard-blue checked:focus:bg-jobboard-blue focus:bg-jobboard-blue focus:outline-none focus:ring-1 focus:ring-jobboard-blue w-4 h-4">
-						<label for="ob1" class="text-xs lg:text-sm text-jobboard-blue">{{ __('Oldest to newest') }}</label>
+						<input type="radio" id="ob1" value="1" name="orderBy" wire:model="orderBy" wire:click="search" class="mr-2 disabled:bg-gray-200 my-1 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue w-4 h-4">
+						<label for="ob1" class="text-xs lg:text-sm text-mnw-blue">{{ __('Oldest to newest') }}</label>
 					</div>
 				</div>
 			</div>
 		@else
 			<div class="relative mt-6">
-				<div class="absolute inset-y-0 right-2 lg:right-3 flex items-center pointer-events-none text-annonces-gray">
+				<div class="absolute inset-y-0 right-2 lg:right-3 flex items-center pointer-events-none text-mnw-gray">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 					</svg>
 				</div>
-				<input type="text" placeholder="Mot(s)-clé(s)" disabled="true" name="keywords" class="block w-full text-black border-annonces-darkerwhite text-sm xl:text-base bg-white border p-2 rounded-md" />
+				<input type="text" placeholder="Mot(s)-clé(s)" disabled="true" name="keywords" class="block w-full text-black border-mnw-darkerwhite text-sm xl:text-base bg-white border p-2 rounded-md" />
 			</div>
 		@endif
 	</form>

@@ -4,7 +4,7 @@
 			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
-		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 			<option value="">{{ __('Choose a post type') }}</option>
 			@foreach($postTypes as $postType)
 				<option value="{{ $postType->id }}" wire:key="post-type-{{ $postType->id }}">
@@ -20,7 +20,7 @@
 		@enderror
 
 		@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-			<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+			<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 				{{ __('This field can only be modified on justification with the customer service') }}
 			</div>
 		@endif
@@ -43,7 +43,7 @@
 					@enderror
 
 					@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-						<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+						<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 							{{ __('This field can only be modified on justification with the customer service') }}
 						</div>
 					@endif
@@ -54,7 +54,7 @@
 						<x-front.input-label for="post.category_id" :value="__('Post\'s sub-category')" />
 					</div>
 
-					<select name="post.category_id" wire:model="post.category_id" class="text-gray-400 block mt-1 border border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm sm:w-1/2 w-full">
+					<select name="post.category_id" wire:model="post.category_id" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
 
 						@if($categories->isNotEmpty())
 							<option value="">{{ __('Choose a post\'s sub-category') }}</option>
@@ -82,7 +82,7 @@
 					</div>
 
 					<div wire:ignore>
-						<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the offer\'s description') }}" class="border-gray-300 focus:border-annonces-blue focus:ring-annonces-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
+						<textarea id="body" wire:model="post.body" placeholder="{{ __('Write here the offer\'s description') }}" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm text-gray-400 mt-1 block bg-white w-full">{{ $post->body }}</textarea>
 					</div>
 
 					@error('post.body')
@@ -124,7 +124,7 @@
 					@enderror
 
 					@if($post->state->color() == 'green' && !Auth::guard('admin')->check())
-						<div class="flex flex-row text-sm text-annonces-gray italic mt-2">
+						<div class="flex flex-row text-sm text-mnw-gray italic mt-2">
 							{{ __('This field can only be modified on justification with the customer service') }}
 						</div>
 					@endif

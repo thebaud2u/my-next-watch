@@ -332,7 +332,7 @@
 									<livewire:front.posts.search :displayPost="'w-full'" :thematic="$thematic" :postType="$postType" :withRedirect="true" :wire:key="'post-search'" />
 								</div>
 
-								<button class="md:hidden flex justify-center items-center w-[35px] h-[35px] cursor-pointer rounded-full bg-annonces-darkblue" x-on:click="searchVisible = !searchVisible">
+								<button class="md:hidden flex justify-center items-center w-[35px] h-[35px] cursor-pointer rounded-full bg-mnw-darkblue" x-on:click="searchVisible = !searchVisible">
 									<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M7.141 13.7825C8.35553 13.7825 9.54279 13.4224 10.5527 12.7476C11.5625 12.0729 12.3496 11.1138 12.8144 9.99178C13.2793 8.86972 13.4009 7.63502 13.1641 6.44381C12.9272 5.2526 12.3424 4.15838 11.4837 3.2995C10.625 2.44063 9.53083 1.85568 8.33966 1.61861C7.14849 1.38155 5.91377 1.50302 4.79163 1.96766C3.6695 2.4323 2.71033 3.21926 2.03543 4.22901C1.36053 5.23876 1.0002 6.42596 1 7.64049C0.999869 8.44702 1.15861 9.24568 1.46717 9.99086C1.77572 10.736 2.22805 11.4131 2.7983 11.9835C3.36856 12.5538 4.04558 13.0063 4.79071 13.3149C5.53584 13.6236 6.33447 13.7825 7.141 13.7825Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
 										<path d="M15.9987 16.4997L11.5547 12.0557" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
@@ -418,7 +418,7 @@
 	@endif
 
 	{{-- Recently viewed/published posts --}}
-	<div class="w-full bg-annonces-lightblue">
+	<div class="w-full bg-mnw-lightblue">
 		@if(Auth::guard('web')->check())
 			<livewire:front.posts.recently-viewed :wire:key="'recently-viewed'" />
 		@else
