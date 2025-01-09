@@ -17,19 +17,21 @@ return new class extends Migration
 	{
 		Schema::create('genders', function (Blueprint $table) {
 			$table->id();
-			$table->string('name');
+			$table->string('name', 15);
+			$table->string('title', 3)->nullable();
 		});
 
 		$data = [
-			'Female',
-			'Male',
-			'Nonbinary'
+			'Female' => 'Mrs',
+			'Male' => 'Mr',
+			'Nonbinary' => ''
 		];
 
-		foreach($data as $gender)
+		foreach($data as $name => $title)
 		{
 			$newGender = new Gender;
-			$newGender->name = $gender;
+			$newGender->name = $name;
+			$newGender->title = $title;
 			$newGender->save();
 		}
 	}

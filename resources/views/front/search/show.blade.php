@@ -196,12 +196,8 @@
 			</div>
 		</div>
 	</x-slot>
-	<div class="mx-auto max-w-[930px] w-full mx-auto mt-12">
-		{{ Breadcrumbs::render('show-post', $post->thematic, $post->postType, $post) }}
-	</div>
 
 	<div class="grid grid-flow-col auto-cols-max gap-4 mt-2 max-smpx-4 max-w-[930px] w-full">
-
 		{{-- Content --}}
 		<div class="text-sm lg:text-base max-w-[600px]">
 			<div class="px-4 max-sm:pl-4 pl-0 md:border-t md:border-transparent"

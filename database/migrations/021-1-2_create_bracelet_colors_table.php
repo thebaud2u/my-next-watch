@@ -1,0 +1,51 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+use App\Enums\InformationStatus;
+
+use App\Models\Admin;
+use App\Models\WatchDetails\BraceletColor;
+
+return new class extends Migration
+{
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('bracelet_colors', function (Blueprint $table) {
+			$table->id();
+			$table->string('name', 255);
+			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
+			$table->unsignedBigInteger('admin_id')->nullable();
+			$table->timestamps();
+			$table->softDeletes();
+
+			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
+		});
+
+		$colors = ['steel', 'silver', 'beige', 'white', 'blue', 'burgundy', 'bronze', 'brown', 'grey', 'yellow', 'black', 'gold', 'gold & steel', 'orange', 'pink', 'red', 'green', 'purple'];
+
+		foreach($colors as $color) {
+			$newColor = new BraceletColor;
+			$newColor->name = $color;
+			$newColor->admin_id = Admin::first()->id;
+			$newColor->save();
+		}
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::dropIfExists('bracelet_colors');
+	}
+};

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
@@ -17,7 +16,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-use App\Enums\WatchStatesEnum;
+use App\Enums\InformationStatus;
 
 class Watch extends Model implements Viewable, HasMedia
 {
@@ -25,16 +24,23 @@ class Watch extends Model implements Viewable, HasMedia
 
 	protected $fillable = [
 		'id',
-		'user_id',
-		'type_id',
-		'brand_id',
 		'collection_id',
+		'movement_id',
 		'slug',
 		'name',
 		'description',
-		'characteristics',
-		'state',
+		'bezel',
+		'bracelet',
+		'case',
+		'crown',
+		'crystal',
+		'dial',
+		'function',
+		'release_price',
+		'current_price',
+		'status',
 		'published_at',
+		'admin_id',
 		'created_at',
 		'updated_at',
 		'deleted_at'
@@ -48,8 +54,14 @@ class Watch extends Model implements Viewable, HasMedia
 	protected function casts(): array
 	{
 		return [
-			'state' => WatchStatesEnum::class,
-			'values_web' => AsCollection::class,
+			'bezel' => AsCollection::class,
+			'bracelet' => AsCollection::class,
+			'case' => AsCollection::class,
+			'crown' => AsCollection::class,
+			'crystal' => AsCollection::class,
+			'dial' => AsCollection::class,
+			'function' => AsCollection::class,
+			'status' => InformationStatus::class,
 			'published_at' => 'date:Y-m-d h:i:s',
 			'created_at' => 'date:Y-m-d h:i:s',
 			'updated_at' => 'date:Y-m-d h:i:s',
@@ -66,23 +78,7 @@ class Watch extends Model implements Viewable, HasMedia
 	{
 		return SlugOptions::create()
 			->saveSlugsTo('slug')
-			->generateSlugsFrom('name')
-			->skipGenerateWhen(fn () => ($this->state->color() != 'blue'));
-	}
-
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
-
-	public function type()
-	{
-		return $this->belongsTo(Type::class);
-	}
-
-	public function brand()
-	{
-		return $this->belongsTo(Brand::class);
+			->generateSlugsFrom('name');
 	}
 
 	public function collection()
@@ -90,9 +86,19 @@ class Watch extends Model implements Viewable, HasMedia
 		return $this->belongsTo(Collection::class);
 	}
 
+	public function movement()
+	{
+		return $this->belongsTo(Movement::class);
+	}
+
+	public function admin()
+	{
+		return $this->belongsTo(Admin::class);
+	}
+
 	public function scopePublished($query)
 	{
-		$query->where('state', WatchStatesEnum::Published);
+		$query->where('status', InformationStatus::Published);
 	}
 
 	public function registerMediaCollections(): void

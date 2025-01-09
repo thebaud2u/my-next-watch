@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -17,17 +15,20 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Type extends Model implements Viewable, HasMedia
+use App\Enums\InformationStatus;
+
+class Collection extends Model implements Viewable, HasMedia
 {
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
 		'id',
-		'user_id',
 		'brand_id',
 		'slug',
 		'name',
 		'description',
+		'status',
+		'admin_id',
 		'created_at',
 		'updated_at',
 		'deleted_at'
@@ -41,6 +42,7 @@ class Type extends Model implements Viewable, HasMedia
 	protected function casts(): array
 	{
 		return [
+			'status' => InformationStatus::class,
 			'created_at' => 'date:Y-m-d h:i:s',
 			'updated_at' => 'date:Y-m-d h:i:s',
 			'deleted_at' => 'datetime'
@@ -64,9 +66,9 @@ class Type extends Model implements Viewable, HasMedia
 		return $this->belongsTo(Brand::class);
 	}
 
-	public function user()
+	public function admin()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(Admin::class);
 	}
 
 	public function registerMediaCollections(): void

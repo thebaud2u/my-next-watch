@@ -1,6 +1,6 @@
 <x-app-layout>
 	@push('seo')
-		<title>{{ __('Find your job in transport and logistics') }}</title>
+		<title>My Next Watch</title>
 		<meta name="description" content="{{ __(':site allows you to find the watch that matchs your criterias', ['site' => env('APP_NAME')]) }}">
 		<meta name="keywords" content="{{ __(':site, watchs, watch', ['site' => env('APP_NAME')]) }}" />
 		<meta name="robots" content="max-snippet:-1">
@@ -19,7 +19,7 @@
 
 					<p class="mb-2 lg:mb-4 text-black text-center text-sm sm:text-base lg:text-xl lg:tracking-tight font-thin max-w-[650px] mx-auto">
 						{{ __(':site allows you to find the watch that matchs your criterias' ,['site' => env('APP_NAME')]) }}.<br/>
-						{{ __('Follow our steps to help you find your next watch') }}
+						{{ __('Follow our steps to help you find your next watch') }} !
 					</p>
 
 					<div class="w-full flex flex-col justify-center items-center lg:pt-8 lg:pb-4">

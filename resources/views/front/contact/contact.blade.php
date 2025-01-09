@@ -7,8 +7,6 @@
 		{{ __('Contact us') }}
 	</x-slot>
 
-	{{ Breadcrumbs::render('contact') }}
-
 	<div class="w-full sm:max-w-4xl mx-auto mb-6 sm:px-6 sm:py-4 sm:rounded-md sm:border sm:border-gray-200">
 		<div class="flex flex-row flex-wrap my-6 mx-10">
 			<h2 class="mb-4 leading-10 text-2xl text-left font-bold mr-4 text-mnw-blue">

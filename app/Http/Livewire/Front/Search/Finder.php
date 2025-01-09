@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Front\Posts;
+namespace App\Http\Livewire\Front\Search;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use Livewire\Attributes\On;
 
-use App\Models\City;
-use App\Models\Post;
-use App\Models\PostType;
-use App\Models\Thematic;
+use App\Models\Brand;
+use App\Models\Bracelet;
+use App\Models\Case;
+use App\Models\Movement;
+use App\Models\Watch;
 
 class Index extends Component
 {

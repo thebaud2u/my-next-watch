@@ -17,7 +17,6 @@ return new class extends Migration
 	{
 		Schema::create('users', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('title_id')->nullable();
 			$table->unsignedBigInteger('gender_id')->nullable();
 			$table->string('slug');
 			$table->string('nickname');
@@ -32,17 +31,15 @@ return new class extends Migration
 			$table->timestamps();
 			$table->softDeletes();
 
-			$table->foreign('title_id')->references('id')->on('titles')->onDelete('set null');
 			$table->foreign('gender_id')->references('id')->on('genders')->onDelete('set null');
 			$table->foreign('experience_id')->references('id')->on('experiences')->onDelete('set null');
 		});
 
 		$newUser = new User;
-		$newUser->title_id = 2;
 		$newUser->gender_id = 2;
 		$newUser->nickname = 'TheCreator';
-		$newUser->first_name = 'Jean-Clement';
-		$newUser->last_name = 'Thebaud';
+		$newUser->first_name = 'Test';
+		$newUser->last_name = 'User';
 		$newUser->email = 'thebaud.clement@gmail.com';
 		$newUser->experience_id = 2;
 		$newUser->save();

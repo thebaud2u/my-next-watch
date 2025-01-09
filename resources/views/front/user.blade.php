@@ -6,8 +6,6 @@
 		<meta name="robots" content="max-snippet:-1">
 	@endpush
 
-	{{ Breadcrumbs::render('profile', $user) }}
-
 	<div class="py-5 px-4 lg:px-6">
 		<div class="flex flex-col s:flex-row lg:min-h-[600px]">
 			<div class="flex-1">

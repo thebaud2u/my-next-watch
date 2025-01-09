@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -17,6 +16,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+use App\Enums\InformationStatus;
+
 class Brand extends Model implements Viewable, HasMedia
 {
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
@@ -25,8 +26,12 @@ class Brand extends Model implements Viewable, HasMedia
 		'id',
 		'slug',
 		'name',
+		'logo',
 		'description',
-		'user_id',
+		'nationality',
+		'external_link',
+		'status',
+		'admin_id',
 		'created_at',
 		'updated_at',
 		'deleted_at'
@@ -40,6 +45,7 @@ class Brand extends Model implements Viewable, HasMedia
 	protected function casts(): array
 	{
 		return [
+			'status' => InformationStatus::class,
 			'created_at' => 'date:Y-m-d h:i:s',
 			'updated_at' => 'date:Y-m-d h:i:s',
 			'deleted_at' => 'datetime'
@@ -58,9 +64,14 @@ class Brand extends Model implements Viewable, HasMedia
 			->generateSlugsFrom('name');
 	}
 
-	public function user()
+	public function admin()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(Admin::class);
+	}
+
+	public function address(): MorphOne
+	{
+		return $this->morphOne(Address::class, 'model');
 	}
 
 	public function registerMediaCollections(): void

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use App\Enums\WatchStatesEnum;
+use App\Enums\InformationStatus;
 
 return new class extends Migration
 {
@@ -17,23 +17,56 @@ return new class extends Migration
 	{
 		Schema::create('watches', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('user_id')->nullable();
-			$table->unsignedBigInteger('type_id')->nullable();
-			$table->unsignedBigInteger('brand_id')->nullable();
 			$table->unsignedBigInteger('collection_id')->nullable();
+			$table->unsignedBigInteger('movement_id')->nullable();
 			$table->string('slug');
 			$table->string('name', 255);
+			$table->string('reference', 255);
 			$table->text('description')->nullable();
-			$table->json('characteristics');
-			$table->unsignedTinyInteger('state')->default(WatchStatesEnum::Draft->value);
+			$table->json('bezel')->default(json_encode([
+				'color'=> null,
+				'direction' => 'unidirectional',
+				'material'=> null
+			]));
+			$table->json('bracelet')->default(json_encode([
+				'style'=> null,
+				'clasp' => null,
+				'material'=> null
+			]));
+			$table->json('case')->default(json_encode([
+				'diameter' => null,
+				'lug-to-lug' => null,
+				'lug width' => null,
+				'thickness' => null,
+				'waterproofness' => null,
+				'material' => null
+			]));
+			$table->json('crown')->default(json_encode([
+				'material'=> null,
+				'screwed down' => true,
+				'detail'=> null
+			]));
+			$table->json('crystal')->default(json_encode([
+				'material'=> null,
+				'domed' => true,
+			]));
+			$table->json('dial')->default(json_encode([
+				'color' => null,
+				'domed' => false,
+				'textured' => false
+			]));
+			$table->json('function')->nullable();
+			$table->double('release_price');
+			$table->double('current_price')->nullable();
+			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
 			$table->timestamp('published_at')->nullable();
+			$table->unsignedBigInteger('admin_id')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-			$table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
-			$table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
 			$table->foreign('collection_id')->references('id')->on('collections')->onDelete('set null');
+			$table->foreign('movement_id')->references('id')->on('movements')->onDelete('set null');
+			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 	}
 
