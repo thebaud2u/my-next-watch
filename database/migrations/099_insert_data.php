@@ -125,7 +125,7 @@ return new class extends Migration
 					'name' => 'Black Bay',
 					'reference' => 'm7941a1a0ru-0003',
 					'bezel' => [
-						'color' => ['burgundy'],
+						'color' => ['burgundy', 'steel'],
 						'direction' => 'unidirectional',
 						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
@@ -183,7 +183,7 @@ return new class extends Migration
 					'name' => 'Black Bay',
 					'reference' => 'm7941a1a0ru-0001',
 					'bezel' => [
-						'color' => ['burgundy'],
+						'color' => ['burgundy', 'steel'],
 						'direction' => 'unidirectional',
 						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
@@ -241,7 +241,7 @@ return new class extends Migration
 					'name' => 'Black Bay',
 					'reference' => 'm7941a1a0ru-0002',
 					'bezel' => [
-						'color' => ['burgundy'],
+						'color' => ['burgundy', 'steel'],
 						'direction' => 'unidirectional',
 						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
@@ -589,7 +589,7 @@ return new class extends Migration
 					'name' => 'Black Bay',
 					'reference' => 'm79210cnu-0001',
 					'bezel' => [
-						'color' => ['black'],
+						'color' => ['black', 'steel'],
 						'direction' => 'unidirectional',
 						'marking' => ['engraved', 'numerals'],
 						'material' => ['PVD-treated stainless steel', 'ceramic']
@@ -647,7 +647,7 @@ return new class extends Migration
 					'name' => 'Black Bay',
 					'reference' => 'm79210cnu-0001',
 					'bezel' => [
-						'color' => ['black'],
+						'color' => ['black', 'steel'],
 						'direction' => 'unidirectional',
 						'marking' => ['engraved', 'numerals'],
 						'material' => ['PVD-treated stainless steel', 'ceramic']
