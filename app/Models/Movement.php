@@ -16,7 +16,6 @@ class Movement extends Model
 		'brand_id',
 		'name',
 		'type',
-		'power_reserve',
 		'COSC',
 		'manufactured_caliber',
 		'description',

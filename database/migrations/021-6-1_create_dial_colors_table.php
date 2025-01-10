@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\CrystalMaterial;
+use App\Models\WatchDetails\DialColor;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('crystal_materials', function (Blueprint $table) {
+		Schema::create('dial_colors', function (Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
@@ -29,13 +29,14 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
-		$materials = ['sapphire', 'mineral', 'plexiglass', 'acrylic'];
+		$admin = Admin::first();
+		$colors = ['black', 'sunburst', 'white', 'gold', 'red', 'green', 'yellow', 'purple', 'blue'];
 
-		foreach($materials as $material) {
-			$newMaterial = new CrystalMaterial;
-			$newMaterial->name = $material;
-			$newMaterial->admin_id = Admin::first()->id;
-			$newMaterial->save();
+		foreach($colors as $color) {
+			$newColor = new DialColor;
+			$newColor->name = $color;
+			$newColor->admin_id = $admin->id;
+			$newColor->save();
 		}
 	}
 
@@ -46,6 +47,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('crystal_materials');
+		Schema::dropIfExists('dial_colors');
 	}
 };

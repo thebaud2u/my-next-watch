@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\CrownMaterial;
+use App\Models\WatchDetails\BezelColor;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('crown_materials', function (Blueprint $table) {
+		Schema::create('bezel_colors', function (Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
@@ -29,13 +29,14 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
-		$materials = ['stainless steel', 'aluminium', 'gold', 'rose gold', 'bronze', 'titanium'];
+		$admin = Admin::first();
+		$color = ['burgundy', 'red', 'black', 'white', 'yellow', 'green', 'sunray'];
 
-		foreach($materials as $material) {
-			$newMaterial = new CrownMaterial;
-			$newMaterial->name = $material;
-			$newMaterial->admin_id = Admin::first()->id;
-			$newMaterial->save();
+		foreach($color as $color) {
+			$newColor = new BezelColor;
+			$newColor->name = $color;
+			$newColor->admin_id = $admin->id;
+			$newColor->save();
 		}
 	}
 
@@ -46,6 +47,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('crown_materials');
+		Schema::dropIfExists('bezel_colors');
 	}
 };

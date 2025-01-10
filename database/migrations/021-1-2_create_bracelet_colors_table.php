@@ -29,12 +29,13 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
+		$admin = Admin::first();
 		$colors = ['steel', 'silver', 'beige', 'white', 'blue', 'burgundy', 'bronze', 'brown', 'grey', 'yellow', 'black', 'gold', 'gold & steel', 'orange', 'pink', 'red', 'green', 'purple'];
 
 		foreach($colors as $color) {
 			$newColor = new BraceletColor;
 			$newColor->name = $color;
-			$newColor->admin_id = Admin::first()->id;
+			$newColor->admin_id = $admin->id;
 			$newColor->save();
 		}
 	}

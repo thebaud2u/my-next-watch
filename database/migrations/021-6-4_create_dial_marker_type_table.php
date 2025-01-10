@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\BraceletClasp;
+use App\Models\WatchDetails\MarkerType;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('bracelet_clasps', function (Blueprint $table) {
+		Schema::create('dial_marker_types', function (Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
@@ -29,13 +29,14 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
-		$clasps = ['folding', 'single deployant', 'butterfly', 'triple deployant', 'ardillon buckle', 'sliding buckle', 'velcro', '"t-fit"'];
+		$admin = Admin::first();
+		$types = ['indexes', 'numerals', 'arabic'];
 
-		foreach($clasps as $clasp) {
-			$newClasp = new BraceletClasp;
-			$newClasp->name = $clasp;
-			$newClasp->admin_id = Admin::first()->id;
-			$newClasp->save();
+		foreach($types as $type) {
+			$newType = new MarkerType;
+			$newType->name = $type;
+			$newType->admin_id = $admin->id;
+			$newType->save();
 		}
 	}
 
@@ -46,6 +47,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('bracelet_clasps');
+		Schema::dropIfExists('dial_marker_types');
 	}
 };

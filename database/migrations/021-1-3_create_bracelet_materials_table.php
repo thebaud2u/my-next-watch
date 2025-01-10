@@ -29,14 +29,15 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
+		$admin = Admin::first();
 		$materials = ['stainless steel', 'aluminium', 'rubber', 'ceramics', 'add', 'ostrich leather', 'crocodile skin',
 			'lizard leather', 'shark leather', 'snake leather', 'cowhide', 'plastic', 'gold & steel',
-			'gold', 'rose gold', 'alligator skin', 'gold plated', 'satin', 'silicone', 'textile', 'titanium'];
+			'gold', 'rose gold', 'alligator skin', 'gold plated', 'satin', 'silicone', 'textile', 'titanium', 'hybrid leather'];
 
 		foreach($materials as $material) {
 			$newMaterial = new BraceletMaterial;
 			$newMaterial->name = $material;
-			$newMaterial->admin_id = Admin::first()->id;
+			$newMaterial->admin_id = $admin->id;
 			$newMaterial->save();
 		}
 	}

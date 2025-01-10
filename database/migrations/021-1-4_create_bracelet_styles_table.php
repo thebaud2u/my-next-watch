@@ -29,12 +29,13 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
-		$styles = ['mesh', 'oyster', 'beads of rice', 'jubilee', 'expanding'];
+		$admin = Admin::first();
+		$styles = ['mesh', 'oyster', 'beads of rice', 'jubilee', 'expanding', 'tropic'];
 
 		foreach($styles as $style) {
 			$newStyle = new BraceletStyle;
 			$newStyle->name = $style;
-			$newStyle->admin_id = Admin::first()->id;
+			$newStyle->admin_id = $admin->id;
 			$newStyle->save();
 		}
 	}

@@ -22,7 +22,6 @@ return new class extends Migration
 			$table->unsignedBigInteger('brand_id')->nullable();
 			$table->string('name', 255);
 			$table->enum('type', ['quartz', 'solar', 'automatic', 'manual']);
-			$table->tinyInteger('power_reserve')->nullable();
 			$table->boolean('COSC')->default(false);
 			$table->boolean('METAS')->default(false);
 			$table->boolean('manufactured_caliber')->default(false);

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\BezelMaterial;
+use App\Models\WatchDetails\BraceletStitchingColor;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('bezel_materials', function (Blueprint $table) {
+		Schema::create('bracelet_stitching_colors', function (Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
@@ -29,13 +29,14 @@ return new class extends Migration
 			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
 		});
 
-		$materials = ['stainless steel', 'aluminium', 'gold', 'rose gold', 'bronze', 'titanium'];
+		$admin = Admin::first();
+		$colors = ['white', 'cream', 'blue'];
 
-		foreach($materials as $material) {
-			$newMaterial = new BezelMaterial;
-			$newMaterial->name = $material;
-			$newMaterial->admin_id = Admin::first()->id;
-			$newMaterial->save();
+		foreach($colors as $color) {
+			$newStitchingColor = new BraceletStitchingColor;
+			$newStitchingColor->name = $color;
+			$newStitchingColor->admin_id = $admin->id;
+			$newStitchingColor->save();
 		}
 	}
 
@@ -46,6 +47,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('bezel_materials');
+		Schema::dropIfExists('bracelet_stitching_colors');
 	}
 };
