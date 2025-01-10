@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\MarkerColor;
+use App\Models\WatchDetails\DialMarkerColor;
 
 return new class extends Migration
 {
@@ -33,7 +33,7 @@ return new class extends Migration
 		$colors = ['gold', 'silver'];
 
 		foreach($colors as $color) {
-			$newColor = new MarkerColor;
+			$newColor = new DialMarkerColor;
 			$newColor->name = $color;
 			$newColor->admin_id = $admin->id;
 			$newColor->save();

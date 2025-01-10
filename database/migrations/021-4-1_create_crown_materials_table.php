@@ -30,7 +30,7 @@ return new class extends Migration
 		});
 
 		$admin = Admin::first();
-		$materials = ['stainless steel', 'aluminium', 'gold', 'rose gold', 'bronze', 'titanium'];
+		$materials = ['stainless steel', 'aluminium', 'gold', 'rose gold', 'bronze', 'titanium', 'PVD-treated stainless steel'];
 
 		foreach($materials as $material) {
 			$newMaterial = new CrownMaterial;

@@ -30,7 +30,7 @@ return new class extends Migration
 		});
 
 		$admin = Admin::first();
-		$color = ['burgundy', 'red', 'black', 'white', 'yellow', 'green', 'sunray'];
+		$color = ['burgundy', 'red', 'black', 'white', 'yellow', 'green', 'sunray', 'steel'];
 
 		foreach($color as $color) {
 			$newColor = new BezelColor;

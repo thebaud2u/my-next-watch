@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\MarkerType;
+use App\Models\WatchDetails\DialMarkerType;
 
 return new class extends Migration
 {
@@ -33,7 +33,7 @@ return new class extends Migration
 		$types = ['indexes', 'numerals', 'arabic'];
 
 		foreach($types as $type) {
-			$newType = new MarkerType;
+			$newType = new DialMarkerType;
 			$newType->name = $type;
 			$newType->admin_id = $admin->id;
 			$newType->save();

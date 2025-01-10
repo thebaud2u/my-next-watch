@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Enums\InformationStatus;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\CaseColor;
+use App\Models\WatchDetails\CrownColor;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('case_colors', function (Blueprint $table) {
+		Schema::create('crown_colors', function (Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
@@ -33,7 +33,7 @@ return new class extends Migration
 		$colors = ['black', 'steel', 'gold', 'rose gold'];
 
 		foreach($colors as $color) {
-			$newColor = new CaseColor;
+			$newColor = new CrownColor;
 			$newColor->name = $color;
 			$newColor->admin_id = $admin->id;
 			$newColor->save();
@@ -47,6 +47,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('case_colors');
+		Schema::dropIfExists('crown_colors');
 	}
 };

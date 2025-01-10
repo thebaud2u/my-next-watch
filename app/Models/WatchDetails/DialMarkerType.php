@@ -5,7 +5,7 @@ namespace App\Models\WatchDetails;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MarkerColor extends Model
+class DialMarkerType extends Model
 {
 	use SoftDeletes;
 

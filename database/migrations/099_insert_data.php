@@ -28,9 +28,9 @@ use App\Models\WatchDetails\CrownColor;
 use App\Models\WatchDetails\CrownMaterial;
 use App\Models\WatchDetails\CrystalMaterial;
 use App\Models\WatchDetails\DialColor;
-use App\Models\WatchDetails\MarkerColor;
-use App\Models\WatchDetails\MarkerLumeColor;
-use App\Models\WatchDetails\MarkerType;
+use App\Models\WatchDetails\DialMarkerColor;
+use App\Models\WatchDetails\DialMarkerLumeColor;
+use App\Models\WatchDetails\DialMarkerType;
 
 return new class extends Migration
 {
@@ -85,14 +85,14 @@ return new class extends Migration
 		$movements = [
 			'Tudor' => [
 				0 => [
-					'name' => 'MT5602‑U',
+					'name' => 'MT5602-U',
 					'type' => 'Automatic',
 					'COSC' => false,
 					'METAS' => true,
 					'manufactured_caliber' => true,
 					'nationality' => 'Swiss'
 				],
-				0 => [
+				1 => [
 					'name' => 'MT5602',
 					'type' => 'Automatic',
 					'COSC' => true,
@@ -121,13 +121,13 @@ return new class extends Migration
 		$watches = [
 			'Black Bay' => [
 				0 => [
-					'movement_id' => 'MT5602‑U',
+					'movement_id' => 'MT5602-U',
 					'name' => 'Black Bay',
 					'reference' => 'm7941a1a0ru-0003',
 					'bezel' => [
 						'color' => ['burgundy'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -179,13 +179,13 @@ return new class extends Migration
 					'current_price' => null
 				],
 				1 => [
-					'movement_id' => 'MT5602‑U',
+					'movement_id' => 'MT5602-U',
 					'name' => 'Black Bay',
 					'reference' => 'm7941a1a0ru-0001',
 					'bezel' => [
 						'color' => ['burgundy'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -237,13 +237,13 @@ return new class extends Migration
 					'current_price' => null
 				],
 				2 => [
-					'movement_id' => 'MT5602‑U',
+					'movement_id' => 'MT5602-U',
 					'name' => 'Black Bay',
 					'reference' => 'm7941a1a0ru-0002',
 					'bezel' => [
 						'color' => ['burgundy'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -295,13 +295,13 @@ return new class extends Migration
 					'current_price' => null
 				],
 				3 => [
-					'movement_id' => 'MT5602‑U',
+					'movement_id' => 'MT5602-U',
 					'name' => 'Black Bay Ceramic',
 					'reference' => 'm79210cnu-0007',
 					'bezel' => [
 						'color' => ['black', 'sunray'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['PVD-treated stainless steel', 'ceramic']
 					],
 					'bracelet' => [
@@ -359,7 +359,7 @@ return new class extends Migration
 					'bezel' => [
 						'color' => ['black', 'steel'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -417,7 +417,7 @@ return new class extends Migration
 					'bezel' => [
 						'color' => ['black', 'steel'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -475,7 +475,7 @@ return new class extends Migration
 					'bezel' => [
 						'color' => ['black', 'steel'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -533,7 +533,7 @@ return new class extends Migration
 					'bezel' => [
 						'color' => ['green', 'steel'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['stainless steel', 'aluminium']
 					],
 					'bracelet' => [
@@ -591,7 +591,7 @@ return new class extends Migration
 					'bezel' => [
 						'color' => ['black'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['PVD-treated stainless steel', 'ceramic']
 					],
 					'bracelet' => [
@@ -649,7 +649,7 @@ return new class extends Migration
 					'bezel' => [
 						'color' => ['black'],
 						'direction' => 'unidirectional',
-						'markings' => ['engraved', 'numerals'],
+						'marking' => ['engraved', 'numerals'],
 						'material' => ['PVD-treated stainless steel', 'ceramic']
 					],
 					'bracelet' => [
@@ -717,7 +717,7 @@ return new class extends Migration
 				}
 
 				foreach($watch['bezel']['marking'] as $marking) {
-					$bezelMarkings[] = BezelMarking::where('name', $marking)->first()->id;
+					$bezelmarking[] = BezelMarking::where('name', $marking)->first()->id;
 				}
 
 				foreach($watch['bezel']['material'] as $material) {
@@ -727,26 +727,30 @@ return new class extends Migration
 				$newWatch->bezel = [
 					'color' => $bezelColors,
 					'direction' => $watch['bezel']['direction'],
-					'marking' => $bezelMarkings,
+					'marking' => $bezelmarking,
 					'material' => $bezelMaterials
 				];
 
 				// Bracelet
 				foreach($watch['bracelet']['clasp_color'] as $color) {
-					$claspColors[] = ClaspColor::where('name', $color)->first()->id;
+					$claspColors[] = BraceletClaspColor::where('name', $color)->first()->id;
 				}
 
 				foreach($watch['bracelet']['clasp_material'] as $material) {
-					$claspMaterials[] = ClaspMaterial::where('name', $material)->first()->id;
+					$claspMaterials[] = BraceletClaspMaterial::where('name', $material)->first()->id;
 				}
 
 				foreach($watch['bracelet']['material'] as $material) {
 					$braceletMaterials[] = BraceletMaterial::where('name', $material)->first()->id;
 				}
 
+				$stitchingColors = null;
 				foreach($watch['bracelet']['stitching_color'] as $color) {
 					$stitchingColors[] = BraceletStitchingColor::where('name', $color)->first()->id;
 				}
+
+				$braceletStyle = null;
+				if(!is_null($watch['bracelet']['style'])) BraceletStyle::where('name', $watch['bracelet']['style'])->first()->id;
 
 				$newWatch->bracelet = [
 					'clasp' => BraceletClasp::where('name', $watch['bracelet']['clasp'])->first()->id,
@@ -754,10 +758,10 @@ return new class extends Migration
 					'clasp_material' => $claspMaterials,
 					'material' => $braceletMaterials,
 					'micro_adjustement' => $watch['bracelet']['micro_adjustement'],
-					'micro_adjustement_system' => BraceletMaterial::where('name', '"t-fit"')->first()->id,
+					'micro_adjustement_system' => BraceletMicroAdjustementSystem::where('name', '"t-fit"')->first()->id,
 					'stitching' => $watch['bracelet']['stitching'],
 					'stitching_color' => $stitchingColors,
-					'style' => BraceletStyle::where('name', $watch['bracelet']['style'])->first()->id
+					'style' => $braceletStyle
 				];
 
 				// Case
@@ -781,7 +785,7 @@ return new class extends Migration
 
 				// Crown
 				foreach($watch['crown']['color'] as $color) {
-					$crownColors[] = CorwnColor::where('name', $color)->first()->id;
+					$crownColors[] = CrownColor::where('name', $color)->first()->id;
 				}
 
 				foreach($watch['crown']['material'] as $material) {
@@ -811,15 +815,15 @@ return new class extends Migration
 				}
 
 				foreach($watch['dial']['marker_color'] as $color) {
-					$markerColors[] = MarkerColor::where('name', $color)->first()->id;
+					$markerColors[] = DialMarkerColor::where('name', $color)->first()->id;
 				}
 
 				foreach($watch['dial']['marker_lume_color'] as $color) {
-					$markerLumeColors[] = MarkerLumeColor::where('name', $color)->first()->id;
+					$markerLumeColors[] = DialMarkerLumeColor::where('name', $color)->first()->id;
 				}
 
 				foreach($watch['dial']['marker_type'] as $type) {
-					$markerType[] = MarkerType::where('name', $type)->first()->id;
+					$markerType[] = DialMarkerType::where('name', $type)->first()->id;
 				}
 
 				$newWatch->dial = [
