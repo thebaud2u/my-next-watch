@@ -78,7 +78,7 @@ class Watch extends Model implements Viewable, HasMedia
 	{
 		return SlugOptions::create()
 			->saveSlugsTo('slug')
-			->generateSlugsFrom('name');
+			->generateSlugsFrom('reference');
 	}
 
 	public function collection()

@@ -105,11 +105,25 @@ Route::middleware(['auth:web'])->group(function () {
  * -------------- */
 
 /* -------------- *
-*      Posts      *
+*      Brand      *
 * --------------- */
-Route::controller(App\Http\Controllers\Front\Search\SearchController::class)->group(function () {
+Route::controller(App\Http\Controllers\Front\BrandController::class)->name('brand.')->group(function () {
+	Route::get('/brand/{slug}', 'index')->name('show');
+});
+
+/* -------------- *
+*      Search     *
+* --------------- */
+Route::controller(App\Http\Controllers\Front\SearchController::class)->group(function () {
 	Route::get('/lets-find-my-next-watch', 'index')->name('lets-find-my-next-watch');
-	Route::get('/search', 'searc')->name('search');
+	Route::get('/search', 'search')->name('search');
+});
+
+/* -------------- *
+*     Watches     *
+* --------------- */
+Route::controller(App\Http\Controllers\Front\WatchController::class)->name('watch.')->group(function () {
+	Route::get('/watch/{slug}', 'index')->name('show');
 });
 
 /* -------------- *

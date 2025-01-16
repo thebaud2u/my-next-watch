@@ -641,70 +641,32 @@ return new class extends Migration
 					],
 					'release_price' => 5350,
 					'current_price' => null
-				],
-				9 => [
-					'movement_id' => 'MT5602-U',
-					'name' => 'Black Bay',
-					'reference' => 'm79210cnu-0001',
-					'bezel' => [
-						'color' => ['black', 'steel'],
-						'direction' => 'unidirectional',
-						'marking' => ['engraved', 'numerals'],
-						'material' => ['PVD-treated stainless steel', 'ceramic']
-					],
-					'bracelet' => [
-						'clasp' => 'folding',
-						'clasp_color' => ['black'],
-						'clasp_material' => ['PVD-treated stainless steel'],
-						'material' => ['hybrid leather', 'rubber'],
-						'micro_adjustement' => false,
-						'micro_adjustement_system' => null,
-						'stitching' => true,
-						'stitching_color' => ['white'],
-						'style' => null
-					],
-					'case' => [
-						'color' => ['black'],
-						'diameter' => 41,
-						'lug_to_lug' => 50,
-						'lug_width' => 22,
-						'material' => ['ceramic'],
-						'open_case_back' => true,
-						'sapphire_crystal_case_back' => true,
-						'thickness' => 14.4,
-						'waterproofness' => '200m (660 ft)'
-					],
-					'crown' => [
-						'color' => ['black'],
-						'detail' => 'tudor\'s rose in relief',
-						'material' => ['PVD-treated stainless steel'],
-						'screwed_down' => true
-					],
-					'crystal' => [
-						'domed' => true,
-						'material' => ['sapphire']
-					],
-					'dial' => [
-						'color' => ['black'],
-						'domed' => true,
-						'marker_color' => ['silver'],
-						'marker_lume' => true,
-						'marker_lume_color' => ['green'],
-						'marker_type' => ['indexes'],
-						'textured' => false
-					],
-					'specification' => [
-						'complication' => ['self-winding'],
-						'power_reserve' => 70
-					],
-					'release_price' => 5350,
-					'current_price' => null
-				],
+				]
 			]
 		];
 
 		foreach($watches as $collection => $values) {
 			foreach($values as $index => $watch) {
+				$bezelColors = null;
+				$bezelColors = null;
+				$bezelmarking = null;
+				$bezelMaterials = null;
+				$claspColors = null;
+				$claspMaterials = null;
+				$braceletMaterials = null;
+				$stitchingColors = null;
+				$caseColors = null;
+				$caseMaterials = null;
+				$crownColors = null;
+				$crownMaterials = null;
+				$crystalMaterials = null;
+				$dialColors = null;
+				$markerColors = null;
+				$markerLumeColors = null;
+				$markerType = null;
+				$complications = null;
+
+
 				$newWatch = new Watch;
 				$newWatch->collection_id = Collection::where('name', $collection)->first()->id;
 				$newWatch->movement_id = Movement::where('name', $watch['movement_id'])->first()->id;
@@ -744,7 +706,6 @@ return new class extends Migration
 					$braceletMaterials[] = BraceletMaterial::where('name', $material)->first()->id;
 				}
 
-				$stitchingColors = null;
 				foreach($watch['bracelet']['stitching_color'] as $color) {
 					$stitchingColors[] = BraceletStitchingColor::where('name', $color)->first()->id;
 				}

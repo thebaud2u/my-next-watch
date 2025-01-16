@@ -42,7 +42,7 @@
 			</header>
 
 			<div class="mt-6 flex flex-col flex-wrap content-center">
-				<button type="button" wire:click="remove()" x-on:click="$dispatch('close')" class="px-3 py-1.5 whitespace-nowrap bg-mnw-blue hover:bg-vjcyan-900 border-2 border-vj-darkcyan hover:border-mnw-blue rounded-md text-sm xl:text-base text-white font-medium focus:outline-none focus:ring-0 transition ease-in-out duration-150 block">
+				<button type="button" wire:click="remove()" x-on:click="$dispatch('close')" class="px-3 py-1.5 whitespace-nowrap bg-mnw-blue hover:bg-blue-900 border-2 border-mnw-darkblue hover:border-mnw-blue rounded-md text-sm xl:text-base text-white font-medium focus:outline-none focus:ring-0 transition ease-in-out duration-150 block">
 					{{ __('Yes, delete') }}
 				</button>
 

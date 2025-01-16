@@ -103,11 +103,11 @@
 												{{-- Tag --}}
 												{{--<div class="mt-2 max-sm:mb-2">
 													@if($post->type->bloodline()->orderBy('id', 'asc')->skip(1)->first()->slug == 'veterinaire')
-														<x-front.tag :class="'text-white text-xs bg-vj-cyan max-w-[30%]'">
+														<x-front.tag :class="'text-white text-xs max-w-[30%]'">
 															<span>{{ __('Veterinary') }}</span>
 														</x-front.tag>
 													@elseif($post->type->bloodline()->orderBy('id', 'asc')->skip(1)->first()->slug == 'auxiliaire-veterinaire')
-														<x-front.tag :class="'text-white text-xs bg-vj-pink max-w-[30%]'">
+														<x-front.tag :class="'text-white text-xs bg-mnw-pink max-w-[30%]'">
 															<span>{{ __('Auxiliary veterinary') }}</span>
 														</x-front.tag>
 													@endif

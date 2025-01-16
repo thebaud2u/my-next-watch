@@ -58,7 +58,7 @@
 		<div class="mt-4 text-gray-700 {{ $showDistance ? '' : 'hidden' }}">
 			<input type="hidden" name="d" {{ $showDistance ? '' : 'disabled' }} x-bind:value="r*1000">
 			<label for="range" class="block mb-2 text-sm xl:text-base">{{ __('Radius around') }}</label>
-			<input id="range" type="range" min="0" step="20" max="200" {{ $showDistance ? '' : 'disabled' }} x-ref="r" x-model="r" x-on:change="updLoc()" wire:model="filters.distance" wire:change.debounce.500ms="distanceUpdated" class="w-2/3 h-2 bg-gray-200 accent-vjcyan-500 rounded-lg appearance-none cursor-pointer">
+			<input id="range" type="range" min="0" step="20" max="200" {{ $showDistance ? '' : 'disabled' }} x-ref="r" x-model="r" x-on:change="updLoc()" wire:model="filters.distance" wire:change.debounce.500ms="distanceUpdated" class="w-2/3 h-2 bg-gray-200 accent-blue-500 rounded-lg appearance-none cursor-pointer">
 			<output class="ml-2">{{ $filters['distance'] }}</output> km
 		</div>
 	</div>

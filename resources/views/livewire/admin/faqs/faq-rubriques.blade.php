@@ -14,7 +14,7 @@
 
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap">
-			<select id="author" wire:model="author" class="rounded border border-gray-400 text-gray-400">
+			<select id="author" wire:model="author" class="rounded border border-gray-300 text-gray-400">
 				<option value="">{{ __('Select an author') }}</option>
 				@foreach($admins as $admin)
 					<option value="{{ $admin->id}}">
@@ -23,7 +23,7 @@
 				@endforeach
 			</select>
 
-			<select id="faq" wire:model="faq" class="rounded border border-gray-400 text-gray-400">
+			<select id="faq" wire:model="faq" class="rounded border border-gray-300 text-gray-400">
 				<option value="">{{ __('Select an faq') }}</option>
 				@foreach($faqs as $faq)
 					<option value="{{ $faq->id }}">
@@ -32,7 +32,7 @@
 				@endforeach
 			</select>
 
-			<div class="bg-white border-b border-gray-400 shadow-md px-2 py-1 lg:p-0 min-w-[250px]">
+			<div class="bg-white border-b border-gray-300 shadow-md px-2 py-1 lg:p-0 min-w-[250px]">
 				<div class="relative mt-1 border-b-4 border-transparent">
 					<div class="absolute inset-y-0 left-1 lg:left-2 flex items-center pointer-events-none">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -68,7 +68,7 @@
 							<tr>
 								<td class="px-2 py-2 whitespace-no-wrap border-b border-gray-200">
 									@if($faqRubrique->state->color() == 'blue')
-										<div class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"> {{ __('Draft') }}
+										<div class="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"> {{ __('Draft') }}
 									@elseif($faqRubrique->state->color() == 'green')
 										<div class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"> {{ __('Published') }}
 									@endif

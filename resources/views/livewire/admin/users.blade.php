@@ -8,7 +8,7 @@
 
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap max-w-[936px]">
-			<div class="bg-white border-b border-gray-400 shadow-md px-2 py-1 lg:p-0 text-gray-400 min-w-[250px]">
+			<div class="bg-white border-b border-gray-300 shadow-md px-2 py-1 lg:p-0 text-gray-400 min-w-[250px]">
 				<div class="relative mt-1 border-b-4 border-transparent">
 					<div class="absolute inset-y-0 left-1 lg:left-2 flex items-center pointer-events-none">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

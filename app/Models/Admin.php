@@ -36,6 +36,8 @@ class Admin extends Authenticatable
 		'last_name',
 		'job_title',
 		'email',
+		'password',
+		'email_verified_at',
 		'deleted_at'
 	];
 

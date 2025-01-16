@@ -28,7 +28,7 @@
 	<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/vnd.microsoft.icon" />
 </head>
 
-<body class="font-inter text-vj-heavycyan antialiased min-w-[280px]">
+<body class="font-inter text-mnw-blue antialiased min-w-[280px]">
 	<div class="flex flex-col min-h-screen bg-mnw-lightgray">
 		{{-- Navigation --}}
 		<header class="z-10">

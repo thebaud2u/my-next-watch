@@ -117,28 +117,28 @@
 							<x-front.input-label for="body" :value="__('Report type')" :required="true" />
 
 							<div class="pr-5">
-								<input type="radio" name="type_report" checked wire:model="type_report" value="recruteur" class="disabled:bg-gray-200 mr-2 checked:bg-vj-cyan checked:hover:bg-vj-cyan checked:active:bg-vj-cyan checked:focus:bg-vj-cyan focus:bg-vj-cyan focus:outline-none focus:ring-1 focus:ring-vj-cyan">
+								<input type="radio" name="type_report" checked wire:model="type_report" value="recruteur" class="disabled:bg-gray-200 mr-2 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 								<label for="offer_id">
 									{{ __('A registered') }}
 								</label>
 							</div>
 
 							<div class="pr-5">
-								<input type="radio" name="type_report" wire:model="type_report" value="entreprise" class="disabled:bg-gray-200 mr-2 checked:bg-vj-cyan checked:hover:bg-vj-cyan checked:active:bg-vj-cyan checked:focus:bg-vj-cyan focus:bg-vj-cyan focus:outline-none focus:ring-1 focus:ring-vj-cyan">
+								<input type="radio" name="type_report" wire:model="type_report" value="entreprise" class="disabled:bg-gray-200 mr-2 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 								<label for="type_report">
 									{{ __('A company') }}
 								</label>
 							</div>
 
 							<div class="pr-5">
-								<input type="radio" name="type_report" wire:model="type_report" value="annonce" class="disabled:bg-gray-200 mr-2 checked:bg-vj-cyan checked:hover:bg-vj-cyan checked:active:bg-vj-cyan checked:focus:bg-vj-cyan focus:bg-vj-cyan focus:outline-none focus:ring-1 focus:ring-vj-cyan">
+								<input type="radio" name="type_report" wire:model="type_report" value="annonce" class="disabled:bg-gray-200 mr-2 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 								<label for="type_report">
 									{{ __('A post') }}
 								</label>
 							</div>
 
 							<div class="pr-5">
-								<input type="radio" name="type_report" wire:model="type_report" value="candidat" class="disabled:bg-gray-200 mr-2 checked:bg-vj-cyan checked:hover:bg-vj-cyan checked:active:bg-vj-cyan checked:focus:bg-vj-cyan focus:bg-vj-cyan focus:outline-none focus:ring-1 focus:ring-vj-cyan">
+								<input type="radio" name="type_report" wire:model="type_report" value="candidat" class="disabled:bg-gray-200 mr-2 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 								<label for="type_report">
 									{{ __('An applicant') }}
 								</label>

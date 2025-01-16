@@ -2,34 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ {
+	AdminController,
 	AuthController,
 	DashboardController,
-	SettingController
+	UserController,
+	SettingController,
+	WatchController
 };
 
 /*
 |--------------------------------------------------------------------------
-| Admin Routes
+| Back-office Routes
 |--------------------------------------------------------------------------
 */
 
-
-/** -------------------------------------------------------------------- */
-/** Admin auth */
-
-/** OAuth2 client auth (SocialiteProviders/Microsoft-Azure) */
-/** (Callback route specified in MS 365 - Azure) */
-Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
-Route::get('/auth/callback', [AuthController::class, 'callback']);
-
-/** -------------------------------------------------------------------- */
-/** Back-office routes */
-
 /** '/admin' prefix group */
 Route::prefix('/back-office')->name('admin.')->group(function () {
-
-	/** Public '/' route => check if admin is authenticated */
-	Route::get('/', [AuthController::class, 'check'])->name('check'); // admin.check
+	Route::controller(AuthController::class)->group(function () {
+		Route::get('/', 'check')->name('check'); // admin.check
+		Route::get('/login', 'login')->name('login'); // admin.login
+		Route::post('/authenticate', 'authenticate')->name('authenticate'); // admin.authenticate
+	});
 
 	/** Admin authenticated routes */
 	Route::middleware(['auth:admin'])->group(function () {
@@ -38,12 +31,24 @@ Route::prefix('/back-office')->name('admin.')->group(function () {
 			Route::post('/logout', 'logout')->name('logout'); // admin.logout
 		});
 
+		Route::controller(AdminController::class)->group(function () {
+			Route::get('/admins', 'index')->name('admins'); // admin.admins
+		});
+
 		Route::controller(DashboardController::class)->group(function () {
 			Route::get('/dashboard', 'index')->name('dashboard'); // admin.dashboard
 		});
 
 		Route::controller(SettingController::class)->prefix('/settings')->name('settings.')->group(function() {
 			Route::get('/', 'index')->name('index'); // admin.settings.index
+		});
+
+		Route::controller(UserController::class)->group(function () {
+			Route::get('/users', 'index')->name('users'); // admin.users
+		});
+
+		Route::controller(WatchController::class)->group(function () {
+			Route::get('/watches', 'index')->name('watches'); // admin.watches
 		});
 	});
 });

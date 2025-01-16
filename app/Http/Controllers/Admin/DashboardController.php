@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-
-use App\Models\Post;
+use App\Models\Admin;
 use App\Models\User;
+use App\Models\Watch;
 
 class DashboardController extends Controller
 {
@@ -17,8 +16,9 @@ class DashboardController extends Controller
 	public function index()
 	{
 		return view('admin.dashboard', [
-			'countPosts' => Post::all()->count(),
-			'countUsers' => User::all()->count()
+			'admins' => Admin::all()->count(),
+			'users' => User::all()->count(),
+			'watches' => Watch::all()->count()
 		]);
 	}
 }
