@@ -47,8 +47,9 @@ Route::prefix('/back-office')->name('admin.')->group(function () {
 			Route::get('/users', 'index')->name('users'); // admin.users
 		});
 
-		Route::controller(WatchController::class)->group(function () {
-			Route::get('/watches', 'index')->name('watches'); // admin.watches
+		Route::controller(WatchController::class)->prefix('/watches')->name('watches.')->group(function () {
+			Route::get('/', 'index')->name('index'); // admin.watches.index
+			Route::get('/create-watch', 'createWatch')->name('create-watch'); // admin.watches.create-watch
 		});
 	});
 });

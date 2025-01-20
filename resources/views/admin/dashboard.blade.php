@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-				<a href="{{ route('admin.watches') }}">
+				<a href="{{ route('admin.watches.index') }}">
 					<div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
 						<button type="button" class="text-gray-900 bg-gradient-to-r from-blue-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
 							<svg fill="#000000" class="w-6 h-6" vxmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xml:space="preserve">

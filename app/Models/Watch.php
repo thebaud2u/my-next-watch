@@ -28,6 +28,7 @@ class Watch extends Model implements Viewable, HasMedia
 		'movement_id',
 		'slug',
 		'name',
+		'reference',
 		'description',
 		'bezel',
 		'bracelet',

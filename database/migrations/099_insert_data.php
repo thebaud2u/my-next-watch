@@ -10,27 +10,11 @@ use App\Models\Collection;
 use App\Models\Movement;
 use App\Models\Watch;
 
-use App\Models\WatchDetails\BezelColor;
-use App\Models\WatchDetails\BezelMarking;
-use App\Models\WatchDetails\BezelMaterial;
-use App\Models\WatchDetails\BraceletClasp;
-use App\Models\WatchDetails\BraceletClaspColor;
-use App\Models\WatchDetails\BraceletClaspMaterial;
-use App\Models\WatchDetails\BraceletColor;
-use App\Models\WatchDetails\BraceletMaterial;
-use App\Models\WatchDetails\BraceletMicroAdjustementSystem;
-use App\Models\WatchDetails\BraceletStitchingColor;
-use App\Models\WatchDetails\BraceletStyle;
-use App\Models\WatchDetails\CaseColor;
-use App\Models\WatchDetails\CaseMaterial;
-use App\Models\WatchDetails\Complication;
-use App\Models\WatchDetails\CrownColor;
-use App\Models\WatchDetails\CrownMaterial;
-use App\Models\WatchDetails\CrystalMaterial;
-use App\Models\WatchDetails\DialColor;
-use App\Models\WatchDetails\DialMarkerColor;
-use App\Models\WatchDetails\DialMarkerLumeColor;
-use App\Models\WatchDetails\DialMarkerType;
+use App\Models\WatchDetails\ {
+	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
+	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial,
+	CrystalMaterial, DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType
+};
 
 return new class extends Migration
 {
@@ -150,7 +134,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -208,7 +192,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -266,7 +250,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -324,7 +308,7 @@ return new class extends Migration
 						'open_case_back' => true,
 						'sapphire_crystal_case_back' => true,
 						'thickness' => 14.4,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['black'],
@@ -382,7 +366,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -440,7 +424,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -498,7 +482,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -556,7 +540,7 @@ return new class extends Migration
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 14.7,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -614,7 +598,7 @@ return new class extends Migration
 						'open_case_back' => true,
 						'sapphire_crystal_case_back' => true,
 						'thickness' => 14.4,
-						'waterproofness' => '200m (660 ft)'
+						'waterproofness' => 200
 					],
 					'crown' => [
 						'color' => ['black'],

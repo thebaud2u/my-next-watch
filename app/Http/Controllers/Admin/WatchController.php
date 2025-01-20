@@ -14,6 +14,14 @@ class WatchController extends Controller
 	 */
 	public function index()
 	{
-		return view('admin.watches');
+		return view('admin.watches.watches');
+	}
+
+	/**
+	 * Create watch
+	 */
+	public function createWatch()
+	{
+		return view('admin.watches.create-watch');
 	}
 }
