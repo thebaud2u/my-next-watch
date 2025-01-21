@@ -1,13 +1,7 @@
 /htdocs
 /node_modules
-/public/assets/*
-/public/css/*
-/public/js/*
-/public/mix-manifest.json
-/public/.htaccess
 /storage/media-library
 /vendor
-.env
 .env.backup
 auth.json
 npm-debug.log
