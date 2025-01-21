@@ -11,6 +11,7 @@ use Livewire\Component;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Collection;
+use App\Models\Mediable;
 use App\Models\Movement;
 use App\Models\Watch;
 
@@ -56,10 +57,14 @@ class CreateWatch extends Component
 	public $brand_id;
 	public $watchCaseColor = [];
 	public $watchCaseMaterial = [];
+	// Mediable id (create)
+	public $modelId;
 
 	// Entities
 	public Brand $brand;
+	public Brand $newBrand;
 	public Collection $newCollection;
+	public Mediable $mediable;
 	public Movement $newMovement;
 	public Watch $newWatch;
 
@@ -69,6 +74,11 @@ class CreateWatch extends Component
 	protected function rules()
 	{
 		return [
+			'brand_id' => [],
+			'newBrand.name' => [],
+			'newBrand.description' => [],
+			'newBrand.nationality' => [],
+			'newBrand.external_link' => [],
 
 			'watchCaseColor' => ['array'],
 			'watchCaseMaterial' => ['array'],
@@ -123,6 +133,40 @@ class CreateWatch extends Component
 	}
 
 	// Forms
+	public function createBrand()
+	{
+		$rules = [
+			'newBrand.name' => ['required'],
+			'newBrand.description' => ['required'],
+			'newBrand.nationality' => ['required'],
+			'newBrand.external_link' => ['required']
+		];
+
+		$messages = [
+			'newBrand.name.required' => __('The brand\'s name is mandatory'),
+			'newBrand.description.required' => __('The brand\'s description is mandatory'),
+			'newBrand.nationality.required' => __('The brand\'s nationality is mandatory'),
+			'newBrand.external_link.required' => __('The brand\'s website is mandatory'),
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBrand->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBrand->save();
+
+		$this->newBrand = new Brand;
+		// To use uploader for the new Brand logo, since it's a new brand, it doesn't have an id yet.
+		$this->mediable = Mediable::firstOrCreate([
+			'admin_id' => Auth::guard('admin')->user()->id,
+			'type' => 'brand'
+		]);
+		$this->modelId = $this->mediable->id;
+
+		$this->brands = Brand::all();
+
+		$this->dispatch('brand-created');
+	}
+
 	public function createCollection()
 	{
 		$rules = [
@@ -172,8 +216,6 @@ class CreateWatch extends Component
 
 		$this->dispatch('movement-created');
 	}
-
-
 
 	public function createCaseColor()
 	{
@@ -246,11 +288,17 @@ class CreateWatch extends Component
 		$this->dialMarkerLumeColors = DialMarkerLumeColor::all();
 		$this->dialMarkerTypes = DialMarkerType::all();
 
+		$this->newBrand = new Brand;
+		// To use uploader for the new Brand logo, since it's a new brand, it doesn't have an id yet.
+		$this->mediable = Mediable::firstOrCreate([
+			'admin_id' => Auth::guard('admin')->user()->id,
+			'type' => 'brand'
+		]);
+		$this->modelId = $this->mediable->id;
+
 		$this->newCollection = new Collection;
 		$this->newMovement = new Movement;
 		$this->newWatch = new Watch;
-		$this->newWatch->name = 'caca';
-		$this->newWatch->reference = 'pipi';
 
 		$this->newCaseColor = new CaseColor;
 		$this->newCaseMaterial = new CaseMaterial;

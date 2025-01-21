@@ -7,7 +7,7 @@
 			this.k = index;
 			this.mediaid = id;
 			this.component = '{{ $collection }}';
-			this.filename = '{{ Auth::guard('web')->user()->id }}-{{ $mediable->id ?? 0 }}-img'+index
+			this.filename = '{{ Auth::guard('admin')->check()?Auth::guard('admin')->user()->id:Auth::guard('web')->user()->id }}-{{ $mediable->id ?? 0 }}-img'+index
 		}}"
 		x-on:uploaded.window="window.Livewire.dispatch('saveMedia'+component,{detail:{file:$event.detail.file,type:$event.detail.type}})">
 

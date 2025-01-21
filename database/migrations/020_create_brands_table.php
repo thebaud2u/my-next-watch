@@ -21,8 +21,8 @@ return new class extends Migration
 			$table->id();
 			$table->string('slug');
 			$table->string('name', 255);
-			$table->string('logo', 255);
-			$table->text('description');
+			$table->string('logo', 255)->nullable();
+			$table->text('description')->nullable();
 			$table->string('nationality', 255);
 			$table->string('external_link', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);

@@ -16,12 +16,18 @@ class Mediable extends Model implements HasMedia
 	protected $fillable = [
 		'id',
 		'user_id',
+		'admin_id',
 		'type',
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(User::class);
+	}
+
+	public function admin()
+	{
+		return $this->belongsTo(Admin::class);
 	}
 
 	public function registerMediaCollections(): void
@@ -32,16 +38,6 @@ class Mediable extends Model implements HasMedia
 		$this
 			->addMediaCollection('logo')
 			->singleFile();
-
-		foreach (range(1, 5) as $key) {
-			$this->addMediaCollection('photos_presentation_'.$key)
-				->singleFile();
-		}
-
-		foreach (range(1, 5) as $key) {
-			$this->addMediaCollection('photos_team_'.$key)
-				->singleFile();
-		}
 	}
 
 	public function registerMediaConversions(Media $media = null): void
@@ -60,21 +56,5 @@ class Mediable extends Model implements HasMedia
 			->performOnCollections('bandeau')
 			->width(1280)
 			->height(1280);
-
-		$this->addMediaConversion('optimized')
-			->performOnCollections(
-				'photos_presentation_1',
-				'photos_presentation_2',
-				'photos_presentation_3',
-				'photos_presentation_4',
-				'photos_presentation_5',
-				'photos_team_1',
-				'photos_team_2',
-				'photos_team_3',
-				'photos_team_4',
-				'photos_team_5'
-			)
-			->width(800)
-			->height(800);
 	}
 }

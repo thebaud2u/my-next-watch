@@ -27,12 +27,21 @@
 					<div>
 						<x-front.input-label for="brand_id" :value="__('What\'s this watch\'s :part', ['part' => 'brand']).' ?'" :required="true" />
 
-						<select id="brand_id" wire:model="brand_id" wire:change="brandSelected" class="rounded border border-gray-300 text-gray-400">
-							<option value="">{{ __('Select a brand') }}</option>
-							@foreach($brands as $brand)
-								<option value="{{ $brand->id }}">{{ $brand->name }}</option>
-							@endforeach
-						</select>
+						<div class="block">
+							<select id="brand_id" wire:model="brand_id" wire:change="brandSelected" class="rounded border border-gray-300 text-gray-400">
+								<option value="">{{ __('Select a brand') }}</option>
+								@foreach($brands as $brand)
+									<option value="{{ $brand->id }}">{{ $brand->name }}</option>
+								@endforeach
+							</select>
+
+							{{-- Call create-brand Modal --}}
+							<button type="button" title="{{ __('Add a new brand') }}" x-on:click="$dispatch('open-modal', 'create-brand');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+							</button>
+						</div>
 
 						@error('brand_id')
 							<span class="error text-danger-700">
@@ -126,6 +135,129 @@
 					</div>
 
 					{{-- Step modals --}}
+					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable wire:ignore>
+						<header class="flex flex-row justify-center">
+							<h2 class="text-lg font-semibold pt-1">
+								{{ __('Add a new :part', ['part' => 'brand']) }}
+							</h2>
+						</header>
+
+						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
+							<div>
+								<x-front.input-label for="newBrand.name" :value="__('What is the new brand\'s name').' ?'" :required="true" />
+
+								<x-front.text-input type="text" name="newBrand.name" wire:model="newBrand.name" placeholder="{{ __('New brand name') }}" class="mt-1 block text-gray-400" />
+
+								@error('newBrand.name')
+									<span class="error text-danger-700">
+										{{ $message }}
+									</span>
+								@enderror
+							</div>
+
+							<div>
+								<x-front.input-label for="newBrand.logo" :value="__('What is the new brand\'s logo').' ?'" />
+
+								<livewire:uploader
+									:max_medias="1"
+									:first_is_main="true"
+									:class="\App\Models\Mediable::class"
+									:model_id="$modelId"
+									:collection="'logo'"
+									:grid_class="'w-full max-w-[250px]'"
+									:aspect_ratio="'aspect-square'"
+									:object_fit="'object-cover'"
+									wire:key="logo-uploader-component-{{ time() }}" />
+							</div>
+
+							<div>
+								<x-front.input-label for="newBrand.description" :value="__('Description/history of the brand')" />
+
+								<textarea name="newBrand.description" wire:model.lazy="newBrand.description" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
+
+								@error('newBrand.description')
+									<span class="error text-danger-700">
+										{{ $message }}
+									</span>
+								@enderror
+							</div>
+
+							<div>
+								<x-front.input-label for="newBrand.nationality" :value="__('What is the brand\'s nationality').' ?'" :required="true" />
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="American" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('American')" :class="'inline-block font-normal'" />
+								</div>
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="English" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('English')" :class="'inline-block font-normal'" />
+								</div>
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" wire:model="newBrand.nationality" value="French" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('French')" :class="'inline-block font-normal'" />
+								</div>
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" wire:model="newBrand.nationality" value="Japanese" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('Japanese')" :class="'inline-block font-normal'" />
+								</div>
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="German" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('German')" :class="'inline-block font-normal'" />
+								</div>
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" wire:model="newBrand.nationality" value="Swiss" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('Swiss')" :class="'inline-block font-normal'" />
+								</div>
+
+								<div class="pr-5">
+									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="Other" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-front.input-label for="newBrand.nationality" :value="__('Other')" :class="'inline-block font-normal'" />
+								</div>
+
+								@error('newBrand.nationality')
+									<span class="error text-danger-700">
+										{{ $message }}
+									</span>
+								@enderror
+							</div>
+
+							<div>
+								<x-front.input-label for="newBrand.external_link" :value="__('What is the new brand\'s website').' ?'" :required="true" />
+
+								<x-front.text-input type="text" name="newBrand.external_link" wire:model="newBrand.external_link" placeholder="{{ __('New brand website') }}" class="mt-1 block text-gray-400" />
+
+								@error('newBrand.external_link')
+									<span class="error text-danger-700">
+										{{ $message }}
+									</span>
+								@enderror
+							</div>
+						</div>
+
+						<div class="mt-6 flex flex-row flex-wrap justify-center">
+							<x-front.secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
+								{{ __('Cancel') }}
+							</x-front.secondary-button>
+
+							<x-front.primary-button wire:click="createBrand" @brand-created.window="$dispatch('close')">
+								{{ __('Add the brand') }}
+							</x-front.primary-button>
+						</div>
+					</x-front.modal>
+
 					<x-front.modal name="create-collection" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
@@ -152,7 +284,7 @@
 								{{ __('Cancel') }}
 							</x-front.secondary-button>
 
-							<x-front.primary-button wire:click="addCollection" @collection-created.window="$dispatch('close')">
+							<x-front.primary-button wire:click="createCollection" @collection-created.window="$dispatch('close')">
 								{{ __('Add the collection') }}
 							</x-front.primary-button>
 						</div>
@@ -243,7 +375,7 @@
 							</div>
 
 							<div>
-								<x-front.input-label for="newMovement.nationality" :value="__('What is the movement\'s type').' ?'" :required="true" />
+								<x-front.input-label for="newMovement.nationality" :value="__('What is the movement\'s nationality').' ?'" :required="true" />
 
 								<div class="pr-5">
 									<input type="radio" name="newMovement.nationality" checked wire:model="newMovement.nationality" value="American" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
@@ -431,7 +563,7 @@
 							{{ __('Return to the previous step') }}
 						</x-front.secondary-button>
 
-						<x-front.primary-button wire:click="addWatchCase" @watch-created.window="$dispatch('close');">
+						<x-front.primary-button wire:click="createWatchCase" @watch-created.window="$dispatch('close');">
 							{{ __('Continue to the next step') }}
 						</x-front.primary-button>
 					</div>
@@ -440,7 +572,7 @@
 					<x-front.modal name="create-case-color" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
-								{{ __('Add a new case color') }}
+								{{ __('Add a new :part', ['part' => 'case color']) }}
 							</h2>
 						</header>
 
@@ -472,7 +604,7 @@
 					<x-front.modal name="create-case-material" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
-								{{ __('Add a new case material') }}
+								{{ __('Add a new :part', ['part' => 'case material']) }}
 							</h2>
 						</header>
 

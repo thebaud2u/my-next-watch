@@ -42,7 +42,7 @@
 				</header>
 
 				<div class="mt-6 flex flex-row flex-wrap justify-center">
-					<x-front.primary-button x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.emit('deleteMedia'+component)},'100')" :class="'mr-6'">
+					<x-front.primary-button x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia'+component)},'100')" :class="'mr-6'">
 						{{ __('Yes, delete') }}
 					</x-front.primary-button>
 

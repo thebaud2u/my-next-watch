@@ -27,7 +27,6 @@ module.exports = {
 				'inter': ['Manrope', ...defaultTheme.fontFamily.sans]
 			},
 			colors: {
-				/** Tema bluescale */
 				primary: {
 					50: '#eff9ff',
 					100: '#cbe8ff',
