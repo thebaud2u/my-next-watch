@@ -1,0 +1,14 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/alpine.js": "/js/alpine.js",
+    "/js/uppy.js": "/js/uppy.js",
+    "/js/flowbite.js": "/js/flowbite.js",
+    "/js/datepicker.js": "/js/datepicker.js",
+    "/css/app.css": "/css/app.css",
+    "/js/flowbite.min.js": "/js/flowbite.min.js",
+    "/css/flowbite.css": "/css/flowbite.css",
+    "/js/tarteaucitron/tarteaucitron.js": "/js/tarteaucitron/tarteaucitron.js",
+    "/js/tarteaucitron/tarteaucitron.services.js": "/js/tarteaucitron/tarteaucitron.services.js",
+    "/js/tarteaucitron/lang/tarteaucitron.fr.js": "/js/tarteaucitron/lang/tarteaucitron.fr.js",
+    "/js/tarteaucitron/css/tarteaucitron.css": "/js/tarteaucitron/css/tarteaucitron.css"
+}

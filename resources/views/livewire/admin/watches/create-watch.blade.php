@@ -25,10 +25,10 @@
 					</h2>
 
 					<div>
-						<x-front.input-label for="brand_id" :value="__('What\'s this watch\'s :part', ['part' => 'brand']).' ?'" :required="true" />
+						<x-front.input-label for="selectedBrand" :value="__('What\'s this watch\'s :part', ['part' => 'brand']).' ?'" :required="true" />
 
 						<div class="block">
-							<select id="brand_id" wire:model="brand_id" wire:change="brandSelected" class="rounded border border-gray-300 text-gray-400">
+							<select id="selectedBrand" wire:model="selectedBrand" wire:change="brandSelected" class="rounded border border-gray-300 text-gray-400">
 								<option value="">{{ __('Select a brand') }}</option>
 								@foreach($brands as $brand)
 									<option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -43,14 +43,14 @@
 							</button>
 						</div>
 
-						@error('brand_id')
+						@error('selectedBrand')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
 						@enderror
 					</div>
 
-					@if($brand_id)
+					@if($selectedBrand != '')
 						<div>
 							<x-front.input-label for="newWatch.collection_id" :value="__('Part of which collection').' ?'" :required="true" />
 
@@ -135,7 +135,7 @@
 					</div>
 
 					{{-- Step modals --}}
-					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable wire:ignore>
+					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :part', ['part' => 'brand']) }}

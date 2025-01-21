@@ -54,7 +54,7 @@ class CreateWatch extends Component
 	public $dialMarkerTypes;
 
 	// Temp variables
-	public $brand_id;
+	public $selectedBrand;
 	public $watchCaseColor = [];
 	public $watchCaseMaterial = [];
 	// Mediable id (create)
@@ -74,7 +74,7 @@ class CreateWatch extends Component
 	protected function rules()
 	{
 		return [
-			'brand_id' => [],
+			'selectedBrand' => [],
 			'newBrand.name' => [],
 			'newBrand.description' => [],
 			'newBrand.nationality' => [],
@@ -117,8 +117,8 @@ class CreateWatch extends Component
 
 	public function brandSelected()
 	{
-		if($this->brand_id != '') {
-			$this->brand = Brand::find($this->brand_id);
+		if($this->selectedBrand != '') {
+			$this->brand = Brand::find($this->selectedBrand);
 
 			$this->collections = Collection::whereHas('brand', function($whereHas) {
 					$whereHas->where('id', $this->brand->id);
@@ -179,7 +179,7 @@ class CreateWatch extends Component
 
 		$this->validate($rules, $messages);
 
-		$this->newCollection->brand_id = $this->brand->id;
+		$this->newCollection->selectedBrand = $this->brand->id;
 		$this->newCollection->admin_id = Auth::guard('admin')->user()->id;
 		$this->newCollection->save();
 
@@ -206,7 +206,7 @@ class CreateWatch extends Component
 
 		$this->validate($rules, $messages);
 
-		$this->newMovement->brand_id = $this->brand->id;
+		$this->newMovement->selectedBrand = $this->brand->id;
 		$this->newMovement->admin_id = Auth::guard('admin')->user()->id;
 		$this->newMovement->save();
 
