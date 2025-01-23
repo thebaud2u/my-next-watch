@@ -15,7 +15,7 @@
 		</h1>
 
 		<div class="container mt-4" x-data="{component:'', filename:''}">
-			<livewire:admin.watches.create-watch wire:key="create-watch-component-{{ time() }}" />
+			<livewire:admin.watches.create-watch :watch="$watch" wire:key="create-watch-component-{{ time() }}" />
 
 			<x-front.modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
 				<form id="uploadform" x-on:uploaded.window="setTimeout(()=>{uppy.cancelAll();$dispatch('close')},'2000')">

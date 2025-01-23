@@ -22,9 +22,9 @@ return new class extends Migration
 			$table->unsignedBigInteger('brand_id')->nullable();
 			$table->string('name', 255);
 			$table->enum('type', ['quartz', 'solar', 'automatic', 'manual']);
-			$table->boolean('COSC')->default(false);
-			$table->boolean('METAS')->default(false);
-			$table->boolean('manufactured_caliber')->default(false);
+			$table->tinyInteger('COSC')->default(0);
+			$table->tinyInteger('METAS')->default(0);
+			$table->tinyInteger('manufactured_caliber')->default(0);
 			$table->text('description')->nullable();
 			$table->string('nationality', 255);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);

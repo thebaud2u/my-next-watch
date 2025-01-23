@@ -50,6 +50,7 @@ Route::prefix('/back-office')->name('admin.')->group(function () {
 		Route::controller(WatchController::class)->prefix('/watches')->name('watches.')->group(function () {
 			Route::get('/', 'index')->name('index'); // admin.watches.index
 			Route::get('/create-watch', 'createWatch')->name('create-watch'); // admin.watches.create-watch
+			Route::get('/update-watch/{watch:slug}', 'updateWatch')->name('update-watch'); // admin.watches.update-watch
 		});
 	});
 });

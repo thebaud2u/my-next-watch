@@ -108,7 +108,7 @@ Route::middleware(['auth:web'])->group(function () {
 *      Brand      *
 * --------------- */
 Route::controller(App\Http\Controllers\Front\BrandController::class)->name('brand.')->group(function () {
-	Route::get('/brand/{slug}', 'index')->name('show');
+	Route::get('/brand/{brand:slug}', 'index')->name('show');
 });
 
 /* -------------- *
@@ -123,7 +123,7 @@ Route::controller(App\Http\Controllers\Front\SearchController::class)->group(fun
 *     Watches     *
 * --------------- */
 Route::controller(App\Http\Controllers\Front\WatchController::class)->name('watch.')->group(function () {
-	Route::get('/watch/{slug}', 'index')->name('show');
+	Route::get('/watch/{watch:slug}', 'index')->name('show');
 });
 
 /* -------------- *

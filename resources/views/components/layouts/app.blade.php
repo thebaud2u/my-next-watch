@@ -14,8 +14,6 @@
 	<script src="{{ mix('js/tarteaucitron/tarteaucitron.js') }}"></script>
 	<script src="{{ mix('js/app.js') }}"></script>
 
-	@livewireStyles
-
 	<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/vnd.microsoft.icon" />
 </head>
 

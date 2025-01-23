@@ -21,7 +21,6 @@ return new class extends Migration
 			$table->id();
 			$table->string('slug');
 			$table->string('name', 255);
-			$table->string('logo', 255)->nullable();
 			$table->text('description')->nullable();
 			$table->string('nationality', 255);
 			$table->string('external_link', 255);

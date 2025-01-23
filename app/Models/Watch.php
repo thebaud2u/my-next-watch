@@ -62,6 +62,8 @@ class Watch extends Model implements Viewable, HasMedia
 			'crystal' => AsCollection::class,
 			'dial' => AsCollection::class,
 			'specification' => AsCollection::class,
+			'release_price' => 'double',
+			'current_price' => 'double',
 			'status' => InformationStatus::class,
 			'published_at' => 'date:Y-m-d h:i:s',
 			'created_at' => 'date:Y-m-d h:i:s',

@@ -26,7 +26,6 @@ class Brand extends Model implements Viewable, HasMedia
 		'id',
 		'slug',
 		'name',
-		'logo',
 		'description',
 		'nationality',
 		'external_link',
@@ -76,13 +75,13 @@ class Brand extends Model implements Viewable, HasMedia
 
 	public function registerMediaCollections(): void
 	{
-		$this->addMediaCollection('photos');
+		$this->addMediaCollection('logo');
 	}
 
 	public function registerMediaConversions(Media $media = null): void
 	{
 		$this->addMediaConversion('optimized')
-			->performOnCollections('photos')
+			->performOnCollections('logo')
 			->width(1280)
 			->height(1280);
 	}

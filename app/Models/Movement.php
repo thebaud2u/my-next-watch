@@ -17,6 +17,7 @@ class Movement extends Model
 		'name',
 		'type',
 		'COSC',
+		'METAS',
 		'manufactured_caliber',
 		'description',
 		'nationality',
@@ -35,7 +36,10 @@ class Movement extends Model
 	protected function casts(): array
 	{
 		return [
-			'state' => InformationStatus::class,
+			'COSC' => 'boolean',
+			'METAS' => 'boolean',
+			'manufactured_caliber' => 'boolean',
+			'status' => InformationStatus::class,
 			'created_at' => 'date:Y-m-d h:i:s',
 			'updated_at' => 'date:Y-m-d h:i:s',
 			'deleted_at' => 'datetime'

@@ -16,8 +16,6 @@
 
 	@endif
 
-	@livewireStyles
-
 	<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/vnd.microsoft.icon" />
 </head>
 

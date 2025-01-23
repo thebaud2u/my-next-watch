@@ -6,7 +6,13 @@
 					<div class="absolute top-4 w-full border-t-2 border-opacity-50 border-mnw-blue"></div>
 					@foreach($steps as $step)
 						<div class="flex-none order-1 z-10 w-8 h-8 {{ ($step-1 > 0) ? 'ml-6' : '' }}">
-							@if(($step) == $active)
+							@if($this->watch->status->color() == 'green')
+								@if (($step) == $active)
+									<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-jobboard-lightblue border-jobboard-blue text-jobboard-blue">{{ $step }}</span>
+								@else
+									<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-jobboard-blue border-white text-white" wire:click="goto({{ $step }})">{{ $step }}</button>
+								@endif
+							@elseif(($step) == $active)
 								<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-lightblue border-mnw-blue text-mnw-blue">{{ $step }}</span>
 							@elseif(($step) > $active)
 								<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-gray-200 border-white text-gray-400">{{ $step }}</span>
@@ -50,12 +56,12 @@
 						@enderror
 					</div>
 
-					@if($selectedBrand != '')
-						<div>
-							<x-front.input-label for="newWatch.collection_id" :value="__('Part of which collection').' ?'" :required="true" />
+
+						<div wire:key="field-watch-collection_id-{{ time() }}">
+							<x-front.input-label for="watch.collection_id" :value="__('Part of which collection').' ?'" :required="true" />
 
 							<div class="block">
-								<select id="newWatch.collection_id" wire:model="newWatch.collection_id" class="rounded border border-gray-300 text-gray-400">
+								<select id="watch.collection_id" wire:model="watch.collection_id" class="rounded border border-gray-300 text-gray-400">
 									<option value="">{{ __('Select a collection') }}</option>
 									@foreach($collections as $collection)
 										<option value="{{ $collection->id }}">{{ $collection->name }}</option>
@@ -70,18 +76,43 @@
 								</button>
 							</div>
 
-							@error('newWatch.collection_id')
+							@error('watch.collection_id')
 								<span class="error text-danger-700">
 									{{ $message }}
 								</span>
 							@enderror
 						</div>
 
-						<div>
-							<x-front.input-label for="newWatch.movement_id" :value="__('What\'s this watch\'s :part', ['part' => 'movement']).' ?'" :required="true" />
+					<div wire:key="field-watch-name-{{ time() }}">
+						<x-front.input-label for="watch.name" :value="__('What\'s this watch\'s :part', ['part' => 'name']).' ?'" :required="true" />
+
+						<x-front.text-input type="text" name="watch.name" wire:model="watch.name" placeholder="{{ __('Watch\'s :part', ['part' => 'name']) }}" class="mt-1 block text-gray-400" />
+
+						@error('watch.name')
+							<span class="error text-danger-700">
+								{{ $message }}
+							</span>
+						@enderror
+					</div>
+
+					<div wire:key="field-watch-reference-{{ time() }}">
+						<x-front.input-label for="watch.reference" :value="__('What\'s this watch\'s :part', ['part' => 'reference']).' ?'" :required="true" />
+
+						<x-front.text-input type="text" name="watch.reference" wire:model="watch.reference" placeholder="{{ __('Watch\'s :part', ['part' => 'reference']) }}" class="mt-1 block text-gray-400" />
+
+						@error('watch.reference')
+							<span class="error text-danger-700">
+								{{ $message }}
+							</span>
+						@enderror
+					</div>
+
+
+						<div wire:key="field-watch-movement_id-{{ time() }}">
+							<x-front.input-label for="watch.movement_id" :value="__('What\'s this watch\'s :part', ['part' => 'movement']).' ?'" :required="true" />
 
 							<div class="block">
-								<select id="newWatch.movement_id" wire:model="newWatch.movement_id" class="rounded border border-gray-300 text-gray-400">
+								<select id="watch.movement_id" wire:model="watch.movement_id" class="rounded border border-gray-300 text-gray-400">
 									<option value="">{{ __('Select a movement') }}</option>
 									@foreach($movements as $movement)
 										<option value="{{ $movement->id }}">{{ $movement->name }}</option>
@@ -96,46 +127,21 @@
 								</button>
 							</div>
 
-							@error('newWatch.movement_id')
+							@error('watch.movement_id')
 								<span class="error text-danger-700">
 									{{ $message }}
 								</span>
 							@enderror
 						</div>
-					@endif
-
-					<div>
-						<x-front.input-label for="newWatch.name" :value="__('What\'s this watch\'s :part', ['part' => 'name']).' ?'" :required="true" />
-
-						<x-front.text-input type="text" name="newWatch.name" wire:model="newWatch.name" placeholder="{{ __('Watch\'s :part', ['part' => 'name']) }}" class="mt-1 block text-gray-400" />
-
-						@error('newWatch.name')
-							<span class="error text-danger-700">
-								{{ $message }}
-							</span>
-						@enderror
-					</div>
-
-					<div>
-						<x-front.input-label for="newWatch.reference" :value="__('What\'s this watch\'s :part', ['part' => 'reference']).' ?'" :required="true" />
-
-						<x-front.text-input type="text" name="newWatch.reference" wire:model="newWatch.reference" placeholder="{{ __('Watch\'s :part', ['part' => 'reference']) }}" class="mt-1 block text-gray-400" />
-
-						@error('newWatch.reference')
-							<span class="error text-danger-700">
-								{{ $message }}
-							</span>
-						@enderror
-					</div>
 
 					<div class="px-5 py-6 flex justify-end">
-						<x-front.primary-button wire:click="createWatch" @watch-created.window="$dispatch('close');">
+						<x-front.primary-button wire:click="updateWatch">
 							{{ __('Continue to the next step') }}
 						</x-front.primary-button>
 					</div>
 
 					{{-- Step modals --}}
-					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable>
+					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable wire:key="modal-create-brand-{{ time() }}">
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :part', ['part' => 'brand']) }}
@@ -143,7 +149,7 @@
 						</header>
 
 						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-							<div>
+							<div wire:key="field-newBrand-name-{{ time() }}">
 								<x-front.input-label for="newBrand.name" :value="__('What is the new brand\'s name').' ?'" :required="true" />
 
 								<x-front.text-input type="text" name="newBrand.name" wire:model="newBrand.name" placeholder="{{ __('New brand name') }}" class="mt-1 block text-gray-400" />
@@ -155,7 +161,7 @@
 								@enderror
 							</div>
 
-							<div>
+							<div wire:key="field-newBrand-logo-{{ time() }}">
 								<x-front.input-label for="newBrand.logo" :value="__('What is the new brand\'s logo').' ?'" />
 
 								<livewire:uploader
@@ -170,10 +176,10 @@
 									wire:key="logo-uploader-component-{{ time() }}" />
 							</div>
 
-							<div>
+							<div wire:key="field-newBrand-description-{{ time() }}">
 								<x-front.input-label for="newBrand.description" :value="__('Description/history of the brand')" />
 
-								<textarea name="newBrand.description" wire:model.lazy="newBrand.description" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
+								<textarea name="newBrand.description" wire:model.lazy="newBrand.description" cols="30" rows="6" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
 
 								@error('newBrand.description')
 									<span class="error text-danger-700">
@@ -182,7 +188,7 @@
 								@enderror
 							</div>
 
-							<div>
+							<div wire:key="field-newBrand-nationality-{{ time() }}">
 								<x-front.input-label for="newBrand.nationality" :value="__('What is the brand\'s nationality').' ?'" :required="true" />
 
 								<div class="pr-5">
@@ -234,7 +240,7 @@
 								@enderror
 							</div>
 
-							<div>
+							<div wire:key="field-newBrand-external_link-{{ time() }}">
 								<x-front.input-label for="newBrand.external_link" :value="__('What is the new brand\'s website').' ?'" :required="true" />
 
 								<x-front.text-input type="text" name="newBrand.external_link" wire:model="newBrand.external_link" placeholder="{{ __('New brand website') }}" class="mt-1 block text-gray-400" />
@@ -258,7 +264,7 @@
 						</div>
 					</x-front.modal>
 
-					<x-front.modal name="create-collection" :class="'w-full max-w-2xl'" focusable>
+					<x-front.modal name="create-collection" :class="'w-full max-w-2xl'" focusable wire:key="modal-create-collection-{{ time() }}">
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :brand collection', ['brand' => $brand->name]) }}
@@ -266,7 +272,7 @@
 						</header>
 
 						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-							<div>
+							<div wire:key="field-newCollection-name-{{ time() }}">
 								<x-front.input-label for="newCollection.name" :value="__('What is the new :brand collection\'s name', ['brand' => $brand->name]).' ?'" :required="true" />
 
 								<x-front.text-input type="text" name="newCollection.name" wire:model="newCollection.name" placeholder="{{ __('New collection name') }}" class="mt-1 block text-gray-400" />
@@ -290,7 +296,7 @@
 						</div>
 					</x-front.modal>
 
-					<x-front.modal name="create-movement" :class="'w-full max-w-2xl'" focusable>
+					<x-front.modal name="create-movement" :class="'w-full max-w-2xl'" focusable wire:key="modal-create-movement-{{ time() }}">
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :brand movement', ['brand' => $brand->name]) }}
@@ -298,7 +304,7 @@
 						</header>
 
 						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-							<div>
+							<div wire:key="field-newMovement-name-{{ time() }}">
 								<x-front.input-label for="newMovement.name" :value="__('What is the new :brand movement\'s name', ['brand' => $brand->name]).' ?'" :required="true" />
 
 								<x-front.text-input type="text" name="newMovement.name" wire:model="newMovement.name" placeholder="{{ __('New movement name') }}" class="mt-1 block text-gray-400" />
@@ -310,7 +316,7 @@
 								@enderror
 							</div>
 
-							<div>
+							<div wire:key="field-newMovement-type-{{ time() }}">
 								<x-front.input-label for="newMovement.type" :value="__('What is the movement\'s type').' ?'" :required="true" />
 
 								<div class="pr-5">
@@ -344,25 +350,25 @@
 								@enderror
 							</div>
 
-							<div>
+							<div wire:key="field-newMovement-COSC-{{ time() }}">
 								<input type="checkbox" name="newMovement.COSC" value="1" wire:model="newMovement.COSC" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
 								<x-front.input-label for="newMovement.COSC" :value="__('Is the movement COSC certified').' ?'" :class="'ml-2 inline-block font-normal'" />
 							</div>
 
-							<div>
+							<div wire:key="field-newMovement-METAS-{{ time() }}">
 								<input type="checkbox" name="newMovement.METAS" value="1" wire:model="newMovement.METAS" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
 								<x-front.input-label for="newMovement.METAS" :value="__('Is the movement METAS certified').' ?'" :class="'ml-2 inline-block font-normal'" />
 							</div>
 
-							<div>
+							<div wire:key="field-newMovement-manufactured_caliber-{{ time() }}">
 								<input type="checkbox" name="newMovement.manufactured_caliber" value="1" wire:model="newMovement.manufactured_caliber" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
 								<x-front.input-label for="newMovement.manufactured_caliber" :value="__('Is the movement manufactured').' ?'" :class="'ml-2 inline-block font-normal'" />
 							</div>
 
-							<div>
+							<div wire:key="field-newMovement-description-{{ time() }}">
 								<x-front.input-label for="newMovement.description" :value="__('Description/history of the movement')" />
 
 								<textarea name="newMovement.description" wire:model.lazy="newMovement.description" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
@@ -374,7 +380,7 @@
 								@enderror
 							</div>
 
-							<div>
+							<div wire:key="field-newMovement-nationality-{{ time() }}">
 								<x-front.input-label for="newMovement.nationality" :value="__('What is the movement\'s nationality').' ?'" :required="true" />
 
 								<div class="pr-5">
@@ -497,11 +503,11 @@
 					</div>
 
 					<div>
-						<x-front.input-label for="newWatch.case.diameter" :value="__('What\'s this watch\'s :part', ['part' => 'case diameter']).' ?'" :required="true" />
+						<x-front.input-label for="watch.case.diameter" :value="__('What\'s this watch\'s :part', ['part' => 'case diameter']).' ?'" :required="true" />
 
-						<x-front.text-input type="number" name="newWatch.case.diameter" wire:model="newWatch.case.diameter" placeholder="{{ __('Watch\'s :part', ['part' => 'diameter']) }}" class="mt-1 block text-gray-400" />
+						<x-front.text-input type="number" name="watch.case.diameter" wire:model="watch.case.diameter" placeholder="{{ __('Watch\'s :part', ['part' => 'diameter']) }}" class="mt-1 block text-gray-400" />
 
-						@error('newWatch.case.diameter')
+						@error('watch.case.diameter')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
@@ -509,11 +515,11 @@
 					</div>
 
 					<div>
-						<x-front.input-label for="newWatch.case.lug_width" :value="__('What\'s this watch\'s :part', ['part' => 'lug width']).' ?'" :required="true" />
+						<x-front.input-label for="watch.case.lug_width" :value="__('What\'s this watch\'s :part', ['part' => 'lug width']).' ?'" :required="true" />
 
-						<x-front.text-input type="number" name="newWatch.case.lug_width" wire:model="newWatch.case.lug_width" placeholder="{{ __('Watch\'s :part', ['part' => 'lug width']) }}" class="mt-1 block text-gray-400" />
+						<x-front.text-input type="number" name="watch.case.lug_width" wire:model="watch.case.lug_width" placeholder="{{ __('Watch\'s :part', ['part' => 'lug width']) }}" class="mt-1 block text-gray-400" />
 
-						@error('newWatch.case.lug_width')
+						@error('watch.case.lug_width')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
@@ -521,11 +527,11 @@
 					</div>
 
 					<div>
-						<x-front.input-label for="newWatch.case.lug_to_lug" :value="__('What\'s this watch\'s :part', ['part' => 'lug to lug']).' ?'" :required="true" />
+						<x-front.input-label for="watch.case.lug_to_lug" :value="__('What\'s this watch\'s :part', ['part' => 'lug to lug']).' ?'" :required="true" />
 
-						<x-front.text-input type="number" name="newWatch.case.lug_to_lug" wire:model="newWatch.case.lug_to_lug" placeholder="{{ __('Watch\'s :part', ['part' => 'lug to lug']) }}" class="mt-1 block text-gray-400" />
+						<x-front.text-input type="number" name="watch.case.lug_to_lug" wire:model="watch.case.lug_to_lug" placeholder="{{ __('Watch\'s :part', ['part' => 'lug to lug']) }}" class="mt-1 block text-gray-400" />
 
-						@error('newWatch.case.lug_to_lug')
+						@error('watch.case.lug_to_lug')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
@@ -533,11 +539,11 @@
 					</div>
 
 					<div>
-						<x-front.input-label for="newWatch.case.thickness" :value="__('What\'s this watch\'s :part', ['part' => 'thickness']).' ?'" :required="true" />
+						<x-front.input-label for="watch.case.thickness" :value="__('What\'s this watch\'s :part', ['part' => 'thickness']).' ?'" :required="true" />
 
-						<x-front.text-input type="number" name="newWatch.case.thickness" wire:model="newWatch.case.thickness" placeholder="{{ __('Watch\'s :part', ['part' => 'thickness']) }}" class="mt-1 block text-gray-400" />
+						<x-front.text-input type="number" name="watch.case.thickness" wire:model="watch.case.thickness" placeholder="{{ __('Watch\'s :part', ['part' => 'thickness']) }}" class="mt-1 block text-gray-400" />
 
-						@error('newWatch.case.thickness')
+						@error('watch.case.thickness')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
@@ -545,18 +551,18 @@
 					</div>
 
 					<div>
-						<input type="checkbox" name="newWatch.case.open_case_back" value="1" wire:model="newWatch.case.open_case_back" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+						<input type="checkbox" name="watch.case.open_case_back" value="1" wire:model="watch.case.open_case_back" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-						<x-front.input-label for="newWatch.case.open_case_back" :value="__('Does it have an open case back').' ?'" :class="'ml-2 inline-block font-normal'" />
+						<x-front.input-label for="watch.case.open_case_back" :value="__('Does it have an open case back').' ?'" :class="'ml-2 inline-block font-normal'" />
 					</div>
 
-					@if($newWatch->case['open_case_back'])
+					{{--@if($watch->case['open_case_back'])
 						<div>
-							<input type="checkbox" name="newWatch.case.sapphire_crystal_case_back" value="1" wire:model="newWatch.case.sapphire_crystal_case_back" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+							<input type="checkbox" name="watch.case.sapphire_crystal_case_back" value="1" wire:model="watch.case.sapphire_crystal_case_back" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-							<x-front.input-label for="newWatch.case.sapphire_crystal_case_back" :value="__('Is the open case back in sapphire crystal').' ?'" :class="'ml-2 inline-block font-normal'" />
+							<x-front.input-label for="watch.case.sapphire_crystal_case_back" :value="__('Is the open case back in sapphire crystal').' ?'" :class="'ml-2 inline-block font-normal'" />
 						</div>
-					@endif
+					@endif--}}
 
 					<div class="mt-8 px-5 py-6 bg-white shadow-sm rounded-md flex justify-end">
 						<x-front.secondary-button :class="'mr-6'" wire:click="back()">

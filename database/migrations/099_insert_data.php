@@ -30,7 +30,6 @@ return new class extends Migration
 		$brands = [
 			0 => [
 				'name' => 'Tudor',
-				'logo' => 'Tudor.jpg',
 				'description' => 'Tudor est une manufacture horlogère suisse de luxe, basée à Genève. Son nom a été déposé en 1926 par Hans Wilsdorf, créateur de Rolex. Les deux maisons horlogères sont détenues par la Fondation Hans Wilsdorf. Tudor s\'est initialement fait connaître pour ses montres de plongées destinées aux plongeurs militaires et professionnels. Les montres Tudor équipent notamment les Navy SEALs et la Marine Nationale française.',
 				'nationality' => 'Swiss',
 				'external_link' => 'https://www.tudorwatch.com',
@@ -40,7 +39,6 @@ return new class extends Migration
 		foreach($brands as $brand => $value) {
 			$newBrand = new Brand;
 			$newBrand->name = $value['name'];
-			$newBrand->logo = $value['logo'];
 			$newBrand->description = $value['description'];
 			$newBrand->nationality = $value['nationality'];
 			$newBrand->external_link = $value['external_link'];
