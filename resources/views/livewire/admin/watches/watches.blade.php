@@ -67,13 +67,21 @@
 							</td>
 
 							<td class="px-2 py-2 whitespace-no-wrap border-b border-gray-200">
-								<a href="{{ route('brand.show', ['brand' =>$watch->collection->brand->slug]) }}" target="_blank">
+								@if($watch->collection)
+									<a href="{{ route('brand.show', ['brand' =>$watch->collection->brand->slug]) }}" target="_blank">
+										<div class="flex items-center">
+											<div class="ml-4">
+												<div class="text-sm leading-5 font-medium text-gray-900">{{ $watch->collection->brand->name }}</div>
+											</div>
+										</div>
+									</a>
+								@else
 									<div class="flex items-center">
 										<div class="ml-4">
-											<div class="text-sm leading-5 font-medium text-gray-900">{{ $watch->collection->brand->name }}</div>
+											<div class="text-sm leading-5 font-medium text-gray-900">{{ __('Watch creation not complete') }}</div>
 										</div>
 									</div>
-								</a>
+								@endif
 							</td>
 
 							<td class="px-2 py-2 whitespace-no-wrap border-b border-gray-200">

@@ -11,7 +11,7 @@
 @section('body')
 	<div class="mt-12">
 		<h1 class="text-gray-700 text-3xl font-medium">
-			{{ __('Update the :watch', ['watch' => $watch->collection->brand->name.' '.$watch->name.' '.$watch->reference]) }}
+			{{ __('Update the :watch', ['watch' => ($watch->collection) ? $watch->collection->brand->name.' '.$watch->name.' '.$watch->reference: 'watch']) }}
 		</h1>
 
 		<div class="container mt-4" x-data="{component:'', filename:''}">

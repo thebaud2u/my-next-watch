@@ -27,7 +27,7 @@ class CreateWatch extends Component
 	public $active = 1;
 	public $steps = [1, 2, 3, 4, 5, 6, 7];
 
-	// Data
+	// Eloquent Collections
 	public $brands;
 	public $collections;
 	public $movements;
@@ -54,21 +54,44 @@ class CreateWatch extends Component
 	public $dialMarkerLumeColors;
 	public $dialMarkerTypes;
 
-	// Temp variables
+	// Properties
 	public $selectedBrand;
+	public Brand $brand;
+	public Brand $newBrand;
+	public $brandName;
+	public $brandLogo;
+	public $brandDescription;
+	public $brandNationality;
+	public $brandExternalLink;
+
+	public Collection $newCollection;
+	public $collectionName;
+
+	public Movement $newMovement;
+	public $movementName;
+	public $movementType;
+	public $movementCOSC = false;
+	public $movementMETAS = false;
+	public $movementManufacturedCaliber = false;
+	public $movementDescription;
+	public $movementNationality;
+
+	public Watch $watch;
+	public $collectionId;
+	public $watchName;
+	public $watchReference;
+	public $movementId;
+
 	public $watchCaseColor = [];
 	public $watchCaseMaterial = [];
+
 	// Mediable id (create)
 	public $modelId;
 
-	// Entities
-	public Brand $brand;
-	public Watch $watch;
+	// Models
 	public Mediable $mediable;
 
-	public Brand $newBrand;
-	public Collection $newCollection;
-	public Movement $newMovement;
+
 	public CaseColor $newCaseColor;
 	public CaseMaterial $newCaseMaterial;
 
@@ -76,23 +99,23 @@ class CreateWatch extends Component
 	{
 		return [
 			'selectedBrand' => [],
-			'newBrand.name' => [],
-			'newBrand.description' => [],
-			'newBrand.nationality' => [],
-			'newBrand.external_link' => [],
+			'brandName' => [],
+			'brandDescription' => [],
+			'brandNationality' => [],
+			'brandExternalLink' => [],
 
 			'watchCaseColor' => ['array'],
 			'watchCaseMaterial' => ['array'],
 
-			'newCollection.name' => [],
+			'collectionName' => [],
 
-			'newMovement.name' => [],
-			'newMovement.type' => [],
-			'newMovement.COSC' => [],
-			'newMovement.METAS' => [],
-			'newMovement.manufactured_caliber' => [],
-			'newMovement.description' => [],
-			'newMovement.nationality' => [],
+			'movementName' => [],
+			'movementType' => [],
+			'movementCOSC' => [],
+			'movementMETAS' => [],
+			'movementManufacturedCaliber' => [],
+			'movementDescription' => [],
+			'movementNationality' => [],
 
 			'watch.collection_id' => [],
 			'watch.name' => [],
@@ -137,19 +160,21 @@ class CreateWatch extends Component
 	public function createBrand()
 	{
 		$rules = [
-			'newBrand.name' => ['required'],
-			'newBrand.nationality' => ['required'],
-			'newBrand.external_link' => ['required']
+			'brandName' => ['required'],
+			'brandNationality' => ['required'],
+			'brandExternalLink' => ['required']
 		];
 
 		$messages = [
-			'newBrand.name.required' => __('The brand\'s name is mandatory'),
-			'newBrand.nationality.required' => __('The brand\'s nationality is mandatory'),
-			'newBrand.external_link.required' => __('The brand\'s website is mandatory')
+			'brandName.required' => __('The brand\'s name is mandatory'),
+			'brandNationality.required' => __('The brand\'s nationality is mandatory'),
+			'brandExternalLink.required' => __('The brand\'s website is mandatory')
 		];
 
 		$this->validate($rules, $messages);
 
+		$this->newBrand->name = $this->brandName;
+		$this->newBrand->nationality = $this->brandNationality;
 		$this->newBrand->admin_id = Auth::guard('admin')->user()->id;
 		$this->newBrand->save();
 
@@ -161,7 +186,6 @@ class CreateWatch extends Component
 			}
 		}
 
-		$this->newBrand = new Brand;
 		// To use uploader for the new Brand logo, since it's a new brand, it doesn't have an id yet.
 		$this->mediable = Mediable::firstOrCreate([
 			'admin_id' => Auth::guard('admin')->user()->id,
@@ -171,22 +195,25 @@ class CreateWatch extends Component
 
 		$this->brands = Brand::all();
 
+		session()->flash('success', __('Brand created successfully'));
+
 		$this->dispatch('brand-created');
 	}
 
 	public function createCollection()
 	{
 		$rules = [
-			'newCollection.name' => ['required']
+			'collectionName' => ['required']
 		];
 
 		$messages = [
-			'newCollection.name.required' => __('The collection\'s name is mandatory')
+			'collectionName.required' => __('The collection\'s name is mandatory')
 		];
 
 		$this->validate($rules, $messages);
 
 		$this->newCollection->brand_id = $this->brand->id;
+		$this->newCollection->name = $this->collectionName;
 		$this->newCollection->admin_id = Auth::guard('admin')->user()->id;
 		$this->newCollection->save();
 
@@ -194,29 +221,35 @@ class CreateWatch extends Component
 
 		$this->collections = Collection::all();
 
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('collection'))]));
+
 		$this->dispatch('collection-created');
 	}
 
 	public function createMovement()
 	{
 		$rules = [
-			'newMovement.name' => ['required'],
-			'newMovement.type' => ['required'],
-			'newMovement.nationality' => ['required']
+			'movementName' => ['required'],
+			'movementType' => ['required'],
+			'movementNationality' => ['required']
 		];
 
 		$messages = [
-			'newMovement.name.required' => __('The :field is mandatory', ['field' => 'movement\'s name']),
-			'newMovement.type.required' => __('The :field is mandatory', ['field' => 'movement\'s type']),
-			'newMovement.nationality.required' => __('The :field is mandatory', ['field' => 'movement\'s nationality'])
+			'movementName.required' => __('The :field is mandatory', ['field' => 'movement\'s name']),
+			'movementType.required' => __('The :field is mandatory', ['field' => 'movement\'s type']),
+			'movementNationality.required' => __('The :field is mandatory', ['field' => 'movement\'s nationality'])
 		];
 
 		$this->validate($rules, $messages);
 
 		$this->newMovement->brand_id = $this->brand->id;
-		$this->newMovement->COSC = (is_null($this->newMovement->COSC))?false:true;
-		$this->newMovement->METAS = (is_null($this->newMovement->METAS))?false:true;
-		$this->newMovement->manufactured_caliber = (is_null($this->newMovement->manufactured_caliber))?false:true;
+		$this->newMovement->name = $this->movementName;
+		$this->newMovement->type = $this->movementType;
+		$this->newMovement->COSC = $this->movementCOSC;
+		$this->newMovement->METAS = $this->movementMETAS;
+		$this->newMovement->manufactured_caliber = $this->movementManufacturedCaliber;
+		$this->newMovement->description = $this->movementDescription;
+		$this->newMovement->nationality = $this->movementNationality;
 		$this->newMovement->admin_id = Auth::guard('admin')->user()->id;
 		$this->newMovement->save();
 
@@ -225,33 +258,6 @@ class CreateWatch extends Component
 		$this->movements = Movement::all();
 
 		$this->dispatch('movement-created');
-	}
-
-	public function updateWatch()
-	{
-		if($this->active == 1) {
-			$rules = [
-				'watch.collection_id' => ['required'],
-				'watch.movement_id' => ['required'],
-				'watch.name' => ['required'],
-				'watch.reference' => ['required']
-			];
-
-			$messages = [
-				'watch.collection_id.required' => __('The :field is mandatory', ['field' => 'collection']),
-				'watch.movement_id.required' => __('The :field is mandatory', ['field' => 'movement']),
-				'watch.name.required' => __('The :field is mandatory', ['field' => 'name']),
-				'watch.reference.required' => __('The :field is mandatory', ['field' => 'reference'])
-			];
-		}
-
-
-
-		$this->validate($rules, $messages);
-
-		$this->watch->save();
-
-		$this->active++;
 	}
 
 	public function createCaseColor()
@@ -298,11 +304,40 @@ class CreateWatch extends Component
 		$this->dispatch('case-material-created');
 	}
 
-	// Init
-	public function mount()
+	public function updateWatch()
 	{
-		$this->brands = Brand::all();
+		if($this->active == 1) {
+			$rules = [
+				'watch.collection_id' => ['required'],
+				'watch.movement_id' => ['required'],
+				'watch.name' => ['required'],
+				'watch.reference' => ['required']
+			];
 
+			$messages = [
+				'watch.collection_id.required' => __('The :field is mandatory', ['field' => 'collection']),
+				'watch.movement_id.required' => __('The :field is mandatory', ['field' => 'movement']),
+				'watch.name.required' => __('The :field is mandatory', ['field' => 'name']),
+				'watch.reference.required' => __('The :field is mandatory', ['field' => 'reference'])
+			];
+		}
+
+
+
+		$this->validate($rules, $messages);
+
+		$this->watch->save();
+
+		$this->active++;
+	}
+
+	// Init
+	public function mount(Watch $watch)
+	{
+		$this->watch = $watch;
+
+		// Load lists
+		$this->brands = Brand::all();
 		$this->bezelColors = BezelColor::all();
 		$this->bezelMarkings = BezelMarking::all();
 		$this->bezelMaterials = BezelMaterial::all();
@@ -326,6 +361,8 @@ class CreateWatch extends Component
 		$this->dialMarkerTypes = DialMarkerType::all();
 
 		$this->newBrand = new Brand;
+		$this->newCollection = new Collection;
+		$this->newMovement = new Movement;
 		// To use uploader for the new Brand logo, since it's a new brand, it doesn't have an id yet.
 		$this->mediable = Mediable::firstOrCreate([
 			'admin_id' => Auth::guard('admin')->user()->id,
@@ -333,23 +370,15 @@ class CreateWatch extends Component
 		]);
 		$this->modelId = $this->mediable->id;
 
-		$this->newCollection = new Collection;
-		$this->newMovement = new Movement;
-
-		$this->newCaseColor = new CaseColor;
-		$this->newCaseMaterial = new CaseMaterial;
-
-		if($this->watch->collection) {
-			$this->collections = Collection::whereHas('brand', function($whereHas) {
-					$whereHas->where('id', $this->watch->collection->brand->id);
-				})
-				->get();
-
-			$this->movements = Movement::whereHas('brand', function($whereHas) {
-					$whereHas->where('id', $this->watch->collection->brand->id);
-				})
-				->get();
+		if(!is_null($this->watch->collection->id)) {
+			$this->selectedBrand = $this->watch->collection->brand->id;
+			$this->brandSelected();
 		}
+
+		$this->collectionId = $this->watch->collection->id;
+		$this->watchName = $this->watch->name;
+		$this->watchReference = $this->watch->reference;
+		$this->movementId = $this->watch->movement->id;
 	}
 
 	public function render()

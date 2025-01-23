@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 use App\Models\Admin;
 use App\Models\Watch;
 
@@ -22,65 +24,73 @@ class WatchController extends Controller
 	 */
 	public function createWatch()
 	{
-		$newWatch = new Watch;
-		$newWatch->admin_id = Auth::guard('admin')->user()->id;
-		$newWatch->name = '';
-		$newWatch->reference = '';
-		$newWatch->bezel = [
-			'color'=> [],
-			'direction' => 'unidirectional',
-			'marking' => [],
-			'material'=> []
-		];
-		$newWatch->bracelet = [
-			'clasp' => null,
-			'clasp_color' => [],
-			'clasp_material' => [],
-			'material'=> [],
-			'micro_adjustement' => true,
-			'micro_adjustement_system' => 2,
-			'stitching' => false,
-			'stitching_color' => [],
-			'style'=> null
-		];
-		$newWatch->case = [
-			'color' => [],
-			'diameter' => null,
-			'lug_to_lug' => null,
-			'lug_width' => null,
-			'material' => [],
-			'open_case_back' => false,
-			'sapphire_crystal_case_back' => false,
-			'thickness' => null,
-			'waterproofness' => null
-		];
-		$newWatch->crown = [
-			'color'=> [],
-			'detail'=> null,
-			'material'=> [],
-			'screwed_down' => true
-		];
-		$newWatch->crystal = [
-			'domed' => true,
-			'material'=> null
-		];
-		$newWatch->dial = [
-			'color' => [],
-			'domed' => false,
-			'marker_color' => [],
-			'marker_lume' => true,
-			'marker_lume_color' => [],
-			'marker_type' => [],
-			'textured' => false
-		];
-		$newWatch->specification = [
-			'complication' => [],
-			'power_reserve' => null
-		];
-		$newWatch->admin_id = Auth::guard('admin')->user()->id;
-		$newWatch->save();
+		$watch = Watch::whereNull('collection_id')
+			->whereNull('movement_id')
+			->first();
 
-		return view('admin.watches.create-watch', compact('watch'));
+		if(!$watch) {
+			$watch = new Watch;
+			$watch->admin_id = Auth::guard('admin')->user()->id;
+			$watch->name = '';
+			$watch->reference = '';
+			$watch->bezel = [
+				'color'=> [],
+				'direction' => 'unidirectional',
+				'marking' => [],
+				'material'=> []
+			];
+			$watch->bracelet = [
+				'clasp' => null,
+				'clasp_color' => [],
+				'clasp_material' => [],
+				'material'=> [],
+				'micro_adjustement' => true,
+				'micro_adjustement_system' => 2,
+				'stitching' => false,
+				'stitching_color' => [],
+				'style'=> null
+			];
+			$watch->case = [
+				'color' => [],
+				'diameter' => null,
+				'lug_to_lug' => null,
+				'lug_width' => null,
+				'material' => [],
+				'open_case_back' => false,
+				'sapphire_crystal_case_back' => false,
+				'thickness' => null,
+				'waterproofness' => null
+			];
+			$watch->crown = [
+				'color'=> [],
+				'detail'=> null,
+				'material'=> [],
+				'screwed_down' => true
+			];
+			$watch->crystal = [
+				'domed' => true,
+				'material'=> null
+			];
+			$watch->dial = [
+				'color' => [],
+				'domed' => false,
+				'marker_color' => [],
+				'marker_lume' => true,
+				'marker_lume_color' => [],
+				'marker_type' => [],
+				'textured' => false
+			];
+			$watch->specification = [
+				'complication' => [],
+				'power_reserve' => null
+			];
+			$watch->admin_id = Auth::guard('admin')->user()->id;
+			$watch->save();
+		}
+
+		return view('admin.watches.create-watch', [
+			'watch' => $watch
+		]);
 	}
 
 	/**

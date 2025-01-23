@@ -6,15 +6,15 @@
 					<div class="absolute top-4 w-full border-t-2 border-opacity-50 border-mnw-blue"></div>
 					@foreach($steps as $step)
 						<div class="flex-none order-1 z-10 w-8 h-8 {{ ($step-1 > 0) ? 'ml-6' : '' }}">
-							@if($this->watch->status->color() == 'green')
-								@if (($step) == $active)
+							@if($watch->status->color() == 'green')
+								@if ($step == $active)
 									<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-jobboard-lightblue border-jobboard-blue text-jobboard-blue">{{ $step }}</span>
 								@else
 									<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-jobboard-blue border-white text-white" wire:click="goto({{ $step }})">{{ $step }}</button>
 								@endif
-							@elseif(($step) == $active)
+							@elseif($step == $active)
 								<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-lightblue border-mnw-blue text-mnw-blue">{{ $step }}</span>
-							@elseif(($step) > $active)
+							@elseif($step > $active)
 								<span class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-gray-200 border-white text-gray-400">{{ $step }}</span>
 							@else
 								<button class="block w-full h-full flex items-center justify-center border-2 rounded-full bg-mnw-blue border-white text-white" wire:click="goto({{ $step }})">{{ $step }}</button>
@@ -56,12 +56,12 @@
 						@enderror
 					</div>
 
-
-						<div wire:key="field-watch-collection_id-{{ time() }}">
-							<x-front.input-label for="watch.collection_id" :value="__('Part of which collection').' ?'" :required="true" />
+					@if($selectedBrand)
+						<div wire:key="field-collectionId-{{ time() }}">
+							<x-front.input-label for="collectionId" :value="__('Part of which collection').' ?'" :required="true" />
 
 							<div class="block">
-								<select id="watch.collection_id" wire:model="watch.collection_id" class="rounded border border-gray-300 text-gray-400">
+								<select id="collectionId" wire:model="collectionId" class="rounded border border-gray-300 text-gray-400">
 									<option value="">{{ __('Select a collection') }}</option>
 									@foreach($collections as $collection)
 										<option value="{{ $collection->id }}">{{ $collection->name }}</option>
@@ -76,43 +76,44 @@
 								</button>
 							</div>
 
-							@error('watch.collection_id')
+							@error('collectionId')
 								<span class="error text-danger-700">
 									{{ $message }}
 								</span>
 							@enderror
 						</div>
+					@endif
 
-					<div wire:key="field-watch-name-{{ time() }}">
-						<x-front.input-label for="watch.name" :value="__('What\'s this watch\'s :part', ['part' => 'name']).' ?'" :required="true" />
+					<div wire:key="field-watchName-{{ time() }}">
+						<x-front.input-label for="watchName" :value="__('What\'s this watch\'s :part', ['part' => 'name']).' ?'" :required="true" />
 
-						<x-front.text-input type="text" name="watch.name" wire:model="watch.name" placeholder="{{ __('Watch\'s :part', ['part' => 'name']) }}" class="mt-1 block text-gray-400" />
+						<x-front.text-input type="text" name="watchName" wire:model="watchName" placeholder="{{ __('Watch\'s :part', ['part' => 'name']) }}" class="mt-1 block text-gray-400" />
 
-						@error('watch.name')
+						@error('watchName')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
 						@enderror
 					</div>
 
-					<div wire:key="field-watch-reference-{{ time() }}">
-						<x-front.input-label for="watch.reference" :value="__('What\'s this watch\'s :part', ['part' => 'reference']).' ?'" :required="true" />
+					<div wire:key="field-watchReference-{{ time() }}">
+						<x-front.input-label for="watchReference" :value="__('What\'s this watch\'s :part', ['part' => 'reference']).' ?'" :required="true" />
 
-						<x-front.text-input type="text" name="watch.reference" wire:model="watch.reference" placeholder="{{ __('Watch\'s :part', ['part' => 'reference']) }}" class="mt-1 block text-gray-400" />
+						<x-front.text-input type="text" name="watchReference" wire:model="watchReference" placeholder="{{ __('Watch\'s :part', ['part' => 'reference']) }}" class="mt-1 block text-gray-400" />
 
-						@error('watch.reference')
+						@error('watchReference')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
 						@enderror
 					</div>
 
-
-						<div wire:key="field-watch-movement_id-{{ time() }}">
-							<x-front.input-label for="watch.movement_id" :value="__('What\'s this watch\'s :part', ['part' => 'movement']).' ?'" :required="true" />
+					@if($selectedBrand)
+						<div wire:key="field-movementId-{{ time() }}">
+							<x-front.input-label for="movementId" :value="__('What\'s this watch\'s :part', ['part' => 'movement']).' ?'" :required="true" />
 
 							<div class="block">
-								<select id="watch.movement_id" wire:model="watch.movement_id" class="rounded border border-gray-300 text-gray-400">
+								<select id="movementId" wire:model="movementId" class="rounded border border-gray-300 text-gray-400">
 									<option value="">{{ __('Select a movement') }}</option>
 									@foreach($movements as $movement)
 										<option value="{{ $movement->id }}">{{ $movement->name }}</option>
@@ -127,12 +128,13 @@
 								</button>
 							</div>
 
-							@error('watch.movement_id')
+							@error('movementId')
 								<span class="error text-danger-700">
 									{{ $message }}
 								</span>
 							@enderror
 						</div>
+					@endif
 
 					<div class="px-5 py-6 flex justify-end">
 						<x-front.primary-button wire:click="updateWatch">
@@ -141,7 +143,7 @@
 					</div>
 
 					{{-- Step modals --}}
-					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable wire:key="modal-create-brand-{{ time() }}">
+					<x-front.modal name="create-brand" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :part', ['part' => 'brand']) }}
@@ -149,20 +151,20 @@
 						</header>
 
 						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-							<div wire:key="field-newBrand-name-{{ time() }}">
-								<x-front.input-label for="newBrand.name" :value="__('What is the new brand\'s name').' ?'" :required="true" />
+							<div wire:key="field-brandName-{{ time() }}">
+								<x-front.input-label for="brandName" :value="__('What is the new brand\'s name').' ?'" :required="true" />
 
-								<x-front.text-input type="text" name="newBrand.name" wire:model="newBrand.name" placeholder="{{ __('New brand name') }}" class="mt-1 block text-gray-400" />
+								<x-front.text-input type="text" name="brandName" wire:model="brandName" placeholder="{{ __('New brand name') }}" class="mt-1 block text-gray-400" />
 
-								@error('newBrand.name')
+								@error('brandName')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
 								@enderror
 							</div>
 
-							<div wire:key="field-newBrand-logo-{{ time() }}">
-								<x-front.input-label for="newBrand.logo" :value="__('What is the new brand\'s logo').' ?'" />
+							<div wire:key="field-brandLogo-{{ time() }}">
+								<x-front.input-label for="brandLogo" :value="__('What is the new brand\'s logo').' ?'" />
 
 								<livewire:uploader
 									:max_medias="1"
@@ -176,76 +178,76 @@
 									wire:key="logo-uploader-component-{{ time() }}" />
 							</div>
 
-							<div wire:key="field-newBrand-description-{{ time() }}">
-								<x-front.input-label for="newBrand.description" :value="__('Description/history of the brand')" />
+							<div wire:key="field-brandDescription-{{ time() }}">
+								<x-front.input-label for="brandDescription" :value="__('Description/history of the brand')" />
 
-								<textarea name="newBrand.description" wire:model.lazy="newBrand.description" cols="30" rows="6" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
+								<textarea name="brandDescription" wire:model.lazy="brandDescription" cols="30" rows="6" class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
 
-								@error('newBrand.description')
+								@error('brandDescription')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
 								@enderror
 							</div>
 
-							<div wire:key="field-newBrand-nationality-{{ time() }}">
-								<x-front.input-label for="newBrand.nationality" :value="__('What is the brand\'s nationality').' ?'" :required="true" />
+							<div wire:key="field-brandNationality-{{ time() }}">
+								<x-front.input-label for="brandNationality" :value="__('What is the brand\'s nationality').' ?'" :required="true" />
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="American" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" checked wire:model="brandNationality" value="American" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('American')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('American')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="English" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" checked wire:model="brandNationality" value="English" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('English')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('English')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" wire:model="newBrand.nationality" value="French" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" wire:model="brandNationality" value="French" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('French')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('French')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" wire:model="newBrand.nationality" value="Japanese" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" wire:model="brandNationality" value="Japanese" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('Japanese')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('Japanese')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="German" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" checked wire:model="brandNationality" value="German" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('German')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('German')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" wire:model="newBrand.nationality" value="Swiss" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" wire:model="brandNationality" value="Swiss" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('Swiss')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('Swiss')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newBrand.nationality" checked wire:model="newBrand.nationality" value="Other" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="brandNationality" checked wire:model="brandNationality" value="Other" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newBrand.nationality" :value="__('Other')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="brandNationality" :value="__('Other')" :class="'inline-block font-normal'" />
 								</div>
 
-								@error('newBrand.nationality')
+								@error('brandNationality')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
 								@enderror
 							</div>
 
-							<div wire:key="field-newBrand-external_link-{{ time() }}">
-								<x-front.input-label for="newBrand.external_link" :value="__('What is the new brand\'s website').' ?'" :required="true" />
+							<div wire:key="field-brandExternalLink-{{ time() }}">
+								<x-front.input-label for="brandExternalLink" :value="__('What is the new brand\'s website').' ?'" :required="true" />
 
-								<x-front.text-input type="text" name="newBrand.external_link" wire:model="newBrand.external_link" placeholder="{{ __('New brand website') }}" class="mt-1 block text-gray-400" />
+								<x-front.text-input type="text" name="brandExternalLink" wire:model="brandExternalLink" placeholder="{{ __('New brand website') }}" class="mt-1 block text-gray-400" />
 
-								@error('newBrand.external_link')
+								@error('brandExternalLink')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
@@ -264,7 +266,7 @@
 						</div>
 					</x-front.modal>
 
-					<x-front.modal name="create-collection" :class="'w-full max-w-2xl'" focusable wire:key="modal-create-collection-{{ time() }}">
+					<x-front.modal name="create-collection" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :brand collection', ['brand' => $brand->name]) }}
@@ -272,12 +274,12 @@
 						</header>
 
 						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-							<div wire:key="field-newCollection-name-{{ time() }}">
-								<x-front.input-label for="newCollection.name" :value="__('What is the new :brand collection\'s name', ['brand' => $brand->name]).' ?'" :required="true" />
+							<div wire:key="field-collectionName-{{ time() }}">
+								<x-front.input-label for="collectionName" :value="__('What is the new :brand collection\'s name', ['brand' => $brand->name]).' ?'" :required="true" />
 
-								<x-front.text-input type="text" name="newCollection.name" wire:model="newCollection.name" placeholder="{{ __('New collection name') }}" class="mt-1 block text-gray-400" />
+								<x-front.text-input type="text" name="collectionName" wire:model="collectionName" placeholder="{{ __('New collection name') }}" class="mt-1 block text-gray-400" />
 
-								@error('newCollection.name')
+								@error('collectionName')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
@@ -290,13 +292,13 @@
 								{{ __('Cancel') }}
 							</x-front.secondary-button>
 
-							<x-front.primary-button wire:click="createCollection" @collection-created.window="$dispatch('close')">
+							<x-front.primary-button wire:click="createCollection" x-on:collection-created.window="$dispatch('close')">
 								{{ __('Add the collection') }}
 							</x-front.primary-button>
 						</div>
 					</x-front.modal>
 
-					<x-front.modal name="create-movement" :class="'w-full max-w-2xl'" focusable wire:key="modal-create-movement-{{ time() }}">
+					<x-front.modal name="create-movement" :class="'w-full max-w-2xl'" focusable>
 						<header class="flex flex-row justify-center">
 							<h2 class="text-lg font-semibold pt-1">
 								{{ __('Add a new :brand movement', ['brand' => $brand->name]) }}
@@ -304,128 +306,128 @@
 						</header>
 
 						<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-							<div wire:key="field-newMovement-name-{{ time() }}">
-								<x-front.input-label for="newMovement.name" :value="__('What is the new :brand movement\'s name', ['brand' => $brand->name]).' ?'" :required="true" />
+							<div wire:key="field-movementName-{{ time() }}">
+								<x-front.input-label for="movementName" :value="__('What is the new :brand movement\'s name', ['brand' => $brand->name]).' ?'" :required="true" />
 
-								<x-front.text-input type="text" name="newMovement.name" wire:model="newMovement.name" placeholder="{{ __('New movement name') }}" class="mt-1 block text-gray-400" />
+								<x-front.text-input type="text" name="movementName" wire:model="movementName" placeholder="{{ __('New movement name') }}" class="mt-1 block text-gray-400" />
 
-								@error('newMovement.name')
+								@error('movementName')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
 								@enderror
 							</div>
 
-							<div wire:key="field-newMovement-type-{{ time() }}">
-								<x-front.input-label for="newMovement.type" :value="__('What is the movement\'s type').' ?'" :required="true" />
+							<div wire:key="field-movementType-{{ time() }}">
+								<x-front.input-label for="movementType" :value="__('What is the movement\'s type').' ?'" :required="true" />
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.type" wire:model="newMovement.type" value="quartz" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementType" wire:model="movementType" value="quartz" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.type" :value="__('Quartz')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementType" :value="__('Quartz')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.type" wire:model="newMovement.type" value="solar" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementType" wire:model="movementType" value="solar" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.type" :value="__('Solar')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementType" :value="__('Solar')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.type" wire:model="newMovement.type" value="manual" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementType" wire:model="movementType" value="manual" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.type" :value="__('Manual')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementType" :value="__('Manual')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.type" checked wire:model="newMovement.type" value="automatic" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementType" checked wire:model="movementType" value="automatic" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.type" :value="__('Automatic')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementType" :value="__('Automatic')" :class="'inline-block font-normal'" />
 								</div>
 
-								@error('newMovement.type')
+								@error('movementType')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
 								@enderror
 							</div>
 
-							<div wire:key="field-newMovement-COSC-{{ time() }}">
-								<input type="checkbox" name="newMovement.COSC" value="1" wire:model="newMovement.COSC" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+							<div wire:key="field-movementCOSC-{{ time() }}">
+								<input type="checkbox" name="movementCOSC" value="1" wire:model="movementCOSC" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-								<x-front.input-label for="newMovement.COSC" :value="__('Is the movement COSC certified').' ?'" :class="'ml-2 inline-block font-normal'" />
+								<x-front.input-label for="movementCOSC" :value="__('Is the movement COSC certified').' ?'" :class="'ml-2 inline-block font-normal'" />
 							</div>
 
-							<div wire:key="field-newMovement-METAS-{{ time() }}">
-								<input type="checkbox" name="newMovement.METAS" value="1" wire:model="newMovement.METAS" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+							<div wire:key="field-movementMETAS-{{ time() }}">
+								<input type="checkbox" name="movementMETAS" value="1" wire:model="movementMETAS" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-								<x-front.input-label for="newMovement.METAS" :value="__('Is the movement METAS certified').' ?'" :class="'ml-2 inline-block font-normal'" />
+								<x-front.input-label for="movementMETAS" :value="__('Is the movement METAS certified').' ?'" :class="'ml-2 inline-block font-normal'" />
 							</div>
 
-							<div wire:key="field-newMovement-manufactured_caliber-{{ time() }}">
-								<input type="checkbox" name="newMovement.manufactured_caliber" value="1" wire:model="newMovement.manufactured_caliber" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+							<div wire:key="field-movementManufacturedCaliber-{{ time() }}">
+								<input type="checkbox" name="movementManufacturedCaliber" value="1" wire:model="movementManufacturedCaliber" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-								<x-front.input-label for="newMovement.manufactured_caliber" :value="__('Is the movement manufactured').' ?'" :class="'ml-2 inline-block font-normal'" />
+								<x-front.input-label for="movementManufacturedCaliber" :value="__('Is the movement manufactured').' ?'" :class="'ml-2 inline-block font-normal'" />
 							</div>
 
-							<div wire:key="field-newMovement-description-{{ time() }}">
-								<x-front.input-label for="newMovement.description" :value="__('Description/history of the movement')" />
+							<div wire:key="field-movementDescription-{{ time() }}">
+								<x-front.input-label for="movementDescription" :value="__('Description/history of the movement')" />
 
-								<textarea name="newMovement.description" wire:model.lazy="newMovement.description" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
+								<textarea name="movementDescription" wire:model.lazy="movementDescription" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
 
-								@error('newMovement.description')
+								@error('movementDescription')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
 								@enderror
 							</div>
 
-							<div wire:key="field-newMovement-nationality-{{ time() }}">
-								<x-front.input-label for="newMovement.nationality" :value="__('What is the movement\'s nationality').' ?'" :required="true" />
+							<div wire:key="field-movementNationality-{{ time() }}">
+								<x-front.input-label for="movementNationality" :value="__('What is the movement\'s nationality').' ?'" :required="true" />
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" checked wire:model="newMovement.nationality" value="American" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" checked wire:model="movementNationality" value="American" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('American')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('American')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" checked wire:model="newMovement.nationality" value="English" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" checked wire:model="movementNationality" value="English" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('English')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('English')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" wire:model="newMovement.nationality" value="French" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" wire:model="movementNationality" value="French" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('French')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('French')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" wire:model="newMovement.nationality" value="Japanese" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" wire:model="movementNationality" value="Japanese" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('Japanese')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('Japanese')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" checked wire:model="newMovement.nationality" value="German" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" checked wire:model="movementNationality" value="German" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('German')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('German')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" wire:model="newMovement.nationality" value="Swiss" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" wire:model="movementNationality" value="Swiss" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('Swiss')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('Swiss')" :class="'inline-block font-normal'" />
 								</div>
 
 								<div class="pr-5">
-									<input type="radio" name="newMovement.nationality" checked wire:model="newMovement.nationality" value="Other" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+									<input type="radio" name="movementNationality" checked wire:model="movementNationality" value="Other" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-front.input-label for="newMovement.nationality" :value="__('Other')" :class="'inline-block font-normal'" />
+									<x-front.input-label for="movementNationality" :value="__('Other')" :class="'inline-block font-normal'" />
 								</div>
 
-								@error('newMovement.nationality')
+								@error('movementNationality')
 									<span class="error text-danger-700">
 										{{ $message }}
 									</span>
@@ -438,7 +440,7 @@
 								{{ __('Cancel') }}
 							</x-front.secondary-button>
 
-							<x-front.primary-button wire:click="createMovement" @movement-created.window="$dispatch('close')">
+							<x-front.primary-button wire:click="createMovement" x-on:movement-created="$dispatch('close')">
 								{{ __('Add the movement') }}
 							</x-front.primary-button>
 						</div>
@@ -564,7 +566,7 @@
 						</div>
 					@endif--}}
 
-					<div class="mt-8 px-5 py-6 bg-white shadow-sm rounded-md flex justify-end">
+					<div class="px-5 py-6 flex justify-end">
 						<x-front.secondary-button :class="'mr-6'" wire:click="back()">
 							{{ __('Return to the previous step') }}
 						</x-front.secondary-button>
