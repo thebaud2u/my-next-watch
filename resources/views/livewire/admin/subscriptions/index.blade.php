@@ -174,7 +174,7 @@
 		{{ $subscriptions->links() }}
 	</div>
 
-	<x-front.modal name="add-subscription" :class="'w-full max-w-2xl'" focusable>
+	<x-modal name="add-subscription" :class="'w-full max-w-2xl'" focusable>
 		<header class="flex flex-row justify-center">
 			<button type="button" title="{{ __('Create a new subscription') }}" class="text-white bg-blue-700 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -190,11 +190,11 @@
 		<div class="grid gap-x-20 gap-y-10 grid-cols-1 mt-5">
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="userEmail" :value="__('Registered\'s account email')" />
+					<x-input-label for="userEmail" :value="__('Registered\'s account email')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="email" name="userEmail" wire:model="userEmail" wire:keydown.debounce.500ms="searchRegistered" placeholder="{{ __('Registered\'s account email') }}" class="mt-1 block text-gray-400 " />
+					<x-text-input type="email" name="userEmail" wire:model="userEmail" wire:keydown.debounce.500ms="searchRegistered" placeholder="{{ __('Registered\'s account email') }}" class="mt-1 block text-gray-400 " />
 				</div>
 
 				@if($userEmail && $foundUsers)
@@ -223,7 +223,7 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="offer_id" :value="__('Offer')" />
+					<x-input-label for="offer_id" :value="__('Offer')" />
 				</div>
 
 				<select name="offer_id" wire:model="newSubscription.offer_id" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
@@ -242,11 +242,11 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="creditRemaining" :value="__('Credits remaining')" />
+					<x-input-label for="creditRemaining" :value="__('Credits remaining')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="number" name="creditRemaining" wire:model="newSubscription.remaining_quantity" class="mt-1 block text-gray-400 " placeholder="{{ __('Credits remaining') }}" />
+					<x-text-input type="number" name="creditRemaining" wire:model="newSubscription.remaining_quantity" class="mt-1 block text-gray-400 " placeholder="{{ __('Credits remaining') }}" />
 				</div>
 
 				@error('newSubscription.remaining_quantity')
@@ -258,11 +258,11 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="expirationDate" :value="__('Expire on')" />
+					<x-input-label for="expirationDate" :value="__('Expire on')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="date" name="expirationDate" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" wire:model="newSubscription.end_date" class="mt-1 block text-gray-400 " placeholder="{{ __('Expires on') }}" />
+					<x-text-input type="date" name="expirationDate" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" wire:model="newSubscription.end_date" class="mt-1 block text-gray-400 " placeholder="{{ __('Expires on') }}" />
 				</div>
 
 				@error('newSubscription.end_date')
@@ -274,11 +274,11 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="reference" :value="__('Reference')" />
+					<x-input-label for="reference" :value="__('Reference')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="text" name="reference" wire:model="newSubscription.reference" class="mt-1 block text-gray-400 " placeholder="{{ __('Reference') }}" />
+					<x-text-input type="text" name="reference" wire:model="newSubscription.reference" class="mt-1 block text-gray-400 " placeholder="{{ __('Reference') }}" />
 				</div>
 
 				@error('newSubscription.reference')
@@ -290,17 +290,17 @@
 		</div>
 
 		<div class="mt-6 flex flex-row flex-wrap justify-center">
-			<x-front.primary-button wire:click="addSubscription" @subscription-added.window="$dispatch('close');" :class="'mr-6'">
+			<x-primary-button wire:click="addSubscription" @subscription-added.window="$dispatch('close');" :class="'mr-6'">
 				{{ __('Create the subscription') }}
-			</x-front.primary-button>
+			</x-primary-button>
 
-			<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+			<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 				{{ __('No, go back') }}
-			</x-front.secondary-button>
+			</x-secondary-button>
 		</div>
-	</x-front.modal>
+	</x-modal>
 
-	<x-front.modal name="update-subscription" :class="'w-full max-w-2xl'" focusable>
+	<x-modal name="update-subscription" :class="'w-full max-w-2xl'" focusable>
 		<header class="flex flex-row justify-center">
 			<button type="button" title="{{ __('Create a new subscription') }}" class="text-white bg-blue-700 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -316,11 +316,11 @@
 		<div class="grid gap-x-20 gap-y-10 grid-cols-1 mt-5">
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="creditRemaining" :value="__('Credits remaining')" />
+					<x-input-label for="creditRemaining" :value="__('Credits remaining')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="number" name="creditRemaining" wire:model="userSubscription.remaining_quantity" class="mt-1 block text-gray-400 " placeholder="{{ __('Credits remaining') }}" />
+					<x-text-input type="number" name="creditRemaining" wire:model="userSubscription.remaining_quantity" class="mt-1 block text-gray-400 " placeholder="{{ __('Credits remaining') }}" />
 				</div>
 
 				@error('userSubscription.remaining_quantity')
@@ -332,11 +332,11 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="expirationDate" :value="__('Expires on')" />
+					<x-input-label for="expirationDate" :value="__('Expires on')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="date" name="expirationDate" wire:model="userSubscription.end_date" class="mt-1 block text-gray-400 " placeholder="{{ __('Expires on') }}" />
+					<x-text-input type="date" name="expirationDate" wire:model="userSubscription.end_date" class="mt-1 block text-gray-400 " placeholder="{{ __('Expires on') }}" />
 				</div>
 
 				@error('userSubscription.end_date')
@@ -348,11 +348,11 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="reference" :value="__('Reference')" />
+					<x-input-label for="reference" :value="__('Reference')" />
 				</div>
 
 				<div class="flex flex-row mt-2">
-					<x-front.text-input type="text" name="reference" wire:model="userSubscription.reference" class="mt-1 block text-gray-400 " placeholder="{{ __('Reference') }}" />
+					<x-text-input type="text" name="reference" wire:model="userSubscription.reference" class="mt-1 block text-gray-400 " placeholder="{{ __('Reference') }}" />
 				</div>
 
 				@error('userSubscription.reference')
@@ -364,13 +364,13 @@
 		</div>
 
 		<div class="mt-6 flex flex-row flex-wrap justify-center">
-			<x-front.primary-button wire:click="updateSubscription()" @subscription-updated.window="$dispatch('close');" :class="'mr-6'">
+			<x-primary-button wire:click="updateSubscription()" @subscription-updated.window="$dispatch('close');" :class="'mr-6'">
 				{{ __('Yes, update') }}
-			</x-front.primary-button>
+			</x-primary-button>
 
-			<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+			<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 				{{ __('No, go back') }}
-			</x-front.secondary-button>
+			</x-secondary-button>
 		</div>
-	</x-front.modal>
+	</x-modal>
 </div>

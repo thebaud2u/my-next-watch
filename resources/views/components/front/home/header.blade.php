@@ -17,9 +17,9 @@
 					<div class="shrink flex-wrap">
 						{{-- Log in --}}
 						<a href="{{ route('login') }}">
-							<x-front.primary-button :class="'px-4 py-1 hover:bg-mnw-blue hover:text-white font-semibold'">
+							<x-primary-button :class="'px-4 py-1 hover:bg-mnw-blue hover:text-white font-semibold'">
 								{{ __('Log in') }}
-							</x-front.primary-button>
+							</x-primary-button>
 						</a>
 					</div>
 				@endauth
@@ -42,9 +42,9 @@
 				<div class="flex flex-col justify-center items-center px-4 space-y-4">
 					{{-- Log in --}}
 					<a href="{{ route('login') }}" class="text-base">
-						<x-front.primary-button :class="'font-semibold hover:text-white focus:text-white w-full justify-center'">
+						<x-primary-button :class="'font-semibold hover:text-white focus:text-white w-full justify-center'">
 							{{ __('Log in') }}
-						</x-front.primary-button>
+						</x-primary-button>
 					</a>
 				</div>
 			@endauth

@@ -2,18 +2,16 @@
 	'name' => 'modal',
 	'show' => false,
 	'ref' => null,
-	'focusable' => false
+	'focusable' => false,
+	'title' => null
 ])
 
 @php
-	// $show_var = 'show_'.str_replace('-', '_', $name);
 	$show_var = 'show';
 @endphp
 
 <div
-	x-data="{ {{--
-		show: @js($show),
-		show: (window.location.hash.indexOf('{{ $name }}') != -1), --}}
+	x-data="{
 		{{ $show_var }}: (window.location.hash.indexOf('{{ $name }}') != -1) ?? @js($show),
 		focusables() {
 			// All focusable element types...
@@ -37,7 +35,6 @@
 			document.body.classList.remove('overflow-y-hidden');
 		}
 	})"
-	{{-- x-on:open-modal.window="$event.detail == '{{ $name }}' ? show = true : null" --}}
 	x-on:open-modal.window="if ($event.detail == '{{ $name }}') { {{ $show_var }} = true }"
 	x-on:close.stop="{{ $show_var }} = false"
 	x-on:keydown.escape.window="{{ $show_var }} = false"
@@ -48,7 +45,6 @@
 	{{ $attributes->merge([
 		'class' => 'relative max-h-screen bg-white rounded-lg shadow overflow-x-hidden overflow-y-auto shadow-xl transform transition-all mx-auto w-full max-w-[750px]'
 	]) }}
-{{-- Incohérence : --}}
 	style="display: {{ $show ? 'block' : 'none' }};"
 >
 	<div
@@ -89,6 +85,17 @@
 		</button>
 
 		<div class="mt-8 p-4 sm:p-6">
+			{{ $title }}
+
+			<div class="max-w-screen-xl mx-auto lg:px-6">
+				{{-- Flash message --}}
+				@if ($errors->any() || Session::has('error') || Session::has('success') || Session::has('warning') || Session::has('info'))
+					<div class="py-5 px-4 lg:px-6" x-data="{}" x-ref="alert">
+						@include('components.alert-message')
+					</div>
+				@endif
+			</div>
+
 			{{ $slot }}
 		</div>
 	</div>

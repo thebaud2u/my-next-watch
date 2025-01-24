@@ -28,7 +28,7 @@
 			<div>
 				<div>
 					<div class="flex flex-row">
-						<x-front.input-label for="contact_choice" :value="__('Request type')" />
+						<x-input-label for="contact_choice" :value="__('Request type')" />
 						<span class="text-mnw-red block ml-1"> *</span>
 					</div>
 
@@ -52,18 +52,18 @@
 				</div>
 
 				<div class="flex flex-row justify-end mt-12">
-					<x-front.primary-button :class="'ml-4'" wire:click="submitFirstStep()">
+					<x-primary-button :class="'ml-4'" wire:click="submitFirstStep()">
 						{{ __('Continue') }}
-					</x-front.primary-button>
+					</x-primary-button>
 				</div>
 			</div>
 		@elseif($active == 2)
 			<div>
 				<div class="grid gap-x-20 gap-y-10 grid-cols-1 mt-5">
 					<div>
-						<x-front.input-label for="firstname" :value="__('Firstname')" :required="true" />
+						<x-input-label for="firstname" :value="__('Firstname')" :required="true" />
 
-						<x-front.text-input type="text" id="firstname" name="firstname" wire:model="firstname" required :class="'mt-1 block w-full'" />
+						<x-text-input type="text" id="firstname" name="firstname" wire:model="firstname" required :class="'mt-1 block w-full'" />
 
 						@error('firstname')
 							<span class="error text-danger-700">
@@ -73,9 +73,9 @@
 					</div>
 
 					<div>
-						<x-front.input-label for="lastname" :value="__('Lastname')" :required="true" />
+						<x-input-label for="lastname" :value="__('Lastname')" :required="true" />
 
-						<x-front.text-input type="text" id="lastname" name="lastname" wire:model="lastname" required :class="'mt-1 block w-full'" />
+						<x-text-input type="text" id="lastname" name="lastname" wire:model="lastname" required :class="'mt-1 block w-full'" />
 
 						@error('lastname')
 							<span class="error text-danger-700">
@@ -85,9 +85,9 @@
 					</div>
 
 					<div>
-						<x-front.input-label for="phone" :value="__('Phone number')" :required="true" />
+						<x-input-label for="phone" :value="__('Phone number')" :required="true" />
 
-						<x-front.text-input type="text" id="phone" name="phone" wire:model="phone" required :class="'mt-1 block w-full'" />
+						<x-text-input type="text" id="phone" name="phone" wire:model="phone" required :class="'mt-1 block w-full'" />
 
 						@error('phone')
 							<span class="error text-danger-700">
@@ -98,12 +98,12 @@
 
 					<div>
 						@if($contact_choice == 5 || $contact_choice == 6 || $contact_choice == 7)
-							<x-front.input-label for="email" :value="__('Email address')" :required="true" />
+							<x-input-label for="email" :value="__('Email address')" :required="true" />
 						@else
-							<x-front.input-label for="email" :value="__('Email address of your :siteName account', ['siteName' => env('APP_NAME')])" :required="true" />
+							<x-input-label for="email" :value="__('Email address of your :siteName account', ['siteName' => env('APP_NAME')])" :required="true" />
 						@endif
 
-						<x-front.text-input type="email" id="email" name="email" wire:model="email" required :class="'mt-1 block w-full'" />
+						<x-text-input type="email" id="email" name="email" wire:model="email" required :class="'mt-1 block w-full'" />
 
 						@error('email')
 							<span class="error text-danger-700">
@@ -114,7 +114,7 @@
 
 					@if($contact_choice == 4)
 						<div>
-							<x-front.input-label for="body" :value="__('Report type')" :required="true" />
+							<x-input-label for="body" :value="__('Report type')" :required="true" />
 
 							<div class="pr-5">
 								<input type="radio" name="type_report" checked wire:model="type_report" value="recruteur" class="disabled:bg-gray-200 mr-2 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
@@ -152,9 +152,9 @@
 						</div>
 
 						<div>
-							<x-front.input-label for="reported" :value="__('Name of the person/ post/ company you wish to report')" :required="true" />
+							<x-input-label for="reported" :value="__('Name of the person/ post/ company you wish to report')" :required="true" />
 
-							<x-front.text-input type="text" id="reported" name="reported" wire:model="reported" required :class="'mt-1 block w-full'" />
+							<x-text-input type="text" id="reported" name="reported" wire:model="reported" required :class="'mt-1 block w-full'" />
 
 							@error('reported')
 								<span class="error text-danger-700">
@@ -166,15 +166,15 @@
 
 					<div>
 						@if($contact_choice == 1)
-							<x-front.input-label for="body" :value="__('Please explain your post change request')" :required="true" />
+							<x-input-label for="body" :value="__('Please explain your post change request')" :required="true" />
 						@elseif($contact_choice == 2)
-							<x-front.input-label for="body" :value="__('Please explain your technical problem (with screenshots if possible)')" :required="true" />
+							<x-input-label for="body" :value="__('Please explain your technical problem (with screenshots if possible)')" :required="true" />
 						@elseif($contact_choice == 4)
-							<x-front.input-label for="body" :value="__('Thank you to detail your report')" :required="true" />
+							<x-input-label for="body" :value="__('Thank you to detail your report')" :required="true" />
 						@elseif($contact_choice == 8)
-							<x-front.input-label for="body" :value="__('Please specify which post you would like to broadcast')" :required="true" />
+							<x-input-label for="body" :value="__('Please specify which post you would like to broadcast')" :required="true" />
 						@else
-							<x-front.input-label for="body" :value="__('Please explain your request')" :required="true" />
+							<x-input-label for="body" :value="__('Please explain your request')" :required="true" />
 						@endif
 
 						<textarea name="body" wire:model.lazy="body" cols="30" rows="6" required class="border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm mt-1 block w-full text-gray-400"></textarea>
@@ -196,7 +196,7 @@
 
 					@if($contact_choice == 2 || $contact_choice == 4)
 						<div>
-							<x-front.input-label for="file" :value="__('Attachment')" />
+							<x-input-label for="file" :value="__('Attachment')" />
 
 							<input type="file" id="file" name="file" wire:model="file" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-mnw-blue file:bg-mnw-blue hover:border-mnw-blue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-mnw-blue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-mnw-blue dark:file:bg-mnw-blue dark:file:text-neutral-100 dark:focus:border-primary" />
 
@@ -211,7 +211,7 @@
 					<div>
 						<div class="flex flex-row" x-data="{checked: false}">
 							<input type="checkbox" name="consent" value="true" x-model="checked" wire:model="consent" class="w-4 h-4 mt-2 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
-							<x-front.input-label for="consent" x-on:click="checked = !checked" :value="__('By submitting this form, I accept that the information entered is used as part of the contact request')" :required="true" :class="'ml-2 cursor-pointer'"/>
+							<x-input-label for="consent" x-on:click="checked = !checked" :value="__('By submitting this form, I accept that the information entered is used as part of the contact request')" :required="true" :class="'ml-2 cursor-pointer'"/>
 						</div>
 
 						<div class="flex flex-row">
@@ -224,7 +224,7 @@
 					</div>
 
 					<div :class="'mt-2'">
-						<x-front.input-label for="captcha" :value="__('Verification')" :required="true" />
+						<x-input-label for="captcha" :value="__('Verification')" :required="true" />
 						<div class="captcha my-2 flex flex-row items-end">
 							<span>{!! $captcha_img !!}</span>
 
@@ -233,7 +233,7 @@
 							</button>
 						</div>
 
-						<x-front.text-input id="captcha" name="captcha" wire:model="captcha" type="text" class="mt-1 block w-full s:w-1/2 lg:w-1/4" :value="''" required />
+						<x-text-input id="captcha" name="captcha" wire:model="captcha" type="text" class="mt-1 block w-full s:w-1/2 lg:w-1/4" :value="''" required />
 
 						@error('captcha')
 							<span class="error text-danger-700">
@@ -244,13 +244,13 @@
 				</div>
 
 				<div class="flex items-center justify-between mt-12">
-					<x-front.secondary-button wire:click="back()">
+					<x-secondary-button wire:click="back()">
 						{{ __('Go back') }}
-					</x-front.secondary-button>
+					</x-secondary-button>
 
-					<x-front.primary-button wire:click="submitSecondStep()">
+					<x-primary-button wire:click="submitSecondStep()">
 						{{ __('Send') }}
-					</x-front.primary-button>
+					</x-primary-button>
 				</div>
 			</div>
 		@endif

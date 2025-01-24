@@ -34,7 +34,7 @@
 						@endphp
 
 						<a href="{{ $route }}">
-							<x-front.primary-button :class="'px-4 py-1 mr-2 bg-mnw-blue text-white hover:bg-mnw-blue hover:text-white font-semibold'">
+							<x-primary-button :class="'px-4 py-1 mr-2 bg-mnw-blue text-white hover:bg-mnw-blue hover:text-white font-semibold'">
 								<svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
 									<path d="M9 16.5C13.4183 16.5 17 12.9183 17 8.5C17 4.08172 13.4183 0.5 9 0.5C4.58172 0.5 1 4.08172 1 8.5C1 12.9183 4.58172 16.5 9 16.5Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 									<path d="M5.36353 8.5H12.6363" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
@@ -42,7 +42,7 @@
 								</svg>
 
 								{{ __('Find my next watch') }} !
-							</x-front.primary-button>
+							</x-primary-button>
 						</a>
 					</div>
 				</h1>

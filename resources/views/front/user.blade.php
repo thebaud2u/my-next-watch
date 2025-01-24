@@ -57,17 +57,17 @@
 								@role('registered')
 									@if(Auth::guard('web')->user()->id != $user->id)
 										@if(Auth::user()->isFollowing($user))
-											<x-front.secondary-button :class="'px-4 py-1 mr-2 hover:bg-mnw-blue hover:text-white font-semibold'">
+											<x-secondary-button :class="'px-4 py-1 mr-2 hover:bg-mnw-blue hover:text-white font-semibold'">
 												<a href="{{ route('space.favorites.follow', ['user' => $user]) }}">
 													{{ __('Unfollow') }}
 												</a>
-											</x-front.secondary-button>
+											</x-secondary-button>
 										@else
-											<x-front.secondary-button :class="'px-4 py-1 mr-2 hover:bg-mnw-blue hover:text-white font-semibold'">
+											<x-secondary-button :class="'px-4 py-1 mr-2 hover:bg-mnw-blue hover:text-white font-semibold'">
 												<a href="{{ route('space.favorites.follow', ['user' => $user]) }}">
 													{{ __('Follow') }}
 												</a>
-											</x-front.secondary-button>
+											</x-secondary-button>
 										@endif
 									@endif
 								@endrole

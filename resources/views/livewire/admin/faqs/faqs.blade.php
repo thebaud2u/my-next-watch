@@ -7,9 +7,9 @@
 	@endif
 
 	<div class="flex flex-row">
-		<x-front.primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq');" :class="'xs:block mb-8 mr-4'">
+		<x-primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq');" :class="'xs:block mb-8 mr-4'">
 			{{ __('Create an faq') }}
-		</x-front.primary-button>
+		</x-primary-button>
 	</div>
 
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
@@ -152,14 +152,14 @@
 		{{ $faqs->links() }}
 	</div>
 
-	<x-front.modal name="set-faq" focusable>
+	<x-modal name="set-faq" focusable>
 		<div class="space-y-8">
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaq.name" :value="__('Name of the faq')" :required="true" />
+					<x-input-label for="newFaq.name" :value="__('Name of the faq')" :required="true" />
 				</div>
 
-				<x-front.text-input type="text" wire:model="newFaq.name" placeholder="{{ __('Name of the faq') }}" class="mt-1 block w-full " />
+				<x-text-input type="text" wire:model="newFaq.name" placeholder="{{ __('Name of the faq') }}" class="mt-1 block w-full " />
 
 				@error('newFaq.name')
 					<span class="error text-danger-700">
@@ -169,22 +169,22 @@
 			</div>
 
 			<div class="flex flex-row justify-between">
-				<x-front.secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
 					{{ __('No, go back') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 
-				<x-front.primary-button wire:click="set" @faq-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-primary-button wire:click="set" @faq-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
 					@if($newFaq->id)
 						{{ __('Yes, update') }}
 					@else
 						{{ __('Add this faq') }}
 					@endif
-				</x-front.primary-button>
+				</x-primary-button>
 			</div>
 		</div>
-	</x-front.modal>
+	</x-modal>
 
-	<x-front.modal name="delete-faq" :class="'w-full max-w-2xl'" focusable>
+	<x-modal name="delete-faq" :class="'w-full max-w-2xl'" focusable>
 		<section class="p-10 flex flex-col flex-wrap content-center">
 			<header class="flex flex-col flex-wrap content-center">
 				<p class="mt-1 text-sm m-auto text-mnw-blue">
@@ -198,14 +198,14 @@
 			</header>
 
 			<div class="mt-6 flex flex-row flex-wrap justify-center">
-				<x-front.primary-button wire:click="delete" @faq-deleted.window="$dispatch('close');" :class="'mr-6'">
+				<x-primary-button wire:click="delete" @faq-deleted.window="$dispatch('close');" :class="'mr-6'">
 					{{ __('Yes, delete') }}
-				</x-front.primary-button>
+				</x-primary-button>
 
-				<x-front.secondary-button x-on:click="$dispatch('close')">
+				<x-secondary-button x-on:click="$dispatch('close')">
 					{{ __('No, go back') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 			</div>
 		</section>
-	</x-front.modal>
+	</x-modal>
 </div>

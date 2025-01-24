@@ -1,14 +1,12 @@
-@extends('admin.layouts.app')
+<x-admin-layout>
+	@push('scripts')
+		<script src="{!! asset('js/uppy.js') !!}"></script>
+	@endpush
 
-@push('scripts')
-	<script src="{!! asset('js/uppy.js') !!}"></script>
-@endpush
+	@push('styles')
+		<x-front.space.uppy-styles />
+	@endpush
 
-@push('styles')
-	<x-front.space.uppy-styles />
-@endpush
-
-@section('body')
 	<div class="mt-12">
 		<h1 class="text-gray-700 text-3xl font-medium">
 			{{ __('Update the :watch', ['watch' => ($watch->collection) ? $watch->collection->brand->name.' '.$watch->name.' '.$watch->reference: 'watch']) }}
@@ -17,16 +15,16 @@
 		<div class="container mt-4" x-data="{component:'', filename:''}">
 			<livewire:admin.watches.create-watch :watch="$watch" wire:key="create-watch-component-{{ time() }}" />
 
-			<x-front.modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
+			<x-modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
 				<form id="uploadform" x-on:uploaded.window="setTimeout(()=>{uppy.cancelAll();$dispatch('close')},'2000')">
 					@csrf
 					<input type="hidden" name="tiny" value="1" />
 					<input type="hidden" name="filename" x-model="filename" />
 					<div id="uploader"></div>
 				</form>
-			</x-front.modal>
+			</x-modal>
 
-			<x-front.modal name="delete_photo" :class="'w-full max-w-xl'" focusable>
+			<x-modal name="delete_photo" :class="'w-full max-w-xl'" focusable>
 				<section class="p-10 flex flex-col flex-wrap content-center">
 					<header class="flex flex-col flex-wrap content-center">
 						<p class="mt-1 text-sm m-auto text-mnw-blue">
@@ -41,16 +39,16 @@
 					</header>
 
 					<div class="mt-6 flex flex-row flex-wrap justify-center">
-						<x-front.primary-button x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia'+component)},'100')" :class="'mr-6'">
+						<x-primary-button x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia'+component)},'100')" :class="'mr-6'">
 							{{ __('Yes, delete') }}
-						</x-front.primary-button>
+						</x-primary-button>
 
-						<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+						<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 							{{ __('No, get me back to the page') }}
-						</x-front.secondary-button>
+						</x-secondary-button>
 					</div>
 				</section>
-			</x-front.modal>
+			</x-modal>
 		</div>
 	</div>
-@endsection
+</x-admin-layout>

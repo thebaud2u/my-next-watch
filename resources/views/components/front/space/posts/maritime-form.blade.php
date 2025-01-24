@@ -1,7 +1,7 @@
 <div>
 	<div>
 		<div class="flex flex-row">
-			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
+			<x-input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
 		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -32,10 +32,10 @@
 				@if($post->postType->slug == 'maritime')
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.title" :value="__('Post title')" :required="true" />
+							<x-input-label for="post.title" :value="__('Post title')" :required="true" />
 						</div>
 
-						<x-front.text-input name="post.title" wire:model="post.title" :disabled="($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false" placeholder="{{ __('Post title') }}" :class="'mt-1 block bg-white w-full'" />
+						<x-text-input name="post.title" wire:model="post.title" :disabled="($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false" placeholder="{{ __('Post title') }}" :class="'mt-1 block bg-white w-full'" />
 
 						@error('post.title')
 							<span class="error text-danger-700">
@@ -52,13 +52,13 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="goodsType" :value="__('Goods type')" :required="true" />
+							<x-input-label for="goodsType" :value="__('Goods type')" :required="true" />
 						</div>
 
 						@foreach($criterias['goods-type'] as $goodType)
 							<div wire:key="goods-type-{{ $goodType->id }}">
 								<input type="checkbox" name="goodsType" value="{{ $goodType->id }}" wire:model="goodsType" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
-								<x-front.input-label for="goodsType" :value="$goodType->name" :class="'ml-2 inline-block font-normal'"/>
+								<x-input-label for="goodsType" :value="$goodType->name" :class="'ml-2 inline-block font-normal'"/>
 							</div>
 						@endforeach
 
@@ -71,7 +71,7 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.values_web.starting_point" :value="__('Starting point')" />
+							<x-input-label for="post.values_web.starting_point" :value="__('Starting point')" />
 						</div>
 
 						<select name="post.values_web.starting_point" wire:model="post.values_web.starting_point" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -92,13 +92,13 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="destinations" :value="__('Destinations')" />
+							<x-input-label for="destinations" :value="__('Destinations')" />
 						</div>
 
 						@foreach($criterias['destinations'] as $destination)
 							<div wire:key="destinations-{{ $destination->id }}">
 								<input type="checkbox" name="destinations" value="{{ $destination->id }}" wire:model="destinations" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
-								<x-front.input-label for="destinations" :value="$destination->name" :class="'ml-2 inline-block font-normal'"/>
+								<x-input-label for="destinations" :value="$destination->name" :class="'ml-2 inline-block font-normal'"/>
 							</div>
 						@endforeach
 
@@ -112,7 +112,7 @@
 					{{-- Description --}}
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.body" :value="__('Post description')" :required="true" />
+							<x-input-label for="post.body" :value="__('Post description')" :required="true" />
 						</div>
 
 						<div wire:ignore>

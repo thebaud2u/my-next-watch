@@ -16,16 +16,16 @@
 	<div x-data="{component:'', filename:''}">
 		<livewire:front.space.posts.create :post="$post" :wire:key="'create'" />
 
-		<x-front.modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
+		<x-modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
 			<form id="uploadform" x-on:uploaded.window="setTimeout(()=>{uppy.cancelAll();$dispatch('close')},'2000')">
 				@csrf
 				<input type="hidden" name="tiny" value="1" />
 				<input type="hidden" name="filename" x-model="filename" />
 				<div id="uploader"></div>
 			</form>
-		</x-front.modal>
+		</x-modal>
 
-		<x-front.modal name="delete_photo" :class="'w-full max-w-xl'" focusable>
+		<x-modal name="delete_photo" :class="'w-full max-w-xl'" focusable>
 			<section class="p-10 flex flex-col flex-wrap content-center">
 				<header class="flex flex-col flex-wrap content-center">
 					<p class="mt-1 text-sm m-auto text-mnw-blue">
@@ -40,15 +40,15 @@
 				</header>
 
 				<div class="mt-6 flex flex-row flex-wrap justify-center">
-					<x-front.primary-button x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia'+component)},'100')" :class="'mr-6'">
+					<x-primary-button x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia'+component)},'100')" :class="'mr-6'">
 						{{ __('Yes, delete') }}
-					</x-front.primary-button>
+					</x-primary-button>
 
-					<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+					<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 						{{ __('No, get me back to the page') }}
-					</x-front.secondary-button>
+					</x-secondary-button>
 				</div>
 			</section>
-		</x-front.modal>
+		</x-modal>
 	</div>
 </x-space-layout>

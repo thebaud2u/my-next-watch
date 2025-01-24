@@ -238,7 +238,7 @@
 									@if($nbrPhoto > 1)
 										<div class="relative">
 											<div class="absolute z-10 top-[135px] left-[-385px] uppercase">
-												<x-front.primary-button>
+												<x-primary-button>
 													<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
 														<path d="M5.38086 1H14.6931C16.6261 1 18.1931 2.567 18.1931 4.5V13.8122" stroke="white" stroke-linecap="round"/>
 														<path d="M4.9993 6.5C5.55119 6.5 6.05095 6.72454 6.41386 7.08609C6.77676 7.4476 7 7.94746 7 8.5007C7 9.05394 6.77676 9.55105 6.41386 9.91255L6.41255 9.91395C6.04965 10.2769 5.54979 10.5 4.9993 10.5C4.44881 10.5 3.94764 10.2768 3.58605 9.91395L3.56692 9.89478C3.21633 9.53327 3 9.04167 3 8.5007C3 7.94746 3.22319 7.4476 3.58609 7.08609C3.94764 6.72319 4.44741 6.5 4.9993 6.5Z" fill="white"/>
@@ -246,7 +246,7 @@
 														<rect x="0.5" y="4.27881" width="14.2213" height="14.2213" rx="2" stroke="white"/>
 													</svg>
 													Voir la galerie
-												</x-front.primary-button>
+												</x-primary-button>
 											</div>
 										</div>
 									@endif
@@ -291,7 +291,7 @@
 						@endif
 					@endforeach
 
-					<x-front.modal name="galery" :class="'w-full max-w-screen-xl'" focusable>
+					<x-modal name="galery" :class="'w-full max-w-screen-xl'" focusable>
 						<div class="flex items-center mt-6" x-init="hideImages();">
 							<div x-on:click="nextElementWide();" class="mr-4 cursor-pointer">
 								<svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -337,7 +337,7 @@
 								</svg>
 							</div>
 						</div>
-					</x-front.modal>
+					</x-modal>
 				{{-- @else
 					<div class="overflow-hidden max-h-80 flex justify-center items-stretch shadow-lg">
 						<img src="{{ asset('/storage/'.$post->thematic->getRandomImage()); }}" alt="{{ $post->title }}" class="object-cover w-full min-h-[20rem] brightness-75">
@@ -422,22 +422,22 @@
 									@if ($hasContacted && ! $hasClosed)
 										<div>
 											<a href="{{ route('space.responses.show', ['response' => $response]) }}">
-												<x-front.primary-button type="button">
+												<x-primary-button type="button">
 													{{ __('Go to conversation') }}
-												</x-front.primary-button>
+												</x-primary-button>
 											</a>
 										</div>
 									@else
 										<div>
 											<a href="#contact"
 												x-on:click.prevent="$dispatch('open-modal','contact')">
-												<x-front.primary-button type="button">
+												<x-primary-button type="button">
 													{{ __('Contact the advertiser') }}
-												</x-front.primary-button>
+												</x-primary-button>
 											</a>
 										</div>
 
-										<x-front.modal name="contact" width="w-full max-w-2xl" focusable>
+										<x-modal name="contact" width="w-full max-w-2xl" focusable>
 											<section class="p-10">
 												<header class="flex flex-col flex-wrap content-center">
 													<div class="mt-1 mb-6 text-sm m-auto text-mnw-blue">
@@ -471,25 +471,25 @@
 													</div>
 
 													<div class="flex flex-row mt-4 justify-center">
-														<x-front.primary-button class="mr-6">
+														<x-primary-button class="mr-6">
 															{{ __('Send') }}
-														</x-front.primary-button>
+														</x-primary-button>
 
-														<x-front.secondary-button type="button" x-on:click="$dispatch('close')">
+														<x-secondary-button type="button" x-on:click="$dispatch('close')">
 															{{ __('Cancel') }}
-														</x-front.secondary-button>
+														</x-secondary-button>
 													</div>
 												</form>
 											</section>
-										</x-front.modal>
+										</x-modal>
 									@endif
 								@endif
 							@endrole
 						@else
 							<a href="{{ route('login') . '?' . http_build_query(['r' => route('show-post', ['post' => $post], false)]) }}">
-								<x-front.primary-button>
+								<x-primary-button>
 									{{ __('Contact the advertiser') }}
-								</x-front.primary-button>
+								</x-primary-button>
 							</a>
 						@endif
 					</div>
@@ -582,17 +582,17 @@
 								@if ($hasContacted && ! $hasClosed)
 									<div>
 										<a href="{{ route('space.responses.show', ['response' => $response]) }}">
-											<x-front.primary-button type="button">
+											<x-primary-button type="button">
 												{{ __('Go to conversation') }}
-											</x-front.primary-button>
+											</x-primary-button>
 										</a>
 									</div>
 								@else
 									<div>
 										<a href="#contact" x-on:click.prevent="$dispatch('open-modal','contact')">
-											<x-front.primary-button type="button">
+											<x-primary-button type="button">
 												{{ __('Contact the advertiser') }}
-											</x-front.primary-button>
+											</x-primary-button>
 										</a>
 									</div>
 								@endif
@@ -627,7 +627,7 @@
 									</div>
 								</a>
 
-								<x-front.modal name="delete-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
+								<x-modal name="delete-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 									<section class="p-10">
 										<header class="flex flex-col flex-wrap content-center">
 											<div class="mt-1 text-sm m-auto text-mnw-blue">
@@ -646,26 +646,26 @@
 												@method('delete')
 												@csrf
 
-												<x-front.primary-button :class="'mr-6'">
+												<x-primary-button :class="'mr-6'">
 													{{ __('Yes, delete') }}
-												</x-front.primary-button>
+												</x-primary-button>
 											</form>
 
-											<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+											<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 												{{ __('No, go back to my posts') }}
-											</x-front.secondary-button>
+											</x-secondary-button>
 										</div>
 									</section>
-								</x-front.modal>
+								</x-modal>
 							</div>
 						@endif
 					@endrole
 				@else
 					<div class="flex flex-col justify-center items-center mt-6">
 						<a href="{{ route('login') . '?' . http_build_query(['r' => route('show-post', ['post' => $post], false)]) }}">
-							<x-front.primary-button type="button">
+							<x-primary-button type="button">
 								{{ __('Contact the advertiser') }}
-							</x-front.primary-button>
+							</x-primary-button>
 						</a>
 					</div>
 				@endif

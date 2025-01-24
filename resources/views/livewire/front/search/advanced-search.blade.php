@@ -78,16 +78,16 @@
 			@endphp
 			<div class="my-6 text-center" x-data="{}">
 				<a href="#" class="mx-auto" x-on:click.prevent="$dispatch('open-modal','save-search')">
-					<x-front.primary-button :class="'gap-2 lg:w-full px-4 py-1 bg-mnw-blue text-white hover:bg-mnw-blue hover:text-white xl:text-sm'">{{-- text-sm xl:text-base font-semibold --}}
+					<x-primary-button :class="'gap-2 lg:w-full px-4 py-1 bg-mnw-blue text-white hover:bg-mnw-blue hover:text-white xl:text-sm'">{{-- text-sm xl:text-base font-semibold --}}
 						<svg class="size-5 xl:size-6" viewBox="0 0 19 18" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15.4978 17H3.50136C2.39669 17 1.50195 16.105 1.50195 15V3C1.50195 1.895 2.39669 1 3.50136 1H12.6712C13.201 1 13.7109 1.21001 14.0858 1.58501L16.9124 4.41251C17.2873 4.78751 17.4972 5.2975 17.4972 5.8275V15C17.4972 16.105 16.6025 17 15.4978 17Z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M13.4976 1.17999V6C13.4976 7.105 12.6029 8 11.4982 8H7.49941C6.39474 8 5.5 7.105 5.5 6V1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M5.5 17V15C5.5 13.895 6.39474 13 7.49941 13H11.4982C12.6029 13 13.4976 13.895 13.4976 15V17" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 						<span>{{ __('Save my search') }}</span>
-					</x-front.primary-button>
+					</x-primary-button>
 				</a>
-				<x-front.modal name="save-search" width="w-full max-w-2xl" wire:key="save-search" focusable>
+				<x-modal name="save-search" width="w-full max-w-2xl" wire:key="save-search" focusable>
 					<section class="p-10">
 						<form method="post" action="{{ route('space.searches.save', ['search' => $savedSearch]) }}">
 							@csrf
@@ -101,11 +101,11 @@
 									</svg>
 								</div>
 								<h2>
-									<x-front.input-label for="search_name" :value="__('Choose a title for this search')" :required="true"
+									<x-input-label for="search_name" :value="__('Choose a title for this search')" :required="true"
 										:class="'lg:text-lg text-center font-semibold'" />
 								</h2>
 								<p class="text-base text-center italic my-4">
-									<x-front.text-input name="search_name" :value="$searchName" readonly
+									<x-text-input name="search_name" :value="$searchName" readonly
 										:class="'mt-1 block bg-white w-full'" />
 									<input type="hidden" name="search_uuid" value="{{ $savedSearch?->uuid ?? '' }}">
 									<input type="hidden" name="thematic_id" value="{{ $thematic?->id ?? 0 }}">
@@ -116,16 +116,16 @@
 								</p>
 							</header>
 							<div class="flex flex-row mt-4 justify-center">
-								<x-front.primary-button class="mr-6">
+								<x-primary-button class="mr-6">
 									{{ __('Save my search') }}
-								</x-front.primary-button>
-								<x-front.secondary-button x-on:click="$dispatch('close')">
+								</x-primary-button>
+								<x-secondary-button x-on:click="$dispatch('close')">
 									{{ __('Cancel') }}
-								</x-front.secondary-button>
+								</x-secondary-button>
 							</div>
 						</form>
 					</section>
-				</x-front.modal>
+				</x-modal>
 			</div>
 		@endif
 	@endif

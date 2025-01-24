@@ -1,4 +1,4 @@
-<div x-data="{ addCollection: false, addMovement: false }">
+<div>
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap max-w-[936px]">
 			<select id="admin" wire:model="admin" class="rounded border border-gray-300 text-gray-400">

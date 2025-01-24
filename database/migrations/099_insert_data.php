@@ -721,9 +721,11 @@ return new class extends Migration
 					'diameter' => $watch['case']['diameter'],
 					'lug_to_lug' => $watch['case']['lug_to_lug'],
 					'lug_width' => $watch['case']['lug_width'],
+					'material' => $caseMaterials,
+					'open_case_back' => $watch['case']['open_case_back'],
+					'sapphire_crystal_case_back' => $watch['case']['sapphire_crystal_case_back'],
 					'thickness' => $watch['case']['thickness'],
-					'waterproofness' => $watch['case']['waterproofness'],
-					'material' => $caseMaterials
+					'waterproofness' => $watch['case']['waterproofness']
 				];
 
 				// Crown

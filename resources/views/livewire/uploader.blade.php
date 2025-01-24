@@ -82,9 +82,9 @@
 								<img alt="" src="{{ $media->getAvailableUrl(['optimized']) }}" class="{{ $object_fit }} w-full {{ $aspect_ratio }} group-hover:scale-110 transition duration-300 ease-in-out">
 							</div>
 
-							<x-front.modal name="photo_{{ $collection }}_{{ $index + 1 }}" :class="'w-full max-w-screen-xl'" focusable>
+							<x-modal name="photo_{{ $collection }}_{{ $index + 1 }}" :class="'w-full max-w-screen-xl'" focusable>
 								<img class="max-w-full max-h-fit mx-auto rounded" src="{{ $media->getAvailableUrl(['optimized']) }}" alt="{{ $mediable->title }}">
-							</x-front.modal>
+							</x-modal>
 						</div>
 					@endif
 				@endforeach

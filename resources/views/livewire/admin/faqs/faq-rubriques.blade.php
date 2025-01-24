@@ -7,9 +7,9 @@
 	@endif
 
 	<div class="flex flex-row">
-		<x-front.primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq-rubrique');" :class="'xs:block mb-8 mr-4'">
+		<x-primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq-rubrique');" :class="'xs:block mb-8 mr-4'">
 			{{ __('Create an faq rubrique') }}
-		</x-front.primary-button>
+		</x-primary-button>
 	</div>
 
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
@@ -177,11 +177,11 @@
 		{{ $faqRubriques->links() }}
 	</div>
 
-	<x-front.modal name="set-faq-rubrique" focusable>
+	<x-modal name="set-faq-rubrique" focusable>
 		<div class="space-y-8">
 			<div class="mb-6">
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqRubrique.faq_id" :value="__('Belongs to which faq').' ?'" :required="true" />
+					<x-input-label for="newFaqRubrique.faq_id" :value="__('Belongs to which faq').' ?'" :required="true" />
 				</div>
 
 				<select name="newFaqRubrique.faq_id" wire:model="newFaqRubrique.faq_id" wire:change="selectedFaq" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
@@ -202,10 +202,10 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqRubrique.order" :value="__('Order')" :required="true" />
+					<x-input-label for="newFaqRubrique.order" :value="__('Order')" :required="true" />
 				</div>
 
-				<x-front.text-input type="number" wire:model="newFaqRubrique.order" wire:change="orderSet" placeholder="{{ __('Order') }}" class="mt-1 block w-full " />
+				<x-text-input type="number" wire:model="newFaqRubrique.order" wire:change="orderSet" placeholder="{{ __('Order') }}" class="mt-1 block w-full " />
 
 				@if($errorOrder)
 					<span class="error text-danger-700">
@@ -222,10 +222,10 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqRubrique.name" :value="__('Name of the faq rubrique')" :required="true" />
+					<x-input-label for="newFaqRubrique.name" :value="__('Name of the faq rubrique')" :required="true" />
 				</div>
 
-				<x-front.text-input type="text" wire:model="newFaqRubrique.name" placeholder="{{ __('Name of the faq rubrique') }}" class="mt-1 block w-full " />
+				<x-text-input type="text" wire:model="newFaqRubrique.name" placeholder="{{ __('Name of the faq rubrique') }}" class="mt-1 block w-full " />
 
 				@error('newFaqRubrique.name')
 					<span class="error text-danger-700">
@@ -235,22 +235,22 @@
 			</div>
 
 			<div class="flex flex-row justify-between">
-				<x-front.secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
 					{{ __('No, go back') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 
-				<x-front.primary-button wire:click="set" @faq-rubrique-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-primary-button wire:click="set" @faq-rubrique-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
 					@if($newFaqRubrique->id)
 						{{ __('Yes, update') }}
 					@else
 						{{ __('Add this faq rubrique') }}
 					@endif
-				</x-front.primary-button>
+				</x-primary-button>
 			</div>
 		</div>
-	</x-front.modal>
+	</x-modal>
 
-	<x-front.modal name="delete-faq-rubrique" :class="'w-full max-w-2xl'" focusable>
+	<x-modal name="delete-faq-rubrique" :class="'w-full max-w-2xl'" focusable>
 		<section class="p-10 flex flex-col flex-wrap content-center">
 			<header class="flex flex-col flex-wrap content-center">
 				<p class="mt-1 text-sm m-auto text-mnw-blue">
@@ -264,14 +264,14 @@
 			</header>
 
 			<div class="mt-6 flex flex-row flex-wrap justify-center">
-				<x-front.primary-button wire:click="delete" @faq-rubrique-deleted.window="$dispatch('close');" :class="'mr-6'">
+				<x-primary-button wire:click="delete" @faq-rubrique-deleted.window="$dispatch('close');" :class="'mr-6'">
 					{{ __('Yes, delete') }}
-				</x-front.primary-button>
+				</x-primary-button>
 
-				<x-front.secondary-button x-on:click="$dispatch('close')">
+				<x-secondary-button x-on:click="$dispatch('close')">
 					{{ __('No, go back') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 			</div>
 		</section>
-	</x-front.modal>
+	</x-modal>
 </div>

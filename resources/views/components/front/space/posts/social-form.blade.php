@@ -1,7 +1,7 @@
 <div>
 	<div>
 		<div class="flex flex-row">
-			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
+			<x-input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
 		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -26,10 +26,10 @@
 				@if($post->postType->slug == 'appel-offre-dsp')
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.title" :value="__('Tender or DSP title')" :required="true" />
+							<x-input-label for="post.title" :value="__('Tender or DSP title')" :required="true" />
 						</div>
 
-						<x-front.text-input name="post.title" wire:model="post.title" :disabled="($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false" placeholder="{{ __('Tender or DSP title') }}" :class="'mt-1 block bg-white w-full'" />
+						<x-text-input name="post.title" wire:model="post.title" :disabled="($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false" placeholder="{{ __('Tender or DSP title') }}" :class="'mt-1 block bg-white w-full'" />
 
 						@error('post.title')
 							<span class="error text-danger-700">
@@ -40,7 +40,7 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.values_web.market_type" :value="__('Market type')" :required="true" />
+							<x-input-label for="post.values_web.market_type" :value="__('Market type')" :required="true" />
 						</div>
 
 						<select name="post.values_web.market_type" wire:model="post.values_web.market_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -61,7 +61,7 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.values_web.notice_type" :value="__('Notice type')" :required="true" />
+							<x-input-label for="post.values_web.notice_type" :value="__('Notice type')" :required="true" />
 						</div>
 
 						<select name="post.values_web.notice_type" wire:model="post.values_web.notice_type" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -82,10 +82,10 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.values_web.closing_date" :value="__('Closing date')" />
+							<x-input-label for="post.values_web.closing_date" :value="__('Closing date')" />
 						</div>
 
-						<x-front.text-input type="date" name="post.values_web.closing_date" wire:model="post.values_web.closing_date" min="{{ \Carbon\Carbon::now() }}" :class="'mt-1 block bg-white w-full'" />
+						<x-text-input type="date" name="post.values_web.closing_date" wire:model="post.values_web.closing_date" min="{{ \Carbon\Carbon::now() }}" :class="'mt-1 block bg-white w-full'" />
 
 						@error('post.values_web.closing_date')
 							<span class="error text-danger-700">
@@ -97,7 +97,7 @@
 					{{-- Description --}}
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="post.body" :value="__('Tender\'s description')" :required="true" />
+							<x-input-label for="post.body" :value="__('Tender\'s description')" :required="true" />
 						</div>
 
 						<div wire:ignore>
@@ -143,7 +143,7 @@
 
 					<div>
 						<div class="flex flex-row">
-							<x-front.input-label for="address" :value="__('Location')" :required="true" />
+							<x-input-label for="address" :value="__('Location')" :required="true" />
 						</div>
 
 						<livewire:address

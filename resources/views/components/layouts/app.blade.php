@@ -44,7 +44,7 @@
 					{{-- Flash message --}}
 					@if ($errors->any() || Session::has('error') || Session::has('success') || Session::has('warning') || Session::has('info'))
 						<div class="py-5 px-4 lg:px-6" x-data="{}" x-ref="alert">
-							@include('front.alert-message')
+							@include('components.alert-message')
 						</div>
 					@endif
 				</div>

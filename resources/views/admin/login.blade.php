@@ -10,21 +10,21 @@
 				@csrf
 
 				<div>
-					<x-front.input-label for="email" :value="__('Email')" :required="true" />
+					<x-input-label for="email" :value="__('Email')" :required="true" />
 
-					<x-front.text-input type="text" id="email" name="email" required :class="'mt-1 block'" />
+					<x-text-input type="text" id="email" name="email" required :class="'mt-1 block'" />
 				</div>
 
 				<div>
-					<x-front.input-label for="password" :value="__('Password')" :required="true" />
+					<x-input-label for="password" :value="__('Password')" :required="true" />
 
-					<x-front.text-input type="password" id="password" name="password" required :class="'mt-1 block'" />
+					<x-text-input type="password" id="password" name="password" required :class="'mt-1 block'" />
 				</div>
 
 				<div>
-					<x-front.primary-button>
+					<x-primary-button>
 						{{ __('Connect') }}
-					</x-front.primary-button>
+					</x-primary-button>
 				</div>
 			</div>
 		</form>

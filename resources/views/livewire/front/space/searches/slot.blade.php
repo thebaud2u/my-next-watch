@@ -9,9 +9,9 @@
 
 					<div class="justify-right">
 						<a href="{{ route('posts') }}">
-							<x-front.primary-button type="button">
+							<x-primary-button type="button">
 								Faire une recherche
-							</x-front.primary-button>
+							</x-primary-button>
 						</a>
 					</div>
 				</div>
@@ -123,9 +123,9 @@
 
 						<div class="my-6 text-center">
 							<a href="{{ route('posts') }}">
-								<x-front.primary-button type="button">
+								<x-primary-button type="button">
 									Faire une recherche
-								</x-front.primary-button>
+								</x-primary-button>
 							</a>
 						</div>
 					</div>

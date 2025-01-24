@@ -8,7 +8,7 @@
 		</a>
 	</div>
 
-	<x-front.text-input placeholder="{{ $placeholder }}" wire:model="searchValue" wire:keyup="search" :class="'mt-1 pe-10 block w-full text-gray-700 placeholder:text-gray-300'" />
+	<x-text-input placeholder="{{ $placeholder }}" wire:model="searchValue" wire:keyup="search" :class="'mt-1 pe-10 block w-full text-gray-700 placeholder:text-gray-300'" />
 
 	@if($showResults && ! $results->isEmpty())
 		<div class="absolute z-50 mt-1 w-48 min-w-full rounded-b-md shadow-lg origin-top-right left-0 bg-white p-4">

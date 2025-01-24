@@ -25,9 +25,9 @@
 
 				<div class="my-6 text-center">
 					<a href="{{ route('posts') }}">
-						<x-front.primary-button type="button">
+						<x-primary-button type="button">
 							Faire une recherche
-						</x-front.primary-button>
+						</x-primary-button>
 					</a>
 				</div>
 			</div>
@@ -151,9 +151,9 @@
 							<textarea row="3" wire:model="new" placeholder="Écrivez votre message ..." class="block w-full text-black border-mnw-darkerwhite text-sm xl:text-base bg-white border mb-3 p-2 focus:border-mnw-blue focus:ring-0 rounded-md">{{ $new }}</textarea>
 
 							<div class="text-right">
-								<x-front.primary-button>
+								<x-primary-button>
 									Envoyer
-								</x-front.primary-button>
+								</x-primary-button>
 							</div>
 						</form>
 					</li>
@@ -301,7 +301,7 @@
 					</div>
 				</a>
 
-				<x-front.modal name="delete-response-{{ $response->id }}" width="w-full max-w-2xl" wire:key="delete-response-{{ $response->id }}" focusable>
+				<x-modal name="delete-response-{{ $response->id }}" width="w-full max-w-2xl" wire:key="delete-response-{{ $response->id }}" focusable>
 					<section class="p-10">
 						<header class="flex flex-col flex-wrap content-center">
 							<div class="mt-1 mb-6 text-sm m-auto text-mnw-blue">
@@ -328,17 +328,17 @@
 								@method('delete')
 								@csrf
 
-								<x-front.primary-button class="mr-6">
+								<x-primary-button class="mr-6">
 									Oui, supprimer
-								</x-front.primary-button>
+								</x-primary-button>
 							</form>
 
-							<x-front.secondary-button x-on:click="$dispatch('close')">
+							<x-secondary-button x-on:click="$dispatch('close')">
 								Non, revenir à la conversation
-							</x-front.secondary-button>
+							</x-secondary-button>
 						</div>
 					</section>
-				</x-front.modal>
+				</x-modal>
 			@endif
 
 			<div class="hidden" x-data="{mark:function(){setTimeout(()=>{if(this.thread&&this.resp>0){$dispatch('read')}},500)}}"

@@ -20,9 +20,9 @@
 		<div class="sm:w-[200px] lg:w-auto lg:h-full max-sm:order-2 order-7 max-lg:pl-4">
 			<ul class="list-none list-inside flex sm:flex-col max-sm:space-x-4 sm:space-y-6 justify-center w-full lg:ml-0 max-sm:text-center sm:text-left">
 				<a href="#">
-					<x-front.primary-button :class="'w-[159px] justify-center text-sm xl:text-sm'">
+					<x-primary-button :class="'w-[159px] justify-center text-sm xl:text-sm'">
 						{{ __('Contact us') }}
-					</x-front.primary-button>
+					</x-primary-button>
 				</a>
 
 				<li class="mb-1">

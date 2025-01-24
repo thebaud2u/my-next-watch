@@ -10,15 +10,15 @@
 					<div class="justify-right">
 						@if($posts->isNotEmpty())
 							<a href="{{ route('space.posts.show-offers') }}">
-								<x-front.primary-button>
+								<x-primary-button>
 									{{ __('Create a post') }}
-								</x-front.primary-button>
+								</x-primary-button>
 							</a>
 						@else
 							<a href="{{ route('rates.index', ['compositionId' => 32]) }}">
-								<x-front.primary-button>
+								<x-primary-button>
 									{{ __('See the offers') }}
-								</x-front.primary-button>
+								</x-primary-button>
 							</a>
 						@endif
 					</div>
@@ -197,13 +197,13 @@
 										@if($post->state->color() == 'blue')
 											@if($post->hasOfferChangingPending())
 												@if($post->isOfferChangePossible())
-													<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.confirm-offer-change', ['post' => $post]) }}';" :class="'xl:text-sm'">
+													<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.confirm-offer-change', ['post' => $post]) }}';" :class="'xl:text-sm'">
 														{{ __('Confirm my offer change') }}
-													</x-front.primary-button>
+													</x-primary-button>
 												@else
-													<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('rates.index', ['compositionId' => 27]) }}';" :class="'xl:text-sm'">
+													<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('rates.index', ['compositionId' => 27]) }}';" :class="'xl:text-sm'">
 														{{ __('Buy my credit') }}
-													</x-front.primary-button>
+													</x-primary-button>
 												@endif
 											@else
 												@php
@@ -212,11 +212,11 @@
 												@endphp
 
 												@if(!$post->offer->is_free && !$subscription)
-													<x-front.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','publish-post-{{ $post->id }}')" :class="'xl:text-sm'">
+													<x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','publish-post-{{ $post->id }}')" :class="'xl:text-sm'">
 														{{ __('Publish the post') }}
-													</x-front.primary-button>
+													</x-primary-button>
 
-													<x-front.modal name="publish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
+													<x-modal name="publish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 														<section class="p-10">
 															<div class="flex flex-col flex-wrap items-center">
 																<p class="text-center m-auto font-bold text-sm mb-4">
@@ -230,23 +230,23 @@
 																</p>
 
 																<div class="flex flex-row mt-4 justify-center">
-																	<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('rates.index', ['compositionId' => 27]) }}';" :class="'mr-6'">
+																	<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('rates.index', ['compositionId' => 27]) }}';" :class="'mr-6'">
 																		{{ __('Yes, buy my credit') }}
-																	</x-front.primary-button>
+																	</x-primary-button>
 
-																	<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+																	<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 																		{{ __('No, go back to my posts') }}
-																	</x-front.secondary-button>
+																	</x-secondary-button>
 																</div>
 															</div>
 														</section>
-													</x-front.modal>
+													</x-modal>
 												@elseif($post->offer->slug == 'F1ASH1/4C')
-													<x-front.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','publish-post-{{ $post->id }}')" :class="'xl:text-sm'">
+													<x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','publish-post-{{ $post->id }}')" :class="'xl:text-sm'">
 														{{ __('Publish the post') }}
-													</x-front.primary-button>
+													</x-primary-button>
 
-													<x-front.modal name="publish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
+													<x-modal name="publish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 														<section class="p-10">
 															<div class="flex flex-col flex-wrap items-center">
 																<p class="text-center m-auto font-normal text-sm mb-4">
@@ -261,36 +261,36 @@
 																</p>
 
 																<div class="flex flex-row mt-4 justify-center">
-																	<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.publish', ['post' => $post]) }}';" :class="'mr-6'">
+																	<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.publish', ['post' => $post]) }}';" :class="'mr-6'">
 																		{{ __('Publish the post') }}
-																	</x-front.primary-button>
+																	</x-primary-button>
 
-																	<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+																	<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 																		{{ __('No, go back to my posts') }}
-																	</x-front.secondary-button>
+																	</x-secondary-button>
 																</div>
 															</div>
 														</section>
-													</x-front.modal>
+													</x-modal>
 												@else
-													<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.publish', ['post' => $post]) }}';" :class="'xl:text-sm'">
+													<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.publish', ['post' => $post]) }}';" :class="'xl:text-sm'">
 														{{ __('Publish the post') }}
-													</x-front.primary-button>
+													</x-primary-button>
 												@endif
 											@endif
 										@elseif($post->state->color() == 'green')
 											@if($dateDiffForArchiving <= 30)
 												@if(!empty($post->offer->slug))
 													@if($hasSubscription = $post->user->hasCreditAvailable($post->offer->slug) || $post->offer->is_free)
-														<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.extend-offer', ['post' => $post]) }}';" :class="'xl:text-sm'">
+														<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.extend-offer', ['post' => $post]) }}';" :class="'xl:text-sm'">
 															{{ __('Extend my post') }}
-														</x-front.primary-button>
+														</x-primary-button>
 													@else
-														<x-front.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','publish-post-{{ $post->id }}')" :class="'xl:text-sm'">
+														<x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','publish-post-{{ $post->id }}')" :class="'xl:text-sm'">
 															{{ __('Extend my post') }}
-														</x-front.primary-button>
+														</x-primary-button>
 
-														<x-front.modal name="publish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
+														<x-modal name="publish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 															<section class="p-10">
 																<div class="flex flex-col flex-wrap items-center">
 																	<p class="text-center m-auto font-bold text-sm mb-4">
@@ -304,26 +304,26 @@
 																	</p>
 
 																	<div class="flex flex-row mt-4 justify-center">
-																		<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('rates.index', ['compositionId' => 32]) }}';">
+																		<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('rates.index', ['compositionId' => 32]) }}';">
 																			{{ __('Extend my post') }}
-																		</x-front.primary-button>
+																		</x-primary-button>
 
-																		<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+																		<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 																			{{ __('No, go back to my posts') }}
-																		</x-front.secondary-button>
+																		</x-secondary-button>
 																	</div>
 																</div>
 															</section>
-														</x-front.modal>
+														</x-modal>
 													@endif
 												@endif
 											@endif
 
-											<x-front.primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','unpublish-post-{{ $post->id }}')" :class="'xl:text-sm'">
+											<x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal','unpublish-post-{{ $post->id }}')" :class="'xl:text-sm'">
 												{{ __('Unpublish the post') }}
-											</x-front.primary-button>
+											</x-primary-button>
 
-											<x-front.modal name="unpublish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
+											<x-modal name="unpublish-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 												<section class="p-10">
 													<div class="flex flex-col flex-wrap items-center">
 														<p class="text-center m-auto font-normal text-sm mb-4">
@@ -337,17 +337,17 @@
 														</p>
 
 														<div class="flex flex-row mt-4 justify-center">
-															<x-front.primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.unpublish', ['post' => $post]) }}';" :class="'mr-6'">
+															<x-primary-button x-data="" x-on:click.prevent="window.location.href='{{ route('space.posts.unpublish', ['post' => $post]) }}';" :class="'mr-6'">
 																{{ __('Unpublish the post') }}
-															</x-front.primary-button>
+															</x-primary-button>
 
-															<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+															<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 																{{ __('No, go back to my posts') }}
-															</x-front.secondary-button>
+															</x-secondary-button>
 														</div>
 													</div>
 												</section>
-											</x-front.modal>
+											</x-modal>
 										@endif
 
 										@if($post->state->color() == 'green' || $post->user->id == Auth::guard('web')->user()->id)
@@ -429,7 +429,7 @@
 							</div>
 						</article>
 
-						<x-front.modal name="delete-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
+						<x-modal name="delete-post-{{ $post->id }}" :class="'w-full max-w-2xl'" focusable>
 							<section class="p-10">
 								<header class="flex flex-col flex-wrap content-center">
 									<div class="mt-1 text-sm m-auto text-mnw-blue">
@@ -448,17 +448,17 @@
 										@method('delete')
 										@csrf
 
-										<x-front.primary-button :class="'mr-6'">
+										<x-primary-button :class="'mr-6'">
 											{{ __('Yes, delete') }}
-										</x-front.primary-button>
+										</x-primary-button>
 									</form>
 
-									<x-front.secondary-button x-data="" x-on:click="$dispatch('close')">
+									<x-secondary-button x-data="" x-on:click="$dispatch('close')">
 										{{ __('No, go back to my posts') }}
-									</x-front.secondary-button>
+									</x-secondary-button>
 								</div>
 							</section>
-						</x-front.modal>
+						</x-modal>
 					@endforeach
 
 					<div class="mt-8">
@@ -472,9 +472,9 @@
 
 						<div class="flex justify-center">
 							<a href="{{ route('space.posts.show-offers') }}">
-								<x-front.primary-button :class="'xs:block mb-8 mr-4 w-[196px]'">
+								<x-primary-button :class="'xs:block mb-8 mr-4 w-[196px]'">
 									{{ __('Create a post') }}
-								</x-front.primary-button>
+								</x-primary-button>
 							</a>
 
 							<a href="{{ route('rates.index', ['compositionId' => 32]) }}">

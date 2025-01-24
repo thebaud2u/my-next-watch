@@ -1,6 +1,4 @@
-@extends('admin.layouts.app')
-
-@section('body')
+<x-admin-layout>
 	<div class="mt-12">
 		<h1 class="text-gray-700 text-3xl font-medium">
 			{{ __('Watches') }}
@@ -10,4 +8,4 @@
 			<livewire:admin.watches.watches />
 		</div>
 	</div>
-@endsection
+</x-admin-layout>

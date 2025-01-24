@@ -27,7 +27,7 @@
 		</div>
 	@endif
 
-	<x-front.modal name="delete-multiple-address-{{ $address?->id }}" :class="'w-full max-w-2xl'" focusable>
+	<x-modal name="delete-multiple-address-{{ $address?->id }}" :class="'w-full max-w-2xl'" focusable>
 		<section class="p-10 flex flex-col flex-wrap content-center">
 			<header class="flex flex-col flex-wrap content-center">
 				<p class="mt-1 text-sm m-auto text-mnw-blue">
@@ -51,5 +51,5 @@
 				</button>
 			</div>
 		</section>
-	</x-front.modal>
+	</x-modal>
 </div>

@@ -55,6 +55,7 @@ class CreateWatch extends Component
 	public $dialMarkerTypes;
 
 	// Properties
+	// Brand
 	public $selectedBrand;
 	public Brand $brand;
 	public Brand $newBrand;
@@ -64,9 +65,18 @@ class CreateWatch extends Component
 	public $brandNationality;
 	public $brandExternalLink;
 
+	// Collection
+	public $watchCollection;
 	public Collection $newCollection;
 	public $collectionName;
 
+	// Watch
+	public Watch $watch;
+	public $watchName;
+	public $watchReference;
+
+	// Movement
+	public $watchMovement;
 	public Movement $newMovement;
 	public $movementName;
 	public $movementType;
@@ -76,39 +86,47 @@ class CreateWatch extends Component
 	public $movementDescription;
 	public $movementNationality;
 
-	public Watch $watch;
-	public $collectionId;
-	public $watchName;
-	public $watchReference;
-	public $movementId;
+	// Case
+	public CaseColor $newCaseColor;
+	public $caseColorName;
+	public $caseColor = [];
 
-	public $watchCaseColor = [];
-	public $watchCaseMaterial = [];
+	public CaseMaterial $newCaseMaterial;
+	public $caseMaterialName;
+	public $caseMaterial = [];
 
+	public $caseDiameter;
+	public $caseLugToLug;
+	public $caseLugWidth;
+	public $caseOpenCaseBack = false;
+	public $caseSapphireCrystalCaseBack = false;
+	public $caseThickness;
+	public $caseWaterproofness;
+
+	public Mediable $mediable;
 	// Mediable id (create)
 	public $modelId;
-
-	// Models
-	public Mediable $mediable;
-
-
-	public CaseColor $newCaseColor;
-	public CaseMaterial $newCaseMaterial;
 
 	protected function rules()
 	{
 		return [
+			// Brand
 			'selectedBrand' => [],
 			'brandName' => [],
 			'brandDescription' => [],
 			'brandNationality' => [],
 			'brandExternalLink' => [],
 
-			'watchCaseColor' => ['array'],
-			'watchCaseMaterial' => ['array'],
-
+			// Collection
+			'watchCollection' => [],
 			'collectionName' => [],
 
+			// Watch
+			'watchName' => [],
+			'watchReference' => [],
+
+			// Movement
+			'watchMovement' => [],
 			'movementName' => [],
 			'movementType' => [],
 			'movementCOSC' => [],
@@ -117,14 +135,18 @@ class CreateWatch extends Component
 			'movementDescription' => [],
 			'movementNationality' => [],
 
-			'watch.collection_id' => [],
-			'watch.name' => [],
-			'watch.reference' => [],
-			'watch.movement_id' => [],
-			'watch.case.color' => ['array'],
-			'watch.case.material' => ['array'],
-
-			'newCaseColor.name' => [],
+			// Case
+			'caseColor' => ['array'],
+			'caseColorName' => [],
+			'caseDiameter' => [],
+			'caseLugToLug' => [],
+			'caseLugWidth' => [],
+			'caseMaterial' => ['array'],
+			'caseMaterialName' => [],
+			'caseOpenCaseBack' => [],
+			'caseSapphireCrystalCaseBack' => [],
+			'caseThickness' => [],
+			'caseWaterproofness' => [],
 		];
 	}
 
@@ -166,9 +188,9 @@ class CreateWatch extends Component
 		];
 
 		$messages = [
-			'brandName.required' => __('The brand\'s name is mandatory'),
-			'brandNationality.required' => __('The brand\'s nationality is mandatory'),
-			'brandExternalLink.required' => __('The brand\'s website is mandatory')
+			'brandName.required' => __('The :field is mandatory', ['field' => __('brand\'s name')]),
+			'brandNationality.required' => __('The :field is mandatory', ['field' => __('brand\'s nationality')]),
+			'brandExternalLink.required' => __('The :field is mandatory', ['field' => __('brand\'s website')])
 		];
 
 		$this->validate($rules, $messages);
@@ -195,7 +217,7 @@ class CreateWatch extends Component
 
 		$this->brands = Brand::all();
 
-		session()->flash('success', __('Brand created successfully'));
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('brand'))]));
 
 		$this->dispatch('brand-created');
 	}
@@ -207,7 +229,7 @@ class CreateWatch extends Component
 		];
 
 		$messages = [
-			'collectionName.required' => __('The collection\'s name is mandatory')
+			'collectionName.required' => __('The :field is mandatory', ['field' => __('collection\'s name')])
 		];
 
 		$this->validate($rules, $messages);
@@ -235,9 +257,9 @@ class CreateWatch extends Component
 		];
 
 		$messages = [
-			'movementName.required' => __('The :field is mandatory', ['field' => 'movement\'s name']),
-			'movementType.required' => __('The :field is mandatory', ['field' => 'movement\'s type']),
-			'movementNationality.required' => __('The :field is mandatory', ['field' => 'movement\'s nationality'])
+			'movementName.required' => __('The :field is mandatory', ['field' => __('movement\'s name')]),
+			'movementType.required' => __('The :field is mandatory', ['field' => __('movement\'s type')]),
+			'movementNationality.required' => __('The :field is mandatory', ['field' => __('movement\'s nationality')])
 		];
 
 		$this->validate($rules, $messages);
@@ -257,21 +279,24 @@ class CreateWatch extends Component
 
 		$this->movements = Movement::all();
 
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('movement'))]));
+
 		$this->dispatch('movement-created');
 	}
 
 	public function createCaseColor()
 	{
 		$rules = [
-			'newCaseColor.name' => ['required']
+			'caseColorName' => ['required']
 		];
 
 		$messages = [
-			'newCaseColor.name.required' => __('The :field is mandatory', ['field' => 'case color name'])
+			'caseColorName.required' => __('The :field is mandatory', ['field' => 'case color name'])
 		];
 
 		$this->validate($rules, $messages);
 
+		$this->newCaseColor->name = $this->caseColorName;
 		$this->newCaseColor->admin_id = Auth::guard('admin')->user()->id;
 		$this->newCaseColor->save();
 
@@ -279,21 +304,24 @@ class CreateWatch extends Component
 
 		$this->caseColors = CaseColor::all();
 
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('case color'))]));
+
 		$this->dispatch('case-color-created');
 	}
 
 	public function createCaseMaterial()
 	{
 		$rules = [
-			'newCaseMaterial.name' => ['required']
+			'caseMaterialName' => ['required']
 		];
 
 		$messages = [
-			'newCaseMaterial.name.required' => __('The :field is mandatory', ['field' => 'case color name'])
+			'caseMaterialName.required' => __('The :field is mandatory', ['field' => 'case material name'])
 		];
 
 		$this->validate($rules, $messages);
 
+		$this->newCaseMaterial->name = $this->caseMaterialName;
 		$this->newCaseMaterial->admin_id = Auth::guard('admin')->user()->id;
 		$this->newCaseMaterial->save();
 
@@ -308,23 +336,60 @@ class CreateWatch extends Component
 	{
 		if($this->active == 1) {
 			$rules = [
-				'watch.collection_id' => ['required'],
-				'watch.movement_id' => ['required'],
-				'watch.name' => ['required'],
-				'watch.reference' => ['required']
+				'watchCollection' => ['required'],
+				'watchName' => ['required'],
+				'watchReference' => ['required'],
+				'watchMovement' => ['required']
 			];
 
 			$messages = [
-				'watch.collection_id.required' => __('The :field is mandatory', ['field' => 'collection']),
-				'watch.movement_id.required' => __('The :field is mandatory', ['field' => 'movement']),
-				'watch.name.required' => __('The :field is mandatory', ['field' => 'name']),
-				'watch.reference.required' => __('The :field is mandatory', ['field' => 'reference'])
+				'watchCollection.required' => __('The :field is mandatory', ['field' => __('collection')]),
+				'watchName.required' => __('The :field is mandatory', ['field' => __('name')]),
+				'watchReference.required' => __('The :field is mandatory', ['field' => __('reference')]),
+				'watchMovement.required' => __('The :field is mandatory', ['field' => __('movement')])
+			];
+		}
+		else if($this->active == 2) {
+			$rules = [
+				'caseColor' => ['required'],
+				'caseDiameter' => ['required'],
+				'caseLugToLug' => ['required'],
+				'caseLugWidth' => ['required'],
+				'caseMaterial' => ['required'],
+				'caseThickness' => ['required'],
+				'caseWaterproofness' => ['required']
+			];
+
+			$messages = [
+				'caseColor.required' => __('The :field is mandatory', ['field' => __('case color')]),
+				'caseDiameter.required' => __('The :field is mandatory', ['field' => __('diameter')]),
+				'caseLugToLug.required' => __('The :field is mandatory', ['field' => __('lug to lug')]),
+				'caseLugWidth.required' => __('The :field is mandatory', ['field' => __('lug width')]),
+				'caseMaterial.required' => __('The :field is mandatory', ['field' => __('case material')]),
+				'caseThickness.required' => __('The :field is mandatory', ['field' => __('thickness')]),
+				'caseWaterproofness.required' => __('The :field is mandatory', ['field' => __('waterproofness')])
 			];
 		}
 
-
-
 		$this->validate($rules, $messages);
+
+		if($this->active == 1) {
+			$this->watch->collection_id = $this->watchCollection;
+			$this->watch->name = $this->watchName;
+			$this->watch->reference = $this->watchReference;
+			$this->watch->movement_id = $this->watchMovement;
+		}
+		else if($this->active == 2) {
+			$this->watch->case['color'] = $this->caseColor;
+			$this->watch->case['diameter'] = $this->caseDiameter;
+			$this->watch->case['lug_to_lug'] = $this->caseLugToLug;
+			$this->watch->case['lug_width'] = $this->caseLugWidth;
+			$this->watch->case['material'] = $this->caseMaterial;
+			$this->watch->case['open_case_back'] = $this->caseOpenCaseBack;
+			$this->watch->case['sapphire_crystal_case_back'] = $this->caseSapphireCrystalCaseBack;
+			$this->watch->case['thickness'] = $this->caseThickness;
+			$this->watch->case['waterproofness'] = $this->caseWaterproofness;
+		}
 
 		$this->watch->save();
 
@@ -370,15 +435,26 @@ class CreateWatch extends Component
 		]);
 		$this->modelId = $this->mediable->id;
 
-		if(!is_null($this->watch->collection->id)) {
+		if($this->watch->collection) {
 			$this->selectedBrand = $this->watch->collection->brand->id;
 			$this->brandSelected();
+
+			$this->watchCollection = $this->watch->collection->id;
 		}
 
-		$this->collectionId = $this->watch->collection->id;
+		if($this->watch->movement) $this->watchMovement = $this->watch->movement->id;
+
 		$this->watchName = $this->watch->name;
 		$this->watchReference = $this->watch->reference;
-		$this->movementId = $this->watch->movement->id;
+		$this->caseColor = $this->watch->case['color'];
+		$this->caseDiameter = $this->watch->case['diameter'];
+		$this->caseLugToLug = $this->watch->case['lug_to_lug'];
+		$this->caseLugWidth = $this->watch->case['lug_width'];
+		$this->caseMaterial = $this->watch->case['material'];
+		$this->caseOpenCaseBack = $this->watch->case['open_case_back'];
+		$this->caseSapphireCrystalCaseBack = $this->watch->case['sapphire_crystal_case_back'];
+		$this->caseThickness = $this->watch->case['thickness'];
+		$this->caseWaterproofness = $this->watch->case['waterproofness'];
 	}
 
 	public function render()

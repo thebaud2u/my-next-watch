@@ -37,7 +37,7 @@
 
 		<div class="flex flex-col items-center my-4">
 			<div class="flex flex-row">
-				<x-front.input-label for="thematic_id" :value="__('Our sectors')" />
+				<x-input-label for="thematic_id" :value="__('Our sectors')" />
 			</div>
 
 			<select name="thematic_id" wire:model="thematic_id" wire:change="selectedThematic" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -397,14 +397,14 @@
 
 		<div class="flex items-center justify-end mt-4 mr-7">
 			<a href="{{ route('space.posts.my-posts') }}">
-				<x-front.secondary-button>
+				<x-secondary-button>
 					{{ __('Cancel') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 			</a>
 
-			<x-front.primary-button :class="'ml-4'" wire:click="submitForm">
+			<x-primary-button :class="'ml-4'" wire:click="submitForm">
 				{{ __('Use this offer') }}
-			</x-front.primary-button>
+			</x-primary-button>
 		</div>
 	</div>
 </div>

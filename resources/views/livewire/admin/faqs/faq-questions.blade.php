@@ -7,9 +7,9 @@
 	@endif
 
 	<div class="flex flex-row">
-		<x-front.primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq-question');" :class="'xs:block mb-8 mr-4'">
+		<x-primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq-question');" :class="'xs:block mb-8 mr-4'">
 			{{ __('Create an faq question') }}
-		</x-front.primary-button>
+		</x-primary-button>
 	</div>
 
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
@@ -209,11 +209,11 @@
 		{{ $faqQuestions->links() }}
 	</div>
 
-	<x-front.modal name="set-faq-question" :class="'!max-w-[1000px]'" focusable>
+	<x-modal name="set-faq-question" :class="'!max-w-[1000px]'" focusable>
 		<div class="space-y-8">
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqQuestion.faq_rubrique_id" :value="__('Belongs to which faq').' ?'" :required="true" />
+					<x-input-label for="newFaqQuestion.faq_rubrique_id" :value="__('Belongs to which faq').' ?'" :required="true" />
 				</div>
 
 				<select name="faq" wire:model="faq" wire:change="selectedFaqForm" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
@@ -234,7 +234,7 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqQuestion.faq_rubrique_id" :value="__('Belongs to which faq rubrique').' ?'" :required="true" />
+					<x-input-label for="newFaqQuestion.faq_rubrique_id" :value="__('Belongs to which faq rubrique').' ?'" :required="true" />
 				</div>
 
 				<select name="newFaqQuestion.faq_rubrique_id" wire:model="newFaqQuestion.faq_rubrique_id" wire:change="selectedFaqRubriqueForm" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
@@ -263,10 +263,10 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqQuestion.order" :value="__('Order')" :required="true" />
+					<x-input-label for="newFaqQuestion.order" :value="__('Order')" :required="true" />
 				</div>
 
-				<x-front.text-input type="number" wire:model="newFaqQuestion.order" wire:change="orderSet" placeholder="{{ __('Order') }}" class="mt-1 block w-full " />
+				<x-text-input type="number" wire:model="newFaqQuestion.order" wire:change="orderSet" placeholder="{{ __('Order') }}" class="mt-1 block w-full " />
 
 				@if($errorOrder)
 					<span class="error text-danger-700">
@@ -283,10 +283,10 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqQuestion.question" :value="__('Question text')" :required="true" />
+					<x-input-label for="newFaqQuestion.question" :value="__('Question text')" :required="true" />
 				</div>
 
-				<x-front.text-input type="text" wire:model="newFaqQuestion.question" placeholder="{{ __('Question text') }}" class="mt-1 block w-full " />
+				<x-text-input type="text" wire:model="newFaqQuestion.question" placeholder="{{ __('Question text') }}" class="mt-1 block w-full " />
 
 				@error('newFaqQuestion.question')
 					<span class="error text-danger-700">
@@ -297,7 +297,7 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-front.input-label for="newFaqQuestion.answer" :value="__('Answer text')" :required="true" />
+					<x-input-label for="newFaqQuestion.answer" :value="__('Answer text')" :required="true" />
 				</div>
 
 				<div wire:ignore x-data="" @question-loaded.window="ckEditorInstance.setData(@this.get('newFaqQuestion.answer'));" @question-reset.window="ckEditorInstance.setData('');">
@@ -312,22 +312,22 @@
 			</div>
 
 			<div class="flex flex-row justify-between">
-				<x-front.secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
 					{{ __('No, go back') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 
-				<x-front.primary-button wire:click="set" @faq-question-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-primary-button wire:click="set" @faq-question-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
 					@if($newFaqQuestion->id)
 						{{ __('Yes, update') }}
 					@else
 						{{ __('Add this faq question') }}
 					@endif
-				</x-front.primary-button>
+				</x-primary-button>
 			</div>
 		</div>
-	</x-front.modal>
+	</x-modal>
 
-	<x-front.modal name="delete-faq-question" :class="'w-full max-w-2xl'" focusable>
+	<x-modal name="delete-faq-question" :class="'w-full max-w-2xl'" focusable>
 		<section class="p-10 flex flex-col flex-wrap content-center">
 			<header class="flex flex-col flex-wrap content-center">
 				<p class="mt-1 text-sm m-auto text-mnw-blue">
@@ -341,16 +341,16 @@
 			</header>
 
 			<div class="mt-6 flex flex-row flex-wrap justify-center">
-				<x-front.primary-button wire:click="delete" @faq-question-deleted.window="$dispatch('close');" :class="'mr-6'">
+				<x-primary-button wire:click="delete" @faq-question-deleted.window="$dispatch('close');" :class="'mr-6'">
 					{{ __('Yes, delete') }}
-				</x-front.primary-button>
+				</x-primary-button>
 
-				<x-front.secondary-button x-on:click="$dispatch('close')">
+				<x-secondary-button x-on:click="$dispatch('close')">
 					{{ __('No, go back') }}
-				</x-front.secondary-button>
+				</x-secondary-button>
 			</div>
 		</section>
-	</x-front.modal>
+	</x-modal>
 
 	@push('scripts')
 		<script src="{!! Theme::asset('js/ckeditor.js') !!}"></script>

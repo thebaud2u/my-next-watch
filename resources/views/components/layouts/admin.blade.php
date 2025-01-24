@@ -22,7 +22,7 @@
 <body class="font-inter antialiased">
 	<div class="flex h-screen bg-gray-200 font-roboto" x-data="{ open: false }">
 		@if(Auth::guard('admin')->check())
-			@include('admin.partials.sidebar')
+			@include('components.admin.partials.sidebar')
 		@endif
 
 		<div class="flex-1 flex flex-col overflow-hidden">
@@ -31,7 +31,7 @@
 					{{-- Flash message --}}
 					@if ($errors->any() || Session::has('error') || Session::has('success') || Session::has('warning') || Session::has('info'))
 						<div class="py-5 px-4 lg:px-6" x-data="{}" x-ref="alert">
-							@include('front.alert-message')
+							@include('components.alert-message')
 						</div>
 					@endif
 				</div>
@@ -48,7 +48,7 @@
 				@endif
 
 				<div class="container mx-auto px-6 py-2">
-					@yield('body')
+					{{ $slot }}
 				</div>
 			</main>
 		</div>

@@ -1,7 +1,7 @@
 <div>
 	<div>
 		<div class="flex flex-row">
-			<x-front.input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
+			<x-input-label for="post.post_type_id" :value="__('Which post type would you like to create').' ?'" />
 		</div>
 
 		<select name="post.post_type_id" wire:model.live="post.post_type_id" wire:change="postTypeSelected" @disabled(($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false) class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -31,10 +31,10 @@
 			@if($post->postType)
 				<div>
 					<div class="flex flex-row">
-						<x-front.input-label for="post.title" :value="__('Tender or DSP title')" :required="true" />
+						<x-input-label for="post.title" :value="__('Tender or DSP title')" :required="true" />
 					</div>
 
-					<x-front.text-input name="post.title" wire:model="post.title" :disabled="($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false" placeholder="{{ __('Tender or DSP title') }}" :class="'mt-1 block bg-white w-full'" />
+					<x-text-input name="post.title" wire:model="post.title" :disabled="($post->state->color() == 'green' && !Auth::guard('admin')->check()) ? true : false" placeholder="{{ __('Tender or DSP title') }}" :class="'mt-1 block bg-white w-full'" />
 
 					@error('post.title')
 						<span class="error text-danger-700">
@@ -51,7 +51,7 @@
 
 				<div>
 					<div class="flex flex-row">
-						<x-front.input-label for="post.category_id" :value="__('Post\'s sub-category')" />
+						<x-input-label for="post.category_id" :value="__('Post\'s sub-category')" />
 					</div>
 
 					<select name="post.category_id" wire:model="post.category_id" class="text-gray-400 block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm sm:w-1/2 w-full">
@@ -78,7 +78,7 @@
 				{{-- Description --}}
 				<div>
 					<div class="flex flex-row">
-						<x-front.input-label for="post.body" :value="__('Offer\'s description')" :required="true" />
+						<x-input-label for="post.body" :value="__('Offer\'s description')" :required="true" />
 					</div>
 
 					<div wire:ignore>
@@ -94,7 +94,7 @@
 
 				<div>
 					<div class="flex flex-row">
-						<x-front.input-label for="address" :value="__('Location')" :required="true" />
+						<x-input-label for="address" :value="__('Location')" :required="true" />
 					</div>
 
 					<livewire:address

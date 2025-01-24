@@ -37,21 +37,21 @@
  *    Note :class, :model_id, :collection and :max_medias attributes are required !
  *
  * 5. Finally, still in parent blade file, add the two modals (add_photo and delete_photo) :
- *    <x-front.modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
+ *    <x-modal name="add_photo" :class="'w-full max-w-2xl'" focusable>
  *        <form id="uploadform" x-on:uploaded.window="setTimeout(()=>{uppy.cancelAll();$dispatch('close')},'2000')">
  *            @csrf
  *            <!-- <input type="hidden" name="tiny" value="1"> --> <!-- If set : max file width/height : 250px ! -->
  *            <input type="hidden" name="filename" x-model="filename">
  *            <div id="uploader"></div>
  *        </form>
- *    </x-front.modal>
- *    <x-front.modal name="delete_photo" :class="'w-full max-w-xl"' focusable>
+ *    </x-modal>
+ *    <x-modal name="delete_photo" :class="'w-full max-w-xl"' focusable>
  *        (...)
- *        <x-front.primary-button type="button" x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia')},'100')">
+ *        <x-primary-button type="button" x-on:click="$dispatch('close');setTimeout(()=>{window.Livewire.dispatch('deleteMedia')},'100')">
  *            <span class="mx-auto">{{ __('Yes, delete') }}</span>
- *        </x-front.primary-button>
+ *        </x-primary-button>
  *        (...)
- *    </x-front.modal>
+ *    </x-modal>
  *
  * Also, check that the directory "/storage/app/uploads" exists (02755)
  * Don't forget to run "npm update" and "npm run prod"

@@ -1,9 +1,9 @@
 <div>
 	<div class="flex flex-col py-5 px-4 lg:px-6">
 		<a href="{{ route('space.posts.change-offer', ['post' => $post]) }}" title="{{ __('Edit this post') }}" class="flex justify-end">
-			<x-front.secondary-button>
+			<x-secondary-button>
 				{{ __('Edit offer type') }}
-			</x-front.secondary-button>
+			</x-secondary-button>
 		</a>
 
 		<div class="mt-4">
@@ -47,10 +47,10 @@
 						<div class="grid gap-x-20 gap-y-10 grid-cols-1 mt-5">
 							<div>
 								<div class="flex flex-row">
-									<x-front.input-label for="post.values_web.contact_last_name" :value="__('Lastname of the advertiser')" :required="true" />
+									<x-input-label for="post.values_web.contact_last_name" :value="__('Lastname of the advertiser')" :required="true" />
 								</div>
 
-								<x-front.text-input name="post.values_web.contact_last_name" wire:model="post.values_web.contact_last_name" placeholder="{{ __('Lastname of the advertiser') }}" :class="'mt-1 block bg-white w-full'" />
+								<x-text-input name="post.values_web.contact_last_name" wire:model="post.values_web.contact_last_name" placeholder="{{ __('Lastname of the advertiser') }}" :class="'mt-1 block bg-white w-full'" />
 
 								@error('post.values_web.contact_last_name')
 									<span class="error text-danger-700">
@@ -61,10 +61,10 @@
 
 							<div>
 								<div class="flex flex-row">
-									<x-front.input-label for="post.values_web.contact_first_name" :value="__('Firstname of the advertiser')" :required="true" />
+									<x-input-label for="post.values_web.contact_first_name" :value="__('Firstname of the advertiser')" :required="true" />
 								</div>
 
-								<x-front.text-input name="post.values_web.contact_first_name" wire:model="post.values_web.contact_first_name" placeholder="{{ __('Firstname of the advertiser') }}" :class="'mt-1 block bg-white w-full'" />
+								<x-text-input name="post.values_web.contact_first_name" wire:model="post.values_web.contact_first_name" placeholder="{{ __('Firstname of the advertiser') }}" :class="'mt-1 block bg-white w-full'" />
 
 								@error('post.values_web.contact_first_name')
 									<span class="error text-danger-700">
@@ -75,10 +75,10 @@
 
 							<div>
 								<div class="flex flex-row">
-									<x-front.input-label for="post.values_web.contact_email" :value="__('Notification email')" :required="true" />
+									<x-input-label for="post.values_web.contact_email" :value="__('Notification email')" :required="true" />
 								</div>
 
-								<x-front.text-input type="email" name="post.values_web.contact_email" wire:model="post.values_web.contact_email" placeholder="{{ __('Notification email') }}" :class="'mt-1 block bg-white w-full'" />
+								<x-text-input type="email" name="post.values_web.contact_email" wire:model="post.values_web.contact_email" placeholder="{{ __('Notification email') }}" :class="'mt-1 block bg-white w-full'" />
 
 								@error('post.values_web.contact_email')
 									<span class="error text-danger-700">
@@ -89,10 +89,10 @@
 
 							<div>
 								<div class="flex flex-row">
-									<x-front.input-label for="post.values_web.contact_telephone" :value="__('Phone number')" :required="true" />
+									<x-input-label for="post.values_web.contact_telephone" :value="__('Phone number')" :required="true" />
 								</div>
 
-								<x-front.text-input type="tel" name="post.values_web.contact_telephone" wire:model="post.values_web.contact_telephone" placeholder="{{ __('Phone number') }}" :class="'mt-1 block bg-white w-full'" />
+								<x-text-input type="tel" name="post.values_web.contact_telephone" wire:model="post.values_web.contact_telephone" placeholder="{{ __('Phone number') }}" :class="'mt-1 block bg-white w-full'" />
 
 								@error('post.values_web.contact_telephone')
 									<span class="error text-danger-700">
@@ -102,15 +102,15 @@
 
 								<div class="mt-2">
 									<input type="checkbox" name="post.values_web.display_phone_number" value="on" wire:model="post.values_web.display_phone_number" class="w-4 h-4 text-mnw-blue bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
-									<x-front.input-label for="post.values_web.display_phone_number" :value="__('Display the phone number')" :class="'ml-2 inline-block font-normal'"/>
+									<x-input-label for="post.values_web.display_phone_number" :value="__('Display the phone number')" :class="'ml-2 inline-block font-normal'"/>
 								</div>
 							</div>
 
 							<div class="flex justify-end sm:mt-0 mt-4">
 								<a href="#anchor">
-									<x-front.primary-button :class="'ml-4'" wire:click="submitWebStep">
+									<x-primary-button :class="'ml-4'" wire:click="submitWebStep">
 										{{ __('Continue') }}
-									</x-front.primary-button>
+									</x-primary-button>
 								</a>
 							</div>
 						</div>
@@ -154,11 +154,11 @@
 									}
 								}}" x-init="$nextTick(() => { countCaractersLeft() })">
 								<div class="flex flex-row">
-									<x-front.input-label for="title" :value="__('Post title')" :required="true" />
+									<x-input-label for="title" :value="__('Post title')" :required="true" />
 								</div>
 
 								<div class="flex flex-row items-center">
-									<x-front.text-input x-ref="titleLength" x-on:keyup="countCaractersLeft()" wire:change="refresh" wire:model="post.values_print.title" placeholder="{{ __('Post title') }}" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="mt-1 w-full block text-gray-400 bg-white" />
+									<x-text-input x-ref="titleLength" x-on:keyup="countCaractersLeft()" wire:change="refresh" wire:model="post.values_print.title" placeholder="{{ __('Post title') }}" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="mt-1 w-full block text-gray-400 bg-white" />
 								</div>
 
 								<div class="text-right">
@@ -176,7 +176,7 @@
 
 							<div>
 								<div class="flex flex-row">
-									<x-front.input-label :value="__('Place')" />
+									<x-input-label :value="__('Place')" />
 								</div>
 
 								<div class="flex flex-row items-center">
@@ -211,11 +211,11 @@
 											}
 										}}" x-init="$nextTick(() => { countCaractersLeft() })">
 										<div class="flex flex-row">
-											<x-front.input-label for="remuneration" :value="__('Remuneration')" />
+											<x-input-label for="remuneration" :value="__('Remuneration')" />
 										</div>
 
 										<div class="flex flex-row items-center">
-											<x-front.text-input type="text" name="remuneration" x-ref="remunerationLength" x-on:keyup="countCaractersLeft()" wire:model="post.values_print.remuneration" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="mt-1 w-full block text-gray-400 bg-white" />
+											<x-text-input type="text" name="remuneration" x-ref="remunerationLength" x-on:keyup="countCaractersLeft()" wire:model="post.values_print.remuneration" :disabled="!Auth::guard('admin')->check() && $post->state->color() == 'green'" class="mt-1 w-full block text-gray-400 bg-white" />
 										</div>
 
 										@error('post.values_web.remuneration')
@@ -264,7 +264,7 @@
 								<div class="grid gap-x-20 gap-y-10 grid-cols-1 mt-5">
 									<div>
 										<div class="flex flex-row">
-											<x-front.input-label :value="__('Post description')" />
+											<x-input-label :value="__('Post description')" />
 										</div>
 
 										<div class="flex flex-row items-center">
@@ -282,7 +282,7 @@
 										@if($post->offer->hasOption('column.1/2') || $post->offer->hasOption('column.1'))
 											<div>
 												<div class="flex flex-row">
-													<x-front.input-label for="wanted_profile" :value="__('Applicant profile wanted')" />
+													<x-input-label for="wanted_profile" :value="__('Applicant profile wanted')" />
 												</div>
 
 												<div class="flex flex-row items-center">
@@ -300,7 +300,7 @@
 										@if($post->offer->hasOption('column.1'))
 											<div>
 												<div class="flex flex-row">
-													<x-front.input-label for="experience" :value="__('Needed experience')" />
+													<x-input-label for="experience" :value="__('Needed experience')" />
 												</div>
 
 												<div class="flex flex-row items-center">
@@ -316,7 +316,7 @@
 
 											<div>
 												<div class="flex flex-row">
-													<x-front.input-label for="skills" :value="__('Needed skills')" />
+													<x-input-label for="skills" :value="__('Needed skills')" />
 												</div>
 
 												<div class="flex flex-row items-center">
@@ -332,7 +332,7 @@
 
 											<div>
 												<div class="flex flex-row">
-													<x-front.input-label for="bonuses" :value="__('Bonuses')" />
+													<x-input-label for="bonuses" :value="__('Bonuses')" />
 												</div>
 
 												<div class="flex flex-row items-center">
@@ -370,15 +370,15 @@
 				</div>
 
 				<div class="flex sm:flex-row flex-col sm:justify-between justify-center mt-12">
-					<x-front.secondary-button wire:click="back()" class="flex justify-center">
+					<x-secondary-button wire:click="back()" class="flex justify-center">
 						{{ __('Go back') }}
-					</x-front.secondary-button>
+					</x-secondary-button>
 
 					<div class="flex justify-between sm:mt-0 mt-4">
 						<a href="#anchor">
-							<x-front.primary-button :class="'ml-4'" wire:click="submitPrintStep">
+							<x-primary-button :class="'ml-4'" wire:click="submitPrintStep">
 								{{ __('Continue') }}
-							</x-front.primary-button>
+							</x-primary-button>
 						</a>
 					</div>
 				</div>
