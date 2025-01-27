@@ -25,7 +25,7 @@ use App\Models\WatchDetails\ {
 class CreateWatch extends Component
 {
 	public $active = 1;
-	public $steps = [1, 2, 3, 4, 5, 6, 7];
+	public $steps = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	// Eloquent Collections
 	public $brands;
@@ -103,6 +103,60 @@ class CreateWatch extends Component
 	public $caseThickness;
 	public $caseWaterproofness;
 
+	// Crown
+	public CrownColor $newCrownColor;
+	public $crownColorName;
+	public $crownColor = [];
+
+	public CrownMaterial $newCrownMaterial;
+	public $crownMaterialName;
+	public $crownMaterial = [];
+
+	public $crownDetail;
+	public $crownScrewedDown = true;
+
+	// Bezel
+	public BezelColor $newBezelColor;
+	public $bezelColorName;
+	public $bezelColor = [];
+
+	public BezelMarking $newBezelMarking;
+	public $bezelMarkingName;
+	public $bezelMarking = [];
+
+	public BezelMaterial $newBezelMaterial;
+	public $bezelMaterialName;
+	public $bezelMaterial = [];
+
+	public $bezelDirection = 'unidirectional';
+
+	// Specification
+	public Complication $newComplication;
+	public $complicationName;
+	public $specificationComplication = [];
+	public $specificationPowerReserve;
+
+	// Dial
+	public DialColor $newDialColor;
+	public $dialColorName;
+	public $dialColor = [];
+
+	public DialMarkerColor $newDialMarkerColor;
+	public $dialMarkerColorName;
+	public $dialMarkerColor = [];
+
+	public DialMarkerLumeColor $newDialMarkerLumeColor;
+	public $dialMarkerLumeColorName;
+	public $dialMarkerLumeColor = [];
+
+	public DialMarkerType $newDialMarkerType;
+	public $dialMarkerTypeName;
+	public $dialMarkerType = [];
+
+	public $dialDomed = false;
+	public $dialMarkerLume = false;
+	public $dialTextured = false;
+
 	public Mediable $mediable;
 	// Mediable id (create)
 	public $modelId;
@@ -147,6 +201,41 @@ class CreateWatch extends Component
 			'caseSapphireCrystalCaseBack' => [],
 			'caseThickness' => [],
 			'caseWaterproofness' => [],
+
+			// Crown
+			'crownColor' => ['array'],
+			'crownColorName' => [],
+			'crownDetail' => [],
+			'crownMaterialName' => [],
+			'crownMaterial' => ['array'],
+			'crownScrewedDown' => [],
+
+			// Bezel
+			'bezelColorName' => [],
+			'bezelColor' => ['array'],
+			'bezelMarkingName' => [],
+			'bezelMarking' => ['array'],
+			'bezelMaterialName' => [],
+			'bezelMaterial' => ['array'],
+			'bezelDirection' => [],
+
+			// Specification
+			'complicationName' => [],
+			'specificationComplication' => ['array'],
+			'specificationPowerReserve' => [],
+
+			// Dial
+			'dialColorName' => [],
+			'dialColor' => ['array'],
+			'dialMarkerColorName' => [],
+			'dialMarkerColor' => ['array'],
+			'dialMarkerLumeColorName' => [],
+			'dialMarkerLumeColor' => ['array'],
+			'dialMarkerTypeName' => [],
+			'dialMarkerType' => ['array'],
+			'dialDomed' => [],
+			'dialMarkerLume' => [],
+			'dialTextured' => [],
 		];
 	}
 
@@ -284,6 +373,31 @@ class CreateWatch extends Component
 		$this->dispatch('movement-created');
 	}
 
+	public function createComplication()
+	{
+		$rules = [
+			'complicationName' => ['required']
+		];
+
+		$messages = [
+			'complicationName.required' => __('The :field is mandatory', ['field' => __('movement\'s nationality')])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newComplication->name = $this->complicationName;
+		$this->newComplication->admin_id = Auth::guard('admin')->user()->id;
+		$this->newComplication->save();
+
+		$this->newComplication = new Complication;
+
+		$this->complications = Complication::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('complication'))]));
+
+		$this->dispatch('complication-created');
+	}
+
 	public function createCaseColor()
 	{
 		$rules = [
@@ -332,24 +446,260 @@ class CreateWatch extends Component
 		$this->dispatch('case-material-created');
 	}
 
+	public function createCrownColor()
+	{
+		$rules = [
+			'crownColorName' => ['required']
+		];
+
+		$messages = [
+			'crownColorName.required' => __('The :field is mandatory', ['field' => 'crown color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newCrownColor->name = $this->crownColorName;
+		$this->newCrownColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newCrownColor->save();
+
+		$this->newCrownColor = new CrownColor;
+
+		$this->crownColors = CrownColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('crown color'))]));
+
+		$this->dispatch('crown-color-created');
+	}
+
+	public function createCrownMaterial()
+	{
+		$rules = [
+			'crownMaterialName' => ['required']
+		];
+
+		$messages = [
+			'crownMaterialName.required' => __('The :field is mandatory', ['field' => 'crown material name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newCrownMaterial->name = $this->crownMaterialName;
+		$this->newCrownMaterial->admin_id = Auth::guard('admin')->user()->id;
+		$this->newCrownMaterial->save();
+
+		$this->newCrownMaterial = new CrownMaterial;
+
+		$this->crownMaterials = CrownMaterial::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('crown material'))]));
+
+		$this->dispatch('crown-material-created');
+	}
+
+	public function createBezelColor()
+	{
+		$rules = [
+			'bezelColorName' => ['required']
+		];
+
+		$messages = [
+			'bezelColorName.required' => __('The :field is mandatory', ['field' => 'bezel color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBezelColor->name = $this->bezelColorName;
+		$this->newBezelColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBezelColor->save();
+
+		$this->newBezelColor = new BezelColor;
+
+		$this->bezelColors = BezelColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bezel color'))]));
+
+		$this->dispatch('bezel-color-created');
+	}
+
+	public function createBezelMarking()
+	{
+		$rules = [
+			'bezelMarkingName' => ['required']
+		];
+
+		$messages = [
+			'bezelMarkingName.required' => __('The :field is mandatory', ['field' => 'bezel marking name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBezelMarking->name = $this->bezelMarkingName;
+		$this->newBezelMarking->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBezelMarking->save();
+
+		$this->newBezelMarking = new BezelMarking;
+
+		$this->crownMaterials = BezelMarking::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bezel marking'))]));
+
+		$this->dispatch('bezel-marking-created');
+	}
+
+	public function createBezelMaterial()
+	{
+		$rules = [
+			'bezelMaterialName' => ['required']
+		];
+
+		$messages = [
+			'bezelMaterialName.required' => __('The :field is mandatory', ['field' => 'bezel material name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBezelMaterial->name = $this->bezelMaterialName;
+		$this->newBezelMaterial->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBezelMaterial->save();
+
+		$this->newBezelMaterial = new BezelMaterial;
+
+		$this->crownMaterials = BezelMaterial::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bezel material'))]));
+
+		$this->dispatch('bezel-material-created');
+	}
+
+	public function createDialColor()
+	{
+		$rules = [
+			'dialColorName' => ['required']
+		];
+
+		$messages = [
+			'dialColorName.required' => __('The :field is mandatory', ['field' => 'dial color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newDialColor->name = $this->dialColorName;
+		$this->newDialColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newDialColor->save();
+
+		$this->newDialColor = new DialColor;
+
+		$this->dialColors = DialColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('dial color'))]));
+
+		$this->dispatch('dial-color-created');
+	}
+
+	public function createDialMarkerColor()
+	{
+		$rules = [
+			'dialMarkerColorName' => ['required']
+		];
+
+		$messages = [
+			'dialMarkerColorName.required' => __('The :field is mandatory', ['field' => 'dial marker color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newDialMarkerColor->name = $this->dialMarkerColorName;
+		$this->newDialMarkerColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newDialMarkerColor->save();
+
+		$this->newDialMarkerColor = new DialMarkerColor;
+
+		$this->dialMarkerColors = DialMarkerColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('dial marker color'))]));
+
+		$this->dispatch('dial-marker-color-created');
+	}
+
+	public function createDialMarkerLumeColor()
+	{
+		$rules = [
+			'dialMarkerLumeColorName' => ['required']
+		];
+
+		$messages = [
+			'dialMarkerLumeColorName.required' => __('The :field is mandatory', ['field' => 'dial marker lume color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newDialMarkerLumeColor->name = $this->dialMarkerLumeColorName;
+		$this->newDialMarkerLumeColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newDialMarkerLumeColor->save();
+
+		$this->newDialMarkerLumeColor = new DialMarkerLumeColor;
+
+		$this->dialMarkerLumeColors = DialMarkerLumeColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('dial marker lume color'))]));
+
+		$this->dispatch('dial-marker-lume-color-created');
+	}
+
+	public function createDialMarkerType()
+	{
+		$rules = [
+			'dialMarkerTypeName' => ['required']
+		];
+
+		$messages = [
+			'dialMarkerTypeName.required' => __('The :field is mandatory', ['field' => 'dial marker type name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newDialMarkerType->name = $this->dialMarkerTypeName;
+		$this->newDialMarkerType->admin_id = Auth::guard('admin')->user()->id;
+		$this->newDialMarkerType->save();
+
+		$this->newDialMarkerType = new DialMarkerType;
+
+		$this->dialMarkerTypes = DialMarkerType::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('dial marker type'))]));
+
+		$this->dispatch('dial-marker-lume-color-created');
+	}
+
 	public function updateWatch()
 	{
 		if($this->active == 1) {
 			$rules = [
 				'watchCollection' => ['required'],
 				'watchName' => ['required'],
-				'watchReference' => ['required'],
-				'watchMovement' => ['required']
+				'watchReference' => ['required']
 			];
 
 			$messages = [
 				'watchCollection.required' => __('The :field is mandatory', ['field' => __('collection')]),
 				'watchName.required' => __('The :field is mandatory', ['field' => __('name')]),
-				'watchReference.required' => __('The :field is mandatory', ['field' => __('reference')]),
-				'watchMovement.required' => __('The :field is mandatory', ['field' => __('movement')])
+				'watchReference.required' => __('The :field is mandatory', ['field' => __('reference')])
 			];
 		}
 		else if($this->active == 2) {
+			$rules = [
+				'watchMovement' => ['required'],
+				'specificationComplication' => ['required'],
+				'specificationPowerReserve' => ['required']
+			];
+
+			$messages = [
+				'watchMovement.required' => __('The :field is mandatory', ['field' => __('movement')]),
+				'specificationComplication.required' => __('The :field is mandatory', ['field' => __('complication')]),
+				'specificationPowerReserve.required' => __('The :field is mandatory', ['field' => __('power reserve')])
+			];
+		}
+		else if($this->active == 3) {
 			$rules = [
 				'caseColor' => ['required'],
 				'caseDiameter' => ['required'],
@@ -370,6 +720,45 @@ class CreateWatch extends Component
 				'caseWaterproofness.required' => __('The :field is mandatory', ['field' => __('waterproofness')])
 			];
 		}
+		else if($this->active == 4) {
+			$rules = [
+				'crownColor' => ['required'],
+				'crownDetail' => ['required'],
+				'crownMaterial' => ['required']
+			];
+
+			$messages = [
+				'crownColor.required' => __('The :field is mandatory', ['field' => __('crown color')]),
+				'crownDetail.required' => __('The :field is mandatory', ['field' => __('crown detail')]),
+				'crownMaterial.required' => __('The :field is mandatory', ['field' => __('crown material')])
+			];
+		}
+		else if($this->active == 5) {
+			$rules = [
+				'bezelColor' => ['required'],
+				'bezelMarking' => ['required'],
+				'bezelMaterial' => ['required']
+			];
+
+			$messages = [
+				'bezelColor.required' => __('The :field is mandatory', ['field' => __('bezel color')]),
+				'bezelMarking.required' => __('The :field is mandatory', ['field' => __('bezel marking')]),
+				'bezelMaterial.required' => __('The :field is mandatory', ['field' => __('bezel material')])
+			];
+		}
+        else if($this->active == 6) {
+			$rules = [
+				'bezelColor' => ['required'],
+				'bezelMarking' => ['required'],
+				'bezelMaterial' => ['required']
+			];
+
+			$messages = [
+				'bezelColor.required' => __('The :field is mandatory', ['field' => __('bezel color')]),
+				'bezelMarking.required' => __('The :field is mandatory', ['field' => __('bezel marking')]),
+				'bezelMaterial.required' => __('The :field is mandatory', ['field' => __('bezel material')])
+			];
+		}
 
 		$this->validate($rules, $messages);
 
@@ -377,9 +766,13 @@ class CreateWatch extends Component
 			$this->watch->collection_id = $this->watchCollection;
 			$this->watch->name = $this->watchName;
 			$this->watch->reference = $this->watchReference;
-			$this->watch->movement_id = $this->watchMovement;
 		}
 		else if($this->active == 2) {
+			$this->watch->movement_id = $this->watchMovement;
+			$this->watch->specification['complication'] = $this->specificationComplication;
+			$this->watch->specification['power_reserve'] = $this->specificationPowerReserve;
+		}
+		else if($this->active == 3) {
 			$this->watch->case['color'] = $this->caseColor;
 			$this->watch->case['diameter'] = $this->caseDiameter;
 			$this->watch->case['lug_to_lug'] = $this->caseLugToLug;
@@ -389,6 +782,18 @@ class CreateWatch extends Component
 			$this->watch->case['sapphire_crystal_case_back'] = $this->caseSapphireCrystalCaseBack;
 			$this->watch->case['thickness'] = $this->caseThickness;
 			$this->watch->case['waterproofness'] = $this->caseWaterproofness;
+		}
+		else if($this->active == 4) {
+			$this->watch->crown['color'] = $this->crownColor;
+			$this->watch->crown['detail'] = $this->crownDetail;
+			$this->watch->crown['material'] = $this->crownMaterial;
+			$this->watch->crown['screwed_down'] = $this->crownScrewedDown;
+		}
+		else if($this->active == 5) {
+			$this->watch->bezel['color'] = $this->bezelColor;
+			$this->watch->bezel['direction'] = $this->bezelMarking;
+			$this->watch->bezel['marking'] = $this->bezelMaterial;
+			$this->watch->bezel['material'] = $this->bezelDirection;
 		}
 
 		$this->watch->save();
@@ -435,6 +840,7 @@ class CreateWatch extends Component
 		]);
 		$this->modelId = $this->mediable->id;
 
+		// Init the watch's values
 		if($this->watch->collection) {
 			$this->selectedBrand = $this->watch->collection->brand->id;
 			$this->brandSelected();
@@ -442,10 +848,13 @@ class CreateWatch extends Component
 			$this->watchCollection = $this->watch->collection->id;
 		}
 
-		if($this->watch->movement) $this->watchMovement = $this->watch->movement->id;
-
 		$this->watchName = $this->watch->name;
 		$this->watchReference = $this->watch->reference;
+
+		if($this->watch->movement) $this->watchMovement = $this->watch->movement->id;
+		$this->specificationComplication = $this->watch->specification['complication'];
+		$this->specificationPowerReserve = $this->watch->specification['power_reserve'];
+
 		$this->caseColor = $this->watch->case['color'];
 		$this->caseDiameter = $this->watch->case['diameter'];
 		$this->caseLugToLug = $this->watch->case['lug_to_lug'];
@@ -455,6 +864,24 @@ class CreateWatch extends Component
 		$this->caseSapphireCrystalCaseBack = $this->watch->case['sapphire_crystal_case_back'];
 		$this->caseThickness = $this->watch->case['thickness'];
 		$this->caseWaterproofness = $this->watch->case['waterproofness'];
+
+		$this->crownColor = $this->watch->crown['color'];
+		$this->crownDetail = $this->watch->crown['detail'];
+		$this->crownMaterial = $this->watch->crown['material'];
+		$this->crownScrewedDown = $this->watch->crown['screwed_down'];
+
+		$this->bezelColor = $this->watch->bezel['color'];
+		$this->bezelDirection = $this->watch->bezel['direction'];
+		$this->bezelMarking = $this->watch->bezel['marking'];
+		$this->bezelMaterial = $this->watch->bezel['material'];
+
+		$this->dialColor = $this->watch->dial['color'];
+		$this->dialMarkerColor = $this->watch->dial['marker_color'];
+		$this->dialMarkerLumeColor = $this->watch->dial['marker_lume_color'];
+		$this->dialMarkerType = $this->watch->dial['marker_type'];
+		$this->dialDomed = $this->watch->dial['domed'];
+		$this->dialMarkerLume = $this->watch->dial['marker_lume'];
+		$this->dialTextured = $this->watch->dial['textured'];
 	}
 
 	public function render()

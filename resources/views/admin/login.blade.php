@@ -1,6 +1,4 @@
-@extends('admin.layouts.app')
-
-@section('body')
+<x-admin-layout>
 	<div class="flex flex-col items-center">
 		<h1 class="text-gray-700 text-3xl font-medium">{{ __('Login') }}</h1>
 
@@ -29,4 +27,4 @@
 			</div>
 		</form>
 	</div>
-@endsection
+</x-admin-layout>

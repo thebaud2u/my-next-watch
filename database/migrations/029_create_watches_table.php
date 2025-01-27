@@ -32,6 +32,7 @@ return new class extends Migration
 			$table->json('specification')->nullable();
 			$table->double('release_price')->nullable();
 			$table->double('current_price')->nullable();
+			$table->boolean('completed')->default(false);
 			$table->unsignedTinyInteger('status')->default(InformationStatus::Draft->value);
 			$table->timestamp('published_at')->nullable();
 			$table->unsignedBigInteger('admin_id')->nullable();
