@@ -24,7 +24,7 @@ use App\Models\WatchDetails\ {
 
 class CreateWatch extends Component
 {
-	public $active = 1;
+	public $active = 7;
 	public $steps = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	// Eloquent Collections
@@ -157,6 +157,45 @@ class CreateWatch extends Component
 	public $dialMarkerLume = false;
 	public $dialTextured = false;
 
+	// Crystal
+	public CrystalMaterial $newCrystalMaterial;
+	public $crystalMaterialName;
+	public $crystalMaterial = [];
+
+	public $crystalDomed = true;
+
+	// Bracelet
+	public BraceletClasp $newBraceletClasp;
+	public $braceletClaspName;
+	public $braceletClasp = [];
+
+	public BraceletClaspColor $newBraceletClaspColor;
+	public $braceletClaspColorName;
+	public $braceletClaspColor = [];
+
+	public BraceletClaspMaterial $newBraceletClaspMaterial;
+	public $braceletClaspMaterialName;
+	public $braceletClaspMaterial = [];
+
+	public BraceletMaterial $newBraceletMaterial;
+	public $braceletMaterialName;
+	public $braceletMaterial = [];
+
+	public BraceletMicroAdjustementSystem $newBraceletMicroAdjustementSystem;
+	public $braceletMicroAdjustementSystemName;
+	public $braceletMicroAdjustementSystem;
+
+	public BraceletStitchingColor $newBraceletStitchingColor;
+	public $braceletStitchingColorName;
+	public $braceletStitchingColor = [];
+
+	public BraceletStyle $newBraceletStyle;
+	public $braceletStyleName;
+	public $braceletStyle;
+
+	public $braceletMicroAdjustement = true;
+	public $braceletStitching = false;
+
 	public Mediable $mediable;
 	// Mediable id (create)
 	public $modelId;
@@ -236,6 +275,10 @@ class CreateWatch extends Component
 			'dialDomed' => [],
 			'dialMarkerLume' => [],
 			'dialTextured' => [],
+
+			// Crystal
+			'crystalDomed' => [],
+			'crystalMaterial' => ['array']
 		];
 	}
 
@@ -671,6 +714,206 @@ class CreateWatch extends Component
 		$this->dispatch('dial-marker-lume-color-created');
 	}
 
+	public function createCrystalMaterial()
+	{
+		$rules = [
+			'crystalMaterialName' => ['required']
+		];
+
+		$messages = [
+			'crystalMaterialName.required' => __('The :field is mandatory', ['field' => 'crystal material name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newCrystalMaterial->name = $this->crystalMaterialName;
+		$this->newCrystalMaterial->admin_id = Auth::guard('admin')->user()->id;
+		$this->newCrystalMaterial->save();
+
+		$this->newCrystalMaterial = new CrystalMaterial;
+
+		$this->crystalMaterials = CrystalMaterial::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('crystal material'))]));
+
+		$this->dispatch('crystal-material-created');
+	}
+
+	public function createBraceletClasp()
+	{
+		$rules = [
+			'braceletClapsName' => ['required']
+		];
+
+		$messages = [
+			'braceletClapsName.required' => __('The :field is mandatory', ['field' => 'clasp name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletClasp->name = $this->braceletClapsName;
+		$this->newBraceletClasp->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletClasp->save();
+
+		$this->newBraceletClasp = new BraceletClaps;
+
+		$this->braceletClasps = BraceletClaps::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet clasp'))]));
+
+		$this->dispatch('bracelet-clasp-created');
+	}
+
+	public function createBraceletClaspColor()
+	{
+		$rules = [
+			'braceletClapsColor' => ['required']
+		];
+
+		$messages = [
+			'braceletClapsColor.required' => __('The :field is mandatory', ['field' => 'clasp color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletClaspColor->name = $this->braceletClaspColorName;
+		$this->newBraceletClaspColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletClaspColor->save();
+
+		$this->newBraceletClaspColor = new ClaspColor;
+
+		$this->claspColors = ClaspColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet clasp color'))]));
+
+		$this->dispatch('bracelet-clasp-color-created');
+	}
+
+	public function createBraceletClaspMaterial()
+	{
+		$rules = [
+			'braceletClaspMaterialName' => ['required']
+		];
+
+		$messages = [
+			'braceletClaspMaterialName.required' => __('The :field is mandatory', ['field' => 'clasp material name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletClaspMaterial->name = $this->braceletClaspMaterialName;
+		$this->newBraceletClaspMaterial->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletClaspMaterial->save();
+
+		$this->newBraceletClaspMaterial = new BraceletClaspMaterial;
+
+		$this->braceletClaspMaterials = BraceletClaspMaterial::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet clasp material'))]));
+
+		$this->dispatch('bracelet-clasp-material-created');
+	}
+
+	public function createBraceletMaterial()
+	{
+		$rules = [
+			'braceletMaterialName' => ['required']
+		];
+
+		$messages = [
+			'braceletMaterialName.required' => __('The :field is mandatory', ['field' => 'bracelet material name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletMaterial->name = $this->braceletMaterialName;
+		$this->newBraceletMaterial->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletMaterial->save();
+
+		$this->newBraceletMaterial = new BraceletMaterial;
+
+		$this->braceletMaterial = BraceletMaterial::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet material'))]));
+
+		$this->dispatch('bracelet-material-created');
+	}
+
+	public function createBraceletMicroAdjustementSystem()
+	{
+		$rules = [
+			'braceletMicroAdjustementSystemName' => ['required']
+		];
+
+		$messages = [
+			'braceletMicroAdjustementSystemName.required' => __('The :field is mandatory', ['field' => 'micro adjustement system name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletMicroAdjustementSystem->name = $this->braceletMicroAdjustementSystemName;
+		$this->newBraceletMicroAdjustementSystem->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletMicroAdjustementSystem->save();
+
+		$this->newBraceletMicroAdjustementSystem = new BraceletMicroAdjustementSystem;
+
+		$this->braceletMicroAdjustementSystems = BraceletMicroAdjustementSystem::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet micro adjustement system'))]));
+
+		$this->dispatch('bracelet-micro-adjustement-system-created');
+	}
+
+	public function createBraceletStitchingColor()
+	{
+		$rules = [
+			'braceletStitchingColorName' => ['required']
+		];
+
+		$messages = [
+			'braceletStitchingColorName.required' => __('The :field is mandatory', ['field' => 'stitching color name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletStitchingColor->name = $this->braceletStitchingColorName;
+		$this->newBraceletStitchingColor->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletStitchingColor->save();
+
+		$this->newBraceletStitchingColor = new BraceletStitchingColor;
+
+		$this->braceletStitchingColors = BraceletStitchingColor::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet stitching color'))]));
+
+		$this->dispatch('bracelet-stitching-color-created');
+	}
+
+	public function createBraceletStyle()
+	{
+		$rules = [
+			'braceletStyleName' => ['required']
+		];
+
+		$messages = [
+			'braceletStyleName.required' => __('The :field is mandatory', ['field' => 'style name'])
+		];
+
+		$this->validate($rules, $messages);
+
+		$this->newBraceletStyle->name = $this->braceletStyleName;
+		$this->newBraceletStyle->admin_id = Auth::guard('admin')->user()->id;
+		$this->newBraceletStyle->save();
+
+		$this->newBraceletStyle = new BraceletStyle;
+
+		$this->braceletStyles = BraceletStyle::all();
+
+		session()->flash('success', __(':element created successfully', ['element' => ucfirst(__('bracelet style'))]));
+
+		$this->dispatch('bracelet-style-created');
+	}
+
 	public function updateWatch()
 	{
 		if($this->active == 1) {
@@ -746,17 +989,53 @@ class CreateWatch extends Component
 				'bezelMaterial.required' => __('The :field is mandatory', ['field' => __('bezel material')])
 			];
 		}
-        else if($this->active == 6) {
+		else if($this->active == 6) {
 			$rules = [
-				'bezelColor' => ['required'],
-				'bezelMarking' => ['required'],
-				'bezelMaterial' => ['required']
+				'dialColor' => ['required'],
+				'dialMarkerColor' => ['required'],
+				'dialMarkerLumeColor' => ['required'],
+				'dialMarkerType' => ['required'],
+				'dialDomed' => ['required'],
+				'dialMarkerLume' => ['required'],
+				'dialTextured' => ['required']
 			];
 
 			$messages = [
 				'bezelColor.required' => __('The :field is mandatory', ['field' => __('bezel color')]),
 				'bezelMarking.required' => __('The :field is mandatory', ['field' => __('bezel marking')]),
 				'bezelMaterial.required' => __('The :field is mandatory', ['field' => __('bezel material')])
+			];
+		}
+		else if($this->active == 7) {
+			$rules = [
+				'crystalMaterial' => ['required']
+			];
+
+			$messages = [
+				'crystalMaterial.required' => __('The :field is mandatory', ['field' => __('crystal material')])
+			];
+		}
+		else if($this->active == 8) {
+			$rules = [
+				'clasp' => ['required'],
+				'clasp_color' => ['required'],
+				'clasp_material' => ['required'],
+				'material' => ['required'],
+				'micro_adjustement' => ['boolean'],
+				'micro_adjustement_system' => ['exclude_unless:micro_adjustement,true', 'required'],
+				'stitching' => ['boolean'],
+				'stitching_color' => ['exclude_unless:stitching,true', 'required'],
+				'style' => ['required']
+			];
+
+			$messages = [
+				'clasp.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
+				'clasp_color.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
+				'clasp_material.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
+				'material.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
+				'micro_adjustement_system.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
+				'stitching_color.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
+				'style.required' => __('The :field is mandatory', ['field' => __('crystal material')]),
 			];
 		}
 
@@ -791,9 +1070,33 @@ class CreateWatch extends Component
 		}
 		else if($this->active == 5) {
 			$this->watch->bezel['color'] = $this->bezelColor;
-			$this->watch->bezel['direction'] = $this->bezelMarking;
-			$this->watch->bezel['marking'] = $this->bezelMaterial;
-			$this->watch->bezel['material'] = $this->bezelDirection;
+			$this->watch->bezel['direction'] = $this->bezelDirection;
+			$this->watch->bezel['marking'] = $this->bezelMarking;
+			$this->watch->bezel['material'] = $this->bezelMaterial;
+		}
+		else if($this->active == 6) {
+			$this->watch->dial['color'] = $this->dialColor;
+			$this->watch->dial['domed'] = $this->dialDomed;
+			$this->watch->dial['marker_color'] = $this->dialMarkerColor;
+			$this->watch->dial['marker_lume'] = $this->dialMarkerLume;
+			$this->watch->dial['marker_lume_color'] = $this->dialMarkerLumeColor;
+			$this->watch->dial['marker_type'] = $this->dialMarkerType;
+			$this->watch->dial['textured'] = $this->dialTextured;
+		}
+		else if($this->active == 7) {
+			$this->watch->crystal['domed'] = $this->crystalDomed;
+			$this->watch->crystal['material'] = $this->crystalMaterial;
+		}
+		else if($this->active == 8) {
+			$this->watch->bracelet['clasp'] = $this->braceletClasp;
+			$this->watch->bracelet['clasp_color'] = $this->braceletClaspColor;
+			$this->watch->bracelet['clasp_material'] = $this->braceletClaspMaterial;
+			$this->watch->bracelet['material'] = $this->braceletMaterial;
+			$this->watch->bracelet['micro_adjustement'] =  $this->braceletMicroAdjustement;
+			$this->watch->bracelet['micro_adjustement_system'] = $this->braceletMicroAdjustementSystem;
+			$this->watch->bracelet['stitching'] = $this->braceletStitching;
+			$this->watch->bracelet['stitching_color'] = $this->braceletStitchingColor;
+			$this->watch->bracelet['style'] = $this->braceletStyle;
 		}
 
 		$this->watch->save();
@@ -882,6 +1185,9 @@ class CreateWatch extends Component
 		$this->dialDomed = $this->watch->dial['domed'];
 		$this->dialMarkerLume = $this->watch->dial['marker_lume'];
 		$this->dialTextured = $this->watch->dial['textured'];
+
+		$this->crystalDomed = $this->watch->crystal['domed'];
+		$this->crystalMaterial = $this->watch->crystal['material'];
 	}
 
 	public function render()
