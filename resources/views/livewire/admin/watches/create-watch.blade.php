@@ -1531,10 +1531,10 @@
 
 						<div>
 							@foreach($braceletClasps as $value)
-								<div>
-									<input type="checkbox" id="braceletClasp-{{ $value->id }}" name="braceletClasp" value="{{ $value->id }}" wire:model="braceletClasp" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+								<div class="pr-5">
+									<input type="radio" id="braceletClasp-{{ $value->id }}" name="braceletClasp" wire:model="braceletClasp" value="{{ $value->id }}" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
 
-									<x-input-label for="braceletClasp-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
+									<x-input-label for="braceletClasp-{{ $value->id }}" :value="__($value->name)" :class="'inline-block font-normal'" />
 								</div>
 							@endforeach
 						</div>
@@ -1558,68 +1558,7 @@
 								<div>
 									<x-input-label for="braceletClaspName" :value="__('What is the new bracelet clasp style').' ?'" :required="true" />
 
-									<x-text-input type="text" id="braceletClaspName" name="braceletClaspName" wire:model="braceletClaspName" placeholder="{{ __('New crystal material name') }}" class="mt-1 block text-gray-400" />
-
-									@error('braceletClaspName')
-										<span class="error text-danger-700">
-											{{ $message }}
-										</span>
-									@enderror
-								</div>
-							</div>
-
-							<div class="mt-6 flex flex-row flex-wrap justify-center">
-								<x-secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
-									{{ __('Cancel') }}
-								</x-secondary-button>
-
-								<x-primary-button wire:click="createBraceletClasp" @bracelet-clasp-created.window="$dispatch('close')">
-									{{ __('Add the bracelet clasp style') }}
-								</x-primary-button>
-							</div>
-						</x-modal>
-					</div>
-
-                    <div>
-						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet clasp style')]).' ?'" :required="true" :class="'inline'" />
-
-						{{-- Call create-bracelet-clasp Modal --}}
-						<button type="button" title="{{ __('Add a new bracelet clasp style') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-clasp');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-						</button>
-
-						<div>
-							@foreach($braceletClasps as $value)
-								<div>
-									<input type="checkbox" id="braceletClasp-{{ $value->id }}" name="braceletClasp" value="{{ $value->id }}" wire:model="braceletClasp" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
-
-									<x-input-label for="braceletClasp-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
-								</div>
-							@endforeach
-						</div>
-
-						@error('braceletClasp')
-							<span class="error text-danger-700">
-								{{ $message }}
-							</span>
-						@enderror
-
-						<x-modal name="create-bracelet-clasp" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-clasp-modal">
-							<x-slot name="title">
-								<header class="flex flex-row justify-center">
-									<h2 class="text-lg font-semibold pt-1">
-										{{ __('Add a new :part', ['part' => __('bracelet clasp style')]) }}
-									</h2>
-								</header>
-							</x-slot>
-
-							<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
-								<div>
-									<x-input-label for="braceletClaspName" :value="__('What is the new bracelet clasp style').' ?'" :required="true" />
-
-									<x-text-input type="text" id="braceletClaspName" name="braceletClaspName" wire:model="braceletClaspName" placeholder="{{ __('New crystal material name') }}" class="mt-1 block text-gray-400" />
+									<x-text-input type="text" id="braceletClaspName" name="braceletClaspName" wire:model="braceletClaspName" placeholder="{{ __('New clasp style name') }}" class="mt-1 block text-gray-400" />
 
 									@error('braceletClaspName')
 										<span class="error text-danger-700">
@@ -1642,57 +1581,47 @@
 					</div>
 
 					<div>
-						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet clasp')]).' ?'" :class="'inline'" />
+						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet clasp color')]).' ?'" :required="true" :class="'inline'" />
 
-						<div>
-							<input type="checkbox" id="domedCrystal" name="domedCrystal" value="1" wire:model="domedCrystal" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
-
-							<x-input-label for="domedCrystal" :value="__('Is the crystal domed').' ?'" :class="'ml-2 inline-block font-normal'" />
-						</div>
-					</div>
-
-					<div>
-						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('crystal material')]).' ?'" :required="true" :class="'inline'" />
-
-						{{-- Call create-dial-color Modal --}}
-						<button type="button" title="{{ __('Add a new crystal material') }}" x-on:click="$dispatch('open-modal', 'create-crystal-material');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+						{{-- Call create-bracelet-clasp-color Modal --}}
+						<button type="button" title="{{ __('Add a new bracelet clasp color') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-clasp-color');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
 						</button>
 
 						<div>
-							@foreach($crystalMaterials as $value)
+							@foreach($braceletClaspColors as $value)
 								<div>
-									<input type="checkbox" id="crystalMaterial-{{ $value->id }}" name="crystalMaterial" value="{{ $value->id }}" wire:model="crystalMaterial" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+									<input type="checkbox" id="braceletClaspColor-{{ $value->id }}" name="braceletClaspColor" value="{{ $value->id }}" wire:model="braceletClaspColor" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-									<x-input-label for="crystalMaterial-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
+									<x-input-label for="braceletClaspColor-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
 								</div>
 							@endforeach
 						</div>
 
-						@error('crystalMaterial')
+						@error('braceletClaspColor')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
 						@enderror
 
-						<x-modal name="create-crystal-material" :class="'w-full max-w-2xl'" focusable wire:key="create-crystal-material-modal">
+						<x-modal name="create-bracelet-clasp-color" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-clasp-color-modal">
 							<x-slot name="title">
 								<header class="flex flex-row justify-center">
 									<h2 class="text-lg font-semibold pt-1">
-										{{ __('Add a new :part', ['part' => __('crystal material')]) }}
+										{{ __('Add a new :part', ['part' => __('bracelet clasp color')]) }}
 									</h2>
 								</header>
 							</x-slot>
 
 							<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
 								<div>
-									<x-input-label for="crystalMaterialName" :value="__('What is the new crystal material').' ?'" :required="true" />
+									<x-input-label for="braceletClaspColorName" :value="__('What is the new bracelet clasp color').' ?'" :required="true" />
 
-									<x-text-input type="text" id="crystalMaterialName" name="crystalMaterialName" wire:model="crystalMaterialName" placeholder="{{ __('New crystal material name') }}" class="mt-1 block text-gray-400" />
+									<x-text-input type="text" id="braceletClaspColorName" name="braceletClaspColorName" wire:model="braceletClaspColorName" placeholder="{{ __('New bracelet clasp color name') }}" class="mt-1 block text-gray-400" />
 
-									@error('crystalMaterialName')
+									@error('braceletClaspColorName')
 										<span class="error text-danger-700">
 											{{ $message }}
 										</span>
@@ -1705,12 +1634,341 @@
 									{{ __('Cancel') }}
 								</x-secondary-button>
 
-								<x-primary-button wire:click="createCrystalMaterial" @crystal-material-created.window="$dispatch('close')">
-									{{ __('Add the crystal material') }}
+								<x-primary-button wire:click="createBraceletClaspColor" @bracelet-clasp-color-created.window="$dispatch('close')">
+									{{ __('Add the bracelet clasp color') }}
 								</x-primary-button>
 							</div>
 						</x-modal>
 					</div>
+
+					<div>
+						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet clasp material')]).' ?'" :required="true" :class="'inline'" />
+
+						{{-- Call create-bracelet-clasp-material Modal --}}
+						<button type="button" title="{{ __('Add a new bracelet clasp material') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-clasp-material');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</button>
+
+						<div>
+							@foreach($braceletClaspMaterials as $value)
+								<div>
+									<input type="checkbox" id="braceletClaspMaterial-{{ $value->id }}" name="braceletClaspMaterial" value="{{ $value->id }}" wire:model="braceletClaspMaterial" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+
+									<x-input-label for="braceletClaspMaterial-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
+								</div>
+							@endforeach
+						</div>
+
+						@error('braceletClaspMaterial')
+							<span class="error text-danger-700">
+								{{ $message }}
+							</span>
+						@enderror
+
+						<x-modal name="create-bracelet-clasp-material" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-clasp-material-modal">
+							<x-slot name="title">
+								<header class="flex flex-row justify-center">
+									<h2 class="text-lg font-semibold pt-1">
+										{{ __('Add a new :part', ['part' => __('bracelet clasp material')]) }}
+									</h2>
+								</header>
+							</x-slot>
+
+							<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
+								<div>
+									<x-input-label for="braceletClaspMaterialName" :value="__('What is the new bracelet clasp material').' ?'" :required="true" />
+
+									<x-text-input type="text" id="braceletClaspMaterialName" name="braceletClaspMaterialName" wire:model="braceletClaspMaterialName" placeholder="{{ __('New bracelet clasp material name') }}" class="mt-1 block text-gray-400" />
+
+									@error('braceletClaspMaterialName')
+										<span class="error text-danger-700">
+											{{ $message }}
+										</span>
+									@enderror
+								</div>
+							</div>
+
+							<div class="mt-6 flex flex-row flex-wrap justify-center">
+								<x-secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
+									{{ __('Cancel') }}
+								</x-secondary-button>
+
+								<x-primary-button wire:click="createBraceletClaspMaterial" @bracelet-clasp-material-created.window="$dispatch('close')">
+									{{ __('Add the bracelet clasp material') }}
+								</x-primary-button>
+							</div>
+						</x-modal>
+					</div>
+
+					<div>
+						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet material')]).' ?'" :required="true" :class="'inline'" />
+
+						{{-- Call create-bracelet-material Modal --}}
+						<button type="button" title="{{ __('Add a new bracelet material') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-material');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</button>
+
+						<div>
+							@foreach($braceletMaterials as $value)
+								<div>
+									<input type="checkbox" id="braceletMaterial-{{ $value->id }}" name="braceletMaterial" value="{{ $value->id }}" wire:model="braceletMaterial" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+
+									<x-input-label for="braceletMaterial-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
+								</div>
+							@endforeach
+						</div>
+
+						@error('braceletMaterial')
+							<span class="error text-danger-700">
+								{{ $message }}
+							</span>
+						@enderror
+
+						<x-modal name="create-bracelet-material" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-material-modal">
+							<x-slot name="title">
+								<header class="flex flex-row justify-center">
+									<h2 class="text-lg font-semibold pt-1">
+										{{ __('Add a new :part', ['part' => __('bracelet material')]) }}
+									</h2>
+								</header>
+							</x-slot>
+
+							<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
+								<div>
+									<x-input-label for="braceletMaterialName" :value="__('What is the new bracelet material').' ?'" :required="true" />
+
+									<x-text-input type="text" id="braceletMaterialName" name="braceletMaterialName" wire:model="braceletMaterialName" placeholder="{{ __('New bracelet material name') }}" class="mt-1 block text-gray-400" />
+
+									@error('braceletMaterialName')
+										<span class="error text-danger-700">
+											{{ $message }}
+										</span>
+									@enderror
+								</div>
+							</div>
+
+							<div class="mt-6 flex flex-row flex-wrap justify-center">
+								<x-secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
+									{{ __('Cancel') }}
+								</x-secondary-button>
+
+								<x-primary-button wire:click="createBraceletMaterial" @bracelet-material-created.window="$dispatch('close')">
+									{{ __('Add the bracelet material') }}
+								</x-primary-button>
+							</div>
+						</x-modal>
+					</div>
+
+					<div>
+						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet micro adjustement')]).' ?'" :class="'inline'" />
+
+						<div>
+							<input type="checkbox" id="braceletMicroAdjustement" name="braceletMicroAdjustement" value="1" wire:model.live="braceletMicroAdjustement" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+
+							<x-input-label for="braceletMicroAdjustement" :value="__('Does the bracelet have a micro adjustement').' ?'" :class="'ml-2 inline-block font-normal'" />
+						</div>
+					</div>
+
+					@if($braceletMicroAdjustement)
+						<div>
+							<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet micro adjustement system')]).' ?'" :required="true" :class="'inline'" />
+
+							{{-- Call create-bracelet-micro-adjustement-system Modal --}}
+							<button type="button" title="{{ __('Add a new bracelet micro adjustement system') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-micro-adjustement-system');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+							</button>
+
+							<div>
+								@foreach($braceletMicroAdjustementSystems as $value)
+									<div class="pr-5">
+										<input type="radio" id="braceletMicroAdjustementSystem-{{ $value->id }}" name="braceletMicroAdjustementSystem" wire:model="braceletMicroAdjustementSystem" value="{{ $value->id }}" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+										<x-input-label for="braceletMicroAdjustementSystem-{{ $value->id }}" :value="__($value->name)" :class="'inline-block font-normal'" />
+									</div>
+								@endforeach
+							</div>
+
+							@error('braceletMicroAdjustementSystem')
+								<span class="error text-danger-700">
+									{{ $message }}
+								</span>
+							@enderror
+
+							<x-modal name="create-bracelet-micro-adjustement-system" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-micro-adjustement-system-modal">
+								<x-slot name="title">
+									<header class="flex flex-row justify-center">
+										<h2 class="text-lg font-semibold pt-1">
+											{{ __('Add a new :part', ['part' => __('bracelet micro adjustement system')]) }}
+										</h2>
+									</header>
+								</x-slot>
+
+								<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
+									<div>
+										<x-input-label for="braceletMicroAdjustementSystemName" :value="__('What is the new bracelet micro adjustement system').' ?'" :required="true" />
+
+										<x-text-input type="text" id="braceletMicroAdjustementSystemName" name="braceletMicroAdjustementSystemName" wire:model="braceletMicroAdjustementSystemName" placeholder="{{ __('New micro adjustement system name') }}" class="mt-1 block text-gray-400" />
+
+										@error('braceletMicroAdjustementSystemName')
+											<span class="error text-danger-700">
+												{{ $message }}
+											</span>
+										@enderror
+									</div>
+								</div>
+
+								<div class="mt-6 flex flex-row flex-wrap justify-center">
+									<x-secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
+										{{ __('Cancel') }}
+									</x-secondary-button>
+
+									<x-primary-button wire:click="createBraceletMicroAdjustementSystem" @bracelet-micro-adjustement-system-created.window="$dispatch('close')">
+										{{ __('Add the bracelet micro adjustement system') }}
+									</x-primary-button>
+								</div>
+							</x-modal>
+						</div>
+					@endif
+
+					<div>
+						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet style')]).' ?'" :required="true" :class="'inline'" />
+
+						{{-- Call create-bracelet-style Modal --}}
+						<button type="button" title="{{ __('Add a new bracelet style') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-style');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</button>
+
+						<div>
+							@foreach($braceletStyles as $value)
+								<div class="pr-5">
+									<input type="radio" id="braceletStyle-{{ $value->id }}" name="braceletStyle" wire:model="braceletStyle" value="{{ $value->id }}" class="disabled:bg-gray-200 mr-2 border-gray-300 checked:bg-mnw-blue checked:hover:bg-mnw-blue checked:active:bg-mnw-blue checked:focus:bg-mnw-blue focus:bg-mnw-blue focus:outline-none focus:ring-1 focus:ring-mnw-blue">
+
+									<x-input-label for="braceletStyle-{{ $value->id }}" :value="__($value->name)" :class="'inline-block font-normal'" />
+								</div>
+							@endforeach
+						</div>
+
+						@error('braceletStyle')
+							<span class="error text-danger-700">
+								{{ $message }}
+							</span>
+						@enderror
+
+						<x-modal name="create-bracelet-style" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-style-modal">
+							<x-slot name="title">
+								<header class="flex flex-row justify-center">
+									<h2 class="text-lg font-semibold pt-1">
+										{{ __('Add a new :part', ['part' => __('bracelet style')]) }}
+									</h2>
+								</header>
+							</x-slot>
+
+							<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
+								<div>
+									<x-input-label for="braceletStyleName" :value="__('What is the new bracelet style').' ?'" :required="true" />
+
+									<x-text-input type="text" id="braceletStyleName" name="braceletStyleName" wire:model="braceletStyleName" placeholder="{{ __('New bracelet style name') }}" class="mt-1 block text-gray-400" />
+
+									@error('braceletStyleName')
+										<span class="error text-danger-700">
+											{{ $message }}
+										</span>
+									@enderror
+								</div>
+							</div>
+
+							<div class="mt-6 flex flex-row flex-wrap justify-center">
+								<x-secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
+									{{ __('Cancel') }}
+								</x-secondary-button>
+
+								<x-primary-button wire:click="createBraceletStyle" @bracelet-style-created.window="$dispatch('close')">
+									{{ __('Add the bracelet style') }}
+								</x-primary-button>
+							</div>
+						</x-modal>
+					</div>
+
+					<div>
+						<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet stitching')]).' ?'" :class="'inline'" />
+
+						<div>
+							<input type="checkbox" id="braceletStitching" name="braceletStitching" value="1" wire:model.live="braceletStitching" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+
+							<x-input-label for="braceletStitching" :value="__('Does the bracelet have stitching').' ?'" :class="'ml-2 inline-block font-normal'" />
+						</div>
+					</div>
+
+					@if($braceletStitching)
+						<div>
+							<x-input-label :value="__('What\'s this watch\'s :part', ['part' => __('bracelet stitching color')]).' ?'" :required="true" :class="'inline'" />
+
+							{{-- Call create-bracelet-stitching-color Modal --}}
+							<button type="button" title="{{ __('Add a new bracelet stitchin color') }}" x-on:click="$dispatch('open-modal', 'create-bracelet-stitching-color');" class=" mt-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+							</button>
+
+							<div>
+								@foreach($braceletStitchingColors as $value)
+									<div>
+										<input type="checkbox" id="braceletStitchingColor-{{ $value->id }}" name="braceletStitchingColor" value="{{ $value->id }}" wire:model="braceletStitchingColor" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+
+										<x-input-label for="braceletStitchingColor-{{ $value->id }}" :value="$value->name" :class="'ml-2 inline-block font-normal'" />
+									</div>
+								@endforeach
+							</div>
+
+							@error('braceletStitchingColor')
+								<span class="error text-danger-700">
+									{{ $message }}
+								</span>
+							@enderror
+
+							<x-modal name="create-bracelet-stitching-color" :class="'w-full max-w-2xl'" focusable wire:key="create-bracelet-stitching-color-modal">
+								<x-slot name="title">
+									<header class="flex flex-row justify-center">
+										<h2 class="text-lg font-semibold pt-1">
+											{{ __('Add a new :part', ['part' => __('bracelet stitching color')]) }}
+										</h2>
+									</header>
+								</x-slot>
+
+								<div class="grid gap-x-20 gap-y-5 grid-cols-1 mt-5">
+									<div>
+										<x-input-label for="braceletStitchingColorName" :value="__('What is the new bracelet stitching color').' ?'" :required="true" />
+
+										<x-text-input type="text" id="braceletStitchingColorName" name="braceletStitchingColorName" wire:model="braceletStitchingColorName" placeholder="{{ __('New bracelet stitching color name') }}" class="mt-1 block text-gray-400" />
+
+										@error('braceletStitchingColorName')
+											<span class="error text-danger-700">
+												{{ $message }}
+											</span>
+										@enderror
+									</div>
+								</div>
+
+								<div class="mt-6 flex flex-row flex-wrap justify-center">
+									<x-secondary-button x-on:click="$dispatch('close')" :class="'mr-6'">
+										{{ __('Cancel') }}
+									</x-secondary-button>
+
+									<x-primary-button wire:click="createBraceletStitchingColor" @bracelet-stitching-color-created.window="$dispatch('close')">
+										{{ __('Add the bracelet stitching color') }}
+									</x-primary-button>
+								</div>
+							</x-modal>
+						</div>
+					@endif
 
 					<div class="px-5 py-6 flex justify-end">
 						<x-secondary-button :class="'mr-6'" wire:click="back">

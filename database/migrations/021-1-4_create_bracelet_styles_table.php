@@ -30,7 +30,7 @@ return new class extends Migration
 		});
 
 		$admin = Admin::first();
-		$styles = ['mesh', 'oyster', 'beads of rice', 'jubilee', 'expanding', 'tropic'];
+		$styles = ['mesh', 'oyster', 'beads of rice', 'jubilee', 'expanding', 'tropic', 'classic'];
 
 		foreach($styles as $style) {
 			$newStyle = new BraceletStyle;
