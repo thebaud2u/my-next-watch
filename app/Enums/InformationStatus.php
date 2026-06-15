@@ -2,16 +2,22 @@
 
 namespace App\Enums;
 
-enum InformationStatus:int {
-	case Draft = 1;
-	case Published = 2;
-	case Deleted = 3;
+use App\Traits\AsHumanLabels;
 
-	public function color(): string{
+enum InformationStatus:string {
+	use AsHumanLabels;
+
+	case Archived = 'archived';
+	case Deleted = 'deleted';
+	case Draft = 'draft';
+	case Published = 'published';
+
+	public function inHuman(): string{
 		return match($this) {
-			self::Draft => 'blue',
-			self::Published => 'green',
-			self::Deleted => 'red'
+			self::Archived => 'Archived',
+			self::Deleted => 'Deleted',
+			self::Draft => 'Draft',
+			self::Published => 'Published',
 		};
 	}
 }

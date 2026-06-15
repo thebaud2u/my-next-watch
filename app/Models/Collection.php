@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -22,12 +24,11 @@ class Collection extends Model implements Viewable, HasMedia
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
-		'id',
 		'brand_id',
 		'slug',
 		'name',
 		'description',
-		'status',
+		'state',
 		'admin_id',
 		'created_at',
 		'updated_at',
@@ -43,12 +44,13 @@ class Collection extends Model implements Viewable, HasMedia
 	{
 		return [
 			'status' => InformationStatus::class,
-			'created_at' => 'date:Y-m-d h:i:s',
-			'updated_at' => 'date:Y-m-d h:i:s',
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
 	}
 
+	// Tools
 	/**
 	 * Get the options for generating the slug.
 	 *
@@ -61,22 +63,12 @@ class Collection extends Model implements Viewable, HasMedia
 			->generateSlugsFrom('name');
 	}
 
-	public function brand()
-	{
-		return $this->belongsTo(Brand::class);
-	}
-
-	public function admin()
-	{
-		return $this->belongsTo(Admin::class);
-	}
-
 	public function registerMediaCollections(): void
 	{
 		$this->addMediaCollection('photos');
 	}
 
-	public function registerMediaConversions(Media $media = null): void
+	public function registerMediaConversions(?Media $media = null): void
 	{
 		$this->addMediaConversion('optimized')
 			->performOnCollections('photos')
@@ -84,6 +76,23 @@ class Collection extends Model implements Viewable, HasMedia
 			->height(1280);
 	}
 
+	// Relations
+	public function admin(): BelongsTo
+	{
+		return $this->belongsTo(Admin::class);
+	}
+	
+	public function brand(): BelongsTo
+	{
+		return $this->belongsTo(Brand::class);
+	}
+
+	public function watches(): HasMany
+	{
+		return $this->hasMany(Watches::class);
+	}
+
+	// Functions
 	/**
 	 * HasViewed or not a given element
 	 *
@@ -91,7 +100,7 @@ class Collection extends Model implements Viewable, HasMedia
 	 * @param int id
 	 * @return int
 	 */
-	public function hasViewed($elementType, $elementId)
+	public function hasViewed($elementType, $elementId): int
 	{
 		return UsersViews::whereHas('user', function($whereHas) {
 				$whereHas->where('id', '=', $this->id);

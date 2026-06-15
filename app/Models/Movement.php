@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use App\Enums\InformationStatus;
 
@@ -12,7 +14,6 @@ class Movement extends Model
 	use SoftDeletes;
 
 	protected $fillable = [
-		'id',
 		'brand_id',
 		'name',
 		'type',
@@ -20,8 +21,7 @@ class Movement extends Model
 		'METAS',
 		'manufactured_caliber',
 		'description',
-		'nationality',
-		'status',
+		'state',
 		'admin_id',
 		'created_at',
 		'updated_at',
@@ -40,19 +40,25 @@ class Movement extends Model
 			'METAS' => 'boolean',
 			'manufactured_caliber' => 'boolean',
 			'status' => InformationStatus::class,
-			'created_at' => 'date:Y-m-d h:i:s',
-			'updated_at' => 'date:Y-m-d h:i:s',
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
 	}
 
-	public function brand()
+	// Relations
+	public function address(): MorphOne
 	{
-		return $this->belongsTo(Brand::class);
+		return $this->morphOne(Address::class, 'model');
 	}
 
-	public function admin()
+	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);
+	}
+	
+	public function brand(): BelongsTo
+	{
+		return $this->belongsTo(Brand::class);
 	}
 }

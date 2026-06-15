@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -31,21 +33,24 @@ class User extends Authenticatable implements HasMedia
 	 * @var array<int, string>
 	 */
 	protected $fillable = [
-		'title_id',
-		'gender_id',
+		'gender',
 		'slug',
 		'nickname',
-		'first_name',
-		'last_name',
+		'firstname',
+		'lastname',
 		'email',
-		'last_logon',
-		'birth_date',
+		'birthday',
 		'phone',
-		'mobile_phone',
+		'mobile',
+		'values',
 		'experience_id',
-		'created_at',
-		'updated_at',
-		'deleted_at'
+		'email_verified_at',
+		'last_logon'
+	];
+
+	protected $hidden = [
+		'password',
+		'remember_token'
 	];
 
 	/**
@@ -54,12 +59,16 @@ class User extends Authenticatable implements HasMedia
 	 * @var array<string, string>
 	 */
 	protected $casts = [
+		'values' => AsCollection::class,
+		'birthday' => 'date',
+		'email_verified_at' => 'datetime',
 		'last_logon' => 'datetime',
-		'created_at' => 'date:Y-m-d h:i:s',
-		'updated_at' => 'date:Y-m-d h:i:s',
+		'created_at' => 'datetime',
+		'updated_at' => 'datetime',
 		'deleted_at' => 'datetime'
 	];
 
+	// Tools
 	/**
 	 * Get the options for generating the slug.
 	 *
@@ -78,7 +87,7 @@ class User extends Authenticatable implements HasMedia
 			->singleFile();
 	}
 
-	public function registerMediaConversions(Media $media = null): void
+	public function registerMediaConversions(?Media $media = null): void
 	{
 		$this->addMediaConversion('optimized')
 			->performOnCollections('avatar')
@@ -86,21 +95,23 @@ class User extends Authenticatable implements HasMedia
 			->height(360);
 	}
 
-	public function title()
+	// Relations
+	public function experience(): BelongsTo
 	{
-		return $this->belongsTo(Title::class);
+		return $this->belongsTo(Experience::class);
 	}
-
-	public function gender()
+	
+	public function gender(): BelongsTo
 	{
 		return $this->belongsTo(Gender::class);
 	}
 
-	public function experience()
+	public function title(): BelongsTo
 	{
-		return $this->belongsTo(Experience::class);
+		return $this->belongsTo(Title::class);
 	}
 
+	// Functions
 	/**
 	 * HasViewed or not a given element
 	 *
@@ -108,7 +119,7 @@ class User extends Authenticatable implements HasMedia
 	 * @param int id
 	 * @return int
 	 */
-	public function hasViewed($elementType, $elementId)
+	public function hasViewed($elementType, $elementId): int
 	{
 		return UsersViews::whereHas('user', function($whereHas) {
 				$whereHas->where('id', '=', $this->id);
@@ -125,7 +136,7 @@ class User extends Authenticatable implements HasMedia
 	 * @param int id
 	 * @return int
 	 */
-	public function recentlyViewedWatches()
+	public function recentlyViewedWatches(): Collection
 	{
 		$viewedWatches = UsersViews::whereHas('user', function($whereHas) {
 				$whereHas->where('id', '=', $this->id);

@@ -10,11 +10,10 @@ use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Facades\CauserResolver;
-
 class Search extends Model
 {
+	use LogsActivity; // HasUuids, 
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -28,6 +27,7 @@ class Search extends Model
 		'post_type_id',
 		'category_id',
 		'filters',
+		'email_alert',
 	];
 
 	/**
@@ -39,6 +39,7 @@ class Search extends Model
 	{
 		return [
 			'filters' => AsCollection::class,
+			'email_alert' => 'boolean',
 		];
 	}
 
@@ -49,35 +50,6 @@ class Search extends Model
 			$model->uuid = (string) Str::uuid();
 		});
 	}
-
-	/**
-	 * Set activity log options
-	 *
-	 * @return  \Spatie\Activitylog\LogOptions
-	 */
-	public function getActivitylogOptions(): LogOptions
-	{
-		CauserResolver::setCauser((empty(Auth::guard('admin')->user()->id)) ? ((empty(Auth::guard('web')->user())) ? null : Auth::guard('web')->user()) : Auth::guard('admin')->user());
-		$by = (! empty(Auth::guard('admin')->user()->id)) ? ' by Admin #:causer.id (:causer.email)' : ((! empty(Auth::guard('web')->user()->id)) ? ' by User #:causer.id (:causer.email)' : ' by CLI/API');
-
-		return LogOptions::defaults()
-			->useLogName('search')
-			->setDescriptionForEvent(fn(string $eventName) => 'Search #:subject.id (:subject.uuid) has been '.$eventName.$by)
-			->logAll()
-			->logOnlyDirty();
-	}
-
-	/**
-	 * The "booted" method of the model.
-	 */
-	// protected static function booted(): void
-	// {
-	// 	static::addGlobalScope('enabled-thematic', function (Builder $builder) {
-	// 		$builder->whereHas('thematic', function($whereHas) {
-	// 			$whereHas->where('enabled', true);
-	// 		});
-	// 	});
-	// }
 
 	public function user()
 	{

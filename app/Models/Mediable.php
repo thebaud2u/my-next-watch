@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
@@ -11,39 +11,26 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Mediable extends Model implements HasMedia
 {
-	use HasFactory, InteractsWithMedia;
+	use InteractsWithMedia;
 
 	protected $fillable = [
-		'id',
 		'user_id',
 		'admin_id',
 		'type',
 	];
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
-
-	public function admin()
-	{
-		return $this->belongsTo(Admin::class);
-	}
-
+	// Tools
 	public function registerMediaCollections(): void
 	{
-		$this
-			->addMediaCollection('photos');
-
-		$this
-			->addMediaCollection('logo')
-			->singleFile();
+		$this->addMediaCollection('avatar')->singleFile();
+		$this->addMediaCollection('banner')->singleFile();
+		$this->addMediaCollection('logo')->singleFile();
 	}
 
-	public function registerMediaConversions(Media $media = null): void
+	public function registerMediaConversions(?Media $media = null): void
 	{
 		$this->addMediaConversion('optimized')
-			->performOnCollections('photos')
+			->performOnCollections('avatar')
 			->width(1280)
 			->height(1280);
 
@@ -53,8 +40,19 @@ class Mediable extends Model implements HasMedia
 			->height(360);
 
 		$this->addMediaConversion('optimized')
-			->performOnCollections('bandeau')
+			->performOnCollections('banner')
 			->width(1280)
 			->height(1280);
+	}
+
+	// Relations
+	public function admin(): BelongsTo
+	{
+		return $this->belongsTo(Admin::class);
+	}
+	
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class);
 	}
 }

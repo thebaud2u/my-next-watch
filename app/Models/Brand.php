@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
@@ -23,13 +26,11 @@ class Brand extends Model implements Viewable, HasMedia
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
-		'id',
 		'slug',
 		'name',
 		'description',
-		'nationality',
 		'external_link',
-		'status',
+		'state',
 		'admin_id',
 		'created_at',
 		'updated_at',
@@ -45,12 +46,13 @@ class Brand extends Model implements Viewable, HasMedia
 	{
 		return [
 			'status' => InformationStatus::class,
-			'created_at' => 'date:Y-m-d h:i:s',
-			'updated_at' => 'date:Y-m-d h:i:s',
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
 	}
 
+	// Tools
 	/**
 	 * Get the options for generating the slug.
 	 *
@@ -63,22 +65,12 @@ class Brand extends Model implements Viewable, HasMedia
 			->generateSlugsFrom('name');
 	}
 
-	public function admin()
-	{
-		return $this->belongsTo(Admin::class);
-	}
-
-	public function address(): MorphOne
-	{
-		return $this->morphOne(Address::class, 'model');
-	}
-
 	public function registerMediaCollections(): void
 	{
 		$this->addMediaCollection('logo');
 	}
 
-	public function registerMediaConversions(Media $media = null): void
+	public function registerMediaConversions(?Media $media = null): void
 	{
 		$this->addMediaConversion('optimized')
 			->performOnCollections('logo')
@@ -86,6 +78,28 @@ class Brand extends Model implements Viewable, HasMedia
 			->height(1280);
 	}
 
+	// Relations
+	public function address(): MorphOne
+	{
+		return $this->morphOne(Address::class, 'model');
+	}
+	
+	public function admin(): BelongsTo
+	{
+		return $this->belongsTo(Admin::class);
+	}
+
+	public function collections(): HasMany
+	{
+		return $this->hasMany(Collection::class);
+	}
+
+	public function watches(): HasManyThrough
+	{
+		return $this->hasManyThrough(Watch::class, Collection::class);
+	}
+
+	// Functions
 	/**
 	 * HasViewed or not a given element
 	 *
@@ -93,7 +107,7 @@ class Brand extends Model implements Viewable, HasMedia
 	 * @param int id
 	 * @return int
 	 */
-	public function hasViewed($elementType, $elementId)
+	public function hasViewed($elementType, $elementId): int
 	{
 		return UsersViews::whereHas('user', function($whereHas) {
 				$whereHas->where('id', '=', $this->id);

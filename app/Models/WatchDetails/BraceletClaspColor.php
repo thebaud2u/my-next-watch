@@ -4,15 +4,15 @@ namespace App\Models\WatchDetails;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BraceletClaspColor extends Model
 {
 	use SoftDeletes;
 
 	protected $fillable = [
-		'id',
 		'name',
-		'status',
+		'state',
 		'admin_id',
 		'created_at',
 		'updated_at',
@@ -27,13 +27,14 @@ class BraceletClaspColor extends Model
 	protected function casts(): array
 	{
 		return [
-			'created_at' => 'date:Y-m-d h:i:s',
-			'updated_at' => 'date:Y-m-d h:i:s',
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
 	}
 
-	public function admin()
+	// Relations
+	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);
 	}

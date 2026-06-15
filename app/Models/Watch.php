@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -40,7 +41,7 @@ class Watch extends Model implements Viewable, HasMedia
 		'release_price',
 		'current_price',
 		'completed',
-		'status',
+		'state',
 		'published_at',
 		'admin_id',
 		'created_at',
@@ -67,13 +68,14 @@ class Watch extends Model implements Viewable, HasMedia
 			'current_price' => 'double',
 			'completed' => 'boolean',
 			'status' => InformationStatus::class,
-			'published_at' => 'date:Y-m-d h:i:s',
-			'created_at' => 'date:Y-m-d h:i:s',
-			'updated_at' => 'date:Y-m-d h:i:s',
+			'published_at' => 'datetime',
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
 	}
 
+	// Tools
 	/**
 	 * Get the options for generating the slug.
 	 *
@@ -86,32 +88,12 @@ class Watch extends Model implements Viewable, HasMedia
 			->generateSlugsFrom('reference');
 	}
 
-	public function collection()
-	{
-		return $this->belongsTo(Collection::class);
-	}
-
-	public function movement()
-	{
-		return $this->belongsTo(Movement::class);
-	}
-
-	public function admin()
-	{
-		return $this->belongsTo(Admin::class);
-	}
-
-	public function scopePublished($query)
-	{
-		$query->where('status', InformationStatus::Published);
-	}
-
 	public function registerMediaCollections(): void
 	{
 		$this->addMediaCollection('photos');
 	}
 
-	public function registerMediaConversions(Media $media = null): void
+	public function registerMediaConversions(?Media $media = null): void
 	{
 		$this->addMediaConversion('optimized')
 			->performOnCollections('photos')
@@ -119,6 +101,23 @@ class Watch extends Model implements Viewable, HasMedia
 			->height(1280);
 	}
 
+	// Relations
+	public function admin(): BelongsTo
+	{
+		return $this->belongsTo(Admin::class);
+	}
+	
+	public function collection(): BelongsTo
+	{
+		return $this->belongsTo(Collection::class);
+	}
+
+	public function movement(): BelongsTo
+	{
+		return $this->belongsTo(Movement::class);
+	}
+
+	// Functions
 	/**
 	 * HasViewed or not a given element
 	 *
@@ -126,7 +125,7 @@ class Watch extends Model implements Viewable, HasMedia
 	 * @param int id
 	 * @return int
 	 */
-	public function hasViewed($elementType, $elementId)
+	public function hasViewed($elementType, $elementId): int
 	{
 		return UsersViews::whereHas('user', function($whereHas) {
 				$whereHas->where('id', '=', $this->id);
@@ -134,5 +133,10 @@ class Watch extends Model implements Viewable, HasMedia
 			->where('element_type', '=', $elementType)
 			->where('element_id', '=', $elementId)
 			->count();
+	}
+
+	function brand(): Brand
+	{
+		return $this->collection->brand;
 	}
 }
