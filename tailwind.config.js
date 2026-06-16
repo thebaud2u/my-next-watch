@@ -19,10 +19,8 @@ module.exports = {
 				'xseol': '390px',
 				's': '480px',
 				'dc': '572px',
-				/** Default '640px'. Why? @see https://www.leptidigital.fr/technologie/parts-marche-resolutions-ecrans-26797/ */
 				'sm': '668px',
 				'lmd': '840px',
-				/** Default '1280px'. Pub: format arche compatible Pulse */
 				'xlsm': '1157px',
 				'xlmd': '1440px',
 				'xlhome': '1766px',
@@ -33,7 +31,6 @@ module.exports = {
 				'inter': ['Poppins', 'sans-serif', ...defaultTheme.fontFamily.sans]
 			},
 			colors: {
-				/** Tema bluescale */
 				primary: {
 					50: '#eff9ff',
 					100: '#cbe8ff',
@@ -51,13 +48,7 @@ module.exports = {
 				warning: colors.yellow,
 				danger: colors.red,
 				gray: colors.zinc,
-				/*
-					Keep colors separated from each other.
-					Darker color ^
-					Color
-					Lighter color v
-				*/
-				mnw: {
+				jobboard: {
 					deepblue: '#0E1954',
 					deepbluehover: '#08103A',
 					blue: '#0082FF',

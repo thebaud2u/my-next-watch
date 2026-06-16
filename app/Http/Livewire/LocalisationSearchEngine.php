@@ -3,10 +3,11 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 
-use App\Models\ { Country, Department, Region, City };
+use App\Models\ { Country, Department, Region, City};
 
 class LocalisationSearchEngine extends Component
 {
@@ -35,7 +36,8 @@ class LocalisationSearchEngine extends Component
 		if(!empty($this->search)) {
 			$countries = Country::query()
 				->select(DB::raw('"country" as type, 1 as priority, id, name, null as zip_code'))
-				->whereRaw('REPLACE(name, "-", " ") LIKE ?', [str_replace('-', ' ', $this->search).'%']);
+				->whereRaw('REPLACE(name, "-", " ") LIKE ?', [str_replace('-', ' ', $this->search).'%'])
+				->whereIn('code', ['BEL', 'FRA']);
 
 			$regions = Region::query()
 				->select(DB::raw('"region" as type, 2 as priority, id, name, null as zip_code'))
@@ -45,7 +47,7 @@ class LocalisationSearchEngine extends Component
 				->select(DB::raw('"department" as type, 3 as priority, id, name, null as zip_code'))
 				->whereRaw('REPLACE(name, "-", " ") LIKE ?', [str_replace('-', ' ', $this->search).'%'])
 				->when($this->search, function ($query, $value) {
-					if (preg_match('`^[0-9]{2,3}$`', $value)) {
+					if(preg_match('`^[0-9]{2,3}$`', $value)) {
 						return $query->orWhere('code', 'like', $value.'%');
 					}
 				});
@@ -60,7 +62,7 @@ class LocalisationSearchEngine extends Component
 				->select(DB::raw('"city" as type, 5 as priority, id, name, zip_code'))
 				->whereRaw('REPLACE(name, "-", " ") LIKE ?', [str_replace('-', ' ', $this->search).'%'])
 				->when($this->search, function ($query, $value) {
-					if (preg_match('`^[0-9]{2,5}$`', $value)) {
+					if(preg_match('`^[0-9]{2,5}$`', $value)) {
 						return $query->orWhere('zip_code', 'like', $value.'%');
 					}
 				})
@@ -72,7 +74,7 @@ class LocalisationSearchEngine extends Component
 				->orderBy('name', 'asc')
 				->orderBy('zip_code', 'asc');
 
-			if (strtolower($this->search) == 'paris' || $this->search == '75' || $this->search == '750') $req->limit(25);
+			if(strtolower($this->search) == 'paris' || $this->search == '75' || $this->search == '750') $req->limit(25);
 			else $req->limit(15);
 
 			$this->records = $req->get();
@@ -231,9 +233,22 @@ class LocalisationSearchEngine extends Component
 		$this->dispatch('location-selected', filters: $this->filters, showDistance: $this->showDistance);
 	}
 
+	#[On('location-reset')]
+	public function locationReset()
+	{
+		$this->search = '';
+		$this->searchLabel = '';
+		$this->filters['country_id'] = null;
+		$this->filters['region_id'] = null;
+		$this->filters['department_id'] = null;
+		$this->filters['city_id'] = null;
+		$this->filters['cities'] = null;
+		$this->filters['distance'] = 0;
+	}
+
 	public function mount()
 	{
-		$this->searchLabel = __('Enter a location');
+		$this->searchLabel = '';
 		$this->filters['country_id'] = null;
 		$this->filters['region_id'] = null;
 		$this->filters['department_id'] = null;
@@ -241,13 +256,13 @@ class LocalisationSearchEngine extends Component
 		$this->filters['cities'] = null;
 		$this->filters['distance'] = 0;
 
-		if (!empty($locType) && in_array($locType, ['city', 'cities'])) {
+		if(!empty($locType) && in_array($locType, ['city', 'cities'])) {
 			$this->filters['distance'] = (!empty($distance) && $distance < 200001 && ($distance % 20000) == 0) ? $distance / 1000 : 0;
 			$this->showDistance = $this->hideDistance ? false : true;
 		}
 
-		if (request()->get('city')) {
-			if ($city = City::where('slug', request()->get('city'))->first()) $this->filters['city_id'] = $city->id;
+		if(request()->get('city')) {
+			if($city = City::where('slug', request()->get('city'))->first()) $this->filters['city_id'] = $city->id;
 		}
 
 		if(session()->has('filters')) {
@@ -260,34 +275,34 @@ class LocalisationSearchEngine extends Component
 			if(!empty($filters['cities'])) $this->filters['cities'] = $filters['cities'];
 			if(!empty($filters['distance'])) $this->filters['distance'] = $filters['distance'];
 
-			if(!is_null($this->filters['cities'])) {
-				$cities = City::whereIn('id', $this->filters['cities'])
-					->get();
-
-				$this->searchLabel = $cities[0]->name.' ('.__('all city').')';
-			}
-			elseif(!is_null($this->filters['city_id'])) {
-				$city = City::find($this->filters['city_id']);
-
-				$this->searchLabel = $city->name.' ('.$city->zip_code.')';
-			}
-			elseif(!is_null($this->filters['department_id'])) {
-				$department = Department::find($this->filters['department_id']);
-
-				$this->searchLabel = $department->name.' ('.__('department').')';
-			}
-			elseif(!is_null($this->filters['region_id'])) {
-				$region = Region::find($this->filters['region_id']);
-
-				$this->searchLabel = $region->name.' ('.__('region').')';
-			}
-			elseif(!is_null($this->filters['country_id'])) {
-				$country = Country::find($this->filters['country_id']);
-
-				$this->searchLabel = $country->name.' ('.__('country').')';
-			}
-
 			$this->valuesLoadedFromSession = true;
+		}
+
+		if($this->filters['cities']) {
+			$cities = City::whereIn('id', $this->filters['cities'])
+				->get();
+
+			$this->searchLabel = $cities[0]->name.' ('.__('all city').')';
+		}
+		elseif($this->filters['city_id']) {
+			$city = City::find($this->filters['city_id']);
+
+			$this->searchLabel = $city->name.' ('.$city->zip_code.')';
+		}
+		elseif($this->filters['department_id']) {
+			$department = Department::find($this->filters['department_id']);
+
+			$this->searchLabel = $department->name.' ('.__('department').')';
+		}
+		elseif($this->filters['region_id']) {
+			$region = Region::find($this->filters['region_id']);
+
+			$this->searchLabel = $region->name.' ('.__('region').')';
+		}
+		elseif($this->filters['country_id']) {
+			$country = Country::find($this->filters['country_id']);
+
+			$this->searchLabel = $country->name.' ('.__('country').')';
 		}
 	}
 

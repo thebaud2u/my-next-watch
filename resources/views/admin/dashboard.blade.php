@@ -1,111 +1,112 @@
-<x-admin-layout>
+@extends('admin.layouts.app')
+
+@section('body')
 	<h1 class="text-gray-700 text-3xl font-medium">{{ __('Dashboard') }}</h1>
 
 	<div class="mt-4">
-		<div class="flex flex-wrap -mx-6">
+		<div class="flex flex-wrap gap-y-4">
 			<div class="px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-				<a href="{{ route('admin.admins') }}">
+				<a href="{{ route('admin.posts.index') }}">
 					<div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-						<button type="button" class="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<button type="button" class="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"class="size-6">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
 							</svg>
 						</button>
 
 						<div class="mx-5">
-							<h4 class="text-2xl font-semibold text-gray-700">{{ $admins }}</h4>
-							<div class="text-gray-500">{{ __('Admins') }}</div>
+							<h4 class="text-2xl font-semibold text-gray-700">
+								{{ $countPosts }}
+							</h4>
+
+							<div class="text-gray-500">
+								{{ __('Currently published posts') }}
+							</div>
 						</div>
 					</div>
 				</a>
 			</div>
 
 			<div class="px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-				<a href="{{ route('admin.users') }}">
+				<div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+					<button type="button" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"class="size-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+						</svg>
+					</button>
+
+					<div class="mx-5">
+						<h4 class="text-2xl font-semibold text-gray-700">
+							{{ $countUsers }}
+						</h4>
+
+						<div class="text-gray-500">
+							{{ __('Users') }}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
+				<a href="{{ route('admin.moderations.index') }}">
 					<div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-						<button type="button" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+						<button type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-3 py-2.5 text-center me-2 mb-2">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
 							</svg>
 						</button>
 
 						<div class="mx-5">
-							<h4 class="text-2xl font-semibold text-gray-700">{{ $users }}</h4>
-							<div class="text-gray-500">{{ __('Users') }}</div>
+							<h4 class="text-2xl font-semibold text-gray-700">
+								{{ $countModerations }}
+							</h4>
+
+							<div class="text-gray-500">
+								{{ __($countModerations > 1 ? 'Moderations waiting' : 'Moderation waiting') }}
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
+				<a href="{{ route('admin.companies.index') }}">
+					<div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+						<button type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center me-2 mb-2">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
+							</svg>
+						</button>
+
+						<div class="mx-5">
+							<h4 class="text-2xl font-semibold text-gray-700">
+								{{ $countCompanies }}
+							</h4>
+
+							<div class="text-gray-500">
+								{{ __('Currently published companies') }}
+							</div>
 						</div>
 					</div>
 				</a>
 			</div>
 
 			<div class="px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-				<a href="{{ route('admin.watches.index') }}">
+				<a href="{{ route('admin.subscriptions.index') }}">
 					<div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-						<button type="button" class="text-gray-900 bg-gradient-to-r from-blue-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-							<svg fill="#000000" class="w-6 h-6" vxmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xml:space="preserve">
-								<g>
-									<g>
-										<g>
-											<path d="M273.068,247.467h-25.6V204.8c0-4.71-3.823-8.533-8.533-8.533s-8.533,3.823-8.533,8.533V256 c0,4.71,3.823,8.533,8.533,8.533h34.133c4.71,0,8.533-3.823,8.533-8.533S277.779,247.467,273.068,247.467z"/>
-											<path d="M375.465,221.867h-22.039c-6.823-22.848-20.308-42.847-38.198-57.73l-2.689-53.63c-0.001-0.018-0.004-0.035-0.005-0.053
-												l-1.698-33.96c-0.001-0.04,0.002-0.08,0-0.12L309.12,42.24c-0.001-0.017-0.004-0.034-0.005-0.052l-1.303-25.984
-												C307.36,7.117,299.867,0,290.771,0H187.535c-9.105,0-16.589,7.117-17.041,16.213l-1.306,26.027c-0.001,0.017,0.001,0.033,0,0.05
-												l-1.713,34.084c-0.001,0.017,0.001,0.034,0,0.051l-1.713,34.082c-0.001,0.017,0.001,0.034,0,0.051l-2.668,53.201
-												c-26.623,21.928-43.627,55.135-43.627,92.241c0,36.893,16.81,69.929,43.171,91.86l2.689,53.633
-												c0.001,0.012,0.003,0.023,0.003,0.034l1.705,34.099c0.002,0.041,0.009,0.08,0.012,0.12l1.701,34.013
-												c0,0.006,0.001,0.011,0.002,0.017l1.305,26.018C170.516,504.883,178,512,187.105,512h103.228c9.114,0,16.597-7.117,17.041-16.213
-												l1.306-26.027c0-0.006,0-0.011,0-0.017l1.712-34.065c0.001-0.017,0.004-0.034,0.005-0.052l1.707-34.133
-												c0.001-0.011-0.001-0.023,0-0.034l2.668-53.215c18.118-14.921,31.773-35.069,38.654-58.111h22.039
-												c9.412,0,17.067-7.654,17.067-17.067v-34.133C392.532,229.521,384.877,221.867,375.465,221.867z M293.342,68.267H184.969
-												L185.83,51.2h106.65L293.342,68.267z M184.118,85.333h110.071l0.862,17.067H183.256L184.118,85.333z M187.535,17.067h103.236
-												l0.853,17.067H186.681L187.535,17.067z M182.405,119.467h113.493l1.626,32.452c-17.214-9.728-37.065-15.311-58.194-15.38
-												c-0.06,0-0.119-0.005-0.179-0.005h-0.213c0,0-0.001,0-0.002,0c-0.001,0-0.001,0-0.002,0c-1.174,0-2.344,0.022-3.51,0.055
-												c-0.387,0.011-0.772,0.029-1.158,0.044c-0.779,0.03-1.556,0.066-2.33,0.111c-0.462,0.027-0.923,0.056-1.384,0.088
-												c-0.707,0.049-1.411,0.107-2.114,0.168c-0.477,0.042-0.954,0.08-1.43,0.127c-0.781,0.078-1.559,0.168-2.335,0.261
-												c-0.809,0.096-1.616,0.203-2.422,0.316c-0.584,0.082-1.169,0.162-1.75,0.252c-0.616,0.096-1.229,0.201-1.842,0.306
-												c-0.489,0.084-0.978,0.17-1.465,0.26c-0.631,0.116-1.261,0.236-1.89,0.363c-0.47,0.095-0.937,0.195-1.404,0.296
-												c-0.628,0.135-1.257,0.266-1.882,0.411c-0.955,0.221-1.906,0.453-2.852,0.697c-0.531,0.137-1.06,0.285-1.589,0.43
-												c-0.609,0.166-1.217,0.333-1.822,0.508c-0.46,0.133-0.918,0.271-1.376,0.41c-0.736,0.223-1.468,0.453-2.198,0.69
-												c-0.317,0.103-0.634,0.203-0.95,0.309c-7.137,2.38-13.974,5.418-20.445,9.038L182.405,119.467z M184.527,443.733h108.373
-												l-0.853,17.067H185.389L184.527,443.733z M293.757,426.667h-110.08l-0.853-17.067H294.61L293.757,426.667z M290.333,494.933
-												H187.097l-0.853-17.067h104.943L290.333,494.933z M295.47,392.533H181.968l-1.627-32.454
-												c17.323,9.79,37.315,15.388,58.593,15.388c0,0,0.001,0,0.001,0c0,0,0,0,0.001,0c0.002,0,0.005,0,0.007,0
-												c1.171,0,2.336-0.022,3.499-0.055c0.393-0.011,0.785-0.03,1.178-0.045c0.77-0.03,1.539-0.065,2.306-0.11
-												c0.468-0.027,0.935-0.057,1.402-0.089c0.699-0.049,1.396-0.105,2.092-0.166c0.483-0.042,0.966-0.081,1.447-0.129
-												c0.774-0.077,1.544-0.167,2.313-0.258c0.813-0.097,1.625-0.204,2.434-0.317c0.587-0.082,1.174-0.163,1.759-0.254
-												c0.61-0.095,1.217-0.199,1.824-0.303c0.499-0.086,0.997-0.173,1.494-0.265c0.621-0.115,1.24-0.233,1.859-0.357
-												c0.491-0.099,0.979-0.204,1.467-0.309c0.607-0.13,1.214-0.257,1.818-0.397c0.986-0.228,1.967-0.467,2.943-0.719
-												c0.477-0.123,0.951-0.257,1.426-0.387c0.651-0.177,1.301-0.355,1.947-0.543c0.43-0.125,0.86-0.254,1.289-0.384
-												c0.778-0.235,1.552-0.479,2.323-0.729c0.278-0.091,0.558-0.179,0.835-0.272c7.15-2.381,14-5.423,20.482-9.049L295.47,392.533z
-												M301.99,336.63c-0.252,0.154-0.505,0.306-0.743,0.488c-10.12,7.787-21.319,13.515-33.187,17.056
-												c-0.13,0.039-0.26,0.078-0.391,0.117c-1.191,0.35-2.388,0.677-3.592,0.983c-0.232,0.059-0.465,0.113-0.697,0.17
-												c-1.039,0.256-2.083,0.496-3.131,0.719c-0.21,0.045-0.419,0.094-0.63,0.137c-1.123,0.232-2.252,0.438-3.385,0.631
-												c-0.35,0.06-0.701,0.119-1.052,0.175c-1.128,0.181-2.26,0.347-3.396,0.49c-0.266,0.033-0.533,0.06-0.8,0.092
-												c-1.018,0.12-2.04,0.225-3.065,0.314c-0.151,0.013-0.302,0.028-0.454,0.04v-16.708c0-4.71-3.823-8.533-8.533-8.533
-												s-8.533,3.823-8.533,8.533v16.559c-19.828-1.635-38.507-8.886-54.194-21.091c-0.222-0.172-0.459-0.313-0.693-0.461
-												c-21.632-17.112-36.214-42.758-38.622-71.808h16.708c4.71,0,8.533-3.823,8.533-8.533s-3.823-8.533-8.533-8.533h-16.708
-												c2.422-29.217,17.157-54.992,38.995-72.104c0.248-0.152,0.497-0.302,0.731-0.481c10.08-7.753,21.228-13.467,33.041-17.012
-												c0.152-0.045,0.303-0.091,0.455-0.136c1.181-0.348,2.368-0.675,3.562-0.98c0.227-0.058,0.456-0.111,0.683-0.167
-												c0.991-0.246,1.987-0.475,2.987-0.691c0.275-0.059,0.549-0.123,0.825-0.18c1.094-0.226,2.193-0.43,3.295-0.62
-												c0.374-0.065,0.75-0.127,1.125-0.187c1.112-0.179,2.227-0.346,3.347-0.489c0.248-0.031,0.497-0.056,0.745-0.085
-												c0.996-0.119,1.995-0.223,2.997-0.313c0.24-0.022,0.479-0.044,0.719-0.064v16.708c0,4.71,3.823,8.533,8.533,8.533
-												s8.533-3.823,8.533-8.533v-16.56c19.822,1.634,38.503,8.886,54.199,21.091c0.245,0.19,0.501,0.36,0.762,0.521
-												c17.454,13.833,30.306,33.226,35.862,55.478c0.036,0.39,0.091,0.78,0.182,1.166c1.205,5.08,2.028,10.135,2.471,15.104h-16.675
-												c-4.71,0-8.533,3.823-8.533,8.533s3.823,8.533,8.533,8.533h16.676c-0.443,4.97-1.266,10.023-2.471,15.104
-												c-0.091,0.386-0.145,0.776-0.182,1.166C332.688,303.242,319.668,322.775,301.99,336.63z M375.465,273.067h-18.287
-												c0.801-5.576,1.224-11.272,1.224-17.067s-0.423-11.491-1.224-17.067h18.287V273.067z"/>
-										</g>
-									</g>
-								</g>
-								</svg>
+						<button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center me-2 mb-2">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+							</svg>
 						</button>
 
 						<div class="mx-5">
 							<h4 class="text-2xl font-semibold text-gray-700">
-								{{ $watches }}
+								{{ $countSubscriptions }}
 							</h4>
 
 							<div class="text-gray-500">
-								{{ __('Watches') }}
+								{{ __('Subscriptions') }}
 							</div>
 						</div>
 					</div>
@@ -115,10 +116,16 @@
 	</div>
 
 	<div class="mt-8">
-		<h1 class="text-gray-700 text-3xl font-medium">{{ __('Users') }}</h1>
+		<h1 class="text-gray-700 text-3xl font-medium">
+			{{ __('Users') }}
+		</h1>
 
 		<div class="container mt-4">
 			<livewire:admin.users />
 		</div>
 	</div>
-</x-admin-layout>
+@endsection
+
+@push('scripts')
+	<script src="{{ asset('js/datepicker.js') }}"></script>
+@endpush

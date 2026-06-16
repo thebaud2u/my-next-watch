@@ -44,4 +44,19 @@ return [
 		'client_secret' => hash('sha256', str_pad(env('SSO_CLIENT_SECRET', ''), 64)),
 		'redirect' => env('SSO_REDIRECT', ''),
 	],
+	'brevo' => [
+		'key' => env('BREVO_KEY'),
+	],
+	'stripe' => [
+		'secret' => env('STRIPE_SECRET'),
+		'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+	],
+	'figo' => [
+		'funnel_token' => env('FIGO_FUNNEL_TOKEN'),
+		'funnel_encryption_key' => env('FIGO_ENCRYPTION_KEY'),
+		'funnel_encryption_debug_key' => env('FIGO_ENCRYPTION_DEBUG_KEY'),
+	],
+	'breeder-gpt' => [
+		'token' => env('BREEDER_GPT_TOKEN'),
+	],
 ];

@@ -1,5 +1,5 @@
 @php
-	$classes = 'mb-10 text-base lg:text-xl font-semibold leading-6 text-mnw-blue';
+	$classes = 'mb-10 text-base lg:text-xl font-semibold leading-6 text-jobboard-deepblue';
 @endphp
 
 <h1 {{ $attributes->merge(['class' => $classes]) }}>

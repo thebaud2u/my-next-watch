@@ -2,18 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-use Laravel\Socialite\Contracts\Factory;
-
-use App\Channels\OfficeMailChannel;
-
-use App\Services\SsoProvider;
-
-use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,17 +14,16 @@ class AppServiceProvider extends ServiceProvider
 	 *
 	 * @return void
 	 */
-	public function boot()
+	public function boot(): void
 	{
 		$this->app['request']->server->set('HTTPS', 'on');
 		URL::forceScheme('https');
 
-		$socialite = $this->app->make(Factory::class);
-
-		$socialite->extend('sso', function () use ($socialite) {
-			$config = config('services.sso');
-
-			return $socialite->buildProvider(SsoProvider::class, $config);
+		Str::macro('slugify', function ($string) {
+			$string = mb_strtolower($string, 'UTF-8');
+			$string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
+			$string = preg_replace('/[^a-z0-9]+/', '-', $string);
+			return trim($string, '-');
 		});
 	}
 
@@ -43,10 +34,6 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		if (!$this->app->environment('production')) {
-			$this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-			$this->app->register(TelescopeServiceProvider::class);
-		}
-	}
 
+	}
 }

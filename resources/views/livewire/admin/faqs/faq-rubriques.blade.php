@@ -7,15 +7,15 @@
 	@endif
 
 	<div class="flex flex-row">
-		<x-primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq-rubrique');" :class="'xs:block mb-8 mr-4'">
+		<x-front.primary-button wire:click="fresh" x-on:click.prevent="$dispatch('open-modal', 'set-faq-rubrique');" :class="'xs:block mb-8 mr-4'">
 			{{ __('Create an faq rubrique') }}
-		</x-primary-button>
+		</x-front.primary-button>
 	</div>
 
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap">
-			<select id="author" wire:model="author" class="rounded border border-gray-300 text-gray-400">
-				<option value="">{{ __('Select an author') }}</option>
+			<select id="author" wire:model="author" class="border-gray-300 focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm text-jobboard-deepblue placeholder:text-gray-400 mt-1 text-gray-400">
+				<option value="">{{ __('Select :element', ['element' => __('the author')]) }}</option>
 				@foreach($admins as $admin)
 					<option value="{{ $admin->id}}">
 						{{ $admin->name }}
@@ -23,7 +23,7 @@
 				@endforeach
 			</select>
 
-			<select id="faq" wire:model="faq" class="rounded border border-gray-300 text-gray-400">
+			<select id="faq" wire:model="faq" class="border-gray-300 focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm text-jobboard-deepblue placeholder:text-gray-400 mt-1 text-gray-400">
 				<option value="">{{ __('Select an faq') }}</option>
 				@foreach($faqs as $faq)
 					<option value="{{ $faq->id }}">
@@ -32,10 +32,10 @@
 				@endforeach
 			</select>
 
-			<div class="bg-white border-b border-gray-300 shadow-md px-2 py-1 lg:p-0 min-w-[250px]">
+			<div class="bg-white border-b border-gray-400 shadow-md px-2 py-1 lg:p-0 min-w-[250px]">
 				<div class="relative mt-1 border-b-4 border-transparent">
 					<div class="absolute inset-y-0 left-1 lg:left-2 flex items-center pointer-events-none">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
 						</svg>
 					</div>
@@ -67,10 +67,10 @@
 						@foreach($faqRubriques as $faqRubrique)
 							<tr>
 								<td class="px-2 py-2 whitespace-no-wrap border-b border-gray-200">
-									@if($faqRubrique->state->color() == 'blue')
-										<div class="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"> {{ __('Draft') }}
-									@elseif($faqRubrique->state->color() == 'green')
-										<div class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"> {{ __('Published') }}
+									@if($faqRubrique->state->inHuman() == 'draft')
+										<div class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2"> {{ __('Draft') }}
+									@elseif($faqRubrique->state->inHuman() == 'published')
+										<div class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2"> {{ __('Published') }}
 									@endif
 
 									</div>
@@ -129,10 +129,10 @@
 								</td>
 
 								<td class="border-b border-gray-200">
-									@if($faqRubrique->state->color() == 'green')
+									@if($faqRubrique->state->inHuman() == 'published')
 										<a href="#" wire:click="draft({{ $faqRubrique->id }})" class="text-white inline-block">
 											<button type="button" title="{{ __('Set to draft') }}" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 													<path stroke-linecap="round" stroke-linejoin="round" d="m15 15-6 6m0 0-6-6m6 6V9a6 6 0 0 1 12 0v3" />
 												</svg>
 											</button>
@@ -140,7 +140,7 @@
 									@else
 										<a href="#" wire:click="publish({{ $faqRubrique->id }})" class="text-white inline-block">
 											<button type="button" title="{{ __('Publish the faq rubrique') }}" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 													<path stroke-linecap="round" stroke-linejoin="round" d="m9 9 6-6m0 0 6 6m-6-6v12a6 6 0 0 1-12 0v-3" />
 												</svg>
 											</button>
@@ -177,14 +177,14 @@
 		{{ $faqRubriques->links() }}
 	</div>
 
-	<x-modal name="set-faq-rubrique" focusable>
+	<x-front.modal name="set-faq-rubrique" focusable>
 		<div class="space-y-8">
 			<div class="mb-6">
 				<div class="flex flex-row">
-					<x-input-label for="newFaqRubrique.faq_id" :value="__('Belongs to which faq').' ?'" :required="true" />
+					<x-front.input-label for="newFaqRubrique.faq_id" :value="__('Belongs to which faq').' ?'" :required="true" />
 				</div>
 
-				<select name="newFaqRubrique.faq_id" wire:model="newFaqRubrique.faq_id" wire:change="selectedFaq" class="block mt-1 border border-gray-300 focus:border-mnw-blue focus:ring-mnw-blue rounded-md shadow-sm">
+				<select name="newFaqRubrique.faq_id" wire:model="newFaqRubrique.faq_id" wire:change="selectedFaq" class="block mt-1 border border-gray-300 focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm">
 					<option value="">{{ __('Select an faq') }}</option>
 					@foreach($faqs as $faq)
 						<option value="{{ $faq->id }}">
@@ -202,10 +202,10 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-input-label for="newFaqRubrique.order" :value="__('Order')" :required="true" />
+					<x-front.input-label for="newFaqRubrique.order" :value="__('Order')" :required="true" />
 				</div>
 
-				<x-text-input type="number" wire:model="newFaqRubrique.order" wire:change="orderSet" placeholder="{{ __('Order') }}" class="mt-1 block w-full " />
+				<x-front.text-input type="number" wire:model="newFaqRubrique.order" wire:change="orderSet" placeholder="{{ __('Order') }}" :class="'mt-1 block w-full'" />
 
 				@if($errorOrder)
 					<span class="error text-danger-700">
@@ -222,10 +222,10 @@
 
 			<div>
 				<div class="flex flex-row">
-					<x-input-label for="newFaqRubrique.name" :value="__('Name of the faq rubrique')" :required="true" />
+					<x-front.input-label for="newFaqRubrique.name" :value="__('Name of the faq rubrique')" :required="true" />
 				</div>
 
-				<x-text-input type="text" wire:model="newFaqRubrique.name" placeholder="{{ __('Name of the faq rubrique') }}" class="mt-1 block w-full " />
+				<x-front.text-input type="text" wire:model="newFaqRubrique.name" placeholder="{{ __('Name of the faq rubrique') }}" :class="'mt-1 block w-full'" />
 
 				@error('newFaqRubrique.name')
 					<span class="error text-danger-700">
@@ -235,25 +235,25 @@
 			</div>
 
 			<div class="flex flex-row justify-between">
-				<x-secondary-button x-on:click="$dispatch('close')" :class="'flex justify-center mt-4 s:mt-0'">
-					{{ __('No, go back') }}
-				</x-secondary-button>
+				<x-front.secondary-button x-on:click="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
+					{{ __('Cancel') }}
+				</x-front.secondary-button>
 
-				<x-primary-button wire:click="set" @faq-rubrique-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
+				<x-front.primary-button wire:click="set" @faq-rubrique-validated.window="$dispatch('close');" :class="'flex justify-center mt-4 s:mt-0'">
 					@if($newFaqRubrique->id)
 						{{ __('Yes, update') }}
 					@else
 						{{ __('Add this faq rubrique') }}
 					@endif
-				</x-primary-button>
+				</x-front.primary-button>
 			</div>
 		</div>
-	</x-modal>
+	</x-front.modal>
 
-	<x-modal name="delete-faq-rubrique" :class="'w-full max-w-2xl'" focusable>
+	<x-front.modal name="delete-faq-rubrique" :class="'w-full max-w-2xl'" focusable>
 		<section class="p-10 flex flex-col flex-wrap content-center">
 			<header class="flex flex-col flex-wrap content-center">
-				<p class="mt-1 text-sm m-auto text-mnw-blue">
+				<p class="mt-1 text-sm m-auto text-jobboard-deepblue">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
 					</svg>
@@ -264,14 +264,14 @@
 			</header>
 
 			<div class="mt-6 flex flex-row flex-wrap justify-center">
-				<x-primary-button wire:click="delete" @faq-rubrique-deleted.window="$dispatch('close');" :class="'mr-6'">
-					{{ __('Yes, delete') }}
-				</x-primary-button>
+				<x-front.primary-button wire:click="delete" @faq-rubrique-deleted.window="$dispatch('close');" :class="'mr-6'">
+					{{ __('Delete') }}
+				</x-front.primary-button>
 
-				<x-secondary-button x-on:click="$dispatch('close')">
-					{{ __('No, go back') }}
-				</x-secondary-button>
+				<x-front.secondary-button x-on:click="$dispatch('close');">
+					{{ __('Cancel') }}
+				</x-front.secondary-button>
 			</div>
 		</section>
-	</x-modal>
+	</x-front.modal>
 </div>

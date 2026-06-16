@@ -2,271 +2,145 @@
 @tailwind components;
 
 @layer components {
-    main, aside {
-        @apply flex flex-col w-full items-center overflow-hidden;
-    }
+	main, aside {
+		@apply flex flex-col w-full items-center overflow-hidden;
+	}
 
-    main section {
-        @apply p-8 lg:p-16 w-full;
-    }
+	main section {
+		@apply p-8 lg:p-16 w-full;
+	}
 
-    main section.hero {
-        @apply px-8 md:px-8 md:py-0 xl:p-0 w-full relative;
-    }
+	main section.hero {
+		@apply px-8 md:px-8 md:py-0 xl:p-0 w-full relative;
+	}
 
-    main .conteneur {
-        @apply mx-auto max-w-[1200px] w-full flex flex-col gap-8 lg:gap-16 relative justify-center items-center;
-    }
+	main .conteneur {
+		@apply mx-auto max-w-[1200px] w-full flex flex-col gap-8 lg:gap-16 relative justify-center items-center;
+	}
 
-    main section.hero .conteneur {
-        @apply p-8 lg:p-16 flex flex-col items-center justify-center lg:h-[500px] rounded-xl lg:mx-auto lg:my-16 relative;
-    }
+	main section.hero .conteneur {
+		@apply p-8 lg:p-16 flex flex-col items-center justify-center lg:h-[500px] rounded-xl lg:mx-auto lg:my-16 relative;
+	}
 
-    main h1 {
-        @apply text-[30px] lg:text-[40px] font-bold;
-    }
+	main h1 {
+		@apply text-[30px] lg:text-[40px] font-bold;
+	}
 
-    main section.hero h1 {
-        @apply text-white text-center;
-    }
+	main section.hero h1 {
+		@apply text-white text-center;
+	}
 
-    main h2 {
-        @apply font-semibold text-[25px] sm:text-[40px] mb-4;
-    }
+	main h2 {
+		@apply font-semibold text-[25px] sm:text-[40px] mb-4;
+	}
 
-    ol {
-        @apply list-decimal list-inside;
-    }
+	ol {
+		@apply list-decimal list-inside;
+	}
 
-    /* ****************
-       Buttons styles
-     **************** */
-    .btn-primary {
-        @apply inline-flex items-center justify-center py-4 px-8 whitespace-nowrap rounded-full text-sm focus:outline-none focus:ring-0 transition ease-in-out duration-150 bg-breeder-deepblue hover:bg-breeder-cream border border-breeder-cream rounded-full text-breeder-cream hover:text-breeder-deepblue font-semibold  gap-2 text-center max-s:w-full;
-    }
+	/* ****************
+	   Buttons styles
+	 **************** */
+	.btn-primary {
+		@apply inline-flex items-center justify-center py-4 px-8 whitespace-nowrap rounded-full text-sm focus:outline-none focus:ring-0 transition ease-in-out duration-150 bg-jobboard-deepblue hover:bg-jobboard-cream border border-jobboard-cream rounded-full text-jobboard-cream hover:text-jobboard-deepblue font-semibold  gap-2 text-center max-s:w-full;
+	}
 
-    .btn-secondary{
-        @apply w-auto bg-white hover:bg-breeder-deepblue py-4 px-8 border border-breeder-deepbluehover rounded-full text-breeder-deepbluehover hover:text-breeder-cream font-semibold text-sm  gap-2 text-center;
-    }
+	.btn-secondary{
+		@apply w-auto bg-white hover:bg-jobboard-deepblue py-4 px-8 border border-jobboard-deepbluehover rounded-full text-jobboard-deepbluehover hover:text-jobboard-cream font-semibold text-sm  gap-2 text-center;
+	}
 
-    .btn-eleveurs{
-        @apply inline-flex items-center justify-center py-4 px-8 rounded-full whitespace-nowrap focus:outline-none transition ease-in-out duration-150 text-breeder-deepblue bg-breeder-violet text-sm font-semibold hover:text-breeder-deepblue hover:bg-breeder-violethover gap-2 max-s:w-full;
-    }
+	.btn-eleveurs{
+		@apply inline-flex items-center justify-center py-4 px-8 rounded-full whitespace-nowrap focus:outline-none transition ease-in-out duration-150 text-jobboard-deepblue bg-jobboard-violet text-sm font-semibold hover:text-jobboard-deepblue hover:bg-jobboard-violethover gap-2 max-s:w-full;
+	}
 
-    .btn-card {
-        @apply w-full flex flex-col bg-breeder-deepblue hover:bg-breeder-deepbluehover text-breeder-cream px-8 py-4 gap-2 rounded-xl text-[18px] items-center text-center h-full;
-    }
+	.btn-card {
+		@apply w-full flex flex-col bg-jobboard-deepblue hover:bg-jobboard-deepbluehover text-jobboard-cream px-8 py-4 gap-2 rounded-xl text-[18px] items-center text-center h-full;
+	}
 
-    .btn-card strong{
-        @apply font-semibold;
-    }
+	.btn-card strong{
+		@apply font-semibold;
+	}
 
-    /* ****************
-     breadcrumb-list
-    **************** */
+	/* ****************
+	 breadcrumb-list
+	**************** */
 
-    .breadcrumb-list ol.breadcrumb {
-        @apply !list-none flex flex-wrap;
-    }
-    .breadcrumb li{
-        @apply inline-flex text-sm after:content-['>'] last:after:content-[''] after:mx-1 after:inline-block;
-    }
-    .breadcrumb li a{
-        @apply hover:underline;
-    }
-    .breadcrumb .current{
-        @apply font-semibold;
-    }
+	.breadcrumb-list ol.breadcrumb {
+		@apply !list-none flex flex-wrap;
+	}
+	.breadcrumb li{
+		@apply inline-flex text-sm after:content-['>'] last:after:content-[''] after:mx-1 after:inline-block;
+	}
+	.breadcrumb li a{
+		@apply hover:underline;
+	}
+	.breadcrumb .current{
+		@apply font-semibold;
+	}
 
-    /* ****************
-     lists
-    **************** */
-    .fiche ul {
-        @apply list-disc ml-4 mb-4;
-    }
+	/* ****************
+	 lists
+	**************** */
+	.fiche ul {
+		@apply list-disc ml-4 mb-4;
+	}
 
-    /* ****************
-       liste alphabetique
-     **************** */
-    .list-alpha{
-        @apply flex flex-wrap gap-2 justify-center xl:justify-between flex-wrap gap-1;
-    }
+	/* ****************
+	   liste alphabetique
+	 **************** */
+	.list-alpha{
+		@apply flex flex-wrap gap-2 justify-center xl:justify-between flex-wrap gap-1;
+	}
 
-    .list-alpha>span,.list-alpha>a{
-        @apply w-[24px] h-[24px] flex flex-col items-center justify-center;
-    }
+	.list-alpha>span,.list-alpha>a{
+		@apply w-[24px] h-[24px] flex flex-col items-center justify-center;
+	}
 
-    .list-alpha .disabled{
-        @apply text-gray-400 cursor-not-allowed font-semibold;
-    }
-    .list-alpha .enabled {
-        @apply text-breeder-deepblue hover:underline font-semibold;
-    }
-    .list-alpha .on{
-        @apply text-breeder-deepblue font-semibold bg-breeder-darkorange rounded-full;
-    }
+	.list-alpha .disabled{
+		@apply text-gray-400 cursor-not-allowed font-semibold;
+	}
+	.list-alpha .enabled {
+		@apply text-jobboard-deepblue hover:underline font-semibold;
+	}
+	.list-alpha .on{
+		@apply text-jobboard-deepblue font-semibold bg-jobboard-darkorange rounded-full;
+	}
 
-    .pagination nav div:last-child{
-        @apply flex-col gap-4;
-    }
+	.pagination nav div:last-child{
+		@apply flex-col gap-4;
+	}
 
-    /* ****************
-      EN COLONNE
-    **************** */
-    .columns {
-        @apply flex flex-col lg:flex-row gap-8 md:gap-16;
-    }
+	/* ****************
+	  EN COLONNE
+	**************** */
+	.columns {
+		@apply flex flex-col lg:flex-row gap-8 md:gap-16;
+	}
 
-    .columns .col-left{
-        @apply w-full lg:w-3/4 flex flex-col gap-4 lg:gap-8;
-    }
-    .columns .col-right{
-        @apply w-full lg:w-1/4;
-    }
+	.columns .col-left{
+		@apply w-full lg:w-3/4 flex flex-col gap-4 lg:gap-8;
+	}
+	.columns .col-right{
+		@apply w-full lg:w-1/4;
+	}
 
-    /* ****************
-      FORMS
-    **************** */
-    .form {
-        @apply bg-white border border-breeder-greige w-full p-3 rounded-xl flex flex-col lg:flex-row gap-4 lg:gap-8 lg:justify-between;
-    }
-    .form>div {
-        @apply flex flex-col lg:flex-row justify-start gap-4 lg:gap-8;
-    }
+	/* ****************
+	  FORMS
+	**************** */
+	.form {
+		@apply bg-white border border-jobboard-greige w-full p-3 rounded-xl flex flex-col lg:flex-row gap-4 lg:gap-8 lg:justify-between;
+	}
+	.form>div {
+		@apply flex flex-col lg:flex-row justify-start gap-4 lg:gap-8;
+	}
 
-    .field{
-        @apply flex flex-row items-center gap-2 lg:pr-8 lg:last:pr-0 lg:border-r lg:border-breeder-greige lg:last:border-none text-base;
-    }
+	.field{
+		@apply flex flex-row items-center gap-2 lg:pr-8 lg:last:pr-0 lg:border-r lg:border-jobboard-greige lg:last:border-none text-base;
+	}
 
-    .field select {
-        @apply text-breeder-deepblue text-sm block border-0 focus:border-0 focus:ring-0 rounded-md w-full;
-    }
-
-    /* ****************
-      ARTICLES
-    **************** */
-    .article {
-        h3, h4 {
-            @apply text-lg font-bold mb-2 mt-4 text-left leading-none;
-        }
-    }
-
-    .article-body {
-            a {
-                   @apply text-sky-500 !no-underline hover:!underline cursor-pointer;
-            }
-            p {
-                 @apply mb-4;
-            }
-                @apply list-none pl-5;
-                
-                li {
-                    @apply mb-2;
-
-                    &::before {
-                        content: '✅';
-                    }
-                }
-        }
-
-    .article h2 {
-         @apply text-[24px] font-bold mb-2 mt-8 text-left leading-none;
-    }
-
-    .article h2:first-child {
-        @apply mt-0;
-    }
-
-    .article h1 {
-        @apply text-[28px] md:text-[40px] font-bold leading-tight mb-4;
-    }
-
-    .article h2.sidebar {
-        @apply text-[25px] md:text-[28px] font-bold mt-0 leading-none;
-    }
-
-    .article aside.vf_encart {
-        @apply bg-breeder-cream rounded-xl p-6 flex flex-col items-start my-4;
-
-        h2, h3, h4 {
-            @apply text-lg font-bold mb-2 mt-0 text-left leading-none;
-        }
-    }
-
-    .article aside {
-        @apply bg-breeder-cream rounded-xl p-6 flex flex-col items-start my-4;
-
-        h2, h3, h4 {
-            @apply text-lg font-bold mb-2 mt-0 text-left leading-none;
-        }
-    }
-
-    .article-header p {
-        @apply mb-4;
-    }
-
-    /* ****************
-      STANDARD RACE
-    **************** */
-
-    #standard-race {
-        h3, h4 {
-            @apply text-lg font-bold mb-2 mt-4 text-left;
-        }
-    }
-
-    #standard-race h2 {
-         @apply text-[24px] font-bold mb-2 mt-8 text-left;
-    }
-
-    #standard-race h1 {
-        @apply text-[28px] md:text-[40px] font-bold leading-tight mb-4;
-    }
-
-    /* ****************
-      AD
-    **************** */
-    .ad-slot {
-        @apply my-4 md:my-8;
-    }
-
-    /* ****************
-      CKEDITOR
-    **************** */
-    .ck-content h2 {
-        @apply text-2xl font-bold text-breeder-deepblue mb-3 leading-tight;
-    }
-    .ck-content h3 {
-        @apply text-xl font-semibold text-breeder-deepblue mb-2 leading-tight;
-    }
-    .ck-content h4 {
-        @apply text-lg font-semibold text-breeder-deepblue mb-2 leading-tight;
-    }
-    .ck-content p {
-        @apply text-base text-gray-700 mb-2 leading-relaxed;
-    }
-    .ck-content aside {
-         @apply bg-breeder-cream rounded-xl p-6 flex flex-col items-start my-4;
-
-        h2, h3, h4 {
-            @apply text-lg font-bold mb-2 mt-0 text-left;
-        }
-    }
-
-    /* Styles pour l'interface de l'éditeur (optionnel) */
-    .ck.ck-editor {
-        @apply border border-gray-300 rounded-lg shadow-sm;
-    }
-    .ck.ck-toolbar {
-        @apply bg-breeder-deepblue text-white rounded-t-lg;
-    }
-    .ck.ck-button {
-        @apply text-white hover:bg-gray-700;
-    }
-
-    nav > div.hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between > div:first-child {
-        @apply mr-5;
-    }
+	.field select {
+		@apply text-jobboard-deepblue text-sm block border-0 focus:border-0 focus:ring-0 rounded-md w-full;
+	}
 }
 
 @tailwind utilities;

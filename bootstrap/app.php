@@ -1,55 +1,71 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
-*/
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\AuthenticateAnyGuard;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\ValidateSignature;
+use App\Models\Activity;
+use App\Models\ActivityCategory;
+use App\Models\Article;
+use App\Models\Company;
+use App\Models\Offer;
+use App\Models\Post;
+use App\Models\PostType;
+use App\Models\Response;
+use App\Models\User;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 
-$app = new Illuminate\Foundation\Application(
-	$_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
-);
+return Application::configure(basePath: dirname(__DIR__))
+	->withRouting(
+		web: __DIR__.'/../routes/web.php',
+		api: file_exists(__DIR__.'/../routes/api.php') ? __DIR__.'/../routes/api.php' : null,
+		commands: file_exists(__DIR__.'/../routes/console.php') ? __DIR__.'/../routes/console.php' : null,
+		channels: file_exists(__DIR__.'/../routes/channels.php') ? __DIR__.'/../routes/channels.php' : null,
+		health: '/up',
+		then: function (): void {
+			RateLimiter::for('api', function (Request $request) {
+				return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+			});
 
-/*
-|--------------------------------------------------------------------------
-| Bind Important Interfaces
-|--------------------------------------------------------------------------
-|
-| Next, we need to bind some important interfaces into the container so
-| we will be able to resolve them when needed. The kernels serve the
-| incoming requests to this application from both the web and CLI.
-|
-*/
+			Route::bind('activity', fn ($value) => Activity::findBySlug($value, 'fr'));
+			Route::bind('activityCategory', fn ($value) => ActivityCategory::findBySlug($value, 'fr'));
+			Route::bind('article', fn ($value) => Article::findBySlug($value));
+			Route::bind('company', fn ($value) => Company::findBySlug($value));
+			Route::bind('offer', fn ($value) => Offer::findBySlug($value));
+			Route::bind('post', fn ($value) => Post::findBySlug($value));
+			Route::bind('postType', fn ($value) => PostType::findBySlug($value));
+			Route::bind('response', fn ($value) => Response::find($value));
+			Route::bind('user', fn ($value) => User::findBySlug($value));
+		},
+	)
+	->withMiddleware(function (Middleware $middleware): void {
+		$middleware->statefulApi();
+		$middleware->throttleApi();
 
-$app->singleton(
-	Illuminate\Contracts\Http\Kernel::class,
-	App\Http\Kernel::class
-);
+		$middleware->alias([
+			'auth' => Authenticate::class,
+			'auth.any' => AuthenticateAnyGuard::class,
+			'guest' => RedirectIfAuthenticated::class,
+			'signed' => ValidateSignature::class,
+			'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+			'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+		]);
 
-$app->singleton(
-	Illuminate\Contracts\Console\Kernel::class,
-	App\Console\Kernel::class
-);
-
-$app->singleton(
-	Illuminate\Contracts\Debug\ExceptionHandler::class,
-	App\Exceptions\Handler::class
-);
-
-/*
-|--------------------------------------------------------------------------
-| Return The Application
-|--------------------------------------------------------------------------
-|
-| This script returns the application instance. The instance is given to
-| the calling script so we can separate the building of the instances
-| from the actual running of the application and sending responses.
-|
-*/
-
-return $app;
+		$middleware->validateCsrfTokens(except: [
+			'https://job.tema-transport-logistique.com/api/synch-last-posts',
+			'/api/synch-last-posts',
+			'synchLastPosts',
+			'/back-office/faqs/upload',
+			'swyp/*',
+		]);
+	})
+	->withExceptions(function (Exceptions $exceptions): void {
+		//
+	})
+	->create();

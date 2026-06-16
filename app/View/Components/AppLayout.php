@@ -10,8 +10,6 @@ class AppLayout extends Component
 	 * Constructor
 	 * Pass parameters to the layout view
 	 *
-	 * @param Thematic  $currentThematic
-	 * @param PostType  $PostType
 	 */
 	public function __construct()
 	{

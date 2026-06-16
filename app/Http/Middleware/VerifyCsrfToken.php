@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
 		'https://job.tema-transport-logistique.com/api/synch-last-posts',
 		'/api/synch-last-posts',
 		'synchLastPosts',
-		'/back-office/faqs/upload'
+		'/back-office/faqs/upload',
+		'swyp/*',
 	];
 }

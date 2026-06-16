@@ -1,15 +1,11 @@
-<If "%{HTTP_HOST} =~ /.+\.(com|fr)$/">
-	<If "%{REMOTE_ADDR} != '212.95.72.204'">
-		AuthType Basic
-		AuthName "Restricted Content"
-		AuthUserFile /data/www/root/tic6tm/dev/protected/.htpasswd
-		Require valid-user
-	</If>
-</If>
-
+#<If "%{HTTP_HOST} =~ /.+\.(com|fr)$/">
+#	AuthType Basic
+#	AuthName "Restricted Content"
+#	AuthUserFile /var/www/eol/eleveurs-online/public/.htpasswd
+#	Require valid-user
+#</If>
 
 ## LARAVEL #
-
 <IfModule mod_rewrite.c>
 		<IfModule mod_negotiation.c>
 				Options -MultiViews -Indexes
@@ -31,8 +27,3 @@
 		RewriteCond %{REQUEST_FILENAME} !-f
 		RewriteRule ^ index.php [L]
 </IfModule>
-
-## CUSTOM REDIRECTIONS #
-
-Redirect 301 /jobs /offres-emploi
-Redirect 301 /home/recruiter /register/recruiter

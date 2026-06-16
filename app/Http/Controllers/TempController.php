@@ -4,45 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-use Carbon\Carbon;
+use Cmgmyr\Messenger\Models\{Participant, Thread};
 
-use Auth;
-use DB;
+use App\Enums\{AlertTypes, ArticleStates, ModerationStates, PublicationStates, ResponseStates};
 
-use App\Enums\CompanyStatesEnum;
-use App\Enums\PostStatesEnum;
-
-use App\Models\Company;
-use App\Models\MailLog;
-use App\Models\Mediable;
-use App\Models\Media;
-use App\Models\Offer;
-use App\Models\Post;
-use App\Models\Subscription;
-use App\Models\User;
-use App\Models\UserLanguage;
-
-use App\Models\CompanyResponse;
-use App\Models\PostResponse;
-use App\Models\PostResponseType;
-
-use App\Models\ResponseType;
-use App\Models\Response;
-
-use Spatie\Permission\Models\Permission;
+use App\Models\{
+	Activity, ActivityCategory, Admin, Alert, Article, ArticleAuthor, ArticleTag,
+	City, Company, Country,
+	Offer,
+	MailLog, Message, Moderation,
+	Post, PostType,
+	ReadNotification, Response,
+	Section, Subscription, SubSection,
+	User
+};
 
 class TempController extends Controller
 {
-	public function test()
+	public function script($code, $data = null)
 	{
+		if($code == 'OiVFKuUHe3fNOKRNF7Uq') {
 
-	}
+		}
+		elseif($code == 'GQu9auFvlcxA5IXGAASH') {
 
-	public function script($code)
-	{
-		if($code == 'gghrMgcSPFS6UdQiuV92') {
+		}
+		elseif($code == 'A6ZeEpt6fpDfIkBP7USk') {
 
 		}
 	}

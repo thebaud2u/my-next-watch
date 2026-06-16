@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -16,55 +17,52 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-	/**
-	 * Login
-	 *
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function login()
+	public function index(): View|RedirectResponse
 	{
-		$this->check();
-
-		return view('admin.login');
+		if(!Auth::guard('admin')->check()) return view('admin.index');
+		else return redirect()->intended(route('admin.dashboard'));
 	}
 
-	public function authenticate(Request $request)
+	public function store(Request $request): RedirectResponse
 	{
-		$admin = Admin::where('email', $request->input('email'))
-			->first();
+		$rules = [
+			'email' => 'required',
+			'password' => 'required'
+		];
 
-		if($admin) {
-			if(Hash::check($request->input('password'), $admin->password)) {
-				$request->session()->regenerate();
-				Auth::guard('admin')->login($admin);
+		$messages = [
+			'email.required' => 'Votre adresse email est obligatoire',
+			'password.required' => 'Votre mot de passe est obligatoire'
+		];
 
-				return redirect()->route('admin.dashboard');
-			}
+		$credentials = $request->validate($rules, $messages);
+
+		$remember = $request->filled('remember');
+
+		if(Auth::guard('admin')->attempt($credentials, $remember)) {
+			$request->session()->regenerate();
+
+			return redirect()->intended(route('admin.dashboard'));
 		}
 
-		return back()->withErrors([
-			'email' => 'The provided credentials do not match our records',
-		])->onlyInput('email');
-	}
-
-	/**
-	 * Status check
-	 *
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function check()
-	{
-		if(Auth::guard('web')->check()) Auth::guard('web')->logout();
-
-		if(Auth::guard('admin')->check()) return redirect()->route('admin.dashboard');
-		else return redirect()->route('admin.login');
+		return redirect(route('admin.index'))->withErrors(['email' => 'Les informations fournies ne correspondent pas.']);
 	}
 
 	public function logAsUser(User $user)
 	{
 		Auth::guard('web')->login($user);
 
-		return redirect()->route('home');
+		if($user->hasRole('applicant')) $route = 'home';
+		elseif($user->hasRole('recruiter')) $route = 'home.recruiter';
+
+		return redirect()->route($route);
+	}
+
+	public function signOutAsUser()
+	{
+		Auth::guard('web')->logout();
+
+		return redirect()->route('admin.dashboard');
 	}
 
 	/**
@@ -79,6 +77,7 @@ class AuthController extends Controller
 		Auth::guard('admin')->logout();
 
 		$request->session()->invalidate();
+
 		$request->session()->regenerateToken();
 
 		return redirect()->route('home');

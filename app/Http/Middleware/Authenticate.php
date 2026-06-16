@@ -2,29 +2,32 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    protected function redirectTo($request)
-    {
-        if (! $request->expectsJson()) {
-            // return route('login');
+	public function handle($request, \Closure $next, ...$guards)
+	{
+		$this->guards = $guards;
 
-            $intended = $request->fullUrl();
-            $action = $request->route()->getAction();
+		return parent::handle($request, $next, ...$guards);
+	}
 
-            if (! empty($action['controller']) && str_contains($action['controller'], 'Space\\Registered')) {
-                return route('login').'?'.http_build_query(['r' => $intended]);
-            } else {
-                return route('login', ['userType' => 'applicant']).'?'.http_build_query(['r' => $intended]);
-            }
-        }
-    }
+	protected function redirectTo($request)
+	{
+		if(!$request->expectsJson()) {
+			$guard = $this->guards[0] ?? null;
+
+			$redirectBase = match ($guard) {
+				'admin' => route('admin.index'),
+				'web', null => route('login'),
+				default => route('login'),
+			};
+
+			return $redirectBase;
+		}
+	}
 }
