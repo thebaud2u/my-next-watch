@@ -1,2 +1,34 @@
 User-agent: *
-Disallow:
+Disallow: /data/
+
+Sitemap: https://www.eleveurs-online.com/sitemap.xml
+
+User-agent: Googlebot-News
+Disallow: /business/economie/tableaux-de-bord/
+
+User-agent: GoogleOther
+disallow: /
+
+User-agent: ChatGPT-User
+disallow: /
+
+User-agent: OAI-SearchBot
+disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: AwarioBot
+Disallow: /
+
+User-agent: SEBot-WA
+Disallow: /
+
+User-agent: SentiBot
+Disallow: /

@@ -37,15 +37,5 @@ class Countries extends Seeder
 
 			DB::table('countries')->insert($records);
 		});
-
-		$france = Country::where('code', 'FRA')
-			->first();
-		$france->iso_code = 'FR';
-		$france->save();
-
-		$belgium = Country::where('code', 'BEL')
-			->first();
-		$belgium->iso_code = 'BE';
-		$belgium->save();
 	}
 }

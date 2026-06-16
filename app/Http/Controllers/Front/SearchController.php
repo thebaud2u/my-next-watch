@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front\Posts;
+namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 
@@ -10,10 +10,10 @@ use Str;
 
 use Carbon\Carbon;
 
-use App\Enums\{ PostStatesEnum, ResponseStatesEnum };
-use App\Models\{ Message, Post, PostType, Response, Search, Thematic, UsersViews };
+use App\Enums\InformationStatus;
+use App\Models\{UsersViews };
 
-class PostController extends Controller
+class SearchController extends Controller
 {
 	public function index()
 	{

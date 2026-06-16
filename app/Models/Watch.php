@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -24,11 +25,10 @@ class Watch extends Model implements Viewable, HasMedia
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
-		'id',
 		'collection_id',
 		'movement_id',
-		'slug',
 		'name',
+		'slug',
 		'reference',
 		'description',
 		'bezel',
@@ -40,7 +40,6 @@ class Watch extends Model implements Viewable, HasMedia
 		'specification',
 		'release_price',
 		'current_price',
-		'completed',
 		'state',
 		'published_at',
 		'admin_id',
@@ -66,7 +65,6 @@ class Watch extends Model implements Viewable, HasMedia
 			'specification' => AsCollection::class,
 			'release_price' => 'double',
 			'current_price' => 'double',
-			'completed' => 'boolean',
 			'status' => InformationStatus::class,
 			'published_at' => 'datetime',
 			'created_at' => 'datetime',
@@ -115,6 +113,11 @@ class Watch extends Model implements Viewable, HasMedia
 	public function movement(): BelongsTo
 	{
 		return $this->belongsTo(Movement::class);
+	}
+
+	public function types(): BelongsToMany
+	{
+		return $this->belongsToMany(Type::class);
 	}
 
 	// Functions

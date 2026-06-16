@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\Models\{Admin, Brand, Collection, Movement, Watch};
+use App\Models\{Admin, Brand, Collection, Movement, Type, Watch};
 use App\Models\WatchDetails\ {
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
 	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, 
@@ -69,6 +69,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -76,7 +77,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4730,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				1 => [
 					'movement_id' => 'MT5602-U',
@@ -127,6 +129,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -134,7 +137,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4620,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				2 => [
 					'movement_id' => 'MT5602-U',
@@ -185,6 +189,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -192,7 +197,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4400,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				3 => [
 					'movement_id' => 'MT5602-U',
@@ -243,6 +249,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -250,7 +257,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 5350,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				4 => [
 					'movement_id' => 'MT5602-U',
@@ -301,6 +309,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -308,7 +317,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4730,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				5 => [
 					'movement_id' => 'MT5602-U',
@@ -359,6 +369,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -366,7 +377,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4620,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				6 => [
 					'movement_id' => 'MT5602-U',
@@ -417,6 +429,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -424,7 +437,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4400,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				7 => [
 					'movement_id' => 'MT5602',
@@ -475,6 +489,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -482,7 +497,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 4150,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				],
 				8 => [
 					'movement_id' => 'MT5602-U',
@@ -533,6 +549,7 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
+						'skeleton' => false,
 						'textured' => false
 					],
 					'specification' => [
@@ -540,7 +557,8 @@ class Watches extends Seeder
 						'power_reserve' => 70
 					],
 					'release_price' => 5350,
-					'current_price' => null
+					'current_price' => null,
+					'type' => ['diver']
 				]
 			]
 		];
@@ -695,6 +713,7 @@ class Watches extends Seeder
 					'marker_lume' =>$watch['dial']['marker_lume'],
 					'marker_lume_color' => $markerLumeColors,
 					'marker_type' => $markerType,
+					'skeleton' => $watch['dial']['skeleton'],
 					'textured' => $watch['dial']['textured']
 				];
 
@@ -712,6 +731,13 @@ class Watches extends Seeder
 				$newWatch->current_price = $watch['current_price'];
 				$newWatch->admin_id = $admin->id;
 				$newWatch->save();
+
+				// Type
+				foreach($watch['type'] as $type) {
+					$types[] = Type::where('name', $type)->first()->id;
+				}
+
+				$newWatch->types()->sync($types);
 			}
 		}
 	}

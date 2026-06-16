@@ -17,8 +17,8 @@ return new class extends Migration
 	{
 		Schema::create('brands', function(Blueprint $table) {
 			$table->id();
-			$table->string('slug');
 			$table->string('name', 255);
+			$table->string('slug');
 			$table->text('description')->nullable();
 			$table->string('external_link', 255);
 			$table->string('state')->default(InformationStatus::Draft->value);

@@ -8,25 +8,32 @@ module.exports = {
 		'./storage/framework/views/*.php',
 		'./resources/views/**/*.blade.php',
 		'./node_modules/flowbite/**/*.js',
+		'./app/Http/Livewire/**/*.php',
 	],
 
 	theme: {
 		extend: {
 			screens: {
 				'xs': '320px',
+				'xsdc': '367px',
+				'xseol': '390px',
 				's': '480px',
+				'dc': '572px',
 				/** Default '640px'. Why? @see https://www.leptidigital.fr/technologie/parts-marche-resolutions-ecrans-26797/ */
-				'sm': '668px',//,
+				'sm': '668px',
+				'lmd': '840px',
 				/** Default '1280px'. Pub: format arche compatible Pulse */
 				'xlsm': '1157px',
+				'xlmd': '1440px',
+				'xlhome': '1766px',
 				'xlg': '1920px'
 			},
 			fontFamily: {
-				sans: ['Manrope', ...defaultTheme.fontFamily.sans],
-				'bebasneue': ['Bebas Neue', 'cursive', ...defaultTheme.fontFamily.sans],
-				'inter': ['Manrope', ...defaultTheme.fontFamily.sans]
+				sans: ['Poppins', 'sans-serif', ...defaultTheme.fontFamily.sans],
+				'inter': ['Poppins', 'sans-serif', ...defaultTheme.fontFamily.sans]
 			},
 			colors: {
+				/** Tema bluescale */
 				primary: {
 					50: '#eff9ff',
 					100: '#cbe8ff',
@@ -51,42 +58,31 @@ module.exports = {
 					Lighter color v
 				*/
 				mnw: {
-					darkerblue: '#011736',
-					darkblue: '#002C6A',
-					lighterdarkblue: '#E5EEF3',
+					deepblue: '#0E1954',
+					deepbluehover: '#08103A',
 					blue: '#0082FF',
-					darklightblue: '#007EB6',
-					otherlightblue: '#CEE8FF',
-					lightblue: '#E5F2FF',
-
-					gray: '#909090',
-					headergray: '#777777',
-					lightgray: '#F8F8F8',
-					lightergray: '#BCBCBC',
-					transparentgray: '#DADADA',
-
-					darkerwhite: '#cbcbcb',
-					white: '#FFFFFF',
-
-					black: '#000000',
-					lightblack: '#262423',
-
-					violet: '#6F1E82',
-					lighterviolet: '#F1E8F2',
-
-					green: '#27A982',
-					lightgreen: '#A2FDA0',
-					lightergreen: '#E9F6F2',
-
-					darkyellow: '#EFB000',
-					yellow: '#FFBC00',
-					lightyellow: '#FFEE48',
-					yellowfooter: '#FEE819',
-
-					red: '#FF2C2C',
-					lightred: '#FFE7E6',
-					orange: '#FF9800',
+					coral: '#FF7E71',
+					coralhover: '#EB6355',
+					lightgreen: '#3FCE4F',
+					green: '#3DD8AC',
+					greenhover: '#26C89A',
+					orange: '#FFA244',
+					darkorange: '#F29334',
+					cream: '#F7F6EF',
+					lightcream: '#F7F6EF',
+					darkviolet: '#C68CFF33',
+					violet: '#C68CFF',
+					violethover: '#AA5FF6',
+					lightviolet: '#E4C9FF',
+					greige: '#E2E0D2',
+					figo: '#D7F6F4',
+					yellow: '#FFE500'
 				}
+			},
+			aspectRatio: {
+				'100/57': '100 / 57',
+				'100/61': '100 / 61',
+				'100/75': '100 / 75',
 			},
 		},
 	},
@@ -95,5 +91,8 @@ module.exports = {
 		require('@tailwindcss/forms'),
 		require('flowbite/plugin'),
 		require('tailwind-scrollbar'),
+		function ({ addVariant }) {
+			addVariant('placeholder', '&::placeholder');
+		},
 	],
 };

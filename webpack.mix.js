@@ -16,8 +16,7 @@ const mix = require('laravel-mix');
  * use "$ npm run [dev|prod|watch|watch-poll]"  => default "resources" path and "public" export path
  * or use "$ npm run [dev|prod|watch|watch-poll] --theme=tema/main"  => use and export "main theme" assets
  */
-var theme = './';
-mix.setPublicPath(theme);
+mix.setPublicPath('public');
 
 /*
  * Allow Tailwind presets (child compilation)
@@ -29,17 +28,14 @@ mix.webpackConfig({
 });
 
 // Compilation
-mix.js(theme + 'resources/js/app.js', 'public/js')
-	.js(theme + 'resources/js/uppy.js', 'public/js')
-	.postCss(theme + 'resources/css/app.css', 'public/css', [require('tailwindcss')])
-	.js(theme + 'resources/js/flowbite.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js')
+	.js('resources/js/uppy.js', 'public/js')
+	.postCss('resources/css/app.css', 'public/css', [require('tailwindcss')])
+	.js('resources/js/flowbite.js', 'public/js')
+	.js('resources/js/datepicker.js', 'public/js')
+	.copy('resources/js/ckeditor.js', 'public/js')
 	.copy('./node_modules/flowbite/dist/flowbite.min.js', 'public/js')
 	.copy('./node_modules/flowbite/dist/flowbite.css', 'public/css')
-	// Tarteaucitron.js
-	.copy('./node_modules/tarteaucitronjs/tarteaucitron.js', 'public/js/tarteaucitron')
-	.copy('./node_modules/tarteaucitronjs/tarteaucitron.services.js', 'public/js/tarteaucitron')
-	.copy('./node_modules/tarteaucitronjs/lang/tarteaucitron.fr.js', 'public/js/tarteaucitron/lang')
-	.copy('./node_modules/tarteaucitronjs/css/tarteaucitron.css', 'public/js/tarteaucitron/css')
 	.sourceMaps();
 
 if (mix.inProduction()) mix.version();

@@ -1,12 +1,10 @@
 {
-    "/public/js/app.js": "/public/js/app.js",
-    "/public/js/uppy.js": "/public/js/uppy.js",
-    "/public/js/flowbite.js": "/public/js/flowbite.js",
-    "/public/css/app.css": "/public/css/app.css",
-    "/public/js/flowbite.min.js": "/public/js/flowbite.min.js",
-    "/public/css/flowbite.css": "/public/css/flowbite.css",
-    "/public/js/tarteaucitron/tarteaucitron.js": "/public/js/tarteaucitron/tarteaucitron.js",
-    "/public/js/tarteaucitron/tarteaucitron.services.js": "/public/js/tarteaucitron/tarteaucitron.services.js",
-    "/public/js/tarteaucitron/lang/tarteaucitron.fr.js": "/public/js/tarteaucitron/lang/tarteaucitron.fr.js",
-    "/public/js/tarteaucitron/css/tarteaucitron.css": "/public/js/tarteaucitron/css/tarteaucitron.css"
+    "/public/js/app.js": "/public/js/app.js?id=32f91fb46b6c75b5f0aa5a02fd432847",
+    "/public/js/uppy.js": "/public/js/uppy.js?id=e1d663f5d8c64b4eeeb818ec783fbee5",
+    "/public/js/flowbite.js": "/public/js/flowbite.js?id=d41d8cd98f00b204e9800998ecf8427e",
+    "/public/js/datepicker.js": "/public/js/datepicker.js?id=d41d8cd98f00b204e9800998ecf8427e",
+    "/public/css/app.css": "/public/css/app.css?id=e8b52e6ca93d49ce56c65d272e9dbbbc",
+    "/public/js/ckeditor.js": "/public/js/ckeditor.js?id=37c0306cd552994b22bba74eca753d90",
+    "/public/js/flowbite.min.js": "/public/js/flowbite.min.js?id=1eddf11f3f10fab16f86f6316f109b96",
+    "/public/css/flowbite.css": "/public/css/flowbite.css?id=5e401fe7f6848cc1be64a883fb411f3f"
 }

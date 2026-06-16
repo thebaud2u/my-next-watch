@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
 			Brands::class,
 			Collections::class,
 			Movements::class,
+			Types::class,
 			Watches::class,
 		]);
 	}

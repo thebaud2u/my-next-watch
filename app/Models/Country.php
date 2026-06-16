@@ -16,13 +16,7 @@ class Country extends Model
 	 */
 	protected $fillable = [
 		'code',
-		'iso_code',
 		'name',
 		'slug'
 	];
-
-	public function regions(): HasMany
-	{
-		return $this->hasMany(Region::class, 'country_code', 'code');
-	}
 }

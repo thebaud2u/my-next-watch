@@ -26,8 +26,8 @@ class Brand extends Model implements Viewable, HasMedia
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
-		'slug',
 		'name',
+		'slug',
 		'description',
 		'external_link',
 		'state',

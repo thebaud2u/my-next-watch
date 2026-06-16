@@ -7,7 +7,7 @@
 
 	{{-- Page main title (home) --}}
 	<x-slot name="mainTitle">
-		<livewire:front.watch.finder :wire:key="'finder'" />
+		<livewire:front.search.finder :wire:key="'finder'" />
 	</x-slot>
 
 	{{-- Recently viewed watches --}}

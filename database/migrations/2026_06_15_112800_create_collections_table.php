@@ -20,8 +20,8 @@ return new class extends Migration
 		Schema::create('collections', function(Blueprint $table) {
 			$table->id();
 			$table->foreignId('brand_id')->constrained()->onDelete('cascade');
-			$table->string('slug');
 			$table->string('name', 255);
+			$table->string('slug');
 			$table->text('description')->nullable();
 			$table->string('state')->default(InformationStatus::Draft->value);
 			$table->foreignId('admin_id')->constrained();

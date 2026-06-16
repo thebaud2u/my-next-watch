@@ -19,8 +19,8 @@ return new class extends Migration
 			$table->id();
 			$table->foreignId('collection_id')->constrained()->onDelete('cascade');
 			$table->foreignId('movement_id')->constrained()->onDelete('cascade');
-			$table->string('slug');
 			$table->string('name', 255);
+			$table->string('slug');
 			$table->string('reference', 255);
 			$table->text('description')->nullable();
 			$table->json('bezel')->nullable();
@@ -32,7 +32,6 @@ return new class extends Migration
 			$table->json('specification')->nullable();
 			$table->double('release_price')->nullable();
 			$table->double('current_price')->nullable();
-			$table->boolean('completed')->default(false);
 			$table->string('state')->default(InformationStatus::Draft->value);
 			$table->timestamp('published_at')->nullable();
 			$table->foreignId('admin_id')->constrained();

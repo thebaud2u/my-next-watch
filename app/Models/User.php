@@ -34,10 +34,10 @@ class User extends Authenticatable implements HasMedia
 	 */
 	protected $fillable = [
 		'gender',
-		'slug',
-		'nickname',
 		'firstname',
 		'lastname',
+		'nickname',
+		'slug',
 		'email',
 		'birthday',
 		'phone',

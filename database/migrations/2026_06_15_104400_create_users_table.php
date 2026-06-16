@@ -18,10 +18,10 @@ return new class extends Migration
 		Schema::create('users', function(Blueprint $table) {
 			$table->id();
 			$table->enum('gender', ['Mr', 'Mrs', 'Non-binairy']);
-			$table->string('slug');
-			$table->string('nickname');
 			$table->string('firstname')->nullable();
 			$table->string('lastname')->nullable();
+			$table->string('nickname');
+			$table->string('slug');
 			$table->string('email')->unique();
 			$table->string('password');
 			$table->rememberToken();

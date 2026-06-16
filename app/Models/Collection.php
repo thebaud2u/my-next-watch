@@ -25,8 +25,8 @@ class Collection extends Model implements Viewable, HasMedia
 
 	protected $fillable = [
 		'brand_id',
-		'slug',
 		'name',
+		'slug',
 		'description',
 		'state',
 		'admin_id',
