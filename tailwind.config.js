@@ -48,7 +48,7 @@ module.exports = {
 				warning: colors.yellow,
 				danger: colors.red,
 				gray: colors.zinc,
-				jobboard: {
+				mnw: {
 					deepblue: '#0E1954',
 					deepbluehover: '#08103A',
 					blue: '#0082FF',

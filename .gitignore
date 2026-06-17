@@ -10,3 +10,4 @@ yarn-error.log
 /.vscode
 _*
 /.ddev
+/public/build

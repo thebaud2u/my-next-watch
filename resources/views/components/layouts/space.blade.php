@@ -13,73 +13,11 @@
 
 	@stack('seo')
 
-	<link rel="stylesheet" href="{{ mix('css/flowbite.css') }}">
-	<link rel="stylesheet" href="{{ mix('css/app.css') }}">
+	@vite(['resources/css/app.css', 'resources/js/app.js'])
+
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
 	@stack('styles')
-
-	{{-- script GAM --}}
-	<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
-	<script>
-		window.googletag = window.googletag || { cmd: [] };
-	</script>
-	{{-- END script GAM --}}
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		window.dataLayer.push({
-			event: 'datalayer_ready',
-			statut: @auth 'connecte' @else 'non connecte' @endauth,
-			user_data: {
-				@auth
-					@php
-						$user = auth()->user();
-						$userType = $user->hasRole('applicant') ? 'adoptant' : ($user->hasRole('professionnal') ? 'pro' : 'eleveur');
-
-						$isBreeder = $user->hasRole(["professionnal_breeder", "individual_breeder"]);
-						$hasSub = $user->subscriptions()->where("synchronized_with_stripe", true)->exists();
-						$condition = ($isBreeder && $hasSub) ? "client" : "membre";
-					@endphp
-
-					user_id: {!! json_encode((string)$user->id) !!},
-					firstname: {!! json_encode($user->firstname) !!},
-					lastname: {!! json_encode($user->lastname) !!},
-					email: {!! json_encode($user->email) !!},
-					phone: {!! json_encode($user->phone ?? '') !!},
-					postal_code: {!! json_encode($user->address?->department?->code ?? '') !!},
-					country: {!! json_encode(mb_strtoupper($user->address?->country?->name ?? 'FRANCE')) !!},
-					user_type: {!! json_encode($userType) !!},
-					condition: {!! json_encode($condition) !!}
-				@else
-					user_id: "",
-					firstname: "",
-					lastname: "",
-					email: "",
-					phone: "",
-					postal_code: "",
-					country: 'FRANCE',
-					user_type: 'non_identifie',
-					condition: 'non_identifie'
-				@endauth
-			}
-		});
-	</script>
-
-	{{-- <script src="{{ mix('js/tarteaucitron/tarteaucitron.js') }}"></script> --}}
-	<script src="{{ mix('js/app.js') }}"></script>
-
-	<script>
-		function pushContactEvent(breedName) {
-			window.dataLayer = window.dataLayer || [];
-			window.dataLayer.push({
-				event: 'contact_réalisé',
-				race: breedName
-			});
-		}
-	</script>
-
-	@if(app()->environment('production'))
-	@endif
 
 	@livewireStyles
 

@@ -10,12 +10,9 @@
 	<meta name="keywords" content="{{ __('back-office') }}" />
 	<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 
-	<link rel="stylesheet" href="{{ mix('css/flowbite.css') }}">
-	<link rel="stylesheet" href="{{ mix('css/app.css') }}">
+	@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 	@stack('styles')
-
-	<script src="{{ mix('js/app.js') }}"></script>
 
 	@if(app()->environment('production'))
 		
@@ -63,7 +60,5 @@
 	@livewireScripts
 
 	@stack('scripts')
-
-	<script src="{{ mix('js/flowbite.min.js') }}"></script>
 </body>
 </html>
