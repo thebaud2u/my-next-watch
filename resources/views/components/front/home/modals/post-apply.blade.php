@@ -33,7 +33,7 @@
 						<div class="flex flex-col mt-2">
 							@foreach(Auth::user()->getMedia('cvs') as $index => $cvs)
 								<div class="flex flex-row items-center">
-									<input type="radio" id="cv-{{ $index }}" name="cvs" value="{{ $cvs->id }}" class="mr-2 checked:bg-jobboard-deepblue checked:hover:bg-jobboard-deepblue checked:active:bg-jobboard-deepblue checked:focus:bg-jobboard-deepblue focus:bg-jobboard-deepblue focus:outline-none focus:ring-1 focus:ring-jobboard-deepblue" @if($index == 0) checked @endif>
+									<input type="radio" id="cv-{{ $index }}" name="cvs" value="{{ $cvs->id }}" class="mr-2 checked:bg-mnw-deepblue checked:hover:bg-mnw-deepblue checked:active:bg-mnw-deepblue checked:focus:bg-mnw-deepblue focus:bg-mnw-deepblue focus:outline-none focus:ring-1 focus:ring-mnw-deepblue" @if($index == 0) checked @endif>
 
 									<a href="{{ $cvs->getAvailableUrl(['optimized']) }}" target="_blank">
 										<label for="cv-{{ $index }}" class="font-semibold">
@@ -52,7 +52,7 @@
 							{{ __('Upload a new resume') }}
 						</label>
 
-						<input type="file" id="cv" name="cv" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" @if(!Auth::user()->getFirstMedia('cvs')) required @endif class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-jobboard-deepblue file:bg-jobboard-deepblue hover:border-jobboard-deepblue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-jobboard-deepblue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-jobboard-deepblue dark:file:bg-jobboard-deepblue dark:file:text-neutral-100 dark:focus:border-primary" />
+						<input type="file" id="cv" name="cv" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" @if(!Auth::user()->getFirstMedia('cvs')) required @endif class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-mnw-deepblue file:bg-mnw-deepblue hover:border-mnw-deepblue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-mnw-deepblue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-mnw-deepblue dark:file:bg-mnw-deepblue dark:file:text-neutral-100 dark:focus:border-primary" />
 					</div>
 				</div>
 
@@ -62,7 +62,7 @@
 							{{ __('Upload another document') }}
 						</label>
 
-						<input type="file" id="doc" name="doc" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-jobboard-deepblue file:bg-jobboard-deepblue hover:border-jobboard-deepblue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-jobboard-deepblue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-jobboard-deepblue dark:file:bg-jobboard-deepblue dark:file:text-neutral-100 dark:focus:border-primary" />
+						<input type="file" id="doc" name="doc" accept=".txt,.rtf,.pdf,.doc,.docx,.odt,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-mnw-deepblue file:bg-mnw-deepblue hover:border-mnw-deepblue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-mnw-deepblue file:px-3 file:py-[0.32rem] file:text-white file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-mnw-deepblue dark:file:bg-mnw-deepblue dark:file:text-neutral-100 dark:focus:border-primary" />
 					</div>
 				</div>
 
@@ -81,7 +81,7 @@
 		</div>
 
 		<div class="mt-6 flex justify-start">
-			<input type="submit" value="{{ __('Send my inquire') }}" class="px-3 py-1.5 whitespace-nowrap bg-jobboard-deepblue hover:bg-jobboard-deepblue border-2 border-jobboard-deepblue hover:border-jobboard-deepblue rounded-md text-sm xl:text-base text-white font-medium focus:outline-none focus:ring-0 transition ease-in-out duration-150 block" />
+			<input type="submit" value="{{ __('Send my inquire') }}" class="px-3 py-1.5 whitespace-nowrap bg-mnw-deepblue hover:bg-mnw-deepblue border-2 border-mnw-deepblue hover:border-mnw-deepblue rounded-md text-sm xl:text-base text-white font-medium focus:outline-none focus:ring-0 transition ease-in-out duration-150 block" />
 		</div>
 	</form>
 </section>

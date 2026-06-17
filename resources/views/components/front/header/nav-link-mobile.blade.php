@@ -1,11 +1,11 @@
-@props(['active', 'textColor' => 'text-jobboard-deepblue', 'svgArrows' => true, 'activeTextColor' => 'text-jobboard-deepblue'])
+@props(['active', 'textColor' => 'text-mnw-deepblue', 'svgArrows' => true, 'activeTextColor' => 'text-mnw-deepblue'])
 
 @php
 	$classes = 'flex flex-row gap-x-3 items-center justify-between font-semibold whitespace-nowrap focus:outline-none transition duration-150 ease-in-out cursor-pointer';
 	if($active) $classes = $classes.' '.$activeTextColor;
 	else $classes = $classes.' '.$textColor;
 @endphp
-<div class="{{ $textColor }} flex flex-row mb-1 p-4 items-center justify-between font-semibold whitespace-nowrap focus:outline-none transition duration-150 ease-in-out cursor-pointer @if($active) bg-jobboard-cream @endif">
+<div class="{{ $textColor }} flex flex-row mb-1 p-4 items-center justify-between font-semibold whitespace-nowrap focus:outline-none transition duration-150 ease-in-out cursor-pointer @if($active) bg-mnw-cream @endif">
 	<a {{ $attributes->merge(['class' => $classes]) }}>
 		{{ $slot }}
 	</a>

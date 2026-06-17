@@ -3,10 +3,10 @@
 	'required' => false
 ])
 
-<label {{ $attributes->merge(['class' => 'font-medium text-sm text-jobboard-deepblue']) }}>
+<label {{ $attributes->merge(['class' => 'font-medium text-sm text-mnw-deepblue']) }}>
 	{{ $value ?? $slot }}
 
 	@if($required)
-		<span class="text-jobboard-violet">*</span>
+		<span class="text-mnw-violet">*</span>
 	@endif
 </label>

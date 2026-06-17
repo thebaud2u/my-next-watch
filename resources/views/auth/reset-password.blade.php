@@ -86,7 +86,7 @@
 
 							<div class="pl-4 mt-2">
 								<div class="grid grid-cols-2 md:grid-cols-3 gap-y-4">
-									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-jobboard-deepblue': !isTyping, 'text-green-500': isTyping && hasUppercase, 'text-red-500': isTyping && !hasUppercase }">
+									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-mnw-deepblue': !isTyping, 'text-green-500': isTyping && hasUppercase, 'text-red-500': isTyping && !hasUppercase }">
 										<svg class="shrink-0" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="hasUppercase || !isTyping">
 											<path d="M4.81818 6.82728L6.06726 8.13636L9.18182 4.86364M13 6.5C13 9.81371 10.3137 12.5 7 12.5C3.68629 12.5 1 9.81371 1 6.5C1 3.18629 3.68629 0.5 7 0.5C10.3137 0.5 13 3.18629 13 6.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
@@ -99,7 +99,7 @@
 
 										{{ __('1 uppercase') }}
 									</div>
-									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-jobboard-deepblue': !isTyping, 'text-green-500': isTyping && hasLowercase, 'text-red-500': isTyping && !hasLowercase }">
+									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-mnw-deepblue': !isTyping, 'text-green-500': isTyping && hasLowercase, 'text-red-500': isTyping && !hasLowercase }">
 										<svg class="shrink-0" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="hasLowercase || !isTyping">
 											<path d="M4.81818 6.82728L6.06726 8.13636L9.18182 4.86364M13 6.5C13 9.81371 10.3137 12.5 7 12.5C3.68629 12.5 1 9.81371 1 6.5C1 3.18629 3.68629 0.5 7 0.5C10.3137 0.5 13 3.18629 13 6.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
@@ -112,7 +112,7 @@
 
 										{{ __('1 lowercase') }}
 									</div>
-									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-jobboard-deepblue': !isTyping, 'text-green-500': isTyping && hasSpecialChar, 'text-red-500': isTyping && !hasSpecialChar }">
+									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-mnw-deepblue': !isTyping, 'text-green-500': isTyping && hasSpecialChar, 'text-red-500': isTyping && !hasSpecialChar }">
 										<svg class="shrink-0" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="hasSpecialChar || !isTyping">
 											<path d="M4.81818 6.82728L6.06726 8.13636L9.18182 4.86364M13 6.5C13 9.81371 10.3137 12.5 7 12.5C3.68629 12.5 1 9.81371 1 6.5C1 3.18629 3.68629 0.5 7 0.5C10.3137 0.5 13 3.18629 13 6.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
@@ -125,7 +125,7 @@
 
 										{{ __('1 special character') }}
 									</div>
-									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-jobboard-deepblue': !isTyping, 'text-green-500': isTyping && hasNumber, 'text-red-500': isTyping && !hasNumber }">
+									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-mnw-deepblue': !isTyping, 'text-green-500': isTyping && hasNumber, 'text-red-500': isTyping && !hasNumber }">
 										<svg class="shrink-0" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="hasNumber || !isTyping">
 											<path d="M4.81818 6.82728L6.06726 8.13636L9.18182 4.86364M13 6.5C13 9.81371 10.3137 12.5 7 12.5C3.68629 12.5 1 9.81371 1 6.5C1 3.18629 3.68629 0.5 7 0.5C10.3137 0.5 13 3.18629 13 6.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
@@ -138,7 +138,7 @@
 
 										{{ __('1 digit') }}
 									</div>
-									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-jobboard-deepblue': !isTyping, 'text-green-500': isTyping && hasValidLength, 'text-red-500': isTyping && !hasValidLength }">
+									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-mnw-deepblue': !isTyping, 'text-green-500': isTyping && hasValidLength, 'text-red-500': isTyping && !hasValidLength }">
 										<svg class="shrink-0" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="hasValidLength || !isTyping">
 											<path d="M4.81818 6.82728L6.06726 8.13636L9.18182 4.86364M13 6.5C13 9.81371 10.3137 12.5 7 12.5C3.68629 12.5 1 9.81371 1 6.5C1 3.18629 3.68629 0.5 7 0.5C10.3137 0.5 13 3.18629 13 6.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
@@ -171,7 +171,7 @@
 
 							<div class="pl-4 mt-2">
 								<div class="grid grid-cols-2 md:grid-cols-3 gap-y-4">
-									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-jobboard-deepblue': !isTyping, 'text-green-500': isTyping && isSame, 'text-red-500': isTyping && !isSame }">
+									<div class="flex items-center gap-x-2 text-sm font-medium w-fit" :class="{ 'text-mnw-deepblue': !isTyping, 'text-green-500': isTyping && isSame, 'text-red-500': isTyping && !isSame }">
 										<svg class="shrink-0" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg" x-show="isSame || !isTyping">
 											<path d="M4.81818 6.82728L6.06726 8.13636L9.18182 4.86364M13 6.5C13 9.81371 10.3137 12.5 7 12.5C3.68629 12.5 1 9.81371 1 6.5C1 3.18629 3.68629 0.5 7 0.5C10.3137 0.5 13 3.18629 13 6.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>

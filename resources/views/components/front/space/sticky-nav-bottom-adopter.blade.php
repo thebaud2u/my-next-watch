@@ -1,7 +1,7 @@
-<nav class="sticky bottom-0 w-full h-[90px] bg-jobboard-deepblue md:hidden">
+<nav class="sticky bottom-0 w-full h-[90px] bg-mnw-deepblue md:hidden">
 	<div class="w-full flex justify-center">
 		<div class="max-w-[390px] w-full">
-			<div class="flex justify-between text-[10px] text-jobboard-cream h-full max-w-[390px]">
+			<div class="flex justify-between text-[10px] text-mnw-cream h-full max-w-[390px]">
 				<div class="flex gap-x-4 h-full ml-4">
 					<a class="flex flex-col items-center justify-center gap-y-2" href="{{ route('space.responses.my-messages') }}">
 						<svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +82,7 @@
 								stroke="#0E1954" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 
-						<p class="text-jobboard-deepblue text-[10px] text-center">
+						<p class="text-mnw-deepblue text-[10px] text-center">
 							{{ __('animals') }}
 						</p>
 					</div>

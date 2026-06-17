@@ -7,26 +7,6 @@ use App\Http\Controllers\Controller;
 class LegalPageController extends Controller
 {
 	/**
-	 * Conditions Générales d'utilisation
-	 *
-	 * @return \Illuminate\View\View
-	 */
-	public function cgu()
-	{
-		return view('front.legal-pages.cgu');
-	}
-
-	/**
-	 * Conditions Générales de vente
-	 *
-	 * @return \Illuminate\View\View
-	 */
-	public function cgv()
-	{
-		return view('front.legal-pages.cgv');
-	}
-
-	/**
 	 * Politique cookies
 	 *
 	 * @return \Illuminate\View\View
@@ -37,32 +17,12 @@ class LegalPageController extends Controller
 	}
 
 	/**
-	 * Mentions légales
-	 *
-	 * @return \Illuminate\View\View
-	 */
-	public function mentionsLegales()
-	{
-		return view('front.legal-pages.ml');
-	}
-
-	/**
-	 * Mentions légales
-	 *
-	 * @return \Illuminate\View\View
-	 */
-	public function politiqueConfidentialite()
-	{
-		return view('front.legal-pages.pdc');
-	}
-
-	/**
 	 * Qui sommes-nous
 	 *
 	 * @return \Illuminate\View\View
 	 */
-	public function quiSommesNous()
+	public function aboutUs()
 	{
-		return view('front.legal-pages.quisommesnous');
+		return view('front.legal-pages.about-us');
 	}
 }

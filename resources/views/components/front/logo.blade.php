@@ -5,7 +5,7 @@
 	'mode' => 'dark',
 	'width' => 303,
 	'height' => 25,
-	'fill' => 'text-jobboard-deepblue',
+	'fill' => 'text-mnw-deepblue',
 ])
 
 @if(!empty($link))

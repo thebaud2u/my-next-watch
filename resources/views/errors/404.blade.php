@@ -10,13 +10,13 @@
 		<div class="h-[450px] flex flex-col lg:flex-row lg:items-center lg:justify-center">
 			<div class="py-5 px-4 lg:px-6">
 				<h1 class="text-xl leading-7 text-gray-800">
-					<div class="flex flex-row justify-center items-center font-semibold text-jobboard-deepblue">
+					<div class="flex flex-row justify-center items-center font-semibold text-mnw-deepblue">
 						<h1 class="mb-2 lg:mb-4 text-3xl text-center font-bold">
 							404
 						</h1>
 					</div>
 
-					<p class="mb-2 lg:mb-4 text-center text-sm sm:text-base lg:text-xl lg:tracking-tight font-thin max-w-[650px] mx-auto text-jobboard-deepblue">
+					<p class="mb-2 lg:mb-4 text-center text-sm sm:text-base lg:text-xl lg:tracking-tight font-thin max-w-[650px] mx-auto text-mnw-deepblue">
 						{{ __('Oops! The page you are looking for does not exist.') }}
 					</p>
 

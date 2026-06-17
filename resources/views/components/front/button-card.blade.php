@@ -5,10 +5,10 @@
 
 		if ($species == 'dog') {
 			$species = 'chien';
-			$bgColor = 'bg-jobboard-coral';
+			$bgColor = 'bg-mnw-coral';
 		} else {
 			$species = 'chat';
-			$bgColor = 'bg-jobboard-green';
+			$bgColor = 'bg-mnw-green';
 		}
 	}
 
@@ -43,7 +43,7 @@
 			'text' =>
 				'<strong>En manque d’inspiration ?</strong><br> Trouvez un nom ' .
 				(isset($species) ? 'de ' . $species : 'pour votre animal'),
-			'bgcolor' => 'bg-jobboard-coral hover:bg-jobboard-coralhover',
+			'bgcolor' => 'bg-mnw-coral hover:bg-mnw-coralhover',
 		],
 	];
 
@@ -54,10 +54,10 @@
 			]),
 			'icon' => '/storage/inspiration.svg',
 			'text' =>
-				'<span class="text-jobboard-deepblue">Découvrez la race<br><strong>' .
+				'<span class="text-mnw-deepblue">Découvrez la race<br><strong>' .
 				($breed ? $breed->name : '') .
 				'</strong>',
-			'bgcolor' => 'bg-jobboard-cream',
+			'bgcolor' => 'bg-mnw-cream',
 		];
 	}
 @endphp

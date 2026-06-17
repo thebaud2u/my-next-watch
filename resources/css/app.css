@@ -42,19 +42,19 @@
 	   Buttons styles
 	 **************** */
 	.btn-primary {
-		@apply inline-flex items-center justify-center py-4 px-8 whitespace-nowrap rounded-full text-sm focus:outline-none focus:ring-0 transition ease-in-out duration-150 bg-jobboard-deepblue hover:bg-jobboard-cream border border-jobboard-cream rounded-full text-jobboard-cream hover:text-jobboard-deepblue font-semibold  gap-2 text-center max-s:w-full;
+		@apply inline-flex items-center justify-center py-4 px-8 whitespace-nowrap rounded-full text-sm focus:outline-none focus:ring-0 transition ease-in-out duration-150 bg-mnw-deepblue hover:bg-mnw-cream border border-mnw-cream rounded-full text-mnw-cream hover:text-mnw-deepblue font-semibold  gap-2 text-center max-s:w-full;
 	}
 
 	.btn-secondary{
-		@apply w-auto bg-white hover:bg-jobboard-deepblue py-4 px-8 border border-jobboard-deepbluehover rounded-full text-jobboard-deepbluehover hover:text-jobboard-cream font-semibold text-sm  gap-2 text-center;
+		@apply w-auto bg-white hover:bg-mnw-deepblue py-4 px-8 border border-mnw-deepbluehover rounded-full text-mnw-deepbluehover hover:text-mnw-cream font-semibold text-sm  gap-2 text-center;
 	}
 
 	.btn-eleveurs{
-		@apply inline-flex items-center justify-center py-4 px-8 rounded-full whitespace-nowrap focus:outline-none transition ease-in-out duration-150 text-jobboard-deepblue bg-jobboard-violet text-sm font-semibold hover:text-jobboard-deepblue hover:bg-jobboard-violethover gap-2 max-s:w-full;
+		@apply inline-flex items-center justify-center py-4 px-8 rounded-full whitespace-nowrap focus:outline-none transition ease-in-out duration-150 text-mnw-deepblue bg-mnw-violet text-sm font-semibold hover:text-mnw-deepblue hover:bg-mnw-violethover gap-2 max-s:w-full;
 	}
 
 	.btn-card {
-		@apply w-full flex flex-col bg-jobboard-deepblue hover:bg-jobboard-deepbluehover text-jobboard-cream px-8 py-4 gap-2 rounded-xl text-[18px] items-center text-center h-full;
+		@apply w-full flex flex-col bg-mnw-deepblue hover:bg-mnw-deepbluehover text-mnw-cream px-8 py-4 gap-2 rounded-xl text-[18px] items-center text-center h-full;
 	}
 
 	.btn-card strong{
@@ -100,10 +100,10 @@
 		@apply text-gray-400 cursor-not-allowed font-semibold;
 	}
 	.list-alpha .enabled {
-		@apply text-jobboard-deepblue hover:underline font-semibold;
+		@apply text-mnw-deepblue hover:underline font-semibold;
 	}
 	.list-alpha .on{
-		@apply text-jobboard-deepblue font-semibold bg-jobboard-darkorange rounded-full;
+		@apply text-mnw-deepblue font-semibold bg-mnw-darkorange rounded-full;
 	}
 
 	.pagination nav div:last-child{
@@ -128,18 +128,18 @@
 	  FORMS
 	**************** */
 	.form {
-		@apply bg-white border border-jobboard-greige w-full p-3 rounded-xl flex flex-col lg:flex-row gap-4 lg:gap-8 lg:justify-between;
+		@apply bg-white border border-mnw-greige w-full p-3 rounded-xl flex flex-col lg:flex-row gap-4 lg:gap-8 lg:justify-between;
 	}
 	.form>div {
 		@apply flex flex-col lg:flex-row justify-start gap-4 lg:gap-8;
 	}
 
 	.field{
-		@apply flex flex-row items-center gap-2 lg:pr-8 lg:last:pr-0 lg:border-r lg:border-jobboard-greige lg:last:border-none text-base;
+		@apply flex flex-row items-center gap-2 lg:pr-8 lg:last:pr-0 lg:border-r lg:border-mnw-greige lg:last:border-none text-base;
 	}
 
 	.field select {
-		@apply text-jobboard-deepblue text-sm block border-0 focus:border-0 focus:ring-0 rounded-md w-full;
+		@apply text-mnw-deepblue text-sm block border-0 focus:border-0 focus:ring-0 rounded-md w-full;
 	}
 }
 

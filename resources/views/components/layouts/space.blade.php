@@ -97,7 +97,7 @@
 			<div class="w-full mx-auto">
 				{{-- Image (sub)header --}}
 				@if(!empty($navCvtheque))
-					<div class="mb-6 px-4 md:pl-6 py-5 shadow-md lg:rounded-md bg-jobboard-deepblue text-xs xs:text-sm font-medium">
+					<div class="mb-6 px-4 md:pl-6 py-5 shadow-md lg:rounded-md bg-mnw-deepblue text-xs xs:text-sm font-medium">
 						{{ $navCvtheque }}
 					</div>
 				@endif
@@ -168,7 +168,7 @@
 					<div class="relative w-[78px]">
 						<img src="{{ asset('storage/breeder_avatar_bot.png') }}" class="max-w-[78px] absolute z-30 -top-[55px]" alt="">
 					</div>
-					<div class="rounded-xl shadow-lg text-jobboard-deepblue font-bold text-sm p-2 z-20 flex flex-col items-center">
+					<div class="rounded-xl shadow-lg text-mnw-deepblue font-bold text-sm p-2 z-20 flex flex-col items-center">
 						<p>{{ __('Une question ?') }}</p>
 						{{ __('BreederGPT') }}
 					</div>
@@ -179,7 +179,7 @@
 					<div class="relative w-[78px] h-[78px]">
 						<img src="{{ asset('storage/breeder_avatar_bot.png') }}" class="max-w-[78px] absolute top-[17px] z-10" alt="">
 					</div>
-					<div class="rounded-xl shadow-lg text-jobboard-deepblue font-bold text-sm p-2 bg-white flex flex-col items-center">
+					<div class="rounded-xl shadow-lg text-mnw-deepblue font-bold text-sm p-2 bg-white flex flex-col items-center">
 						<p>{{ __('Une question ?') }}</p>
 						{{ __('BreederGPT') }}
 					</div>

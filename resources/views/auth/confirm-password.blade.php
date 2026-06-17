@@ -12,7 +12,7 @@
 				{{ __('Confirm password') }}
 			</x-front.form-part-title>
 
-			<div class="mb-4 text-sm text-jobboard-deepblue">
+			<div class="mb-4 text-sm text-mnw-deepblue">
 				{{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
 			</div>
 

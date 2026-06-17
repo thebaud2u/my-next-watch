@@ -34,13 +34,13 @@
 	</nav>
 	<div class="w-full sm:max-w-4xl mx-auto mb-6 sm:px-6 sm:py-4 sm:rounded-md sm:border sm:border-gray-200 mt-10">
 		<div class="flex flex-row flex-wrap my-6 mx-10">
-			<h1 class="mb-4 leading-10 text-2xl text-left font-bold mr-4 text-jobboard-deepblue">
+			<h1 class="mb-4 leading-10 text-2xl text-left font-bold mr-4 text-mnw-deepblue">
 				{{ __('Contact us') }}
 			</h1>
 		</div>
 
 		<div class="mx-10">
-			<p class="mb-6 text-sm sm:text-base lg:tracking-tight text-jobboard-deepblue">
+			<p class="mb-6 text-sm sm:text-base lg:tracking-tight text-mnw-deepblue">
 				{{ __('You can contact us via the contact form below. We are committed to responding to each of our customers as quickly as possible.') }}
 			</p>
 
@@ -55,7 +55,7 @@
 							<div>
 								<x-front.input-label for="object" :value="__('Object')" :required="true" :class="'pl-4'"/>
 
-								<select id="object" name="object" class="border-jobboard-greige focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm text-jobboard-deepblue placeholder:text-gray-400 mt-1 w-full">
+								<select id="object" name="object" class="border-mnw-greige focus:border-mnw-deepblue focus:ring-mnw-deepblue rounded-md shadow-sm text-mnw-deepblue placeholder:text-gray-400 mt-1 w-full">
 									<option value="">{{ __('Select an object') }}</option>
 									<option {{ old('object') == 'information' ? 'selected' : '' }} value="information">{{ __('Information') }}</option>
 									<option {{ old('object') == 'ad' ? 'selected' : '' }} value="ad">{{ __('Problem with an ad') }}</option>
@@ -129,7 +129,7 @@
 							<div>
 								<x-front.input-label for="message" :value="__('Message')" :required="true" :class="'pl-4'"/>
 
-								<textarea name="message" cols="30" rows="6" placeholder="{{ __('Message') }}" required class="border-jobboard-greige focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm mt-1 block w-full text-jobboard-deepblue">{{ old('body') }}</textarea>
+								<textarea name="message" cols="30" rows="6" placeholder="{{ __('Message') }}" required class="border-mnw-greige focus:border-mnw-deepblue focus:ring-mnw-deepblue rounded-md shadow-sm mt-1 block w-full text-mnw-deepblue">{{ old('body') }}</textarea>
 
 								@error('message')
 									<span class="error text-danger-700">
@@ -141,7 +141,7 @@
 							<div>
 								<x-front.input-label for="file" :value="__('Attachment')" :class="'pl-4'"/>
 
-								<input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-jobboard-deepblue hover:border-jobboard-deepblue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-jobboard-greige transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-jobboard-deepblue file:px-3 file:py-[0.32rem] file:text-jobboard-cream file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-jobboard-blue dark:file:bg-jobboard-blue dark:file:text-neutral-100 dark:focus:border-primary" />
+								<input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-mnw-deepblue hover:border-mnw-deepblue bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-mnw-greige transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-mnw-deepblue file:px-3 file:py-[0.32rem] file:text-mnw-cream file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-mnw-blue dark:file:bg-mnw-blue dark:file:text-neutral-100 dark:focus:border-primary" />
 
 								@error('file')
 									<span class="error text-danger-700">
@@ -152,7 +152,7 @@
 
 							<div>
 								<div class="flex flex-row" x-data="{checked: false}">
-									<input type="checkbox" name="consent" {{ old('consent') ? 'checked' : '' }} value="true" class="w-4 h-4 mt-2 text-jobboard-deepblue bg-gray-100 border-jobboard-greige rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+									<input type="checkbox" name="consent" {{ old('consent') ? 'checked' : '' }} value="true" class="w-4 h-4 mt-2 text-mnw-deepblue bg-gray-100 border-mnw-greige rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 									<x-front.input-label for="consent" :value="__('By submitting this form, I accept that the information entered is used as part of the contact request')" :required="true" :class="'ml-2 cursor-pointer'"/>
 								</div>
 

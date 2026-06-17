@@ -3,8 +3,8 @@
 @php
 	$classes = 'block w-full text-base focus:outline-none transition duration-150 ease-in-out text-left '.
 		(($active ?? false)
-			? 'text-jobboard-deepblue'
-			: 'hover:text-jobboard-deepblue'
+			? 'text-mnw-deepblue'
+			: 'hover:text-mnw-deepblue'
 		);
 @endphp
 

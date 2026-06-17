@@ -1,4 +1,4 @@
-@props(['active', 'activeColor' => '#FF7E71', 'textColor' => 'text-jobboard-deepblue'])
+@props(['active', 'activeColor' => '#FF7E71', 'textColor' => 'text-mnw-deepblue'])
 
 @php
 	$classes = 'text-center font-semibold pt-1 whitespace-nowrap focus:outline-none transition duration-150 ease-in-out cursor-pointer '.$textColor;

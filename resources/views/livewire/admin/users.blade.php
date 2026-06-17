@@ -1,7 +1,7 @@
 <div>
 	<div class="mb-5 text-sm sm:text-base lg:text-xl">
 		<div class="flex flex-wrap items-center gap-4">
-			<select id="role" wire:model.live="role" class="block mt-1 border border-gray-300 focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm">
+			<select id="role" wire:model.live="role" class="block mt-1 border border-gray-300 focus:border-mnw-deepblue focus:ring-mnw-deepblue rounded-md shadow-sm">
 				<option value="">{{ __('Select a role') }}</option>
 				@foreach($roles as $role)
 					<option value="{{ $role->id }}">
@@ -121,7 +121,7 @@
 									</a>
 
 									@if($userEntry->hasRole('recruiter'))
-										<button type="button" wire:click="getUser({{ $userEntry->id }}, 'toggle-jobboard-role')" title="{{ $userEntry->hasRole('professionnal_breeder') ? __('Switch the professionnal breeder to an individual breeder') : __('Switch the individual breeder to a professionnal breeder') }}" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center me-2 mb-2">
+										<button type="button" wire:click="getUser({{ $userEntry->id }}, 'toggle-mnw-role')" title="{{ $userEntry->hasRole('professionnal_breeder') ? __('Switch the professionnal breeder to an individual breeder') : __('Switch the individual breeder to a professionnal breeder') }}" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center me-2 mb-2">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 												<path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
 											</svg>
@@ -198,7 +198,7 @@
 		</section>
 	</x-front.modal>
 
-	<x-front.modal name="toggle-jobboard-role" :class="'w-full max-w-2xl'" focusable>
+	<x-front.modal name="toggle-mnw-role" :class="'w-full max-w-2xl'" focusable>
 		<section class="p-10 flex flex-col flex-wrap content-center">
 			<header class="flex flex-col flex-wrap content-center">
 				<h2 class="text-lg font-semibold">

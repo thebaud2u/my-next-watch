@@ -19,7 +19,7 @@
 		{{ __('Messaging') }}
 
 		@if(Auth::guard('web')->user()->countUnreadMessages() > 0)
-			<div class="w-[10px] h-[10px] rounded-full bg-jobboard-coral justify-self-end ml-auto mr-4"></div>
+			<div class="w-[10px] h-[10px] rounded-full bg-mnw-coral justify-self-end ml-auto mr-4"></div>
 		@endif
 	</x-front.space.sidebar-link>
 
@@ -131,7 +131,7 @@
 		{{ __('Settings') }}
 	</x-front.space.sidebar-link>
 
-	<form method="post" action="{{ route('logout') }}" class="flex gap-x-3 items-center text-jobboard-deepblue pl-4">
+	<form method="post" action="{{ route('logout') }}" class="flex gap-x-3 items-center text-mnw-deepblue pl-4">
 		@csrf
 		<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M13.5 26.4248C20.4036 26.4248 26 20.8284 26 13.9248C26 7.02125 20.4036 1.4248 13.5 1.4248C6.59644 1.4248 1 7.02125 1 13.9248C1 20.8284 6.59644 26.4248 13.5 26.4248Z" stroke="#0E1954" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

@@ -73,7 +73,7 @@
 		@endif
 	>
 		@if(!$noClose)
-			<button type="button" x-on:click="$dispatch('close');"class="absolute top-3 right-2.5 inline-flex items-center justify-center rounded-md p-1.5 ml-auto text-sm text-jobboard-deepblue hover:text-jobboard-deepblue focus:outline-none focus:text-jobboard-deepblue">
+			<button type="button" x-on:click="$dispatch('close');"class="absolute top-3 right-2.5 inline-flex items-center justify-center rounded-md p-1.5 ml-auto text-sm text-mnw-deepblue hover:text-mnw-deepblue focus:outline-none focus:text-mnw-deepblue">
 				<svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M9.4773 17.5227L17.5227 9.47726M9.4773 9.47726L17.5227 17.5227M26 13.5C26 20.4036 20.4036 26 13.5 26C6.59644 26 1 20.4036 1 13.5C1 6.59644 6.59644 1 13.5 1C20.4036 1 26 6.59644 26 13.5Z" stroke="#0E1954" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>

@@ -81,7 +81,7 @@
 							<ul class="p-4 border border-gray-300 rounded-md max-h-72 overflow-y-auto absolute bg-white z-50">
 								@if($cities->isNotEmpty())
 									@foreach($cities as $city)
-										<li wire:click="fetchDetail({{ $city->id }})" wire:key="city-{{ $city->id }}" class="hover:underline cursor-pointer text-jobboard-deepblue">
+										<li wire:click="fetchDetail({{ $city->id }})" wire:key="city-{{ $city->id }}" class="hover:underline cursor-pointer text-mnw-deepblue">
 											{{ $city->name }} ({{ $city->zip_code }})
 										</li>
 									@endforeach
@@ -109,7 +109,7 @@
 						<ul class="p-4 border border-gray-300 rounded-md max-h-72 overflow-y-auto absolute bg-white z-50">
 							@if($cities->isNotEmpty())
 								@foreach($cities as $city)
-									<li wire:click="fetchDetail({{ $city->id }})" wire:key="city-{{ $city->id }}" class="hover:underline cursor-pointer text-jobboard-deepblue">
+									<li wire:click="fetchDetail({{ $city->id }})" wire:key="city-{{ $city->id }}" class="hover:underline cursor-pointer text-mnw-deepblue">
 										{{ $city->name }} ({{ $city->zip_code }})
 									</li>
 								@endforeach
@@ -126,7 +126,7 @@
 			<div>
 				<x-front.input-label for="country_id" :value="__('Country')" :required="$countryRequired" :class="'pl-4'" />
 
-				<select id="country_id" name="country_id" wire:model.live="address.country_id" wire:change="countrySelected" @disabled($disabled) class="border-jobboard-greige focus:border-jobboard-deepblue focus:ring-jobboard-deepblue rounded-md shadow-sm text-jobboard-deepblue placeholder:text-gray-400 mt-1 w-full w-full">
+				<select id="country_id" name="country_id" wire:model.live="address.country_id" wire:change="countrySelected" @disabled($disabled) class="border-mnw-greige focus:border-mnw-deepblue focus:ring-mnw-deepblue rounded-md shadow-sm text-mnw-deepblue placeholder:text-gray-400 mt-1 w-full w-full">
 					@foreach($countries as $country)
 						<option value="{{ $country->id }}" wire:key="country-{{ $country->id }}">
 							{{ $country->name }}

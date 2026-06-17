@@ -1,61 +1,25 @@
-<div class="bg-jobboard-deepblue text-jobboard-cream w-full flex justify-center px-4">
-	<div class="max-w-[1200px] flex flex-col justify-center items-center w-full ">
-		<div class="w-full flex justify-center border-jobboard-cream/30 border-b">
-			<div class="w-full flex flex-col max-s:h-[200px] items-center justify-between py-10">
-				<div class="flex flex-col items-center justify-center s:hidden w-full">
-					<a href="{{route('home')}}" class="text-sm">Eleveurs-Online.com</a>
-					<p class="text-sm sm:text-base my-auto">19-21 rue Dumont&nbsp;d'Urville, 75116 PARIS</p>
-				</div>
-				<div class="flex flex-col max-lg:items-center s:gap-y-4 lg:flex-row lg:justify-between w-full max-w-[890px] font-medium">
-					<p class="lg:flex-shrink-0 lg:flex-grow-0 my-auto text-sm">Édité par <strong class="font-[600]">BUENA MEDIA PLUS</strong></p>
-					<p class="lg:flex lg:items-center lg:justify-center hidden">•</p>
-					<p class="lg:flex-shrink-0 lg:flex-grow-0 flex items-center justify-center text-sm">Membre du groupe <svg class="w-[85px] ml-2" viewBox="0 0 85 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M22.0477 11.827C22.0477 5.73696 17.1136 0.800293 11.0239 0.800293C4.93418 0.800293 0 5.73696 0 11.827C0 17.5436 4.34978 22.2436 9.91816 22.8003V11.517L5.1168 13.1103V8.39696L14.776 4.90696V22.2003C19.0195 20.6636 22.0511 16.6003 22.0511 11.827H22.0477Z"
-								fill="#F7F6EF" />
-							<path
-								d="M31.8596 13.907H27.1712V19.4203H23.7378V5.10029H27.1712V10.5336H31.8596V5.10029H35.2897V19.4203H31.8596V13.907Z"
-								fill="#F7F6EF" />
-							<path
-								d="M42.4884 19.617C41.6251 19.617 40.8481 19.477 40.1541 19.1936C39.4601 18.9103 38.8757 18.5236 38.3976 18.027C37.9194 17.5303 37.5509 16.947 37.2886 16.2803C37.0262 15.6136 36.8968 14.8936 36.8968 14.1236C36.8968 13.3536 37.0362 12.6536 37.3184 11.9836C37.6007 11.317 37.9892 10.7303 38.4839 10.227C38.982 9.72363 39.5697 9.32696 40.2504 9.04029C40.9311 8.75363 41.6682 8.61029 42.4651 8.61029C43.262 8.61029 44.0158 8.74696 44.6898 9.02363C45.3639 9.29696 45.945 9.68029 46.4364 10.1703C46.9278 10.6603 47.3063 11.237 47.5753 11.897C47.8442 12.557 47.9771 13.2803 47.9771 14.0636V15.2203H40.0943C40.277 15.757 40.5791 16.1636 40.9975 16.447C41.4159 16.727 41.9305 16.867 42.5481 16.867C43.0595 16.867 43.4945 16.7703 43.8531 16.5736C44.2117 16.377 44.5039 16.1036 44.7264 15.7503L47.3927 17.3003C46.8448 18.0336 46.1873 18.6003 45.4203 19.007C44.6566 19.4136 43.6771 19.617 42.4884 19.617ZM42.4884 11.3603C41.9538 11.3603 41.4889 11.487 41.0971 11.7436C40.7053 11.997 40.4031 12.347 40.194 12.7936H44.723C44.5404 12.3236 44.2582 11.967 43.8796 11.7236C43.5011 11.4803 43.0362 11.3603 42.4884 11.3603Z"
-								fill="#F7F6EF" />
-							<path
-								d="M52.5493 19.637C52.0014 19.637 51.5034 19.5636 51.0584 19.4203C50.6135 19.277 50.235 19.067 49.9195 18.7936C49.6074 18.5203 49.365 18.1836 49.1923 17.7936C49.023 17.4003 48.9367 16.957 48.9367 16.4603C48.9367 15.9103 49.0463 15.4136 49.272 14.9703C49.4945 14.527 49.8133 14.1503 50.2317 13.8436C50.65 13.537 51.1547 13.297 51.7425 13.127C52.3302 12.957 52.9909 12.8736 53.7214 12.8736H56.152V12.797C56.152 12.3536 55.9993 11.997 55.6905 11.727C55.3817 11.4603 54.9334 11.3236 54.3457 11.3236C53.8476 11.3236 53.4359 11.4136 53.1105 11.597C52.7851 11.7803 52.5294 12.0536 52.3468 12.4203L49.2289 11.027C49.79 10.307 50.474 9.72696 51.2776 9.28029C52.0811 8.83696 53.0972 8.61363 54.3258 8.61363C55.9328 8.61363 57.1681 8.99029 58.0314 9.74029C58.8947 10.4936 59.3263 11.5603 59.3263 12.947V19.4203H56.1686V18.007C55.8166 18.5036 55.3252 18.9003 54.6976 19.1936C54.0701 19.487 53.3495 19.6336 52.5394 19.6336L52.5493 19.637ZM53.665 17.027C53.9406 17.027 54.2095 16.9836 54.4785 16.9003C54.7475 16.8136 54.9932 16.697 55.2223 16.547C55.4514 16.397 55.6506 16.2203 55.82 16.017C55.9893 15.8136 56.1155 15.6036 56.1918 15.3803V15.1636H54.173C53.5454 15.1636 53.0939 15.2603 52.8183 15.447C52.5427 15.637 52.4065 15.8836 52.4065 16.1836C52.4065 16.747 52.8249 17.027 53.6617 17.027H53.665Z"
-								fill="#F7F6EF" />
-							<path d="M61.0995 3.96363H64.3734V19.4203H61.0995V3.96363Z" fill="#F7F6EF" />
-							<path
-								d="M65.7846 8.83029H67.6075V6.53363L70.8616 4.75029V8.83029H73.4515V11.7336H70.8616V15.207C70.8616 15.7436 70.9446 16.1036 71.1073 16.287C71.27 16.4703 71.4958 16.5603 71.7846 16.5603C72.1001 16.5603 72.3856 16.437 72.6479 16.187L74.1388 18.677C73.7603 18.977 73.332 19.2103 72.8538 19.3736C72.3757 19.537 71.8643 19.6203 71.3131 19.6203C70.7254 19.6203 70.2008 19.547 69.7426 19.4036C69.2843 19.2603 68.8959 19.0203 68.5771 18.687C68.2583 18.3536 68.0159 17.9203 67.8532 17.3836C67.6905 16.847 67.6075 16.187 67.6075 15.4036V11.7336H65.7846V8.83029Z"
-								fill="#F7F6EF" />
-							<path
-								d="M75.0586 3.96363H78.3126V10.0236C78.6513 9.58029 79.0597 9.23363 79.5379 8.98363C80.0127 8.73363 80.5473 8.61029 81.135 8.61029C81.7227 8.61029 82.254 8.70363 82.7255 8.89363C83.197 9.08363 83.6021 9.35363 83.9408 9.70696C84.2795 10.0603 84.5418 10.4936 84.7244 11.0103C84.907 11.527 85 12.1103 85 12.767V19.417H81.5899V13.4336C81.5899 12.8203 81.4604 12.3436 81.1981 12.0136C80.9358 11.6803 80.5307 11.5136 79.9828 11.5136C79.498 11.5136 79.0996 11.6836 78.7875 12.0236C78.472 12.3636 78.3159 12.887 78.3159 13.5936V19.4203H75.0619V3.96363H75.0586Z"
-								fill="#F7F6EF" />
-						</svg>
-					</p>
-					<p class="lg:flex lg:items-center lg:justify-center hidden">•</p>
-					<p class="lg:flex-shrink-0 lg:flex-grow-0 text-base my-auto max-s:hidden">19-21 rue Dumont&nbsp;d'Urville, 75116 PARIS</p>
-				</div>
-			</div>
+<div class="bg-mnw-deepblue text-mnw-cream w-full flex justify-center px-4">
+	<div class="max-w-[1200px] flex flex-col justify-center items-center w-full">
+		<div class="w-full flex justify-center border-mnw-cream/30 border-b">
+			
 		</div>
 
-		@php
-			$footer_links = [
-				['titre' => 'Mentions légales', 'route' => 'pages.mentions'],
-				['titre' => 'Protection des données', 'route' => 'pages.confidentialite'],
-				['titre' => 'Conditions générales d\'utilisation', 'route' => 'pages.cgu'],
-				['titre' => 'Conditions générales de vente', 'route' => 'pages.cgv'],
-				['titre' => 'Cookies', 'route' => 'pages.cookies'],
-			];
-		@endphp
 		<div class="flex flex-row gap-x-4 flex-wrap justify-center text-sm font-medium py-10">
-			@foreach ($footer_links as $fl)
-				<a href="{{ $fl['route'] ? route($fl['route']) : '#' }}" class="flex-shrink-0 flex-grow-0 hover:underline">
-					{{ $fl['titre'] }}
-				</a>
+			<a href="{{ route('home') }}" class="flex-shrink-0 flex-grow-0 hover:underline">
+				{{ env('APP_NAME') }}
+			</a>
 
-				@if(!$loop->last)
-					<div class="flex-shrink-0 flex-grow-0">|</div>
-				@endif
-			@endforeach
+			<div class="flex-shrink-0 flex-grow-0">|</div>
+
+			<a href="{{ route('legal-pages.cookies') }}" class="flex-shrink-0 flex-grow-0 hover:underline">
+				{{ __('Cookies') }}
+			</a>
+
+			<div class="flex-shrink-0 flex-grow-0">|</div>
+
+			<a href="{{ route('legal-pages.about-us') }}" class="flex-shrink-0 flex-grow-0 hover:underline">
+				{{ __('Cookies') }}
+			</a>
 		</div>
 	</div>
 </div>

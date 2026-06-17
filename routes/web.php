@@ -8,6 +8,8 @@ use App\Http\Controllers\Front\{
 	ContactController,
 	HomeController,
 	LegalPageController,
+	FinderController,
+	WatchController
 };
 use App\Http\Controllers\Front\Space\{
 	FavoriteController,
@@ -47,6 +49,11 @@ Route::controller(ContactController::class)->group(function() {
 	Route::post(__('routes.contact.submit'), 'submit')->name('contact.submit');
 });
 
+Route::controller(FinderController::class)->group(function () {
+	Route::get('/lets-find-my-next-watch', 'index')->name('lets-find-my-next-watch');
+	Route::get('/search', 'search')->name('search');
+});
+
 Route::controller(HomeController::class)->group(function() {
 	Route::get(__('routes.home.index'), 'index')->name('home');
 	Route::get(__('routes.home.offer'), 'indexOffer')->name('home.offer');
@@ -55,14 +62,13 @@ Route::controller(HomeController::class)->group(function() {
 
 Route::name('legal-pages.')->group(function() {
 	Route::controller(LegalPageController::class)->group(function() {
-		Route::get(__('routes.legal-pages.cgu'), 'cgu')->name('cgu');
-		Route::get(__('routes.legal-pages.cgv'), 'cgv')->name('cgv');
 		Route::get(__('routes.legal-pages.cookies'), 'cookies')->name('cookies');
-		Route::get(__('routes.legal-pages.mentions'), 'mentionsLegales')->name('mentions');
-		Route::get(__('routes.legal-pages.confidentialite'), 'politiqueConfidentialite')->name('confidentialite');
-		Route::get(__('routes.legal-pages.lp.figo'), 'figo')->name('figo');
-		Route::get(__('routes.legal-pages.quisommesnous'), 'quiSommesNous')->name('quisommesnous');
+		Route::get(__('routes.legal-pages.about-us'), 'aboutUs')->name('about-us');
 	});
+});
+
+Route::controller(WatchController::class)->name('watch.')->group(function () {
+	Route::get('/watch/{watch:slug}', 'index')->name('show');
 });
 
 /* ===================================================================== *

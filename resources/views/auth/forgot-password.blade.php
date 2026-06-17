@@ -12,7 +12,7 @@
 				{{ __('Forgot my password') }}
 			</x-front.form-part-title>
 
-			<div class="mb-4 text-sm text-jobboard-deepblue">
+			<div class="mb-4 text-sm text-mnw-deepblue">
 				{{ __('Forgot your password ? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one') }}.
 			</div>
 
