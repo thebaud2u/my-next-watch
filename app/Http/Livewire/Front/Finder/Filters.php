@@ -19,6 +19,22 @@ class Filters extends Component
 	public $filters = [];
 	public $data = [];
 
+	public function nextStep()
+	{
+		switch($this->step) {
+			case 'generalities':
+				$this->step = 'dimensions';
+				break;
+			case 'dimensions':
+				$this->step = 'price';
+			case 'price':
+				$this->step = 'end';
+				break;
+		}
+		
+		$this->navigate();
+	}
+
 	public function navigate()
 	{
 		switch($this->step) {
@@ -28,7 +44,23 @@ class Filters extends Component
 				break;
 
 			case 'dimensions':
-				# code...
+				$this->data['case_diameters'] = Watch::whereHas('types', function($whereHasTypes) {
+						$whereHasTypes->whereIn('slug', $this->filters['type']);
+					})
+					->whereHas('collection', function($whereHasCollection) {
+						$whereHasCollection->whereHas('brand', function($whereHasBrand) {
+							$whereHasBrand->whereHas('address', function($whereHasAddress) {
+								$whereHasAddress->whereHas('country', function($whereHasCountry) {
+									$whereHasCountry->whereIn('id', $this->filters['country']);
+								});
+							});
+						});
+					})
+					->get()
+					->pluck('case.diameter')
+					->filter()
+					->unique()
+					->values();
 				break;
 			
 			case 'price':
@@ -67,17 +99,13 @@ class Filters extends Component
 		
 		// Case filters
 		$this->filters['case_color'] = [];
-		$this->filters['min_case_diameter'] = null;
-		$this->filters['max_case_diameter'] = null;
-		$this->filters['min_case_lug_to_lug'] = null;
-		$this->filters['max_case_lug_to_lug'] = null;
-		$this->filters['min_case_lug_width'] = null;
-		$this->filters['max_case_lug_width'] = null;
+		$this->filters['case_diameter'] = [];
+		$this->filters['case_lug_to_lug'] = [];
+		$this->filters['case_lug_width'] = [];
 		$this->filters['case_material'] = [];
 		$this->filters['case_open_case_back'] = [];
 		$this->filters['case_sapphire_crystal_case_back'] =[];
-		$this->filters['min_case_thickness'] = null;
-		$this->filters['max_case_thickness'] = null;
+		$this->filters['case_thickness'] = [];
 		$this->filters['case_waterproofness'] = null;
 		
 		// Crown filters

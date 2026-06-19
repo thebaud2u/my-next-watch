@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\Models\{Admin, Brand, Collection, Movement, Type, Watch};
+use App\Models\{Admin, Address, Brand, Collection, Country, Movement, Type, Watch};
 use App\Models\WatchDetails\ {
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
 	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, 
