@@ -14,8 +14,8 @@ return new class extends Migration
 	public function up()
 	{
 		Schema::create('type_watch', function (Blueprint $table) {
-			$table->foreignId('type_id')->constrained()->onDelete('cascade');
-			$table->foreignId('watch_id')->constrained()->onDelete('cascade');
+			$table->foreignId('type_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
 			$table->unique(['type_id', 'watch_id']);
 		});
 	}

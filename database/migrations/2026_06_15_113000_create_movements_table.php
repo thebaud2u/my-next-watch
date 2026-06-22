@@ -17,7 +17,7 @@ return new class extends Migration
 	{
 		Schema::create('movements', function(Blueprint $table) {
 			$table->id();
-			$table->foreignId('brand_id')->constrained()->onDelete('cascade');
+			$table->foreignId('brand_id')->constrained()->cascadeOnDelete();
 			$table->string('name', 255);
 			$table->enum('type', ['quartz', 'solar', 'automatic', 'manual']);
 			$table->tinyInteger('COSC')->default(0);

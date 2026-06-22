@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,7 +58,7 @@ class User extends Authenticatable implements HasMedia
 	 * @var array<string, string>
 	 */
 	protected $casts = [
-		'values' => AsCollection::class,
+		'values' => 'collection',
 		'birthday' => 'date',
 		'email_verified_at' => 'datetime',
 		'last_logon' => 'datetime',

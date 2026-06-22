@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
-// use Illuminate\Database\Eloquent\Concerns\HasUuids;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +35,7 @@ class Search extends Model
 	protected function casts(): array
 	{
 		return [
-			'filters' => AsCollection::class,
+			'filters' => 'collection',
 			'email_alert' => 'boolean',
 		];
 	}
@@ -51,23 +48,24 @@ class Search extends Model
 		});
 	}
 
-	public function user()
+	// Relations
+	public function category(): BelongsTo
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(Category::class);
 	}
 
-	public function thematic()
-	{
-		return $this->belongsTo(Thematic::class);
-	}
-
-	public function postType()
+	public function postType(): BelongsTo
 	{
 		return $this->belongsTo(PostType::class);
 	}
 
-	public function category()
+	public function thematic(): BelongsTo
 	{
-		return $this->belongsTo(Category::class);
+		return $this->belongsTo(Thematic::class);
+	}
+
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class);
 	}
 }

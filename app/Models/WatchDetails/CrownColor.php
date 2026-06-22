@@ -5,6 +5,9 @@ namespace App\Models\WatchDetails;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+use App\Models\Watch;
 
 class CrownColor extends Model
 {
@@ -37,5 +40,10 @@ class CrownColor extends Model
 	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);
+	}
+
+	public function watches(): BelongsToMany
+	{
+		return $this->belongsToMany(Watch::class);
 	}
 }

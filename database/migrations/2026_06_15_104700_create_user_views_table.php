@@ -15,7 +15,7 @@ return new class extends Migration
 	{
 		Schema::create('users_views', function(Blueprint $table) {
 			$table->id();
-			$table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+			$table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
 			$table->string('element_type');
 			$table->string('element_id');
 			$table->timestamps();

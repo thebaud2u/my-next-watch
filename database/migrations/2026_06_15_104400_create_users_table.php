@@ -29,7 +29,7 @@ return new class extends Migration
 			$table->string('phone')->nullable();
 			$table->string('mobile')->nullable();
 			$table->json('values')->nullable();
-			$table->foreignId('experience_id')->nullable()->constrained()->onDelete('cascade');
+			$table->foreignId('experience_id')->nullable()->constrained()->cascadeOnDelete();
 			$table->timestamp('email_verified_at')->nullable();
 			$table->timestamp('last_logon')->nullable();
 			$table->timestamps();

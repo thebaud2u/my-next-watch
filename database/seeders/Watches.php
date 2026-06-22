@@ -7,13 +7,27 @@ use Illuminate\Database\Seeder;
 use App\Models\{Admin, Address, Brand, Collection, Country, Movement, Type, Watch};
 use App\Models\WatchDetails\ {
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
-	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, 
+	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle,
 	CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial, CrystalMaterial,
 	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType
 };
 
 class Watches extends Seeder
 {
+	function getIds(string $modelClass, array $names): array
+	{
+		return collect($names)
+			->map(fn($name) => $modelClass::where('name', $name)->value('id')
+				?? throw new \RuntimeException("$modelClass not found : $name"))
+			->toArray();
+	}
+
+	function getId(string $modelClass, string $name): int
+	{
+		return $modelClass::where('name', $name)->value('id')
+			?? throw new \RuntimeException("$modelClass not found : $name");
+	}
+
 	public function run(): void
 	{
 		$admin = Admin::first();
@@ -34,6 +48,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => null,
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -94,6 +109,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => null,
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -154,6 +170,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => 'black',
 						'material' => ['rubber'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -214,6 +231,7 @@ class Watches extends Seeder
 						'clasp' => 'folding',
 						'clasp_color' => ['black'],
 						'clasp_material' => ['PVD-treated stainless steel'],
+						'color' => 'black',
 						'material' => ['hybrid leather'],
 						'micro_adjustement' => false,
 						'micro_adjustement_system' => [],
@@ -274,6 +292,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => null,
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -334,6 +353,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => null,
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -394,6 +414,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => 'black',
 						'material' => ['rubber'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -454,6 +475,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
+						'color' => null,
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => 'classic',
@@ -514,6 +536,7 @@ class Watches extends Seeder
 						'clasp' => 'folding',
 						'clasp_color' => ['black'],
 						'clasp_material' => ['PVD-treated stainless steel'],
+						'color' => null,
 						'material' => ['hybrid leather', 'rubber'],
 						'micro_adjustement' => false,
 						'micro_adjustement_system' => null,
@@ -565,98 +588,32 @@ class Watches extends Seeder
 
 		foreach($watches as $collection => $values) {
 			foreach($values as $index => $watch) {
-				$bezelColors = null;
-				$bezelColors = null;
-				$bezelmarking = null;
-				$bezelMaterials = null;
-				$claspColors = null;
-				$claspMaterials = null;
-				$braceletMaterials = null;
-				$stitchingColors = null;
-				$caseColors = null;
-				$caseMaterials = null;
-				$crownColors = null;
-				$crownMaterials = null;
-				$crystalMaterials = null;
-				$dialColors = null;
-				$markerColors = null;
-				$markerLumeColors = null;
-				$markerType = null;
-				$complications = null;
-
 				$newWatch = new Watch;
-				$newWatch->collection_id = Collection::where('name', $collection)->first()->id;
-				$newWatch->movement_id = Movement::where('name', $watch['movement_id'])->first()->id;
+				$newWatch->collection_id = $this->getId(Collection::class, $collection);
+				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
+				$newWatch->bracelet_clasp_id = $watch['bracelet']['clasp'] ? $this->getId(BraceletClasp::class, $watch['bracelet']['clasp']) : null;
+				$newWatch->bracelet_color_id = $watch['bracelet']['color'] ? $this->getId(BraceletColor::class, $watch['bracelet']['color']) : null;
+				$newWatch->bracelet_micro_adjustement_system_id = $watch['bracelet']['micro_adjustement_system'] ? $this->getId(BraceletMicroAdjustementSystem::class, $watch['bracelet']['micro_adjustement_system']) : null;
+				$newWatch->bracelet_style_id = $watch['bracelet']['style'] ? $this->getId(BraceletStyle::class, $watch['bracelet']['style']) : null;
 				$newWatch->name = $watch['name'];
 				$newWatch->reference = $watch['reference'];
 
 				// Bezel
-				foreach($watch['bezel']['color'] as $color) {
-					$bezelColors[] = BezelColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['bezel']['marking'] as $marking) {
-					$bezelmarking[] = BezelMarking::where('name', $marking)->first()->id;
-				}
-
-				foreach($watch['bezel']['material'] as $material) {
-					$bezelMaterials[] = BezelMaterial::where('name', $material)->first()->id;
-				}
-
 				$newWatch->bezel = [
-					'color' => $bezelColors,
-					'direction' => $watch['bezel']['direction'],
-					'marking' => $bezelmarking,
-					'material' => $bezelMaterials
+					'direction' => $watch['bezel']['direction']
 				];
 
 				// Bracelet
-				foreach($watch['bracelet']['clasp_color'] as $color) {
-					$claspColors[] = BraceletClaspColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['bracelet']['clasp_material'] as $material) {
-					$claspMaterials[] = BraceletClaspMaterial::where('name', $material)->first()->id;
-				}
-
-				foreach($watch['bracelet']['material'] as $material) {
-					$braceletMaterials[] = BraceletMaterial::where('name', $material)->first()->id;
-				}
-
-				foreach($watch['bracelet']['stitching_color'] as $color) {
-					$stitchingColors[] = BraceletStitchingColor::where('name', $color)->first()->id;
-				}
-
-				$braceletStyle = null;
-				if(!is_null($watch['bracelet']['style'])) BraceletStyle::where('name', $watch['bracelet']['style'])->first()->id;
-
 				$newWatch->bracelet = [
-					'clasp' => BraceletClasp::where('name', $watch['bracelet']['clasp'])->first()->id,
-					'clasp_color' => $claspColors,
-					'clasp_material' => $claspMaterials,
-					'material' => $braceletMaterials,
 					'micro_adjustement' => $watch['bracelet']['micro_adjustement'],
-					'micro_adjustement_system' => BraceletMicroAdjustementSystem::where('name', '"t-fit"')->first()->id,
 					'stitching' => $watch['bracelet']['stitching'],
-					'stitching_color' => $stitchingColors,
-					'style' => $braceletStyle
 				];
 
 				// Case
-				foreach($watch['case']['color'] as $color) {
-					$caseColors[] = CaseColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['case']['material'] as $material) {
-					$caseMaterials[] = CaseMaterial::where('name', $material)->first()->id;
-				}
-
 				$newWatch->case = [
-					'color' => $caseColors,
 					'diameter' => $watch['case']['diameter'],
 					'lug_to_lug' => $watch['case']['lug_to_lug'],
 					'lug_width' => $watch['case']['lug_width'],
-					'material' => $caseMaterials,
 					'open_case_back' => $watch['case']['open_case_back'],
 					'sapphire_crystal_case_back' => $watch['case']['sapphire_crystal_case_back'],
 					'thickness' => $watch['case']['thickness'],
@@ -664,67 +621,27 @@ class Watches extends Seeder
 				];
 
 				// Crown
-				foreach($watch['crown']['color'] as $color) {
-					$crownColors[] = CrownColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['crown']['material'] as $material) {
-					$crownMaterials[] = CrownMaterial::where('name', $material)->first()->id;
-				}
-
 				$newWatch->crown = [
-					'color' => $crownColors,
 					'detail' => $watch['crown']['detail'],
-					'material' => $crownMaterials,
 					'screwed_down' => $watch['crown']['screwed_down']
 				];
 
 				// Crystal
-				foreach($watch['crystal']['material'] as $material) {
-					$crystalMaterials[] = CrystalMaterial::where('name', $material)->first()->id;
-				}
-
 				$newWatch->crystal = [
-					'material' => $crystalMaterials,
 					'domed' => $watch['crystal']['domed']
 				];
 
 				// Dial
-				foreach($watch['dial']['color'] as $color) {
-					$dialColors[] = DialColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['dial']['marker_color'] as $color) {
-					$markerColors[] = DialMarkerColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['dial']['marker_lume_color'] as $color) {
-					$markerLumeColors[] = DialMarkerLumeColor::where('name', $color)->first()->id;
-				}
-
-				foreach($watch['dial']['marker_type'] as $type) {
-					$markerType[] = DialMarkerType::where('name', $type)->first()->id;
-				}
-
 				$newWatch->dial = [
-					'color' => $dialColors,
 					'domed' => $watch['dial']['domed'],
-					'marker_color' => $markerColors,
 					'marker_lume' =>$watch['dial']['marker_lume'],
-					'marker_lume_color' => $markerLumeColors,
-					'marker_type' => $markerType,
 					'skeleton' => $watch['dial']['skeleton'],
 					'textured' => $watch['dial']['textured']
 				];
 
 				// Specification
-				foreach($watch['specification']['complication'] as $complication) {
-					$complications[] = Complication::where('name', $complication)->first()->id;
-				}
-
 				$newWatch->specification = [
-					'power_reserve' => $watch['specification']['power_reserve'],
-					'complication' => $complications
+					'power_reserve' => $watch['specification']['power_reserve']
 				];
 
 				$newWatch->release_price = $watch['release_price'];
@@ -732,10 +649,63 @@ class Watches extends Seeder
 				$newWatch->admin_id = $admin->id;
 				$newWatch->save();
 
+				// Bezel
+				$bezelColors = $this->getIds(BezelColor::class, $watch['bezel']['color']);
+				$bezelmarking = $this->getIds(BezelMarking::class, $watch['bezel']['marking']);
+				$bezelMaterials = $this->getIds(BezelMaterial::class, $watch['bezel']['material']);
+
+				$newWatch->bezelColors()->sync($bezelColors);
+				$newWatch->bezelMarkings()->sync($bezelmarking);
+				$newWatch->bezelMaterials()->sync($bezelMaterials);
+
+				// Bracelet
+				$braceletClaspColors = $this->getIds(BraceletClaspColor::class, $watch['bracelet']['clasp_color']);
+				$braceletClaspMaterials = $this->getIds(BraceletClaspMaterial::class, $watch['bracelet']['clasp_material']);
+				$braceletMaterials = $this->getIds(BraceletMaterial::class, $watch['bracelet']['material']);
+				$braceletStitchingColors = $this->getIds(BraceletStitchingColor::class, $watch['bracelet']['stitching_color']);
+
+				$newWatch->braceletClaspColors()->sync($braceletClaspColors);
+				$newWatch->braceletClaspMaterials()->sync($braceletClaspMaterials);
+				$newWatch->braceletMaterials()->sync($braceletMaterials);
+				$newWatch->braceletStitchingColors()->sync($braceletStitchingColors);
+
+				// Case
+				$caseColors = $this->getIds(CaseColor::class, $watch['case']['color']);
+				$caseMaterials = $this->getIds(CaseMaterial::class, $watch['case']['material']);
+
+				$newWatch->caseColors()->sync($caseColors);
+				$newWatch->caseMaterials()->sync($caseMaterials);
+
+				// Complication
+				$complications = $this->getIds(Complication::class, $watch['specification']['complication']);
+
+				$newWatch->complications()->sync($complications);
+
+				// Crown
+				$crownColors = $this->getIds(CrownColor::class, $watch['crown']['color']);
+				$crownMaterials = $this->getIds(CrownMaterial::class, $watch['crown']['material']);
+
+				$newWatch->crownColors()->sync($crownColors);
+				$newWatch->crownMaterials()->sync($crownMaterials);
+
+				// Crystal
+				$crystalMaterials = $this->getIds(CrystalMaterial::class, $watch['crystal']['material']);
+
+				$newWatch->crystalMaterials()->sync($crystalMaterials);
+
+				// Dial
+				$dialColors = $this->getIds(DialColor::class, $watch['dial']['color']);
+				$dialMarkerColors = $this->getIds(DialMarkerColor::class, $watch['dial']['marker_color']);
+				$dialMarkerLumeColors = $this->getIds(DialMarkerLumeColor::class, $watch['dial']['marker_lume_color']);
+				$dialMarkerTypes = $this->getIds(DialMarkerType::class, $watch['dial']['marker_type']);
+
+				$newWatch->dialColors()->sync($dialColors);
+				$newWatch->dialMarkerColors()->sync($dialMarkerColors);
+				$newWatch->dialMarkerLumeColors()->sync($dialMarkerLumeColors);
+				$newWatch->dialMarkerTypes()->sync($dialMarkerTypes);
+
 				// Type
-				foreach($watch['type'] as $type) {
-					$types[] = Type::where('name', $type)->first()->id;
-				}
+				$types = $this->getIds(Type::class, $watch['type']);
 
 				$newWatch->types()->sync($types);
 			}

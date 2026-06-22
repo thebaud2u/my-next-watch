@@ -26,7 +26,7 @@
 				<div class="flex flex-col lg:flex-row lg:items-stretch h-full max-w-[1200px] mx-auto">
 					<div class="flex flex-col items-center lg:items-start lg:gap-y-3 md:mt-6 lg:mt-12 lg:flex-1">
 						<h1 class="text-jobboard-deepblue text-[30px] lg:text-[40px] w-[97%] max-s:w-[350px] md:w-[80%] xlsm:w-[700px] font-bold max-lg:text-center">
-							{{ __('What is the principle ?') }}
+							{{ __('What is it about ?') }}
 						</h1>
 
 						<div class="flex flex-col gap-y-2 max-lg:items-center">

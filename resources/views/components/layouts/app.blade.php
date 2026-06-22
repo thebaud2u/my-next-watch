@@ -18,7 +18,7 @@
 	<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/vnd.microsoft.icon" />
 </head>
 
-	<body class="font-inter text-mnw-deepblue antialiased min-w-[280px]" x-init="init()">
+	<body class="font-inter text-mnw-deepblue antialiased min-w-[280px]">
 		@php
 			$errors = $errors ?? session('errors') ?? new \Illuminate\Support\ViewErrorBag();
 		@endphp

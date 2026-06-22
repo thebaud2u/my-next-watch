@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -19,6 +18,12 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 use App\Enums\InformationStatus;
+
+use App\Models\WatchDetails\{
+	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial, BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle,
+	CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial, CrystalMaterial,
+	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
+};
 
 class Watch extends Model implements Viewable, HasMedia
 {
@@ -56,13 +61,13 @@ class Watch extends Model implements Viewable, HasMedia
 	protected function casts(): array
 	{
 		return [
-			'bezel' => AsCollection::class,
-			'bracelet' => AsCollection::class,
-			'case' => AsCollection::class,
-			'crown' => AsCollection::class,
-			'crystal' => AsCollection::class,
-			'dial' => AsCollection::class,
-			'specification' => AsCollection::class,
+			'bezel' => 'collection',
+			'bracelet' => 'collection',
+			'case' => 'collection',
+			'crown' => 'collection',
+			'crystal' => 'collection',
+			'dial' => 'collection',
+			'specification' => 'collection',
 			'release_price' => 'double',
 			'current_price' => 'double',
 			'status' => InformationStatus::class,
@@ -104,10 +109,115 @@ class Watch extends Model implements Viewable, HasMedia
 	{
 		return $this->belongsTo(Admin::class);
 	}
-	
+
+	public function bezelColors(): BelongsToMany
+	{
+		return $this->belongsToMany(BezelColor::class);
+	}
+
+	public function bezelMarkings(): BelongsToMany
+	{
+		return $this->belongsToMany(BezelMarking::class);
+	}
+
+	public function bezelMaterials(): BelongsToMany
+	{
+		return $this->belongsToMany(BezelMaterial::class);
+	}
+
+	public function braceletClasp(): BelongsTo
+	{
+		return $this->belongsTo(BraceletClasp::class);
+	}
+
+	public function braceletClaspColors(): BelongsToMany
+	{
+		return $this->belongsToMany(BraceletClaspColor::class);
+	}
+
+	public function braceletClaspMaterials(): BelongsToMany
+	{
+		return $this->belongsToMany(BraceletClaspMaterial::class);
+	}
+
+	public function braceletColor(): BelongsTo
+	{
+		return $this->BelongsTo(BraceletColor::class);
+	}
+
+	public function braceletMaterials(): BelongsToMany
+	{
+		return $this->belongsToMany(BraceletMaterial::class);
+	}
+
+	public function braceletMicroAdjustementSystem(): BelongsTo
+	{
+		return $this->belongsTo(BraceletMicroAdjustementSystem::class);
+	}
+
+	public function braceletStitchingColors(): BelongsToMany
+	{
+		return $this->belongsToMany(BraceletStitchingColor::class);
+	}
+
+	public function braceletStyle(): BelongsTo
+	{
+		return $this->belongsTo(BraceletStyle::class);
+	}
+
+	public function caseColors(): BelongsToMany
+	{
+		return $this->belongsToMany(CaseColor::class);
+	}
+
+	public function caseMaterials(): BelongsToMany
+	{
+		return $this->belongsToMany(CaseMaterial::class);
+	}
+
 	public function collection(): BelongsTo
 	{
 		return $this->belongsTo(Collection::class);
+	}
+
+	public function complications(): BelongsToMany
+	{
+		return $this->belongsToMany(Complication::class);
+	}
+
+	public function crownColors(): BelongsToMany
+	{
+		return $this->belongsToMany(CrownColor::class);
+	}
+
+	public function crownMaterials(): BelongsToMany
+	{
+		return $this->belongsToMany(CrownMaterial::class);
+	}
+
+	public function crystalMaterials(): BelongsToMany
+	{
+		return $this->belongsToMany(CrystalMaterial::class);
+	}
+
+	public function dialColors(): BelongsToMany
+	{
+		return $this->belongsToMany(DialColor::class);
+	}
+
+	public function dialMarkerColors(): BelongsToMany
+	{
+		return $this->belongsToMany(DialMarkerColor::class);
+	}
+
+	public function dialMarkerLumeColors(): BelongsToMany
+	{
+		return $this->belongsToMany(DialMarkerLumeColor::class);
+	}
+
+	public function dialMarkerTypes(): BelongsToMany
+	{
+		return $this->belongsToMany(DialMarkerType::class);
 	}
 
 	public function movement(): BelongsTo
@@ -138,8 +248,8 @@ class Watch extends Model implements Viewable, HasMedia
 			->count();
 	}
 
-	function brand(): Brand
+	function getBrand(): ?Brand
 	{
-		return $this->collection->brand;
+		return $this->collection?->brand;
 	}
 }

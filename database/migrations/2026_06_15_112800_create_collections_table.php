@@ -19,7 +19,7 @@ return new class extends Migration
 	{
 		Schema::create('collections', function(Blueprint $table) {
 			$table->id();
-			$table->foreignId('brand_id')->constrained()->onDelete('cascade');
+			$table->foreignId('brand_id')->constrained()->cascadeOnDelete();
 			$table->string('name', 255);
 			$table->string('slug');
 			$table->text('description')->nullable();

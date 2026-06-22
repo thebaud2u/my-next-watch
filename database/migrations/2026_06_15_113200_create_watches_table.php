@@ -17,14 +17,18 @@ return new class extends Migration
 	{
 		Schema::create('watches', function(Blueprint $table) {
 			$table->id();
-			$table->foreignId('collection_id')->constrained()->onDelete('cascade');
-			$table->foreignId('movement_id')->constrained()->onDelete('cascade');
+			$table->foreignId('collection_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('movement_id')->constrained()->cascadeOnDelete();
 			$table->string('name', 255);
 			$table->string('slug');
 			$table->string('reference', 255);
 			$table->text('description')->nullable();
 			$table->json('bezel')->nullable();
 			$table->json('bracelet')->nullable();
+			$table->foreignId('bracelet_clasp_id')->nullable()->constrained()->cascadeOnDelete();
+			$table->foreignId('bracelet_color_id')->nullable()->constrained()->cascadeOnDelete();
+			$table->foreignId('bracelet_micro_adjustement_system_id')->nullable()->constrained()->cascadeOnDelete();
+			$table->foreignId('bracelet_style_id')->nullable()->constrained()->cascadeOnDelete();
 			$table->json('case')->nullable();
 			$table->json('crown')->nullable();
 			$table->json('crystal')->nullable();
