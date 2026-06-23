@@ -588,6 +588,7 @@ class Watches extends Seeder
 
 		foreach($watches as $collection => $values) {
 			foreach($values as $index => $watch) {
+				// Watch creation
 				$newWatch = new Watch;
 				$newWatch->collection_id = $this->getId(Collection::class, $collection);
 				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
@@ -649,6 +650,7 @@ class Watches extends Seeder
 				$newWatch->admin_id = $admin->id;
 				$newWatch->save();
 
+				// Watch created, create dependencies
 				// Bezel
 				$bezelColors = $this->getIds(BezelColor::class, $watch['bezel']['color']);
 				$bezelmarking = $this->getIds(BezelMarking::class, $watch['bezel']['marking']);
@@ -708,6 +710,7 @@ class Watches extends Seeder
 				$types = $this->getIds(Type::class, $watch['type']);
 
 				$newWatch->types()->sync($types);
+				// Dependencies created
 			}
 		}
 	}
