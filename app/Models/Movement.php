@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use App\Enums\InformationStatus;
@@ -56,9 +57,14 @@ class Movement extends Model
 	{
 		return $this->belongsTo(Admin::class);
 	}
-	
+
 	public function brand(): BelongsTo
 	{
 		return $this->belongsTo(Brand::class);
+	}
+
+	public function watches(): HasMany
+	{
+		return $this->hasMany(Watch::class);
 	}
 }

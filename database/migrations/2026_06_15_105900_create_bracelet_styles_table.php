@@ -17,6 +17,7 @@ return new class extends Migration
 	{
 		Schema::create('bracelet_styles', function(Blueprint $table) {
 			$table->id();
+			$table->foreignId('bracelet_type_id')->constrained()->cascadeOnDelete();
 			$table->string('name', 255);
 			$table->string('state')->default(InformationStatus::Draft->value);
 			$table->foreignId('admin_id')->constrained();

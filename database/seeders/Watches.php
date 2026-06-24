@@ -590,12 +590,12 @@ class Watches extends Seeder
 			foreach($values as $index => $watch) {
 				// Watch creation
 				$newWatch = new Watch;
-				$newWatch->collection_id = $this->getId(Collection::class, $collection);
-				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
 				$newWatch->bracelet_clasp_id = $watch['bracelet']['clasp'] ? $this->getId(BraceletClasp::class, $watch['bracelet']['clasp']) : null;
 				$newWatch->bracelet_color_id = $watch['bracelet']['color'] ? $this->getId(BraceletColor::class, $watch['bracelet']['color']) : null;
 				$newWatch->bracelet_micro_adjustement_system_id = $watch['bracelet']['micro_adjustement_system'] ? $this->getId(BraceletMicroAdjustementSystem::class, $watch['bracelet']['micro_adjustement_system']) : null;
 				$newWatch->bracelet_style_id = $watch['bracelet']['style'] ? $this->getId(BraceletStyle::class, $watch['bracelet']['style']) : null;
+				$newWatch->collection_id = $this->getId(Collection::class, $collection);
+				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
 				$newWatch->name = $watch['name'];
 				$newWatch->reference = $watch['reference'];
 

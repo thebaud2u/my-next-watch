@@ -5,7 +5,7 @@ namespace App\Models\WatchDetails;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use App\Models\Watch;
 
@@ -42,8 +42,8 @@ class BraceletMicroAdjustementSystem extends Model
 		return $this->belongsTo(Admin::class);
 	}
 
-	public function watches(): BelongsToMany
+	public function watches(): HasMany
 	{
-		return $this->belongsToMany(Watch::class);
+		return $this->hasMany(Watch::class);
 	}
 }

@@ -14,6 +14,7 @@ class BraceletMaterial extends Model
 	use SoftDeletes;
 
 	protected $fillable = [
+		'bracelet_type_id',
 		'name',
 		'state',
 		'admin_id',
@@ -40,6 +41,11 @@ class BraceletMaterial extends Model
 	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);
+	}
+
+	public function braceletType(): BelongsTo
+	{
+		return $this->belongsTo(BraceletType::class);
 	}
 
 	public function watches(): BelongsToMany

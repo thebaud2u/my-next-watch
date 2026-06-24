@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\BraceletMaterial;
+use App\Models\WatchDetails\{BraceletMaterial, BraceletType};
 
 class BraceletMaterials extends Seeder
 {
@@ -13,15 +13,23 @@ class BraceletMaterials extends Seeder
 	{
 		$admin = Admin::first();
 
-		$braceletMaterials = ['stainless steel', 'aluminium', 'rubber', 'ceramics', 'add', 'ostrich leather', 'crocodile skin',
-			'lizard leather', 'shark leather', 'snake leather', 'cowhide', 'plastic', 'gold & steel',
-			'gold', 'rose gold', 'alligator skin', 'gold plated', 'satin', 'silicone', 'textile', 'titanium', 'hybrid leather'];
+		$data = [
+			'bracelet' => [
+				'stainless steel', 'aluminium', 'ceramics', 'gold plated', 'gold & steel', 'gold', 'rose gold', 'titanium'
+			],
+			'strap' => [
+				'rubber', 'add', 'ostrich leather', 'crocodile skin', 'lizard leather', 'shark leather', 'snake leather', 'cowhide', 'plastic', 'alligator skin', 'satin', 'silicone', 'textile', 'hybrid leather'
+			]
+		];
 
-		foreach($braceletMaterials as $braceletMaterial) {
-			$newBraceletMaterial = new BraceletMaterial;
-			$newBraceletMaterial->name = $braceletMaterial;
-			$newBraceletMaterial->admin_id = $admin->id;
-			$newBraceletMaterial->save();
+		foreach($data as $braceletType => $braceletMaterials) {
+			foreach($braceletMaterials as $braceletMaterial) {
+				$newBraceletMaterial = new BraceletMaterial;
+				$newBraceletMaterial->bracelet_type_id = BraceletType::where('name', $braceletType)->first()->id;
+				$newBraceletMaterial->name = $braceletMaterial;
+				$newBraceletMaterial->admin_id = $admin->id;
+				$newBraceletMaterial->save();
+			}
 		}
 	}
 }

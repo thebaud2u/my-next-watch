@@ -30,6 +30,10 @@ class Watch extends Model implements Viewable, HasMedia
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
+		'bracelet_clasp_id',
+		'bracelet_color_id',
+		'bracelet_micro_adjustement_system_id',
+		'bracelet_style_id',
 		'collection_id',
 		'movement_id',
 		'name',

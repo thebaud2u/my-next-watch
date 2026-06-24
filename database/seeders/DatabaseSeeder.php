@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 			Countries::class,
 			BraceletClasps::class,
 			BraceletColors::class,
+			BraceletTypes::class,
 			BraceletMaterials::class,
 			BraceletStyles::class,
 			BraceletClaspMaterials::class,
