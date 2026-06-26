@@ -713,7 +713,7 @@
 					<div class="flex flex-row justify-center items-center">
 						@foreach($data['bracelet_type'] as $braceletTypeId => $braceletTypeName)
 							<div class="w-full p-2">
-								<input type="checkbox" name="filters.bracelet_type" value="{{ $braceletTypeId }}" id="watch-bracelet-type-{{ $braceletTypeId }}" wire:model="filters.bracelet_type" wire:change="braceletSteps('bracelet_type')" class="peer hidden" />
+								<input type="checkbox" name="filters.bracelet_type" value="{{ $braceletTypeId }}" id="watch-bracelet-type-{{ $braceletTypeId }}" wire:model="filters.bracelet_type" wire:change="finderUpdated('bracelet_type')" class="peer hidden" />
 								<label for="watch-bracelet-type-{{ $braceletTypeId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 									<div>
 										<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -737,7 +737,7 @@
 						<div class="flex flex-row justify-center items-center">
 							@foreach($data['bracelet_material'] as $braceletMaterialId => $braceletMaterialName)
 								<div class="w-full p-2">
-									<input type="checkbox" name="filters.bracelet_material" value="{{ $braceletMaterialId }}" id="watch-bracelet-material-{{ $braceletMaterialId }}" wire:model="filters.bracelet_material" wire:change="braceletSteps('bracelet_material')" class="peer hidden" />
+									<input type="checkbox" name="filters.bracelet_material" value="{{ $braceletMaterialId }}" id="watch-bracelet-material-{{ $braceletMaterialId }}" wire:model="filters.bracelet_material" wire:change="finderUpdated('bracelet_material')" class="peer hidden" />
 									<label for="watch-bracelet-material-{{ $braceletMaterialId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -762,7 +762,7 @@
 										$value = $braceletMicroAdjustement ? '1' : '0';
 									@endphp
 									<div class="w-full p-2">
-										<input type="radio" name="filters.bracelet_micro_adjustement" value="{{ $value }}" id="watch-bracelet-micro-adjustement-{{ $value }}" wire:model.live="filters.bracelet_micro_adjustement" wire:change="braceletSteps('bracelet_micro_adjustement')" class="peer hidden" />
+										<input type="radio" name="filters.bracelet_micro_adjustement" value="{{ $value }}" id="watch-bracelet-micro-adjustement-{{ $value }}" wire:model.live="filters.bracelet_micro_adjustement" wire:change="finderUpdated('bracelet_micro_adjustement')" class="peer hidden" />
 										<label for="watch-bracelet-micro-adjustement-{{ $value }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 											<div>
 												<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -785,7 +785,7 @@
 							<div class="flex flex-row justify-center items-center">
 								@foreach($data['bracelet_micro_adjustement_system'] as $braceletMicroAdjustementSystemId => $braceletMicroAdjustementSystemName)
 									<div class="w-full p-2">
-										<input type="checkbox" name="filters.bracelet_micro_adjustement_system" value="{{ $braceletMicroAdjustementSystemId }}" id="watch-bracelet-micro-adjustement-system-{{ $braceletMicroAdjustementSystemId }}" wire:model="filters.bracelet_micro_adjustement_system" wire:change="braceletSteps('bracelet_micro_adjustement_system')" class="peer hidden" />
+										<input type="checkbox" name="filters.bracelet_micro_adjustement_system" value="{{ $braceletMicroAdjustementSystemId }}" id="watch-bracelet-micro-adjustement-system-{{ $braceletMicroAdjustementSystemId }}" wire:model="filters.bracelet_micro_adjustement_system" wire:change="finderUpdated('bracelet_micro_adjustement_system')" class="peer hidden" />
 										<label for="watch-bracelet-micro-adjustement-system-{{ $braceletMicroAdjustementSystemId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 											<div>
 												<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -810,7 +810,7 @@
 									$value = $braceletStitching ? '1' : '0';
 								@endphp
 								<div class="w-full p-2">
-									<input type="radio" name="filters.bracelet_stitching" value="{{ $value }}" id="watch-bracelet-stitching-{{ $value }}" wire:model.live="filters.bracelet_stitching" wire:change="braceletSteps('bracelet_stitching')" class="peer hidden" />
+									<input type="radio" name="filters.bracelet_stitching" value="{{ $value }}" id="watch-bracelet-stitching-{{ $value }}" wire:model.live="filters.bracelet_stitching" wire:change="finderUpdated('bracelet_stitching')" class="peer hidden" />
 									<label for="watch-bracelet-stitching-{{ $value }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -825,14 +825,14 @@
 						</div>
 					</div>
 
-					@if(!is_null($filters['bracelet_stitching']))
+					@if(!is_null($filters['bracelet_stitching']) && count($data['bracelet_stitching_color']) > 0)
 						<div class="finder-step flex flex-col gap-4 my-4">
-							<x-front.input-label for="filters.bracelet_stitching_color" :value="__('What bracelet style would you like ?')" :class="'pl-4'"/>
+							<x-front.input-label for="filters.bracelet_stitching_color" :value="__('What stitching color would you like ?')" :class="'pl-4'"/>
 
 							<div class="flex flex-row justify-center items-center">
 								@foreach($data['bracelet_stitching_color'] as $braceletStitchingColorId => $braceletStitchingColorName)
 									<div class="w-full p-2">
-										<input type="checkbox" name="filters.bracelet_stitching_color" value="{{ $braceletStitchingColorId }}" id="watch-bracelet-stitching-color-{{ $braceletStitchingColorId }}" wire:model="filters.bracelet_stitching_color" wire:change="braceletSteps('bracelet_stitching_color')" class="peer hidden" />
+										<input type="checkbox" name="filters.bracelet_stitching_color" value="{{ $braceletStitchingColorId }}" id="watch-bracelet-stitching-color-{{ $braceletStitchingColorId }}" wire:model="filters.bracelet_stitching_color" wire:change="finderUpdated('bracelet_stitching_color')" class="peer hidden" />
 										<label for="watch-bracelet-stitching-color-{{ $braceletStitchingColorId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 											<div>
 												<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -849,26 +849,28 @@
 					@endif
 				@endif
 
-				<div class="finder-step flex flex-col gap-4 my-4">
-					<x-front.input-label for="filters.bracelet_color" :value="__('What color should have the bracelet ?')" :class="'pl-4'"/>
+				@if(count($filters['bracelet_material']) > 0)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.bracelet_color" :value="__('What color should have the bracelet ?')" :class="'pl-4'"/>
 
-					<div class="flex flex-row justify-center items-center">
-						@foreach($data['bracelet_color'] as $braceletColorlId => $braceletColorName)
-							<div class="w-full p-2">
-								<input type="checkbox" name="filters.bracelet_color" value="{{ $braceletColorlId }}" id="watch-bracelet-color-{{ $braceletColorlId }}" wire:model="filters.bracelet_color" wire:change="braceletSteps('bracelet_color')" class="peer hidden" />
-								<label for="watch-bracelet-color-{{ $braceletColorlId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
-									<div>
-										<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
-											<span>
-												{{ ucfirst(__($braceletColorName)) }}
-											</span>
-										</h3>
-									</div>
-								</label>
-							</div>
-						@endforeach
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['bracelet_color'] as $braceletColorlId => $braceletColorName)
+								<div class="w-full p-2">
+									<input type="checkbox" name="filters.bracelet_color" value="{{ $braceletColorlId }}" id="watch-bracelet-color-{{ $braceletColorlId }}" wire:model="filters.bracelet_color" wire:change="finderUpdated('bracelet_color')" class="peer hidden" />
+									<label for="watch-bracelet-color-{{ $braceletColorlId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ ucfirst(__($braceletColorName)) }}
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
 					</div>
-				</div>
+				@endif
 
 				@if(count($filters['bracelet_color']) > 0)
 					<div class="finder-step flex flex-col gap-4 my-4">
@@ -877,7 +879,7 @@
 						<div class="flex flex-row justify-center items-center">
 							@foreach($data['bracelet_style'] as $braceletStyleId => $braceletStyleName)
 								<div class="w-full p-2">
-									<input type="checkbox" name="filters.bracelet_style" value="{{ $braceletStyleId }}" id="watch-bracelet-material-{{ $braceletStyleId }}" wire:model="filters.bracelet_style" wire:change="braceletSteps('bracelet_style')" class="peer hidden" />
+									<input type="checkbox" name="filters.bracelet_style" value="{{ $braceletStyleId }}" id="watch-bracelet-material-{{ $braceletStyleId }}" wire:model="filters.bracelet_style" wire:change="finderUpdated('bracelet_style')" class="peer hidden" />
 									<label for="watch-bracelet-material-{{ $braceletStyleId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -900,7 +902,7 @@
 						<div class="flex flex-row justify-center items-center">
 							@foreach($data['bracelet_clasp'] as $braceletClaspId => $braceletClaspName)
 								<div class="w-full p-2">
-									<input type="checkbox" name="filters.bracelet_clasp" value="{{ $braceletClaspId }}" id="watch-bracelet-clasp-{{ $braceletClaspId }}" wire:model="filters.bracelet_clasp" wire:change="braceletSteps('bracelet_clasp')" class="peer hidden" />
+									<input type="checkbox" name="filters.bracelet_clasp" value="{{ $braceletClaspId }}" id="watch-bracelet-clasp-{{ $braceletClaspId }}" wire:model="filters.bracelet_clasp" wire:change="finderUpdated('bracelet_clasp')" class="peer hidden" />
 									<label for="watch-bracelet-clasp-{{ $braceletClaspId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -923,7 +925,7 @@
 						<div class="flex flex-row justify-center items-center">
 							@foreach($data['bracelet_clasp_color'] as $braceletClaspColorId => $braceletClaspColorName)
 								<div class="w-full p-2">
-									<input type="checkbox" name="filters.bracelet_clasp_color" value="{{ $braceletClaspColorId }}" id="watch-bracelet-clasp-color-{{ $braceletClaspColorId }}" wire:model="filters.bracelet_clasp_color" wire:change="braceletSteps('bracelet_clasp_color')" class="peer hidden" />
+									<input type="checkbox" name="filters.bracelet_clasp_color" value="{{ $braceletClaspColorId }}" id="watch-bracelet-clasp-color-{{ $braceletClaspColorId }}" wire:model="filters.bracelet_clasp_color" wire:change="finderUpdated('bracelet_clasp_color')" class="peer hidden" />
 									<label for="watch-bracelet-clasp-color-{{ $braceletClaspColorId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
@@ -946,7 +948,7 @@
 						<div class="flex flex-row justify-center items-center">
 							@foreach($data['bracelet_clasp_material'] as $braceletClaspMaterialId => $braceletClaspMaterialName)
 								<div class="w-full p-2">
-									<input type="checkbox" name="filters.bracelet_clasp_material" value="{{ $braceletClaspMaterialId }}" id="watch-bracelet-clasp-material-{{ $braceletClaspMaterialId }}" wire:model="filters.bracelet_clasp_material" wire:change="braceletSteps('bracelet_clasp_material')" class="peer hidden" />
+									<input type="checkbox" name="filters.bracelet_clasp_material" value="{{ $braceletClaspMaterialId }}" id="watch-bracelet-clasp-material-{{ $braceletClaspMaterialId }}" wire:model="filters.bracelet_clasp_material" wire:change="finderUpdated('bracelet_clasp_material')" class="peer hidden" />
 									<label for="watch-bracelet-clasp-material-{{ $braceletClaspMaterialId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">

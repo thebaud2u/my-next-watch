@@ -15,7 +15,6 @@ use App\Models\WatchDetails\ {
 
 class Filters extends Component
 {
-	public $fields = [];
 	public $filters = [];
 	public $data = [];
 
@@ -144,18 +143,41 @@ class Filters extends Component
 			->when(!is_null($this->filters['dial_textured']), function($when) {
 				$when->where('dial->textured', (bool) $this->filters['dial_textured']);
 			})
-			// Bracelet type filters
 			->when(count($this->filters['bracelet_type']) > 0, function($when) {
 				$when->whereHas('braceletMaterials.braceletType', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_type']);
 				});
 			})
-			// Bracelet filters
+			->when(count($this->filters['bracelet_material']) > 0, function($when) {
+				$when->whereHas('braceletMaterials', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['bracelet_material']);
+				});
+			})
 			->when(!is_null($this->filters['bracelet_micro_adjustement']), function($when) {
 				$when->where('bracelet->micro_adjustement', (bool) $this->filters['bracelet_micro_adjustement']);
 			})
+			->when(count($this->filters['bracelet_micro_adjustement_system']) > 0, function($when) {
+				$when->whereHas('braceletMicroAdjustementSystem', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['bracelet_micro_adjustement_system']);
+				});
+			})
 			->when(!is_null($this->filters['bracelet_stitching']), function($when) {
 				$when->where('bracelet->stitching', (bool) $this->filters['bracelet_stitching']);
+			})
+			->when(count($this->filters['bracelet_stitching_color']) > 0, function($when) {
+				$when->whereHas('braceletStitchingColors', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['bracelet_stitching_color']);
+				});
+			})
+			->when(count($this->filters['bracelet_color']) > 0, function($when) {
+				$when->whereHas('braceletColor', function($whereHas) {
+					$whereHas->wheren('id', $this->filters['bracelet_color']);
+				});
+			})
+			->when(count($this->filters['bracelet_style']) > 0, function($when) {
+				$when->whereHas('braceletStyle', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['bracelet_style']);
+				});
 			})
 			->when(count($this->filters['bracelet_clasp']) > 0, function($when) {
 				$when->whereHas('braceletClasp', function($whereHas) {
@@ -170,31 +192,6 @@ class Filters extends Component
 			->when(count($this->filters['bracelet_clasp_material']) > 0, function($when) {
 				$when->whereHas('braceletClaspMaterials', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_clasp_material']);
-				});
-			})
-			->when(count($this->filters['bracelet_color']) > 0, function($when) {
-				$when->whereHas('braceletColor', function($whereHas) {
-					$whereHas->whereIn('id', $this->filters['bracelet_color']);
-				});
-			})
-			->when(count($this->filters['bracelet_material']) > 0, function($when) {
-				$when->whereHas('braceletMaterials', function($whereHas) {
-					$whereHas->whereIn('id', $this->filters['bracelet_material']);
-				});
-			})
-			->when(count($this->filters['bracelet_micro_adjustement_system']) > 0, function($when) {
-				$when->whereHas('braceletMicroAdjustementSystem', function($whereHas) {
-					$whereHas->whereIn('id', $this->filters['bracelet_micro_adjustement_system']);
-				});
-			})
-			->when(count($this->filters['bracelet_stitching_color']) > 0, function($when) {
-				$when->whereHas('braceletStitchingColors', function($whereHas) {
-					$whereHas->whereIn('id', $this->filters['bracelet_stitching_color']);
-				});
-			})
-			->when(count($this->filters['bracelet_style']) > 0, function($when) {
-				$when->whereHas('braceletStyle', function($whereHas) {
-					$whereHas->whereIn('id', $this->filters['bracelet_style']);
 				});
 			});
 	}
@@ -219,122 +216,9 @@ class Filters extends Component
 			->values();
 	}
 
-	private function proceed($changedField, $fields)
-	{
-		//dd($fields);
-		$fieldKeys = array_keys($fields);
-
-		if($changedField !== null) {
-			$index = array_search($changedField, $fieldKeys);
-			// Vide tous les filtres APRÈS le champ qui vient de changer
-			foreach(array_slice($fieldKeys, $index + 1) as $laterField) {
-				$this->filters[$laterField] = is_array($this->filters[$laterField]) ? [] : null;
-			}
-		}
-
-		$watchesData = $this->watchesDataQuery()
-			->get();
-
-		//dd($watchesData);
-
-		foreach($fields as $field => $loader) {
-			$value = $this->filters[$field] ?? null;
-			$isEmpty = isset($loader['boolean'])
-				? is_null($value)
-				: empty($value);
-
-			if($isEmpty) {
-				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null);
-				elseif($loader['type'] == 'json') $data = $this->loadJson($loader['field'], $watchesData, isset($loader['boolean']) ? $loader['boolean'] : false);
-
-				$this->data[$field] = $data;
-
-				if($data->count() === 1) {
-					if(isset($loader['boolean'])) $this->filters[$field] = $data->first();
-					else $this->filters[$field] = $loader['type'] === 'entity' ? $data->keys()->toArray() : $data->toArray();
-					continue;
-				}
-
-				break;
-			}
-		}
-
-		//dd($this->data);
-	}
-
 	public function finderUpdated($changedField = null)
 	{
-		$this->proceed($changedField, $this->fields);
-	}
-
-	public function braceletSteps($changedField = null)
-	{
-		if(count($this->filters['bracelet_type']) > 0) {
-			$braceletFields = [];
-
-			if(in_array('1', $this->filters['bracelet_type'])) {
-				$braceletFields['bracelet_material'] = [
-					'type' => 'entity',
-					'model' => BraceletMaterial::class
-				];
-
-				$braceletFields['bracelet_micro_adjustement'] = [
-					'type' => 'json',
-					'field' => 'bracelet.micro_adjustement',
-					'boolean' => true
-				];
-
-				$braceletFields['bracelet_micro_adjustement_system'] = [
-					'type' => 'entity',
-					'model' => BraceletMicroAdjustementSystem::class
-				];
-			}
-
-			if(in_array('2', $this->filters['bracelet_type'])) {
-				$braceletFields['bracelet_stitching'] = [
-					'type' => 'json',
-					'field' => 'bracelet.stitching',
-					'boolean' => true
-				];
-
-				$braceletFields['bracelet_stitching_color'] = [
-					'type' => 'entity',
-					'model' => BraceletStitchingColor::class
-				];
-			}
-
-			$braceletFields['bracelet_color'] = [
-				'type' => 'entity',
-				'model' => BraceletColor::class
-			];
-
-			$braceletFields['bracelet_style'] = [
-				'type' => 'entity',
-				'model' => BraceletStyle::class
-			];
-
-			$braceletFields['bracelet_clasp'] = [
-				'type' => 'entity',
-				'model' => BraceletClasp::class
-			];
-
-			$braceletFields['bracelet_clasp_color'] = [
-				'type' => 'entity',
-				'model' => BraceletClaspColor::class
-			];
-
-			$braceletFields['bracelet_clasp_material'] = [
-				'type' => 'entity',
-				'model' => BraceletClaspMaterial::class
-			];
-
-			$this->proceed($changedField, $braceletFields);
-		}
-	}
-
-	public function mount()
-	{
-		$this->fields = [
+		$fields = [
 			'country' => [
 				'type' => 'entity',
 				'model' => Country::class,
@@ -460,9 +344,103 @@ class Filters extends Component
 				'type' => 'entity',
 				'model' => BraceletType::class,
 				'hasToGoThrough' => 'braceletMaterials.watches'
-			]
+			],
+			'bracelet_material' => [
+				'type' => 'entity',
+				'model' => BraceletMaterial::class,
+				'condition' => count($this->filters['bracelet_type']) > 0 && in_array('1', $this->filters['bracelet_type'])
+			],
+			'bracelet_micro_adjustement' => [
+				'type' => 'json',
+				'field' => 'bracelet.micro_adjustement',
+				'boolean' => true,
+				'condition' => count($this->filters['bracelet_type']) > 0 && in_array('1', $this->filters['bracelet_type'])
+			],
+			'bracelet_micro_adjustement_system' => [
+				'type' => 'entity',
+				'model' => BraceletMicroAdjustementSystem::class,
+				'condition' => count($this->filters['bracelet_type']) > 0 && in_array('1', $this->filters['bracelet_type'])
+			],
+			'bracelet_stitching' => [
+				'type' => 'json',
+				'field' => 'bracelet.stitching',
+				'boolean' => true,
+				'condition' => count($this->filters['bracelet_type']) > 0 && in_array('2', $this->filters['bracelet_type'])
+			],
+			'bracelet_stitching_color' => [
+				'type' => 'entity',
+				'model' => BraceletStitchingColor::class,
+				'condition' => count($this->filters['bracelet_type']) > 0 && in_array('2', $this->filters['bracelet_type'])
+			],
+			'bracelet_color' => [
+				'type' => 'entity',
+				'model' => BraceletColor::class
+			],
+			'bracelet_style' => [
+				'type' => 'entity',
+				'model' => BraceletStyle::class
+			],
+			'bracelet_clasp' => [
+				'type' => 'entity',
+				'model' => BraceletClasp::class
+			],
+			'bracelet_clasp_color' => [
+				'type' => 'entity',
+				'model' => BraceletClaspColor::class
+			],
+			'bracelet_clasp_material' => [
+				'type' => 'entity',
+				'model' => BraceletClaspMaterial::class
+			],
 		];
 
+		//dd($fields);
+		//dd($this->filters);
+
+		$fieldKeys = array_keys($fields);
+
+		if($changedField !== null) {
+			$index = array_search($changedField, $fieldKeys);
+			// Vide tous les filtres APRÈS le champ qui vient de changer
+			foreach(array_slice($fieldKeys, $index + 1) as $laterField) {
+				$this->filters[$laterField] = is_array($this->filters[$laterField]) ? [] : null;
+			}
+		}
+
+		$watchesData = $this->watchesDataQuery()
+			->get();
+
+		//dd($watchesData);
+
+		foreach($fields as $field => $loader) {
+			$value = $this->filters[$field] ?? null;
+			$isEmpty = isset($loader['boolean'])
+				? is_null($value)
+				: empty($value);
+
+			if($isEmpty && (!isset($loader['condition']) || (isset($loader['condition']) && $loader['condition']))) {
+				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null);
+				elseif($loader['type'] == 'json') $data = $this->loadJson($loader['field'], $watchesData, isset($loader['boolean']) ? $loader['boolean'] : false);
+
+				$this->data[$field] = $data;
+
+				if($data->count() === 0) continue;
+
+				if($data->count() === 1) {
+					if(isset($loader['boolean'])) $this->filters[$field] = $data->first();
+					else $this->filters[$field] = $loader['type'] === 'entity' ? $data->keys()->toArray() : $data->toArray();
+					continue;
+				}
+
+				break;
+			}
+		}
+
+		//dd($this->data);
+	}
+
+	public function mount()
+	{
 		$this->filters['keyword'] = null;
 		$this->filters['country'] = [];
 		$this->filters['type'] = [];
