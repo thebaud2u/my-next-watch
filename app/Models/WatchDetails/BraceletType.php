@@ -42,7 +42,7 @@ class BraceletType extends Model
 		return $this->belongsTo(Admin::class);
 	}
 
-	public function materials(): HasMany
+	public function braceletMaterials(): HasMany
 	{
 		return $this->hasMany(BraceletMaterial::class);
 	}

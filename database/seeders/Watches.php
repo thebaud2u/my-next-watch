@@ -48,7 +48,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
-						'color' => null,
+						'color' => 'steel',
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -109,7 +109,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
-						'color' => null,
+						'color' => 'steel',
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -176,7 +176,7 @@ class Watches extends Seeder
 						'micro_adjustement_system' => '"t-fit"',
 						'stitching' => false,
 						'stitching_color' => [],
-						'style' => null
+						'style' => 'classic'
 					],
 					'case' => [
 						'color' => ['steel'],
@@ -237,7 +237,7 @@ class Watches extends Seeder
 						'micro_adjustement_system' => [],
 						'stitching' => true,
 						'stitching_color' => ['blue'],
-						'style' => null
+						'style' => 'side stitched'
 					],
 					'case' => [
 						'color' => ['black'],
@@ -292,7 +292,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
-						'color' => null,
+						'color' => 'steel',
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -353,7 +353,7 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
-						'color' => null,
+						'color' => 'steel',
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => '"t-fit"',
@@ -420,7 +420,7 @@ class Watches extends Seeder
 						'micro_adjustement_system' => '"t-fit"',
 						'stitching' => false,
 						'stitching_color' => [],
-						'style' => null
+						'style' => 'classic'
 					],
 					'case' => [
 						'color' => ['steel'],
@@ -475,13 +475,13 @@ class Watches extends Seeder
 						'clasp' => 'triple deployant',
 						'clasp_color' => ['steel'],
 						'clasp_material' => ['stainless steel'],
-						'color' => null,
+						'color' => 'steel',
 						'material' => ['stainless steel'],
 						'micro_adjustement' => true,
 						'micro_adjustement_system' => 'classic',
 						'stitching' => false,
 						'stitching_color' => [],
-						'style' => null
+						'style' => 'classic'
 					],
 					'case' => [
 						'color' => ['steel'],
@@ -536,13 +536,13 @@ class Watches extends Seeder
 						'clasp' => 'folding',
 						'clasp_color' => ['black'],
 						'clasp_material' => ['PVD-treated stainless steel'],
-						'color' => null,
+						'color' => 'black',
 						'material' => ['hybrid leather', 'rubber'],
 						'micro_adjustement' => false,
 						'micro_adjustement_system' => null,
 						'stitching' => true,
 						'stitching_color' => ['white'],
-						'style' => null
+						'style' => 'side stitched'
 					],
 					'case' => [
 						'color' => ['black'],

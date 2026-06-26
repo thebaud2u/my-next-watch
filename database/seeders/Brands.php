@@ -22,21 +22,16 @@ class Brands extends Seeder
 		];
 
 		foreach($brands as $brand => $value) {
+			$country = Country::where('code', $value['country_code'])
+				->first();
+
 			$newBrand = new Brand;
+			if($country) $newBrand->country_id = $country->id;
 			$newBrand->name = $value['name'];
 			$newBrand->description = $value['description'];
 			$newBrand->external_link = $value['external_link'];
 			$newBrand->admin_id = $admin->id;
 			$newBrand->save();
-
-			$country = Country::where('code', $value['country_code'])
-				->first();
-
-			if($country) {
-				$newBrand->address()->create([
-					'country_id' => $country->id
-				]);
-			}
 		}
 	}
 }

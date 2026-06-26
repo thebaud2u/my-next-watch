@@ -43,7 +43,7 @@ class BraceletStyle extends Model
 		return $this->belongsTo(Admin::class);
 	}
 
-	public function type(): BelongsTo
+	public function braceletType(): BelongsTo
 	{
 		return $this->belongsTo(BraceletType::class);
 	}

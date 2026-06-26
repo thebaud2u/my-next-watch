@@ -19,4 +19,15 @@ class Country extends Model
 		'name',
 		'slug'
 	];
+
+	// Relations
+	public function brands(): HasMany
+	{
+		return $this->hasMany(Brand::class);
+	}
+
+	public function movements(): HasMany
+	{
+		return $this->hasMany(Movement::class);
+	}
 }

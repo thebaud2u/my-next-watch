@@ -35,8 +35,12 @@ class Movements extends Seeder
 
 		foreach($movements as $brand => $values) {
 			foreach($values as $index => $movement) {
+				$country = Country::where('code', $movement['country_code'])
+					->first();
+
 				$newMovement = new Movement;
 				$newMovement->brand_id = Brand::where('name', $brand)->first()->id;
+				if($country) $newMovement->country_id = $country->id;
 				$newMovement->name = $movement['name'];
 				$newMovement->type = $movement['type'];
 				$newMovement->COSC = $movement['COSC'];
@@ -44,15 +48,6 @@ class Movements extends Seeder
 				$newMovement->manufactured_caliber = $movement['manufactured_caliber'];
 				$newMovement->admin_id = $admin->id;
 				$newMovement->save();
-
-				$country = Country::where('code', $movement['country_code'])
-					->first();
-
-				if($country) {
-					$newMovement->address()->create([
-						'country_id' => $country->id
-					]);
-				}
 			}
 		}
 	}

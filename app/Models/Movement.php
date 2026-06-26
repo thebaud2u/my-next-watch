@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use App\Enums\InformationStatus;
 
@@ -16,6 +15,7 @@ class Movement extends Model
 
 	protected $fillable = [
 		'brand_id',
+		'country_id',
 		'name',
 		'type',
 		'COSC',
@@ -48,11 +48,6 @@ class Movement extends Model
 	}
 
 	// Relations
-	public function address(): MorphOne
-	{
-		return $this->morphOne(Address::class, 'model');
-	}
-
 	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);
@@ -61,6 +56,11 @@ class Movement extends Model
 	public function brand(): BelongsTo
 	{
 		return $this->belongsTo(Brand::class);
+	}
+
+	public function country(): BelongsTo
+	{
+		return $this->belongsTo(Country::class);
 	}
 
 	public function watches(): HasMany

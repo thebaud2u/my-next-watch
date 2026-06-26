@@ -15,8 +15,7 @@ use App\Models\WatchDetails\ {
 
 class Filters extends Component
 {
-	public $activeStep = 1;
-	public $totalSteps = 10;
+	public $fields = [];
 	public $filters = [];
 	public $data = [];
 
@@ -30,14 +29,8 @@ class Filters extends Component
 				});
 			})
 			->when(count($this->filters['country']) > 0, function($when) {
-				$when->whereHas('collection', function($whereHasCollection) {
-					$whereHasCollection->whereHas('brand', function($whereHasBrand) {
-						$whereHasBrand->whereHas('address', function($whereHasAddress) {
-							$whereHasAddress->whereHas('country', function($whereHasCountry) {
-								$whereHasCountry->whereIn('id', $this->filters['country']);
-							});
-						});
-					});
+				$when->whereHas('collection.brand.country', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['country']);
 				});
 			})
 			// Case dimensions filters
@@ -153,10 +146,8 @@ class Filters extends Component
 			})
 			// Bracelet type filters
 			->when(count($this->filters['bracelet_type']) > 0, function($when) {
-				$when->whereHas('braceletMaterials', function($whereHasBraceletMaterial) {
-					$whereHasBraceletMaterial->whereHas('braceletType', function($whereHasBraceletType) {
-						$whereHasBraceletType->whereIn('id', $this->filters['bracelet_type']);
-					});
+				$when->whereHas('braceletMaterials.braceletType', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['bracelet_type']);
 				});
 			})
 			// Bracelet filters
@@ -208,430 +199,270 @@ class Filters extends Component
 			});
 	}
 
-	private function checkToSkip($direction)
+	private function loadModel($model, $watchIds, $hasToGoThrough = null)
 	{
-		if($this->activeStep == 2) {
-			if(
-				count($this->data['case_diameter']) == 1 &&
-				count($this->data['case_lug_to_lug']) == 1 &&
-				count($this->data['case_lug_width']) == 1 &&
-				count($this->data['case_thickness']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 3) {
-			if(
-				count($this->data['case_color']) == 1 &&
-				count($this->data['case_material']) == 1 &&
-				count($this->data['case_open_case_back']) == 1 &&
-				count($this->data['case_sapphire_crystal_case_back']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 4) {
-			if(
-				count($this->data['bezel_color']) == 1 &&
-				count($this->data['bezel_direction']) == 1 &&
-				count($this->data['bezel_marking']) == 1 &&
-				count($this->data['bezel_material']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 5) {
-			if(
-				count($this->data['crystal_domed']) == 1 &&
-				count($this->data['crystal_material']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 6) {
-			if(
-				count($this->data['crown_color']) == 1 &&
-				count($this->data['crown_detail']) == 1 &&
-				count($this->data['crown_material']) == 1 &&
-				count($this->data['crown_screwed_down']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 7) {
-			if(
-				count($this->data['dial_color']) == 1 &&
-				count($this->data['dial_domed']) == 1 &&
-				count($this->data['dial_marker_color']) == 1 &&
-				count($this->data['dial_marker_lume']) == 1 &&
-				count($this->data['dial_marker_lume_color']) == 1 &&
-				count($this->data['dial_marker_type']) == 1 &&
-				count($this->data['dial_skeleton']) == 1 &&
-				count($this->data['dial_textured']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 8) {
-			if(count($this->data['bracelet_type']) == 1) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
-		elseif($this->activeStep == 9) {
-			if(
-				count($this->data['bracelet_micro_adjustement']) == 1 &&
-				count($this->data['bracelet_stitching']) == 1 &&
-				count($this->data['bracelet_clasp']) == 1 &&
-				count($this->data['bracelet_clasp_color']) == 1 &&
-				count($this->data['bracelet_clasp_material']) == 1 &&
-				count($this->data['bracelet_color']) == 1 &&
-				count($this->data['bracelet_material']) == 1 &&
-				count($this->data['bracelet_micro_adjustement_system']) == 1 &&
-				count($this->data['bracelet_stitching_color']) == 1 &&
-				count($this->data['bracelet_style']) == 1
-			) {
-				if($direction == 'next') $this->nextStep();
-				else $this->previousStep();
-			}
-		}
+		return $model::whereHas(is_null($hasToGoThrough) ? 'watches' : $hasToGoThrough, function($whereHas) use($watchIds) {
+				$whereHas->whereIn('watches.id', $watchIds);
+			})
+			->orderBy('name')
+			->pluck('name', 'id');
 	}
 
-	public function finderUpdated()
+	private function loadJson(string $field, $watchesData, bool $keepNull = false)
 	{
+		return $watchesData
+			->pluck($field)
+			->when(!$keepNull, fn($c) => $c->filter())
+			->when($keepNull, fn($c) => $c->filter(fn($v) => !is_null($v)))
+			->unique()
+			->sort()
+			->values();
+	}
+
+	private function proceed($changedField, $fields)
+	{
+		//dd($fields);
+		$fieldKeys = array_keys($fields);
+
+		if($changedField !== null) {
+			$index = array_search($changedField, $fieldKeys);
+			// Vide tous les filtres APRÈS le champ qui vient de changer
+			foreach(array_slice($fieldKeys, $index + 1) as $laterField) {
+				$this->filters[$laterField] = is_array($this->filters[$laterField]) ? [] : null;
+			}
+		}
+
 		$watchesData = $this->watchesDataQuery()
 			->get();
 
-		// If on generalities filters step, update only the case filters
-		if($this->activeStep == 1) {
-			$fields = [
-				'diameter',
-				'thickness',
-				'lug_to_lug',
-				'lug_width'
-			];
+		//dd($watchesData);
 
-			foreach($fields as $field) {
-				$this->data["case_$field"] = $watchesData
-					->pluck("case.$field")
-					->filter()
-					->unique()
-					->sort()
-					->values();
+		foreach($fields as $field => $loader) {
+			$value = $this->filters[$field] ?? null;
+			$isEmpty = isset($loader['boolean'])
+				? is_null($value)
+				: empty($value);
+
+			if($isEmpty) {
+				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null);
+				elseif($loader['type'] == 'json') $data = $this->loadJson($loader['field'], $watchesData, isset($loader['boolean']) ? $loader['boolean'] : false);
+
+				$this->data[$field] = $data;
+
+				if($data->count() === 1) {
+					if(isset($loader['boolean'])) $this->filters[$field] = $data->first();
+					else $this->filters[$field] = $loader['type'] === 'entity' ? $data->keys()->toArray() : $data->toArray();
+					continue;
+				}
+
+				break;
 			}
 		}
-		// If on case dimensions filters step, update only the case color, material and case back details filters
-		elseif($this->activeStep == 2) {
-			$fields = [
-				'open_case_back',
-				'sapphire_crystal_case_back',
-			];
 
-			foreach($fields as $field) {
-				$this->data["case_$field"] = $watchesData
-					->pluck("case.$field")
-					->filter(fn($value) => !is_null($value))
-					->unique()
-					->sort()
-					->values();
-			}
-
-			$this->data['case_waterproofness'] = $watchesData
-				->pluck('case.waterproofness')
-				->filter()
-				->unique()
-				->sort()
-				->values();
-
-			$watchIds = $watchesData->pluck('id');
-			$this->data['case_color'] = CaseColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['case_material'] = CaseMaterial::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
-		// If on case color, material and case back details filters step, update only the bezel filters
-		elseif($this->activeStep == 3) {
-			$this->data['bezel_direction'] = $watchesData
-				->pluck('bezel.direction')
-				->filter()
-				->unique()
-				->sort()
-				->values();
-
-			$watchIds = $watchesData->pluck('id');
-			$this->data['bezel_color'] = BezelColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bezel_marking'] = BezelMarking::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bezel_material'] = BezelMaterial::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
-		// If on bezel filters step, update only the crystal filters
-		elseif($this->activeStep == 4) {
-			$this->data['crystal_domed'] = $watchesData
-				->pluck('crystal.domed')
-				->filter(fn($value) => !is_null($value))
-				->unique()
-				->sort()
-				->values();
-
-			$watchIds = $watchesData->pluck('id');
-			$this->data['crystal_material'] = CrystalMaterial::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
-		// If on crystal filters step, update only the crown filters
-		elseif($this->activeStep == 5) {
-			$this->data['crown_detail'] = $watchesData
-				->pluck('crown.detail')
-				->filter()
-				->unique()
-				->sort()
-				->values();
-
-			$this->data['crown_screwed_down'] = $watchesData
-				->pluck('crown.screwed_down')
-				->filter(fn($value) => !is_null($value))
-				->unique()
-				->sort()
-				->values();
-
-			$watchIds = $watchesData->pluck('id');
-			$this->data['crown_color'] = CrownColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['crown_material'] = CrownMaterial::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
-		// If on crown filters, update only dial filters
-		elseif($this->activeStep == 6) {
-			$fields = [
-				'domed',
-				'marker_lume',
-				'skeleton',
-				'textured'
-			];
-
-			foreach($fields as $field) {
-				$this->data["dial_$field"] = $watchesData
-					->pluck("dial.$field")
-					->filter(fn($value) => !is_null($value))
-					->unique()
-					->sort()
-					->values();
-			}
-
-			$watchIds = $watchesData->pluck('id');
-			$this->data['dial_color'] = DialColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['dial_marker_color'] = DialMarkerColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['dial_marker_lume_color'] = DialMarkerLumeColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['dial_marker_type'] = DialMarkerType::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
-		// If on dial filters, update only bracelet type filters
-		elseif($this->activeStep == 7) {
-			$watchIds = $watchesData->pluck('id');
-			$this->data['bracelet_type'] = BraceletType::whereHas('materials', function($whereHasMaterials) use($watchIds) {
-					$whereHasMaterials->whereHas('watches', function($whereHasWatches) use($watchIds) {
-						$whereHasWatches->whereIn('id', $watchIds);
-					});
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
-		// If on bracelet type filters, update only bracelet filters
-		elseif($this->activeStep == 8) {
-			$fields = [
-				'micro_adjustement',
-				'stitching'
-			];
-
-			foreach($fields as $field) {
-				$this->data["bracelet_$field"] = $watchesData
-					->pluck("bracelet.$field")
-					->filter(fn($value) => !is_null($value))
-					->unique()
-					->sort()
-					->values();
-			}
-
-			$watchIds = $watchesData->pluck('id');
-			$this->data['bracelet_clasp'] = BraceletClasp::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_clasp_color'] = BraceletClaspColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_clasp_material'] = BraceletClaspMaterial::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_color'] = BraceletColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_material'] = BraceletMaterial::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_micro_adjustement_system'] = BraceletMicroAdjustementSystem::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_stitching_color'] = BraceletStitchingColor::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-
-			$this->data['bracelet_style'] = BraceletStyle::whereHas('watches', function($whereHas) use($watchIds) {
-					$whereHas->whereIn('id', $watchIds);
-				})
-				->orderBy('name')
-				->pluck('name', 'id');
-		}
+		//dd($this->data);
 	}
 
-	public function goToStep($index)
+	public function finderUpdated($changedField = null)
 	{
-		$this->activeStep = $index;
+		$this->proceed($changedField, $this->fields);
 	}
 
-	public function nextStep()
+	public function braceletSteps($changedField = null)
 	{
-		if($this->activeStep < $this->totalSteps) $this->activeStep++;
+		if(count($this->filters['bracelet_type']) > 0) {
+			$braceletFields = [];
 
-		$this->finderUpdated();
-		$this->checkToSkip('next');
-	}
+			if(in_array('1', $this->filters['bracelet_type'])) {
+				$braceletFields['bracelet_material'] = [
+					'type' => 'entity',
+					'model' => BraceletMaterial::class
+				];
 
-	public function previousStep()
-	{
-		$this->activeStep--;
+				$braceletFields['bracelet_micro_adjustement'] = [
+					'type' => 'json',
+					'field' => 'bracelet.micro_adjustement',
+					'boolean' => true
+				];
 
-		if($this->activeStep == 1) {
-			$this->filters['case_diameter'] = [];
-			$this->filters['case_lug_to_lug'] = [];
-			$this->filters['case_lug_width'] = [];
-			$this->filters['case_thickness'] = [];
-		}
-		elseif($this->activeStep == 2) {
-			$this->filters['case_color'] = [];
-			$this->filters['case_material'] = [];
-			$this->filters['case_open_case_back'] = null;
-			$this->filters['case_sapphire_crystal_case_back'] = null;
-			$this->filters['case_waterproofness'] = [];
-		}
-		elseif($this->activeStep == 3) {
-			$this->filters['bezel_color'] = [];
-			$this->filters['bezel_direction'] = [];
-			$this->filters['bezel_marking'] = [];
-			$this->filters['bezel_material'] = [];
-		}
-		elseif($this->activeStep == 4) {
-			$this->filters['crystal_domed'] = null;
-			$this->filters['crystal_material'] = [];
-		}
-		elseif($this->activeStep == 5) {
-			$this->filters['crown_color'] = [];
-			$this->filters['crown_detail'] = [];
-			$this->filters['crown_material'] = [];
-			$this->filters['crown_screwed_down'] = null;
-		}
-		elseif($this->activeStep == 6) {
-			$this->filters['dial_color'] = [];
-			$this->filters['dial_domed'] = null;
-			$this->filters['dial_marker_color'] = [];
-			$this->filters['dial_marker_lume'] = null;
-			$this->filters['dial_marker_lume_color'] = [];
-			$this->filters['dial_marker_type'] = [];
-			$this->filters['dial_skeleton'] = null;
-			$this->filters['dial_textured'] = null;
-		}
-		elseif($this->activeStep == 7) $this->filters['bracelet_type'] = [];
-		elseif($this->activeStep == 8) {
-			$this->filters['bracelet_clasp'] = [];
-			$this->filters['bracelet_clasp_color'] = [];
-			$this->filters['bracelet_clasp_material'] = [];
-			$this->filters['bracelet_color'] = [];
-			$this->filters['bracelet_material'] = [];
-			$this->filters['bracelet_micro_adjustement'] = null;
-			$this->filters['bracelet_micro_adjustement_system'] = [];
-			$this->filters['bracelet_stitching'] = null;
-			$this->filters['bracelet_stitching_color'] = [];
-			$this->filters['bracelet_style'] = [];
-		}
+				$braceletFields['bracelet_micro_adjustement_system'] = [
+					'type' => 'entity',
+					'model' => BraceletMicroAdjustementSystem::class
+				];
+			}
 
-		$this->finderUpdated();
-		$this->checkToSkip('previous');
+			if(in_array('2', $this->filters['bracelet_type'])) {
+				$braceletFields['bracelet_stitching'] = [
+					'type' => 'json',
+					'field' => 'bracelet.stitching',
+					'boolean' => true
+				];
+
+				$braceletFields['bracelet_stitching_color'] = [
+					'type' => 'entity',
+					'model' => BraceletStitchingColor::class
+				];
+			}
+
+			$braceletFields['bracelet_color'] = [
+				'type' => 'entity',
+				'model' => BraceletColor::class
+			];
+
+			$braceletFields['bracelet_style'] = [
+				'type' => 'entity',
+				'model' => BraceletStyle::class
+			];
+
+			$braceletFields['bracelet_clasp'] = [
+				'type' => 'entity',
+				'model' => BraceletClasp::class
+			];
+
+			$braceletFields['bracelet_clasp_color'] = [
+				'type' => 'entity',
+				'model' => BraceletClaspColor::class
+			];
+
+			$braceletFields['bracelet_clasp_material'] = [
+				'type' => 'entity',
+				'model' => BraceletClaspMaterial::class
+			];
+
+			$this->proceed($changedField, $braceletFields);
+		}
 	}
 
 	public function mount()
 	{
+		$this->fields = [
+			'country' => [
+				'type' => 'entity',
+				'model' => Country::class,
+				'hasToGoThrough' => 'brands.watches'
+			],
+			'case_diameter' => [
+				'type' => 'json',
+				'field' => 'case.diameter'
+			],
+			'case_thickness' => [
+				'type' => 'json',
+				'field' => 'case.thickness'
+			],
+			'case_lug_width' => [
+				'type' => 'json',
+				'field' => 'case.lug_width'
+			],
+			'case_lug_to_lug' => [
+				'type' => 'json',
+				'field' => 'case.lug_to_lug'
+			],
+			'case_material' => [
+				'type' => 'entity',
+				'model' => CaseMaterial::class
+			],
+			'case_color' => [
+				'type' => 'entity',
+				'model' => CaseColor::class
+			],
+			'case_open_case_back' => [
+				'type' => 'json',
+				'field' => 'case.open_case_back',
+				'boolean' => true,
+			],
+			'case_sapphire_crystal_case_back' => [
+				'type' => 'json',
+				'field' => 'case.sapphire_crystal_case_back',
+				'boolean' => true,
+			],
+			'case_waterproofness' => [
+				'type' => 'json',
+				'field' => 'case.waterproofness'
+			],
+			'bezel_direction' => [
+				'type' => 'json',
+				'field' => 'bezel.direction'
+			],
+			'bezel_color' => [
+				'type' => 'entity',
+				'model' => BezelColor::class
+			],
+			'bezel_marking' => [
+				'type' => 'entity',
+				'model' => BezelMarking::class
+			],
+			'bezel_material' => [
+				'type' => 'entity',
+				'model' => BezelMaterial::class
+			],
+			'crystal_domed' => [
+				'type' => 'json',
+				'field' => 'crystal.domed',
+				'boolean' => true
+			],
+			'crystal_material' => [
+				'type' => 'entity',
+				'model' => CrystalMaterial::class
+			],
+			'crown_color' => [
+				'type' => 'entity',
+				'model' => CrownColor::class
+			],
+			'crown_detail' => [
+				'type' => 'json',
+				'field' => 'crown.detail'
+			],
+			'crown_material' => [
+				'type' => 'entity',
+				'model' => CrownMaterial::class
+			],
+			'crown_screwed_down' => [
+				'type' => 'json',
+				'field' => 'crown.screwed_down',
+				'boolean' => true
+			],
+			'dial_domed' => [
+				'type' => 'json',
+				'field' => 'dial.domed',
+				'boolean' => true
+			],
+			'dial_skeleton' => [
+				'type' => 'json',
+				'field' => 'dial.skeleton',
+				'boolean' => true
+			],
+			'dial_textured' => [
+				'type' => 'json',
+				'field' => 'dial.textured',
+				'boolean' => true
+			],
+			'dial_color' => [
+				'type' => 'entity',
+				'model' => DialColor::class
+			],
+			'dial_marker_type' => [
+				'type' => 'entity',
+				'model' => DialMarkerType::class
+			],
+			'dial_marker_color' => [
+				'type' => 'entity',
+				'model' => DialMarkerColor::class
+			],
+			'dial_marker_lume' => [
+				'type' => 'json',
+				'field' => 'dial.marker_lume',
+				'boolean' => true
+			],
+			'dial_marker_lume_color' => [
+				'type' => 'entity',
+				'model' => DialMarkerLumeColor::class
+			],
+			'bracelet_type' => [
+				'type' => 'entity',
+				'model' => BraceletType::class,
+				'hasToGoThrough' => 'braceletMaterials.watches'
+			]
+		];
+
 		$this->filters['keyword'] = null;
 		$this->filters['country'] = [];
 		$this->filters['type'] = [];
@@ -690,6 +521,8 @@ class Filters extends Component
 		$this->filters['dial_skeleton'] = null;
 		$this->filters['dial_textured'] = null;
 
+		$this->data['type'] = Type::orderBy('name', 'ASC')->get();
+
 		if(session()->has('filters')) {
 			$sessionFilters = session()->get('filters');
 
@@ -697,10 +530,6 @@ class Filters extends Component
 				if(!empty($sessionFilters[$key])) $this->filters[$key] = $sessionFilters[$key];
 			}
 		}
-
-		$this->data['types'] = Type::orderBy('name', 'ASC')->get();
-		$this->data['countries'] = Country::whereIn('code', ['FRA', 'USA', 'CHE', 'JPN', 'GBR'])->get();
-		$this->finderUpdated();
 	}
 
 	public function render()

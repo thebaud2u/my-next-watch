@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -26,6 +25,7 @@ class Brand extends Model implements Viewable, HasMedia
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
 
 	protected $fillable = [
+		'country_id',
 		'name',
 		'slug',
 		'description',
@@ -79,11 +79,6 @@ class Brand extends Model implements Viewable, HasMedia
 	}
 
 	// Relations
-	public function address(): MorphOne
-	{
-		return $this->morphOne(Address::class, 'model');
-	}
-	
 	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);
@@ -92,6 +87,11 @@ class Brand extends Model implements Viewable, HasMedia
 	public function collections(): HasMany
 	{
 		return $this->hasMany(Collection::class);
+	}
+
+	public function country(): BelongsTo
+	{
+		return $this->belongsTo(Country::class);
 	}
 
 	public function watches(): HasManyThrough
