@@ -24,8 +24,7 @@ class Watches extends Seeder
 
 	function getId(string $modelClass, string $name): int
 	{
-		return $modelClass::where('name', $name)->value('id')
-			?? throw new \RuntimeException("$modelClass not found : $name");
+		return $modelClass::where('name', $name)->value('id') ?? throw new \RuntimeException("$modelClass not found : $name");
 	}
 
 	public function run(): void

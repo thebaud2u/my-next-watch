@@ -51,7 +51,7 @@ Route::controller(ContactController::class)->group(function() {
 
 Route::controller(FinderController::class)->group(function () {
 	Route::get('/lets-find-my-next-watch', 'index')->name('lets-find-my-next-watch');
-	Route::get('/search', 'search')->name('search');
+	Route::get('/watch/{slug}', 'show')->name('watch.show');
 });
 
 Route::controller(HomeController::class)->group(function() {
