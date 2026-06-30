@@ -1,6 +1,6 @@
 <x-app-layout>
 	@push('seo')
-		<title>My Next Watch</title>
+		<title>{{ env('APP_NAME') }}</title>
 		<meta name="description" content="{{ __(':site allows you to find the watch that matchs your criterias', ['site' => env('APP_NAME')]) }}">
 		<meta name="robots" content="max-snippet:-1">
 	@endpush

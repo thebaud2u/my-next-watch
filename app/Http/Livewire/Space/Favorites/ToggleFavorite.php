@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Front\Space\Favorites;
+namespace App\Http\Livewire\Space\Favorites;
 
 use Livewire\Component;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-use App\Enums\AlertTypes;
-
-use App\Models\{Alert, Animal, Breed, BreedClub, Company, User};
+use App\Models\{Brand, Collection, User, Watch};
 
 class ToggleFavorite extends Component
 {
@@ -36,40 +33,14 @@ class ToggleFavorite extends Component
 		}
 	}
 
-	public function createAlert()
-	{
-		$values = new Collection();
-
-		$newAlert = new Alert;
-		$newAlert->user_id = Auth::guard('web')->user()->id;
-		$newAlert->company_id = $this->target->id;
-		$newAlert->type = AlertTypes::Company;
-		$newAlert->name = __('Company :company', ['company' =>  $this->target->name]);
-		$newAlert->values = $values;
-		$newAlert->save();
-
-		$this->dispatch('alert-created');
-	}
-
 	public function mount()
 	{
 		if(Auth::guard('web')->check())	$this->user = Auth::guard('web')->user();
 		else $this->user = new User;
-
-		if($this->target instanceof Company) $this->createModal = true;
-		
-		if($this->target instanceof Animal) {
-			$post = $this->target->post ? $this->target->post : $this->target->getPostFromLitter();
-
-			if($post->user && $post->user->id != $this->user->id) $this->createToggle = true;
-		}
-		elseif($this->target instanceof Breed) $this->createToggle = true;
-		elseif($this->target instanceof BreedClub) $this->createToggle = true;
-		elseif($this->target->user->id != $this->user->id) $this->createToggle = true;
 	}
 
 	public function render()
 	{
-		return view('livewire.front.space.favorites.toggle-favorite');
+		return view('livewire.space.favorites.toggle-favorite');
 	}
 }

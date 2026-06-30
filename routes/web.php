@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Front\{
+	BrandController,
+	CollectionController,
 	ContactController,
 	HomeController,
 	LegalPageController,
@@ -44,6 +46,14 @@ Route::get('/redirect-to-login', function (Request $request) {
 	return redirect()->route('login');
 })->name('redirect.to.login');
 
+Route::controller(BrandController::class)->name('brand.')->group(function () {
+	Route::get('/brand/{brand:slug}', 'show')->name('show');
+});
+
+Route::controller(CollectionController::class)->name('collection.')->group(function () {
+	Route::get('/collection/{collection:slug}', 'show')->name('show');
+});
+
 Route::controller(ContactController::class)->group(function() {
 	Route::get(__('routes.contact.index'), 'index')->name('contact');
 	Route::post(__('routes.contact.submit'), 'submit')->name('contact.submit');
@@ -51,7 +61,6 @@ Route::controller(ContactController::class)->group(function() {
 
 Route::controller(FinderController::class)->group(function () {
 	Route::get('/lets-find-my-next-watch', 'index')->name('lets-find-my-next-watch');
-	Route::get('/watch/{slug}', 'show')->name('watch.show');
 });
 
 Route::controller(HomeController::class)->group(function() {
@@ -68,7 +77,7 @@ Route::name('legal-pages.')->group(function() {
 });
 
 Route::controller(WatchController::class)->name('watch.')->group(function () {
-	Route::get('/watch/{watch:slug}', 'index')->name('show');
+	Route::get('/watch/{watch:slug}', 'show')->name('show');
 });
 
 /* ===================================================================== *

@@ -21,17 +21,9 @@
 							</div>
 						@endforeach
 					</div>
-
-					<div class="flex flex-row items-center justify-center">
-						@error('filters.type')
-							<span class="error text-danger-700">
-								{{ $message }}
-							</span>
-						@enderror
-					</div>
 				</div>
 
-				@if(count($filters['type']) > 0)
+				@if(count($filters['type']) > 0 && count($data['country']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.country" :value="__('A country preference ?')" :class="'pl-4'"/>
 
@@ -51,18 +43,10 @@
 								</div>
 							@endforeach
 						</div>
-
-						<div class="flex flex-row items-center justify-center">
-							@error('filters.country')
-								<span class="error text-danger-700">
-									{{ $message }}
-								</span>
-							@enderror
-						</div>
 					</div>
 				@endif
 
-				@if(count($filters['country']) > 0)
+				@if(count($filters['country']) > 0 && count($data['case_diameter']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_diameter" :value="__('What about the case diameter ?')" :class="'pl-4'"/>
 
@@ -85,7 +69,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_diameter']) > 0)
+				@if(count($filters['case_diameter']) > 0 && count($data['case_thickness']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_thickness" :value="__('What about the case thickness ?')" :class="'pl-4'"/>
 
@@ -108,7 +92,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_thickness']) > 0)
+				@if(count($filters['case_thickness']) > 0 && count($data['case_lug_width']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_lug_width" :value="__('What about the case lug width ?')" :class="'pl-4'"/>
 
@@ -131,7 +115,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_lug_width']) > 0)
+				@if(count($filters['case_lug_width']) > 0 && count($data['case_lug_to_lug']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_lug_to_lug" :value="__('What about the case lug to lug ?')" :class="'pl-4'"/>
 
@@ -154,7 +138,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_lug_to_lug']) > 0)
+				@if(count($filters['case_lug_to_lug']) > 0 && count($data['case_material']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_material" :value="__('What about the case material ?')" :class="'pl-4'"/>
 
@@ -177,7 +161,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_material']) > 0)
+				@if(count($filters['case_material']) > 0 && count($data['case_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_color" :value="__('What about the case color ?')" :class="'pl-4'"/>
 
@@ -200,7 +184,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_color']) > 0)
+				@if(count($filters['case_color']) > 0 && count($data['case_open_case_back']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_open_case_back" :value="__('Do you want the case back to be opened ?')" :class="'pl-4'"/>
 
@@ -226,7 +210,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['case_open_case_back']))
+				@if(!is_null($filters['case_open_case_back']) && count($data['case_sapphire_crystal_case_back']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_sapphire_crystal_case_back" :value="__('Do you want the case back crystal to be a sapphire crystal ?')" :class="'pl-4'"/>
 
@@ -252,7 +236,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['case_sapphire_crystal_case_back']))
+				@if(!is_null($filters['case_sapphire_crystal_case_back']) && count($data['case_waterproofness']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.case_waterproofness" :value="__('What about the case waterproofness ?')" :class="'pl-4'"/>
 
@@ -275,7 +259,154 @@
 					</div>
 				@endif
 
-				@if(count($filters['case_waterproofness']) > 0)
+				@if(!is_null($filters['case_open_case_back'])  && count($data['movement_type']) > 1)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.movement_type" :value="__('What about the movement type ?')" :class="'pl-4'"/>
+
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['movement_type'] as $movementType)
+								<div class="w-full p-2">
+									<input type="checkbox" name="filters.movement_type" value="{{ $movementType }}" id="watch-movement-type-{{ $movementType }}" wire:model="filters.movement_type" wire:change="finderUpdated('movement_type')" class="peer hidden" />
+									<label for="watch-movement-type-{{ $movementType }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ ucfirst(__($movementType)) }}
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				@if(count($filters['movement_type']) > 0 && count($data['movement_COSC']) > 1)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.movement_COSC" :value="__('Do you want the movement to be COSC Certified ?')" :class="'pl-4'"/>
+
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['movement_COSC'] as $movementCOSC)
+								@php
+									$value = $movementCOSC ? '1' : '0';
+								@endphp
+								<div class="w-full p-2">
+									<input type="radio" name="filters.movement_COSC" value="{{ $value }}" id="watch-movement-COSC-{{ $value }}" wire:model="filters.movement_COSC" wire:change="finderUpdated('movement_COSC')" class="peer hidden" />
+									<label for="watch-movement-COSC-{{ $value }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ boolLabel($movementCOSC) }}
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				@if(!is_null($filters['movement_METAS']) && count($data['movement_METAS']) > 1)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.movement_METAS" :value="__('Do you want the movement to be METAS Certified ?')" :class="'pl-4'"/>
+
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['movement_METAS'] as $movementMETAS)
+								@php
+									$value = $movementMETAS ? '1' : '0';
+								@endphp
+								<div class="w-full p-2">
+									<input type="radio" name="filters.movement_METAS" value="{{ $value }}" id="watch-movement-METAS-{{ $value }}" wire:model="filters.movement_METAS" wire:change="finderUpdated('movement_METAS')" class="peer hidden" />
+									<label for="watch-movement-METAS-{{ $value }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ boolLabel($movementMETAS) }}
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				@if(!is_null($filters['movement_METAS']) && count($data['movement_manufactured_caliber']) > 1)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.movement_manufactured_caliber" :value="__('Do you want the caliber to be manufactured ?')" :class="'pl-4'"/>
+
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['movement_manufactured_caliber'] as $movementManufacturedCaliber)
+								@php
+									$value = $movementManufacturedCaliber ? '1' : '0';
+								@endphp
+								<div class="w-full p-2">
+									<input type="radio" name="filters.movement_manufactured_caliber" value="{{ $value }}" id="watch-movement-manufactured-caliber-{{ $value }}" wire:model="filters.movement_manufactured_caliber" wire:change="finderUpdated('movement_manufactured_caliber')" class="peer hidden" />
+									<label for="watch-movement-manufactured-caliber-{{ $value }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ boolLabel($movementManufacturedCaliber) }}
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				@if(!is_null($filters['movement_manufactured_caliber']) && count($data['power_reserve']) > 1)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.power_reserve" :value="__('What about the power reserve ?')" :class="'pl-4'"/>
+
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['power_reserve'] as $powerReserve)
+								<div class="w-full p-2">
+									<input type="checkbox" name="filters.power_reserve" value="{{ $powerReserve }}" id="watch-power-reserve-{{ $powerReserve }}" wire:model="filters.power_reserve" wire:change="finderUpdated('power_reserve')" class="peer hidden" />
+									<label for="watch-power-reserve-{{ $powerReserve }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ $powerReserve }}h
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				@if(count($filters['power_reserve']) > 0 && count($data['complication']) > 1)
+					<div class="finder-step flex flex-col gap-4 my-4">
+						<x-front.input-label for="filters.complication" :value="__('What about the watch complication ?')" :class="'pl-4'"/>
+
+						<div class="flex flex-row justify-center items-center">
+							@foreach($data['complication'] as $complicationId => $complicationName)
+								<div class="w-full p-2">
+									<input type="checkbox" name="filters.complication" value="{{ $complicationId }}" id="watch-bezel-color-{{ $complicationId }}" wire:model="filters.complication" wire:change="finderUpdated('complication')" class="peer hidden" />
+									<label for="watch-bezel-color-{{ $complicationId }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+										<div>
+											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
+												<span>
+													{{ ucfirst(__($complicationName)) }}
+												</span>
+											</h3>
+										</div>
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				@endif
+
+				@if(count($filters['complication']) > 0 && count($data['bezel_direction']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.bezel_direction" :value="__('What about the bezel direction ?')" :class="'pl-4'"/>
 
@@ -298,7 +429,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['bezel_direction']) > 0)
+				@if(count($filters['bezel_direction']) > 0 && count($data['bezel_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.bezel_color" :value="__('What about the bezel color ?')" :class="'pl-4'"/>
 
@@ -321,7 +452,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['bezel_color']) > 0)
+				@if(count($filters['bezel_color']) > 0 && count($data['bezel_marking']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.bezel_marking" :value="__('What about the bezel marking ?')" :class="'pl-4'"/>
 
@@ -344,7 +475,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['bezel_marking']) > 0)
+				@if(count($filters['bezel_marking']) > 0 && count($data['bezel_material']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.bezel_material" :value="__('What about the bezel material ?')" :class="'pl-4'"/>
 
@@ -367,7 +498,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['bezel_material']) > 0)
+				@if(count($filters['bezel_material']) > 0 && count($data['crystal_domed']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crystal_domed" :value="__('Do you want the crystal to be domed ?')" :class="'pl-4'"/>
 
@@ -393,7 +524,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['crystal_domed']))
+				@if(!is_null($filters['crystal_domed']) && count($data['crystal_material']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crystal_material" :value="__('What about the crystal material ?')" :class="'pl-4'"/>
 
@@ -416,7 +547,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['crystal_material']) > 0)
+				@if(count($filters['crystal_material']) > 0 && count($data['crown_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crown_color" :value="__('What about the crown color ?')" :class="'pl-4'"/>
 
@@ -439,7 +570,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['crown_color']) > 0)
+				@if(count($filters['crown_color']) > 0 && count($data['crown_detail']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crown_detail" :value="__('What detail would like the crown to have ?')" :class="'pl-4'"/>
 
@@ -462,7 +593,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['crown_detail']) > 0)
+				@if(count($filters['crown_detail']) > 0 && count($data['crown_material']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crown_material" :value="__('What about the crystal material ?')" :class="'pl-4'"/>
 
@@ -485,7 +616,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['crown_material']) > 0)
+				@if(count($filters['crown_material']) > 0 && count($data['crown_screwed_down']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crown_screwed_down" :value="__('Do you want the crown to be screwed down ?')" :class="'pl-4'"/>
 
@@ -511,7 +642,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['crown_screwed_down']))
+				@if(!is_null($filters['crown_screwed_down']) && count($data['dial_domed']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_domed" :value="__('Do you want the dial to be domed ?')" :class="'pl-4'"/>
 
@@ -537,7 +668,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['dial_domed']))
+				@if(!is_null($filters['dial_domed']) && count($data['dial_skeleton']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_skeleton" :value="__('Do you want a skeleton dial ?')" :class="'pl-4'"/>
 
@@ -563,7 +694,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['dial_skeleton']))
+				@if(!is_null($filters['dial_skeleton']) && count($data['dial_textured']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_textured" :value="__('Do you want the dial to be textured ?')" :class="'pl-4'"/>
 
@@ -589,7 +720,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['dial_textured']))
+				@if(!is_null($filters['dial_textured']) && count($data['dial_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_color" :value="__('What dial color would you like ?')" :class="'pl-4'"/>
 
@@ -612,7 +743,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['dial_color']) > 0)
+				@if(count($filters['dial_color']) > 0 && count($data['dial_marker_type']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_marker_type" :value="__('What type of dial marker would you like ?')" :class="'pl-4'"/>
 
@@ -635,7 +766,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['dial_marker_type']) > 0)
+				@if(count($filters['dial_marker_type']) > 0 && count($data['dial_marker_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_marker_color" :value="__('What marker color would you like ?')" :class="'pl-4'"/>
 
@@ -658,7 +789,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['dial_marker_color']) > 0)
+				@if(count($filters['dial_marker_color']) > 0 && count($data['dial_marker_lume']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_marker_lume" :value="__('Do you want the dial marker to have lume ?')" :class="'pl-4'"/>
 
@@ -684,7 +815,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['dial_marker_lume']))
+				@if(!is_null($filters['dial_marker_lume']) && count($data['dial_marker_lume_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_marker_lume_color" :value="__('What marker lume color would you like ?')" :class="'pl-4'"/>
 
@@ -707,7 +838,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['dial_marker_lume_color']) > 0)
+				@if(count($filters['dial_marker_lume_color']) > 0 && count($data['bracelet_type']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.bracelet_type" :value="__('What about the bracelet type ?')" :class="'pl-4'"/>
 
@@ -731,7 +862,7 @@
 				@endif
 
 				@if(count($filters['bracelet_type']) > 0)
-					@if(in_array('1', $filters['bracelet_type']))
+					@if(in_array('1', $filters['bracelet_type']) && count($data['bracelet_material']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_material" :value="__('What should the bracelet be made of ?')" :class="'pl-4'"/>
 
@@ -753,7 +884,7 @@
 							</div>
 						</div>
 
-						@if(count($filters['bracelet_material']) > 0)
+						@if(count($filters['bracelet_material']) > 0 && count($data['bracelet_micro_adjustement']) > 1)
 							<div class="finder-step flex flex-col gap-4 my-4">
 								<x-front.input-label for="filters.bracelet_micro_adjustement" :value="__('Do you want the bracelet clasp to have a micro adjustement system ?')" :class="'pl-4'"/>
 
@@ -779,7 +910,7 @@
 							</div>
 						@endif
 
-						@if(!is_null($filters['bracelet_micro_adjustement']))
+						@if(!is_null($filters['bracelet_micro_adjustement']) && count($data['bracelet_micro_adjustement_system']) > 1)
 							<div class="finder-step flex flex-col gap-4 my-4">
 								<x-front.input-label for="filters.bracelet_micro_adjustement_system" :value="__('What micro adjustement system ?')" :class="'pl-4'"/>
 
@@ -803,7 +934,7 @@
 						@endif
 					@endif
 
-					@if((count($filters['bracelet_type']) == 1 && in_array('2', $filters['bracelet_type'])) || (count($filters['bracelet_type']) > 0 && in_array('2', $filters['bracelet_type']) && !is_null($filters['bracelet_micro_adjustement']) && count($filters['bracelet_micro_adjustement_system']) > 0))
+					@if(((count($filters['bracelet_type']) == 1 && in_array('2', $filters['bracelet_type'])) || (count($filters['bracelet_type']) > 0 && in_array('2', $filters['bracelet_type']) && !is_null($filters['bracelet_micro_adjustement']) && count($filters['bracelet_micro_adjustement_system']) > 0)) && count($data['bracelet_stitching']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_stitching" :value="__('Do you want the strap to have stitching ?')" :class="'pl-4'"/>
 
@@ -852,7 +983,7 @@
 						@endif
 					@endif
 
-					@if(count($filters['bracelet_material']) > 0)
+					@if(count($filters['bracelet_material']) > 0 && count($data['bracelet_color']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_color" :value="__('What color should have the bracelet ?')" :class="'pl-4'"/>
 
@@ -875,7 +1006,7 @@
 						</div>
 					@endif
 
-					@if(count($filters['bracelet_color']) > 0)
+					@if(count($filters['bracelet_color']) > 0 && count($data['bracelet_style']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_style" :value="__('What bracelet style would you like ?')" :class="'pl-4'"/>
 
@@ -898,7 +1029,7 @@
 						</div>
 					@endif
 
-					@if(count($filters['bracelet_style']) > 0)
+					@if(count($filters['bracelet_style']) > 0 && count($data['bracelet_clasp']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_clasp" :value="__('What bracelet clasp would you like ?')" :class="'pl-4'"/>
 
@@ -921,7 +1052,7 @@
 						</div>
 					@endif
 
-					@if(count($filters['bracelet_clasp']) > 0)
+					@if(count($filters['bracelet_clasp']) > 0 && count($data['bracelet_clasp_color']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_clasp_color" :value="__('What bracelet clasp color would you like ?')" :class="'pl-4'"/>
 
@@ -944,7 +1075,7 @@
 						</div>
 					@endif
 
-					@if(count($filters['bracelet_clasp_color']) > 0)
+					@if(count($filters['bracelet_clasp_color']) > 0 && count($data['bracelet_clasp_material']) > 1)
 						<div class="finder-step flex flex-col gap-4 my-4">
 							<x-front.input-label for="filters.bracelet_clasp_material" :value="__('What bracelet clasp material would you like ?')" :class="'pl-4'"/>
 
@@ -978,9 +1109,15 @@
 	@else
 		<div class="w-full max-w-5xl flex flex-col px-8 py-8">
 			<div class="flex-1">
-				<div class="flex flex-col w-full gap-4 px-4">
+				<div class="px-4 mb-6">
+					<h2 class="font-bold text-[28px]">
+						{{ __('Watches matching') }}
+					</h2>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
 					@foreach($watches as $watch)
-						@include('components.front.finder.banner')
+						@include('components.front.finder.list-entry')
 					@endforeach
 				</div>
 			</div>

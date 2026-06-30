@@ -33,7 +33,7 @@ class Index extends Component
 		$watchIds = Watch::query()->pluck('id');
 
 		// Generalities filters
-		if (count($this->filters['type']) > 0) {
+		if(count($this->filters['type']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('types', function($whereHas) {
 					$whereHas->whereIn('slug', $this->filters['type']);
@@ -41,7 +41,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['country']) > 0) {
+		if(count($this->filters['country']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('collection.brand.country', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['country']);
@@ -50,32 +50,32 @@ class Index extends Component
 		}
 
 		// Case dimensions filters
-		if (count($this->filters['case_diameter']) > 0) {
+		if(count($this->filters['case_diameter']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereIn('case->diameter', $this->filters['case_diameter'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['case_lug_to_lug']) > 0) {
+		if(count($this->filters['case_lug_to_lug']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereIn('case->lug_to_lug', $this->filters['case_lug_to_lug'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['case_lug_width']) > 0) {
+		if(count($this->filters['case_lug_width']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereIn('case->lug_width', $this->filters['case_lug_width'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['case_thickness']) > 0) {
+		if(count($this->filters['case_thickness']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereIn('case->thickness', $this->filters['case_thickness'])
 				->pluck('id');
 		}
 
 		// Case color, material and case back details filters
-		if (count($this->filters['case_color']) > 0) {
+		if(count($this->filters['case_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('caseColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['case_color']);
@@ -83,7 +83,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['case_material']) > 0) {
+		if(count($this->filters['case_material']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('caseMaterials', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['case_material']);
@@ -91,26 +91,74 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['case_open_case_back'])) {
+		if(!is_null($this->filters['case_open_case_back'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('case->open_case_back', (bool) $this->filters['case_open_case_back'])
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['case_sapphire_crystal_case_back'])) {
+		if(!is_null($this->filters['case_sapphire_crystal_case_back'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('case->sapphire_crystal_case_back', (bool) $this->filters['case_sapphire_crystal_case_back'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['case_waterproofness']) > 0) {
+		if(count($this->filters['case_waterproofness']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereIn('case->waterproofness', $this->filters['case_waterproofness'])
 				->pluck('id');
 		}
 
+		// Movement filters
+		if(count($this->filters['movement_type']) > 0) {
+			$watchIds = Watch::whereIn('id', $watchIds)
+				->whereHas('movement', function($whereHas) {
+					$whereHas->whereIn('type', $this->filters['movement_type']);
+				})
+				->pluck('id');
+		}
+
+		if(!is_null($this->filters['movement_COSC'])) {
+			$watchIds = Watch::whereIn('id', $watchIds)
+				->whereHas('movement', function($whereHas) {
+					$whereHas->where('COSC', (bool) $this->filters['movement_COSC']);
+				})
+				->pluck('id');
+		}
+
+		if(!is_null($this->filters['movement_METAS'])) {
+			$watchIds = Watch::whereIn('id', $watchIds)
+				->whereHas('movement', function($whereHas) {
+					$whereHas->where('METAS', (bool) $this->filters['movement_METAS']);
+				})
+				->pluck('id');
+		}
+
+		if(!is_null($this->filters['movement_manufactured_caliber'])) {
+			$watchIds = Watch::whereIn('id', $watchIds)
+				->whereHas('movement', function($whereHas) {
+					$whereHas->where('manufactured_caliber', (bool) $this->filters['movement_manufactured_caliber']);
+				})
+				->pluck('id');
+		}
+
+		// Specification filters
+		if(count($this->filters['power_reserve']) > 0) {
+			$watchIds = Watch::whereIn('id', $watchIds)
+				->whereIn('specification->power_reserve', $this->filters['power_reserve'])
+				->pluck('id');
+		}
+
+		if(count($this->filters['complication']) > 0) {
+			$watchIds = Watch::whereIn('id', $watchIds)
+				->whereHas('complications', function($whereHas) {
+					$whereHas->whereIn('id', $this->filters['complication']);
+				})
+				->pluck('id');
+		}
+
 		// Bezel filters
-		if (count($this->filters['bezel_color']) > 0) {
+		if(count($this->filters['bezel_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('bezelColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bezel_color']);
@@ -118,13 +166,13 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bezel_direction']) > 0) {
+		if(count($this->filters['bezel_direction']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereIn('bezel->direction', $this->filters['bezel_direction'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['bezel_marking']) > 0) {
+		if(count($this->filters['bezel_marking']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('bezelMarkings', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bezel_marking']);
@@ -132,7 +180,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bezel_material']) > 0) {
+		if(count($this->filters['bezel_material']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('bezelMaterials', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bezel_material']);
@@ -141,13 +189,13 @@ class Index extends Component
 		}
 
 		// Crystal filters
-		if (!is_null($this->filters['crystal_domed'])) {
+		if(!is_null($this->filters['crystal_domed'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('crystal->domed', (bool) $this->filters['crystal_domed'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['crystal_material']) > 0) {
+		if(count($this->filters['crystal_material']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('crystalMaterials', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['crystal_material']);
@@ -156,7 +204,7 @@ class Index extends Component
 		}
 
 		// Crown filters
-		if (count($this->filters['crown_color']) > 0) {
+		if(count($this->filters['crown_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('crownColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['crown_color']);
@@ -164,13 +212,13 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['crown_detail']) > 0) {
+		if(count($this->filters['crown_detail']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('crown->detail', $this->filters['crown_detail'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['crown_material']) > 0) {
+		if(count($this->filters['crown_material']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('crownMaterials', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['crown_material']);
@@ -178,14 +226,14 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['crown_screwed_down'])) {
+		if(!is_null($this->filters['crown_screwed_down'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('crown->screwed_down', (bool) $this->filters['crown_screwed_down'])
 				->pluck('id');
 		}
 
 		// Dial filters
-		if (count($this->filters['dial_color']) > 0) {
+		if(count($this->filters['dial_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('dialColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['dial_color']);
@@ -193,13 +241,13 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['dial_domed'])) {
+		if(!is_null($this->filters['dial_domed'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('dial->domed', (bool) $this->filters['dial_domed'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['dial_marker_color']) > 0) {
+		if(count($this->filters['dial_marker_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('dialMarkerColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['dial_marker_color']);
@@ -207,13 +255,13 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['dial_marker_lume'])) {
+		if(!is_null($this->filters['dial_marker_lume'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('dial->marker_lume', (bool) $this->filters['dial_marker_lume'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['dial_marker_lume_color']) > 0) {
+		if(count($this->filters['dial_marker_lume_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('dialMarkerLumeColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['dial_marker_lume_color']);
@@ -221,7 +269,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['dial_marker_type']) > 0) {
+		if(count($this->filters['dial_marker_type']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('dialMarkerTypes', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['dial_marker_type']);
@@ -229,20 +277,20 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['dial_skeleton'])) {
+		if(!is_null($this->filters['dial_skeleton'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('dial->skeleton', (bool) $this->filters['dial_skeleton'])
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['dial_textured'])) {
+		if(!is_null($this->filters['dial_textured'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('dial->textured', (bool) $this->filters['dial_textured'])
 				->pluck('id');
 		}
 
 		// Bracelet filters
-		if (count($this->filters['bracelet_type']) > 0) {
+		if(count($this->filters['bracelet_type']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletMaterials.braceletType', function($whereHas) {
 					$whereHas->whereIn('bracelet_types.id', $this->filters['bracelet_type']);
@@ -250,7 +298,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_material']) > 0) {
+		if(count($this->filters['bracelet_material']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletMaterials', function($whereHas) {
 					$whereHas->whereIn('bracelet_materials.id', $this->filters['bracelet_material']);
@@ -258,13 +306,13 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['bracelet_micro_adjustement'])) {
+		if(!is_null($this->filters['bracelet_micro_adjustement'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('bracelet->micro_adjustement', (bool) $this->filters['bracelet_micro_adjustement'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_micro_adjustement_system']) > 0) {
+		if(count($this->filters['bracelet_micro_adjustement_system']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletMicroAdjustementSystem', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_micro_adjustement_system']);
@@ -272,13 +320,13 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (!is_null($this->filters['bracelet_stitching'])) {
+		if(!is_null($this->filters['bracelet_stitching'])) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->where('bracelet->stitching', (bool) $this->filters['bracelet_stitching'])
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_stitching_color']) > 0) {
+		if(count($this->filters['bracelet_stitching_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletStitchingColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_stitching_color']);
@@ -286,7 +334,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_color']) > 0) {
+		if(count($this->filters['bracelet_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletColor', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_color']);
@@ -294,7 +342,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_style']) > 0) {
+		if(count($this->filters['bracelet_style']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletStyle', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_style']);
@@ -302,7 +350,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_clasp']) > 0) {
+		if(count($this->filters['bracelet_clasp']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletClasp', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_clasp']);
@@ -310,7 +358,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_clasp_color']) > 0) {
+		if(count($this->filters['bracelet_clasp_color']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletClaspColors', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_clasp_color']);
@@ -318,7 +366,7 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		if (count($this->filters['bracelet_clasp_material']) > 0) {
+		if(count($this->filters['bracelet_clasp_material']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
 				->whereHas('braceletClaspMaterials', function($whereHas) {
 					$whereHas->whereIn('id', $this->filters['bracelet_clasp_material']);
@@ -339,13 +387,22 @@ class Index extends Component
 		return Watch::whereIn('id', $this->filteredWatchIds());
 	}
 
-	private function loadModel($model, $watchIds, $hasToGoThrough = null)
+	private function loadModel($model, $watchIds, $hasToGoThrough = null, $field = null)
 	{
-		return $model::whereHas(is_null($hasToGoThrough) ? 'watches' : $hasToGoThrough, function($whereHas) use($watchIds) {
+		$loadedModel = $model::whereHas(is_null($hasToGoThrough) ? 'watches' : $hasToGoThrough, function($whereHas) use($watchIds) {
 				$whereHas->whereIn('watches.id', $watchIds);
-			})
-			->orderBy('name')
-			->pluck('name', 'id');
+			});
+
+		if(is_null($field)) {
+			$loadedModel = $loadedModel->orderBy('name')
+				->pluck('name', 'id');
+		}
+		else {
+			$loadedModel = $loadedModel->orderBy($field)
+				->pluck($field);
+		}
+
+		return $loadedModel;
 	}
 
 	private function loadJson(string $field, $watchesData, bool $keepNull = false)
@@ -404,6 +461,34 @@ class Index extends Component
 			'case_waterproofness' => [
 				'type' => 'json',
 				'field' => 'case.waterproofness'
+			],
+			'movement_type' => [
+				'type' => 'entity',
+				'model' => Movement::class,
+				'field' => 'type'
+			],
+			'movement_COSC' => [
+				'type' => 'entity',
+				'model' => Movement::class,
+				'field' => 'COSC'
+			],
+			'movement_METAS' => [
+				'type' => 'entity',
+				'model' => Movement::class,
+				'field' => 'METAS'
+			],
+			'movement_manufactured_caliber' => [
+				'type' => 'entity',
+				'model' => Movement::class,
+				'field' => 'manufactured_caliber'
+			],
+			'power_reserve' => [
+				'type' => 'json',
+				'field' => 'specification.power_reserve'
+			],
+			'complication' => [
+				'type' => 'entity',
+				'model' => Complication::class
 			],
 			'bezel_direction' => [
 				'type' => 'json',
@@ -542,11 +627,13 @@ class Index extends Component
 		if($changedField !== null) {
 			$index = array_search($changedField, $fieldKeys);
 
-			foreach(array_slice($fieldKeys, $index + 1) as $laterField) {
-				$this->filters[$laterField] = is_array($this->filters[$laterField]) ? [] : null;
+			if($index !== false) {
+				foreach(array_slice($fieldKeys, $index + 1) as $laterField) {
+					$this->filters[$laterField] = is_array($this->filters[$laterField]) ? [] : null;
+					unset($this->data[$laterField]);
+				}
 			}
 		}
-
 		$watchesData = $this->watchesDataQuery()
 			->get();
 
@@ -555,7 +642,7 @@ class Index extends Component
 			$isEmpty = isset($loader['boolean']) ? is_null($value) : empty($value);
 
 			if($isEmpty && (!isset($loader['condition']) || (isset($loader['condition']) && $loader['condition']))) {
-				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null);
+				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null, isset($loader['field']) ? $loader['field'] : null);
 				elseif($loader['type'] == 'json') $data = $this->loadJson($loader['field'], $watchesData, isset($loader['boolean']) ? $loader['boolean'] : false);
 
 				$this->data[$field] = $data;
@@ -642,6 +729,12 @@ class Index extends Component
 		$this->filters['dial_marker_type'] = [];
 		$this->filters['dial_skeleton'] = null;
 		$this->filters['dial_textured'] = null;
+
+		// Movement
+		$this->filters['movement_type'] = [];
+		$this->filters['movement_COSC'] = null;
+		$this->filters['movement_METAS'] = null;
+		$this->filters['movement_manufactured_caliber'] = null;
 
 		$this->data['type'] = Type::orderBy('name', 'ASC')->get();
 
