@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\BraceletColor;
+use App\Models\BraceletColor;
 
 class BraceletColors extends Seeder
 {

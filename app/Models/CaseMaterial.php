@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Models\WatchDetails;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-use App\Models\Watch;
-
-class Complication extends Model
+class CaseMaterial extends Model
 {
 	use SoftDeletes;
 

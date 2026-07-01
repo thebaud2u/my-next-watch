@@ -14,11 +14,11 @@ return new class extends Migration
 	public function up()
 	{
 		Schema::create('bracelet_stitching_color_watch', function (Blueprint $table) {
-			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('bracelet_stitching_color_id')
-				->comment('Reference to bracelet_stitching_color_id')
-				->constrained(indexName: 'bscw_color_id_foreign')
-				->cascadeOnDelete();
+			->comment('Reference to bracelet_stitching_color_id')
+			->constrained(indexName: 'bscw_color_id_foreign')
+			->cascadeOnDelete();
+			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
 		});
 	}
 

@@ -58,7 +58,7 @@
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
 												<span>
-													{{ $caseDiameter }}
+													{{ $caseDiameter }}mm
 												</span>
 											</h3>
 										</div>
@@ -81,7 +81,7 @@
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
 												<span>
-													{{ $caseThickness }}
+													{{ $caseThickness }}mm
 												</span>
 											</h3>
 										</div>
@@ -104,7 +104,7 @@
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
 												<span>
-													{{ $caseLugWidth }}
+													{{ $caseLugWidth }}mm
 												</span>
 											</h3>
 										</div>
@@ -127,7 +127,7 @@
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
 												<span>
-													{{ $caseLugToLug }}
+													{{ $caseLugToLug }}mm
 												</span>
 											</h3>
 										</div>
@@ -248,7 +248,7 @@
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
 												<span>
-													{{ $caseWaterproofness }}
+													{{ $caseWaterproofness }}m
 												</span>
 											</h3>
 										</div>

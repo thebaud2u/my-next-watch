@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\{BraceletMaterial, BraceletType};
+use App\Models\{BraceletMaterial, BraceletType};
 
 class BraceletMaterials extends Seeder
 {

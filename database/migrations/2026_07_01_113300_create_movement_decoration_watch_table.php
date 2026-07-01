@@ -13,10 +13,9 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('type_watch', function (Blueprint $table) {
-			$table->foreignId('type_id')->constrained()->cascadeOnDelete();
+		Schema::create('movement_decoration_watch', function (Blueprint $table) {
+			$table->foreignId('movement_decoration_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
-			$table->unique(['type_id', 'watch_id']);
 		});
 	}
 
@@ -27,6 +26,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('type_watch');
+		Schema::dropIfExists('movement_decoration_watch');
 	}
 };

@@ -475,14 +475,14 @@
 						<div>
 							@foreach($complications as $complication)
 								<div>
-									<input type="checkbox" id="specificationComplication-{{ $complication->id }}" name="specificationComplication" value="{{ $complication->id }}" wire:model="specificationComplication" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
+									<input type="checkbox" id="specificitiesComplication-{{ $complication->id }}" name="specificitiesComplication" value="{{ $complication->id }}" wire:model="specificitiesComplication" class="w-4 h-4 text-mnw-blue border-gray-300 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer" />
 
-									<x-input-label for="specificationComplication-{{ $complication->id }}" :value="$complication->name" :class="'ml-2 inline-block font-normal'" />
+									<x-input-label for="specificitiesComplication-{{ $complication->id }}" :value="$complication->name" :class="'ml-2 inline-block font-normal'" />
 								</div>
 							@endforeach
 						</div>
 
-						@error('specificationComplication')
+						@error('specificitiesComplication')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>
@@ -524,11 +524,11 @@
 					</div>
 
 					<div>
-						<x-input-label for="specificationPowerReserve" :value="__('What\'s this watch\'s :part', ['part' => __('power reserve')]).' ?'" :required="true" />
+						<x-input-label for="specificitiesPowerReserve" :value="__('What\'s this watch\'s :part', ['part' => __('power reserve')]).' ?'" :required="true" />
 
-						<x-text-input type="number" id="specificationPowerReserve" name="specificationPowerReserve" wire:model="specificationPowerReserve" placeholder="{{ __('Watch\'s :part', ['part' => __('power reserve')]) }}" class="mt-1 block text-gray-400" />
+						<x-text-input type="number" id="specificitiesPowerReserve" name="specificitiesPowerReserve" wire:model="specificitiesPowerReserve" placeholder="{{ __('Watch\'s :part', ['part' => __('power reserve')]) }}" class="mt-1 block text-gray-400" />
 
-						@error('specificationPowerReserve')
+						@error('specificitiesPowerReserve')
 							<span class="error text-danger-700">
 								{{ $message }}
 							</span>

@@ -19,6 +19,7 @@ return new class extends Migration
 			$table->id();
 			$table->foreignId('collection_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('movement_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('type_id')->constrained()->cascadeOnDelete();
 			$table->string('name', 255);
 			$table->string('slug');
 			$table->string('reference', 255);
@@ -33,7 +34,7 @@ return new class extends Migration
 			$table->json('crown')->nullable();
 			$table->json('crystal')->nullable();
 			$table->json('dial')->nullable();
-			$table->json('specification')->nullable();
+			$table->json('specificities')->nullable();
 			$table->double('release_price')->nullable();
 			$table->double('current_price')->nullable();
 			$table->string('state')->default(InformationStatus::Draft->value);

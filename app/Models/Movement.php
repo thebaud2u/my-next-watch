@@ -7,21 +7,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 use App\Enums\InformationStatus;
 
 class Movement extends Model
 {
-	use SoftDeletes;
+	use HasSlug, SoftDeletes;
 
 	protected $fillable = [
 		'brand_id',
 		'country_id',
+		'movement_type_id',
 		'name',
-		'type',
+		'slug',
 		'COSC',
 		'METAS',
 		'manufactured_caliber',
-		'description',
+		'antimagnetism',
+		'jewels',
+		'frequency',
 		'state',
 		'admin_id',
 		'created_at',
@@ -40,11 +46,27 @@ class Movement extends Model
 			'COSC' => 'boolean',
 			'METAS' => 'boolean',
 			'manufactured_caliber' => 'boolean',
+			'antimagnetism' => 'integer',
+			'jewels' => 'integer',
+			'frequency' => 'integer',
 			'status' => InformationStatus::class,
 			'created_at' => 'datetime',
 			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
+	}
+
+	// Tools
+	/**
+	 * Get the options for generating the slug.
+	 *
+	 * @return SlugOptions
+	 */
+	public function getSlugOptions() : SlugOptions
+	{
+		return SlugOptions::create()
+			->saveSlugsTo('slug')
+			->generateSlugsFrom('name');
 	}
 
 	// Relations
@@ -61,6 +83,11 @@ class Movement extends Model
 	public function country(): BelongsTo
 	{
 		return $this->belongsTo(Country::class);
+	}
+
+	public function movementType(): BelongsTo
+	{
+		return $this->belongsTo(MovementType::class);
 	}
 
 	public function watches(): HasMany

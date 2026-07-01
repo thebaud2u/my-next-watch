@@ -63,10 +63,10 @@
 					</div>
 				</div>
 
-				<div x-data="{ activeTab: 'description' }">
+				<div x-data="{ activeTab: '' }">
 					<div class="flex flex-row rounded-b-xl justify-between bg-mnw-cream border-t border-mnw-greige" >
-						<div class="flex-1 flex justify-center p-4 cursor-pointer font-medium rounded-bl-xl hover:bg-mnw-deepblue hover:text-mnw-cream" :class="{'bg-mnw-deepblue text-mnw-cream': activeTab === 'description'}" x-on:click="activeTab = 'description'">
-							{{ __('Description') }}
+						<div class="flex-1 flex justify-center p-4 cursor-pointer font-medium rounded-bl-xl hover:bg-mnw-deepblue hover:text-mnw-cream" :class="{'bg-mnw-deepblue text-mnw-cream': activeTab === 'generalities'}" x-on:click="activeTab = 'generalities'">
+							{{ __('Generalities') }}
 						</div>
 
 						<div class="flex-1 flex justify-center p-4 cursor-pointer hover:bg-mnw-deepblue hover:text-mnw-cream font-medium" :class="{'bg-mnw-deepblue text-mnw-cream': activeTab === 'movement'}" x-on:click="activeTab = 'movement'">
@@ -98,16 +98,23 @@
 						</div>
 					</div>
 
-					<div class="flex flex-row w-full mt-8 mb-4 border border-mnw-greige rounded-xl p-8 flex flex-col gap-4">
-						<div x-show="activeTab === 'description'" x-cloak>
+					<div x-show="activeTab !== ''" x-cloak class="flex flex-row w-full mt-8 mb-4 border border-mnw-greige rounded-xl p-8 flex flex-col gap-4">
+						<div x-show="activeTab === 'generalities'" x-cloak>
 							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
-								{{ __('Description') }}
+								{{ __('Generalities') }}
 							</h2>
 
-							<div class="flex flex-col gap-4">
-								<p class="text-mnw-deepblue font-medium">
-									{!! nl2br($watch->description) !!}
-								</p>
+							@if($watch->description)
+								<div class="flex flex-col gap-4">
+									<p class="text-mnw-deepblue font-medium">
+										{!! nl2br($watch->description) !!}
+									</p>
+								</div>
+							@endif
+
+							<div class="grid grid-cols-2 gap-2">
+								<x-front.input-label for="" :value="__('Type')" :class="'pl-4'"/>
+								{{ $watch->type->name }}
 							</div>
 						</div>
 
@@ -116,31 +123,134 @@
 								{{ __('Movement') }}
 							</h2>
 
-							{{ $watch->movement->name }}
+							<div class="grid grid-cols-2 gap-2 mb-8">
+								<x-front.input-label for="" :value="__('Name')" :class="'pl-4'"/>
+								{{ $movement->name }}
+
+								<x-front.input-label for="" :value="__('Origin country')" :class="'pl-4'"/>
+								{{ $movement->country->name }}
+
+								<x-front.input-label for="" :value="__('Type')" :class="'pl-4'"/>
+								{{ ucfirst(__($movement->movementType->name)) }}
+
+								<x-front.input-label for="" :value="__('COSC')" :class="'pl-4'"/>
+								{{ boolLabel($movement->COSC) }}
+
+								<x-front.input-label for="" :value="__('METAS')" :class="'pl-4'"/>
+								{{ boolLabel($movement->METAS) }}
+
+								<x-front.input-label for="" :value="__('Manufactured caliber')" :class="'pl-4'"/>
+								{{ boolLabel($movement->manufactured_caliber) }}
+
+								<x-front.input-label for="" :value="__('Antimagnetism')" :class="'pl-4'"/>
+								{{ $movement->antimagnetism }}gauss
+
+								<x-front.input-label for="" :value="__('Jewels')" :class="'pl-4'"/>
+								{{ $movement->jewels }}
+
+								<x-front.input-label for="" :value="__('Frequency')" :class="'pl-4'"/>
+								{{ __(':frequencybeat/hour', ['frequency' => $movement->frequency]) }}
+
+								@if($movement->description)
+									<x-front.input-label for="" :value="__('Description')" :class="'pl-4'"/>
+									{{ $movement->description }}
+								@endif
+							</div>
+
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Specificities for this watch') }}
+							</h2>
+
+							<div class="grid grid-cols-2 gap-2">
+								<x-front.input-label for="" :value="__('Power reserve')" :class="'pl-4'"/>
+								{{ $watch->specificities['power_reserve'] }}h
+
+								<x-front.input-label for="" :value="count($complications) > 1 ? __('Complications') : __('Complication')" :class="'pl-4'"/>
+								{{ $complications->map(fn($complication) => ucfirst(__($complication->name)))->implode(', ') }}
+							</div>
 						</div>
 
 						<div x-show="activeTab === 'case'" x-cloak>
-							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">{{ __('Case') }}</h2>
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Case') }}
+							</h2>
+
+							<div class="grid grid-cols-2 gap-2">
+								<x-front.input-label for="" :value="__('Diameter')" :class="'pl-4'"/>
+								{{ $watch->case['diameter'] }}mm
+
+								<x-front.input-label for="" :value="__('Lug to lug')" :class="'pl-4'"/>
+								{{ $watch->case['lug_to_lug'] }}mm
+
+								<x-front.input-label for="" :value="__('Thickness')" :class="'pl-4'"/>
+								{{ $watch->case['thickness'] }}mm
+
+								<x-front.input-label for="" :value="__('Lug width')" :class="'pl-4'"/>
+								{{ $watch->case['lug_width'] }}mm
+
+								<x-front.input-label for="" :value="count($caseColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+								{{ $caseColors->map(fn($caseColor) => ucfirst(__($caseColor->name)))->implode(', ') }}
+
+								<x-front.input-label for="" :value="count($caseMaterials) > 1 ? __('Materials') : __('Material')" :class="'pl-4'"/>
+								{{ $caseMaterials->map(fn($caseMaterial) => ucfirst(__($caseMaterial->name)))->implode(', ') }}
+
+								<x-front.input-label for="" :value="__('Open case back')" :class="'pl-4'"/>
+								<div>
+									{{ boolLabel($watch->case['open_case_back']) }}
+								</div>
+
+								@if($watch->case['open_case_back'])
+									<x-front.input-label for="" :value="__('Sapphire crystal case back')" :class="'pl-4'"/>
+									<div>
+										{{ boolLabel($watch->case['sapphire_crystal_case_back']) }}
+									</div>
+								@endif
+
+								<x-front.input-label for="" :value="__('Waterproofness')" :class="'pl-4'"/>
+								<div>
+									{{ $watch->case['waterproofness'] }}m
+								</div>
+							</div>
 						</div>
 
 						<div x-show="activeTab === 'dial'" x-cloak>
-							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">{{ __('Dial') }}</h2>
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Dial') }}
+							</h2>
+
+
 						</div>
 
 						<div x-show="activeTab === 'bezel'" x-cloak>
-							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">{{ __('Bezel') }}</h2>
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Bezel') }}
+							</h2>
+
+
 						</div>
 
 						<div x-show="activeTab === 'crystal'" x-cloak>
-							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">{{ __('Crystal') }}</h2>
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Crystal') }}
+							</h2>
+
+
 						</div>
 
 						<div x-show="activeTab === 'crown'" x-cloak>
-							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">{{ __('Crown') }}</h2>
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Crown') }}
+							</h2>
+
+
 						</div>
 
 						<div x-show="activeTab === 'bracelet'" x-cloak>
-							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">{{ __('Bracelet') }}</h2>
+							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
+								{{ __('Bracelet') }}
+							</h2>
+
+
 						</div>
 					</div>
 				</div>

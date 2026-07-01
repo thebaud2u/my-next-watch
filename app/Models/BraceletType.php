@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Models\WatchDetails;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-use App\Models\Watch;
-
-class BraceletMaterial extends Model
+class BraceletType extends Model
 {
 	use SoftDeletes;
 
 	protected $fillable = [
-		'bracelet_type_id',
 		'name',
 		'state',
 		'admin_id',
@@ -43,13 +40,8 @@ class BraceletMaterial extends Model
 		return $this->belongsTo(Admin::class);
 	}
 
-	public function braceletType(): BelongsTo
+	public function braceletMaterials(): HasMany
 	{
-		return $this->belongsTo(BraceletType::class);
-	}
-
-	public function watches(): BelongsToMany
-	{
-		return $this->belongsToMany(Watch::class);
+		return $this->hasMany(BraceletMaterial::class);
 	}
 }

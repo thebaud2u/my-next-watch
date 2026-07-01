@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\CrownColor;
+use App\Models\CrownColor;
 
 class CrownColors extends Seeder
 {

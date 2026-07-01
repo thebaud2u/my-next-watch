@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\BezelColor;
+use App\Models\BezelColor;
 
 class BezelColors extends Seeder
 {

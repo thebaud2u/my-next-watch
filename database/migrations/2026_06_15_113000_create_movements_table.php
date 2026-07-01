@@ -17,13 +17,17 @@ return new class extends Migration
 	{
 		Schema::create('movements', function(Blueprint $table) {
 			$table->id();
-			$table->foreignId('brand_id')->constrained()->cascadeOnDelete();
-			$table->foreignId('country_id')->nullable()->constrained();
+			$table->foreignId('brand_id')->nullable()->constrained()->cascadeOnDelete();
+			$table->foreignId('country_id')->constrained();
+			$table->foreignId('movement_type_id')->constrained();
 			$table->string('name', 255);
-			$table->enum('type', ['quartz', 'solar', 'automatic', 'manual']);
+			$table->string('slug');
 			$table->tinyInteger('COSC')->default(0);
 			$table->tinyInteger('METAS')->default(0);
 			$table->tinyInteger('manufactured_caliber')->default(0);
+			$table->integer('antimagnetism')->nullable();
+			$table->integer('jewels')->nullable();
+			$table->integer('frequency')->nullable();
 			$table->text('description')->nullable();
 			$table->string('state')->default(InformationStatus::Draft->value);
 			$table->foreignId('admin_id')->constrained();

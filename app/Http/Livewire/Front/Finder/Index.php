@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\{Brand, Collection, Country, Movement, Type, Watch};
-use App\Models\WatchDetails\ {
+use App\Models\ {
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
 	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, BraceletType,
 	CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial, CrystalMaterial,
@@ -142,10 +142,10 @@ class Index extends Component
 				->pluck('id');
 		}
 
-		// Specification filters
+		// specificities filters
 		if(count($this->filters['power_reserve']) > 0) {
 			$watchIds = Watch::whereIn('id', $watchIds)
-				->whereIn('specification->power_reserve', $this->filters['power_reserve'])
+				->whereIn('specificities->power_reserve', $this->filters['power_reserve'])
 				->pluck('id');
 		}
 
@@ -474,7 +474,7 @@ class Index extends Component
 			],
 			'power_reserve' => [
 				'type' => 'json',
-				'field' => 'specification.power_reserve'
+				'field' => 'specificities.power_reserve'
 			],
 			'complication' => [
 				'type' => 'entity',

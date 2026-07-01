@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Models\WatchDetails;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-use App\Models\Watch;
-
-class BraceletColor extends Model
+class CrownMaterial extends Model
 {
 	use SoftDeletes;
 
@@ -42,8 +40,8 @@ class BraceletColor extends Model
 		return $this->belongsTo(Admin::class);
 	}
 
-	public function watches(): HasMany
+	public function watches(): BelongsToMany
 	{
-		return $this->hasMany(Watch::class);
+		return $this->belongsToMany(Watch::class);
 	}
 }

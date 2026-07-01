@@ -4,12 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\Models\{Admin, Address, Brand, Collection, Country, Movement, Type, Watch};
-use App\Models\WatchDetails\ {
-	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
-	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle,
-	CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial, CrystalMaterial,
-	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType
+use App\Models\{
+	Admin, Address,
+	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, Brand,
+	CaseColor, CaseMaterial, Complication, Collection, Country, CrownColor, CrownMaterial, CrystalMaterial,
+	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
+	Movement,
+	Type,
+	Watch
 };
 
 class Watches extends Seeder
@@ -86,13 +88,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4730,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				1 => [
 					'movement_id' => 'MT5602-U',
@@ -147,13 +150,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4620,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				2 => [
 					'movement_id' => 'MT5602-U',
@@ -208,13 +212,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4400,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				3 => [
 					'movement_id' => 'MT5602-U',
@@ -269,13 +274,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 5350,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				4 => [
 					'movement_id' => 'MT5602-U',
@@ -330,13 +336,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4730,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				5 => [
 					'movement_id' => 'MT5602-U',
@@ -391,13 +398,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4620,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				6 => [
 					'movement_id' => 'MT5602-U',
@@ -452,13 +460,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4400,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				7 => [
 					'movement_id' => 'MT5602',
@@ -513,13 +522,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false,
 					],
 					'release_price' => 4150,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				],
 				8 => [
 					'movement_id' => 'MT5602-U',
@@ -574,13 +584,14 @@ class Watches extends Seeder
 						'skeleton' => false,
 						'textured' => false
 					],
-					'specification' => [
+					'specificities' => [
 						'complication' => ['self-winding'],
-						'power_reserve' => 70
+						'power_reserve' => 70,
+						'limited_edition' => false
 					],
 					'release_price' => 5350,
 					'current_price' => null,
-					'type' => ['diver']
+					'type' => 'diver'
 				]
 			]
 		];
@@ -595,6 +606,7 @@ class Watches extends Seeder
 				$newWatch->bracelet_style_id = $watch['bracelet']['style'] ? $this->getId(BraceletStyle::class, $watch['bracelet']['style']) : null;
 				$newWatch->collection_id = $this->getId(Collection::class, $collection);
 				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
+				$newWatch->type_id = $this->getId(Type::class, $watch['type']);
 				$newWatch->name = $watch['name'];
 				$newWatch->reference = $watch['reference'];
 
@@ -639,9 +651,9 @@ class Watches extends Seeder
 					'textured' => $watch['dial']['textured']
 				];
 
-				// Specification
-				$newWatch->specification = [
-					'power_reserve' => $watch['specification']['power_reserve']
+				// Specificities
+				$newWatch->specificities = [
+					'power_reserve' => $watch['specificities']['power_reserve']
 				];
 
 				$newWatch->release_price = $watch['release_price'];
@@ -678,7 +690,7 @@ class Watches extends Seeder
 				$newWatch->caseMaterials()->sync($caseMaterials);
 
 				// Complication
-				$complications = $this->getIds(Complication::class, $watch['specification']['complication']);
+				$complications = $this->getIds(Complication::class, $watch['specificities']['complication']);
 
 				$newWatch->complications()->sync($complications);
 
@@ -704,11 +716,6 @@ class Watches extends Seeder
 				$newWatch->dialMarkerColors()->sync($dialMarkerColors);
 				$newWatch->dialMarkerLumeColors()->sync($dialMarkerLumeColors);
 				$newWatch->dialMarkerTypes()->sync($dialMarkerTypes);
-
-				// Type
-				$types = $this->getIds(Type::class, $watch['type']);
-
-				$newWatch->types()->sync($types);
 				// Dependencies created
 			}
 		}

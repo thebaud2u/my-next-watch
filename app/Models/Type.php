@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -63,10 +63,10 @@ class Type extends Model implements Viewable
 	{
 		return $this->belongsTo(Admin::class);
 	}
-	
-	public function watches(): BelongsToMany
+
+	public function watches(): HasMany
 	{
-		return $this->belongsToMany(Watch::class);
+		return $this->hasMany(Watch::class);
 	}
 
 	// Functions

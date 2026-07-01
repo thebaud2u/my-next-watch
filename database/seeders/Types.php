@@ -12,7 +12,7 @@ class Types extends Seeder
 	{
 		$admin = Admin::first();
 
-		$types = ['dress watch', 'diver', 'military', 'limited edition', 'racing watch', 'sport watch', 'field watch', 'aviation watch'];
+		$types = ['dress watch', 'diver', 'military', 'racing watch', 'sport watch', 'field watch', 'aviation watch'];
 
 		foreach($types as $type) {
 			$newType = new Type;

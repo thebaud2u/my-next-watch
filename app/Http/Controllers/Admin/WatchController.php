@@ -80,7 +80,7 @@ class WatchController extends Controller
 				'marker_type' => [],
 				'textured' => false
 			];
-			$watch->specification = [
+			$watch->specificities = [
 				'complication' => [],
 				'power_reserve' => null
 			];

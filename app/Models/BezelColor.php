@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Models\WatchDetails;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-use App\Models\Watch;
-
-class CrownMaterial extends Model
+class BezelColor extends Model
 {
 	use SoftDeletes;
 
@@ -36,7 +34,7 @@ class CrownMaterial extends Model
 		];
 	}
 
-	// Relations
+	// Realtions
 	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);

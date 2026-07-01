@@ -16,7 +16,7 @@ use App\Models\Mediable;
 use App\Models\Movement;
 use App\Models\Watch;
 
-use App\Models\WatchDetails\ {
+use App\Models\ {
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
 	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial,
 	CrystalMaterial, DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType
@@ -130,11 +130,11 @@ class CreateWatch extends Component
 
 	public $bezelDirection = 'unidirectional';
 
-	// Specification
+	// specificities
 	public Complication $newComplication;
 	public $complicationName;
-	public $specificationComplication = [];
-	public $specificationPowerReserve;
+	public $specificitiesComplication = [];
+	public $specificitiesPowerReserve;
 
 	// Dial
 	public DialColor $newDialColor;
@@ -258,10 +258,10 @@ class CreateWatch extends Component
 			'bezelMaterial' => ['array'],
 			'bezelDirection' => [],
 
-			// Specification
+			// specificities
 			'complicationName' => [],
-			'specificationComplication' => ['array'],
-			'specificationPowerReserve' => [],
+			'specificitiesComplication' => ['array'],
+			'specificitiesPowerReserve' => [],
 
 			// Dial
 			'dialColorName' => [],
@@ -932,14 +932,14 @@ class CreateWatch extends Component
 		else if($this->active == 2) {
 			$rules = [
 				'watchMovement' => ['required'],
-				'specificationComplication' => ['required'],
-				'specificationPowerReserve' => ['required']
+				'specificitiesComplication' => ['required'],
+				'specificitiesPowerReserve' => ['required']
 			];
 
 			$messages = [
 				'watchMovement.required' => __('The :field is mandatory', ['field' => __('movement')]),
-				'specificationComplication.required' => __('The :field is mandatory', ['field' => __('complication')]),
-				'specificationPowerReserve.required' => __('The :field is mandatory', ['field' => __('power reserve')])
+				'specificitiesComplication.required' => __('The :field is mandatory', ['field' => __('complication')]),
+				'specificitiesPowerReserve.required' => __('The :field is mandatory', ['field' => __('power reserve')])
 			];
 		}
 		else if($this->active == 3) {
@@ -1048,8 +1048,8 @@ class CreateWatch extends Component
 		}
 		else if($this->active == 2) {
 			$this->watch->movement_id = $this->watchMovement;
-			$this->watch->specification['complication'] = $this->specificationComplication;
-			$this->watch->specification['power_reserve'] = $this->specificationPowerReserve;
+			$this->watch->specificities['complication'] = $this->specificitiesComplication;
+			$this->watch->specificities['power_reserve'] = $this->specificitiesPowerReserve;
 		}
 		else if($this->active == 3) {
 			$this->watch->case['color'] = $this->caseColor;
@@ -1155,8 +1155,8 @@ class CreateWatch extends Component
 		$this->watchReference = $this->watch->reference;
 
 		if($this->watch->movement) $this->watchMovement = $this->watch->movement->id;
-		$this->specificationComplication = $this->watch->specification['complication'];
-		$this->specificationPowerReserve = $this->watch->specification['power_reserve'];
+		$this->specificitiesComplication = $this->watch->specificities['complication'];
+		$this->specificitiesPowerReserve = $this->watch->specificities['power_reserve'];
 
 		$this->caseColor = $this->watch->case['color'];
 		$this->caseDiameter = $this->watch->case['diameter'];

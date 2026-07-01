@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
-use App\Models\WatchDetails\Complication;
+use App\Models\Complication;
 
 class Complications extends Seeder
 {

@@ -14,8 +14,8 @@ return new class extends Migration
 	public function up()
 	{
 		Schema::create('crown_material_watch', function (Blueprint $table) {
-			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('crown_material_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
 		});
 	}
 

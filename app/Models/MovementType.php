@@ -1,20 +1,25 @@
 <?php
 
-namespace App\Models\WatchDetails;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-use App\Models\Watch;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
-class CrystalMaterial extends Model
+use App\Enums\InformationStatus;
+
+class MovementType extends Model
 {
-	use SoftDeletes;
+	use HasSlug, SoftDeletes;
 
 	protected $fillable = [
 		'name',
+		'slug',
+		'description',
 		'state',
 		'admin_id',
 		'created_at',
@@ -30,10 +35,24 @@ class CrystalMaterial extends Model
 	protected function casts(): array
 	{
 		return [
+			'status' => InformationStatus::class,
 			'created_at' => 'datetime',
 			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
+	}
+
+	// Tools
+	/**
+	 * Get the options for generating the slug.
+	 *
+	 * @return SlugOptions
+	 */
+	public function getSlugOptions() : SlugOptions
+	{
+		return SlugOptions::create()
+			->saveSlugsTo('slug')
+			->generateSlugsFrom('name');
 	}
 
 	// Relations
@@ -42,8 +61,8 @@ class CrystalMaterial extends Model
 		return $this->belongsTo(Admin::class);
 	}
 
-	public function watches(): BelongsToMany
+	public function movements(): BelongsToMany
 	{
-		return $this->belongsToMany(Watch::class);
+		return $this->belongsToMany(Movement::class);
 	}
 }

@@ -19,7 +19,7 @@ use Spatie\Sluggable\SlugOptions;
 
 use App\Enums\InformationStatus;
 
-use App\Models\WatchDetails\{
+use App\Models\{
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial, BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle,
 	CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial, CrystalMaterial,
 	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
@@ -46,7 +46,7 @@ class Watch extends Model implements Viewable, HasMedia
 		'crown',
 		'crystal',
 		'dial',
-		'specification',
+		'specificities',
 		'release_price',
 		'current_price',
 		'state',
@@ -71,7 +71,7 @@ class Watch extends Model implements Viewable, HasMedia
 			'crown' => 'collection',
 			'crystal' => 'collection',
 			'dial' => 'collection',
-			'specification' => 'collection',
+			'specificities' => 'collection',
 			'release_price' => 'double',
 			'current_price' => 'double',
 			'status' => InformationStatus::class,
@@ -229,9 +229,14 @@ class Watch extends Model implements Viewable, HasMedia
 		return $this->belongsTo(Movement::class);
 	}
 
-	public function types(): BelongsToMany
+	public function movementDecoration(): BelongsToMany
 	{
-		return $this->belongsToMany(Type::class);
+		return $this->belongsToMany(MovementDecoration::class);
+	}
+
+	public function type(): BelongsTo
+	{
+		return $this->belongsTo(Type::class);
 	}
 
 	// Functions
