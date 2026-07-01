@@ -259,7 +259,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['case_open_case_back'])  && count($data['movement_type']) > 1)
+				@if(!is_null($filters['case_open_case_back']) && count($data['movement_type']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.movement_type" :value="__('What about the movement type ?')" :class="'pl-4'"/>
 

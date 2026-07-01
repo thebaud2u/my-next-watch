@@ -384,25 +384,16 @@ class Index extends Component
 	 */
 	private function watchesDataQuery()
 	{
-		return Watch::whereIn('id', $this->filteredWatchIds());
+		return Watch::whereIn('id', $this->filteredWatchIds())->with('movement');
 	}
 
-	private function loadModel($model, $watchIds, $hasToGoThrough = null, $field = null)
+	private function loadModel($model, $watchIds, $hasToGoThrough = null)
 	{
-		$loadedModel = $model::whereHas(is_null($hasToGoThrough) ? 'watches' : $hasToGoThrough, function($whereHas) use($watchIds) {
+		return $model::whereHas(is_null($hasToGoThrough) ? 'watches' : $hasToGoThrough, function($whereHas) use($watchIds) {
 				$whereHas->whereIn('watches.id', $watchIds);
-			});
-
-		if(is_null($field)) {
-			$loadedModel = $loadedModel->orderBy('name')
-				->pluck('name', 'id');
-		}
-		else {
-			$loadedModel = $loadedModel->orderBy($field)
-				->pluck($field);
-		}
-
-		return $loadedModel;
+			})
+			->orderBy('name')
+			->pluck('name', 'id');
 	}
 
 	private function loadJson(string $field, $watchesData, bool $keepNull = false)
@@ -463,24 +454,23 @@ class Index extends Component
 				'field' => 'case.waterproofness'
 			],
 			'movement_type' => [
-				'type' => 'entity',
-				'model' => Movement::class,
-				'field' => 'type'
+				'type' => 'json',
+				'field' => 'movement.type',
 			],
 			'movement_COSC' => [
-				'type' => 'entity',
-				'model' => Movement::class,
-				'field' => 'COSC'
+				'type' => 'json',
+				'field' => 'movement.COSC',
+				'boolean' => true,
 			],
 			'movement_METAS' => [
-				'type' => 'entity',
-				'model' => Movement::class,
-				'field' => 'METAS'
+				'type' => 'json',
+				'field' => 'movement.METAS',
+				'boolean' => true,
 			],
 			'movement_manufactured_caliber' => [
-				'type' => 'entity',
-				'model' => Movement::class,
-				'field' => 'manufactured_caliber'
+				'type' => 'json',
+				'field' => 'movement.manufactured_caliber',
+				'boolean' => true,
 			],
 			'power_reserve' => [
 				'type' => 'json',
@@ -634,6 +624,7 @@ class Index extends Component
 				}
 			}
 		}
+
 		$watchesData = $this->watchesDataQuery()
 			->get();
 
@@ -642,7 +633,7 @@ class Index extends Component
 			$isEmpty = isset($loader['boolean']) ? is_null($value) : empty($value);
 
 			if($isEmpty && (!isset($loader['condition']) || (isset($loader['condition']) && $loader['condition']))) {
-				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null, isset($loader['field']) ? $loader['field'] : null);
+				if($loader['type'] == 'entity') $data = $this->loadModel($loader['model'], $watchesData->pluck('id'), isset($loader['hasToGoThrough']) ? $loader['hasToGoThrough'] : null);
 				elseif($loader['type'] == 'json') $data = $this->loadJson($loader['field'], $watchesData, isset($loader['boolean']) ? $loader['boolean'] : false);
 
 				$this->data[$field] = $data;
@@ -658,6 +649,8 @@ class Index extends Component
 				break;
 			}
 		}
+
+		dd($this->data);
 	}
 
 	public function findMyWatch()
@@ -672,7 +665,6 @@ class Index extends Component
 
 	public function mount()
 	{
-		$this->filters['keyword'] = null;
 		$this->filters['country'] = [];
 		$this->filters['type'] = [];
 		$this->filters['min_price'] = null;
