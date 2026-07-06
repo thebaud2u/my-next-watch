@@ -13,7 +13,9 @@
 	{{-- Recently viewed watches --}}
 	@if(Auth::guard('web')->check())
 		<div class="w-full bg-mnw-lightblue">
-			<livewire:front.watches.recently-viewed :wire:key="'recently-viewed'" />
+			<livewire:front.watches.recently-viewed
+				:mode="'watches'"
+				:wire:key="'recently-viewed'" />
 		</div>
 	@endif
 </x-app-layout>

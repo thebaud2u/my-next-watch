@@ -18,6 +18,7 @@ return new class extends Migration
 		Schema::create('crown_colors', function(Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
+			$table->string('slug');
 			$table->string('state')->default(InformationStatus::Draft->value);
 			$table->foreignId('admin_id')->constrained();
 			$table->timestamps();

@@ -19,6 +19,7 @@ return new class extends Migration
 			$table->id();
 			$table->foreignId('bracelet_type_id')->constrained()->cascadeOnDelete();
 			$table->string('name', 255);
+			$table->string('slug');
 			$table->string('state')->default(InformationStatus::Draft->value);
 			$table->foreignId('admin_id')->constrained();
 			$table->timestamps();

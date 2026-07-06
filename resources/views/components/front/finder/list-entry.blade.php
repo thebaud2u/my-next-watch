@@ -1,4 +1,4 @@
-<article class="border border-mnw-greige rounded-xl p-6 text-mnw-deepblue cursor-pointer">
+<article class="border border-mnw-greige rounded-xl p-6 text-mnw-deepblue">
 	<div class="flex flex-col gap-2 w-full">
 		<div class="font-bold text-[28px]">
 			{{ $watch->getBrand()->name }} {{ $watch->name }}
@@ -9,11 +9,11 @@
 		</div>
 
 		<div class="flex gap-2 flex-wrap">
-			<a href="{{ route('brand.show', ['brand' => $watch->getBrand()->slug]) }}" class="p-2 flex justify-center items-center rounded font-medium text-xs bg-mnw-orange">
+			<a href="{{ route('brand.show', ['brand' => $watch->getBrand()->slug]) }}" class="p-2 flex justify-center items-center rounded font-medium text-xs bg-mnw-orange cursor-pointer">
 				{{ $watch->getBrand()->name }}
 			</a>
 
-			<a href="{{ route('collection.show', ['collection' => $watch->collection->slug]) }}" class="p-2 flex justify-center items-center rounded font-medium text-xs bg-mnw-orange">
+			<a href="{{ route('collection.show', ['collection' => $watch->collection->slug]) }}" class="p-2 flex justify-center items-center rounded font-medium text-xs bg-mnw-orange cursor-pointer">
 				{{ $watch->collection->name }}
 			</a>
 

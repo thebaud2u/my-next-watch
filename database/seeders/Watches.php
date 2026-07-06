@@ -8,7 +8,7 @@ use App\Models\{
 	Admin, Address,
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, Brand,
 	CaseColor, CaseMaterial, Complication, Collection, Country, CrownColor, CrownMaterial, CrystalMaterial,
-	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
+	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType, DialTexture, DialType,
 	Movement,
 	Type,
 	Watch
@@ -85,8 +85,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -147,8 +148,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -209,8 +211,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -271,8 +274,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -333,8 +337,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -395,8 +400,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -457,8 +463,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -519,8 +526,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -581,8 +589,9 @@ class Watches extends Seeder
 						'marker_lume' => true,
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
-						'skeleton' => false,
-						'textured' => false
+						'type' => 'solid',
+						'textured' => false,
+						'textures' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
@@ -605,6 +614,7 @@ class Watches extends Seeder
 				$newWatch->bracelet_micro_adjustement_system_id = $watch['bracelet']['micro_adjustement_system'] ? $this->getId(BraceletMicroAdjustementSystem::class, $watch['bracelet']['micro_adjustement_system']) : null;
 				$newWatch->bracelet_style_id = $watch['bracelet']['style'] ? $this->getId(BraceletStyle::class, $watch['bracelet']['style']) : null;
 				$newWatch->collection_id = $this->getId(Collection::class, $collection);
+				$newWatch->dial_type_id = $this->getId(DialType::class, $watch['dial']['type']);
 				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
 				$newWatch->type_id = $this->getId(Type::class, $watch['type']);
 				$newWatch->name = $watch['name'];
@@ -647,7 +657,6 @@ class Watches extends Seeder
 				$newWatch->dial = [
 					'domed' => $watch['dial']['domed'],
 					'marker_lume' =>$watch['dial']['marker_lume'],
-					'skeleton' => $watch['dial']['skeleton'],
 					'textured' => $watch['dial']['textured']
 				];
 
@@ -711,11 +720,13 @@ class Watches extends Seeder
 				$dialMarkerColors = $this->getIds(DialMarkerColor::class, $watch['dial']['marker_color']);
 				$dialMarkerLumeColors = $this->getIds(DialMarkerLumeColor::class, $watch['dial']['marker_lume_color']);
 				$dialMarkerTypes = $this->getIds(DialMarkerType::class, $watch['dial']['marker_type']);
+				$dialTextures = $this->getIds(DialTexture::class, $watch['dial']['textures']);
 
 				$newWatch->dialColors()->sync($dialColors);
 				$newWatch->dialMarkerColors()->sync($dialMarkerColors);
 				$newWatch->dialMarkerLumeColors()->sync($dialMarkerLumeColors);
 				$newWatch->dialMarkerTypes()->sync($dialMarkerTypes);
+				$newWatch->dialTextures()->sync($dialTextures);
 				// Dependencies created
 			}
 		}

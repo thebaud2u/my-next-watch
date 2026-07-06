@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 class BezelColor extends Model
 {
-	use SoftDeletes;
+	use HasSlug, SoftDeletes;
 
 	protected $fillable = [
 		'name',
+		'slug',
 		'state',
 		'admin_id',
 		'created_at',
@@ -34,7 +38,20 @@ class BezelColor extends Model
 		];
 	}
 
-	// Realtions
+	// Tools
+	/**
+	 * Get the options for generating the slug.
+	 *
+	 * @return SlugOptions
+	 */
+	public function getSlugOptions() : SlugOptions
+	{
+		return SlugOptions::create()
+			->saveSlugsTo('slug')
+			->generateSlugsFrom('name');
+	}
+
+	// Relations
 	public function admin(): BelongsTo
 	{
 		return $this->belongsTo(Admin::class);

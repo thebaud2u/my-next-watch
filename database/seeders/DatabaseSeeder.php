@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
 			DialMarkerColors::class,
 			DialMarkerLumeColors::class,
 			DialMarkerTypes::class,
+			DialTextures::class,
+			DialTypes::class,
 			Complications::class,
 			Brands::class,
 			Collections::class,

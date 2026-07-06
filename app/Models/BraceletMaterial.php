@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 class BraceletMaterial extends Model
 {
-	use SoftDeletes;
+	use HasSlug, SoftDeletes;
 
 	protected $fillable = [
 		'bracelet_type_id',
 		'name',
+		'slug',
 		'state',
 		'admin_id',
 		'created_at',
@@ -33,6 +37,19 @@ class BraceletMaterial extends Model
 			'updated_at' => 'datetime',
 			'deleted_at' => 'datetime'
 		];
+	}
+
+	// Tools
+	/**
+	 * Get the options for generating the slug.
+	 *
+	 * @return SlugOptions
+	 */
+	public function getSlugOptions() : SlugOptions
+	{
+		return SlugOptions::create()
+			->saveSlugsTo('slug')
+			->generateSlugsFrom('name');
 	}
 
 	// Relations

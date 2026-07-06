@@ -114,7 +114,7 @@
 
 							<div class="grid grid-cols-2 gap-2">
 								<x-front.input-label for="" :value="__('Type')" :class="'pl-4'"/>
-								{{ $watch->type->name }}
+								{{ ucfirst(__($watch->type->name)) }}
 							</div>
 						</div>
 
@@ -218,7 +218,44 @@
 								{{ __('Dial') }}
 							</h2>
 
+							<div class="grid grid-cols-2 gap-2">
+								<x-front.input-label for="" :value="count($dialColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+								{{ $dialColors->map(fn($dialColor) => ucfirst(__($dialColor->name)))->implode(', ') }}
 
+								<x-front.input-label for="" :value="count($dialMarkerColors) > 1 ? __('Markers colors') : __('Markers color')" :class="'pl-4'"/>
+								{{ $dialMarkerColors->map(fn($dialMarkerColor) => ucfirst(__($dialMarkerColor->name)))->implode(', ') }}
+
+								<x-front.input-label for="" :value="__('Marker lumed')" :class="'pl-4'"/>
+								<div>
+									{{ boolLabel($watch->dial['marker_lume']) }}
+								</div>
+
+								@if($watch->dial['marker_lume'])
+									<x-front.input-label for="" :value="count($dialMarkerLumeColors) > 1 ? __('Markers lume colors') : __('Markers lume color')" :class="'pl-4'"/>
+									{{ $dialMarkerLumeColors->map(fn($dialMarkerLumeColor) => ucfirst(__($dialMarkerLumeColor->name)))->implode(', ') }}
+								@endif
+
+								<x-front.input-label for="" :value="count($dialMarkerTypes) > 1 ? __('Markers types') : __('Markers type')" :class="'pl-4'"/>
+								{{ $dialMarkerTypes->map(fn($dialMarkerType) => ucfirst(__($dialMarkerType->name)))->implode(', ') }}
+
+								<x-front.input-label for="" :value="__('Domed')" :class="'pl-4'"/>
+								<div>
+									{{ boolLabel($watch->dial['domed']) }}
+								</div>
+
+								<x-front.input-label for="" :value="__('Type')" :class="'pl-4'"/>
+								{{ ucfirst(__($watch->dialType->name)) }}
+
+								<x-front.input-label for="" :value="__('Textured')" :class="'pl-4'"/>
+								<div>
+									{{ boolLabel($watch->dial['textured']) }}
+								</div>
+
+								@if($watch->dial['textured'])
+									<x-front.input-label for="" :value="count($dialTextures) > 1 ? __('Textures') : __('Texture')" :class="'pl-4'"/>
+									{{ $dialTextures->map(fn($dialTexture) => ucfirst(__($dialTexture->name)))->implode(', ') }}
+								@endif
+							</div>
 						</div>
 
 						<div x-show="activeTab === 'bezel'" x-cloak>
@@ -270,7 +307,13 @@
 						<path d="M9.00001 11.9094C10.9637 11.9094 12.5556 10.2814 12.5556 8.27308C12.5556 6.26477 10.9637 4.63672 9.00001 4.63672C7.03633 4.63672 5.44446 6.26477 5.44446 8.27308C5.44446 10.2814 7.03633 11.9094 9.00001 11.9094Z" stroke="#0E1954" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 
-
+					<a href="{{ 'https://www.google.com/search?tbm=isch&q=' . urlencode(
+							$watch->getBrand()->name . ' ' .
+							$watch->collection->name . ' ' .
+							$watch->reference
+						) }}" target="_blank">
+							{{ __('Show images of the watch') }}
+						</a>
 				</div>
 			</div>
 		</div>

@@ -19,12 +19,6 @@ use Spatie\Sluggable\SlugOptions;
 
 use App\Enums\InformationStatus;
 
-use App\Models\{
-	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial, BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle,
-	CaseColor, CaseMaterial, Complication, CrownColor, CrownMaterial, CrystalMaterial,
-	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
-};
-
 class Watch extends Model implements Viewable, HasMedia
 {
 	use HasSlug, InteractsWithMedia, InteractsWithViews, SoftDeletes;
@@ -35,6 +29,7 @@ class Watch extends Model implements Viewable, HasMedia
 		'bracelet_micro_adjustement_system_id',
 		'bracelet_style_id',
 		'collection_id',
+		'dial_type_id',
 		'movement_id',
 		'name',
 		'slug',
@@ -146,7 +141,7 @@ class Watch extends Model implements Viewable, HasMedia
 
 	public function braceletColor(): BelongsTo
 	{
-		return $this->BelongsTo(BraceletColor::class);
+		return $this->belongsTo(BraceletColor::class);
 	}
 
 	public function braceletMaterials(): BelongsToMany
@@ -222,6 +217,16 @@ class Watch extends Model implements Viewable, HasMedia
 	public function dialMarkerTypes(): BelongsToMany
 	{
 		return $this->belongsToMany(DialMarkerType::class);
+	}
+
+	public function dialTextures(): BelongsToMany
+	{
+		return $this->belongsToMany(DialTexture::class);
+	}
+
+	public function dialType(): BelongsTo
+	{
+		return $this->belongsTo(DialType::class);
 	}
 
 	public function movement(): BelongsTo
