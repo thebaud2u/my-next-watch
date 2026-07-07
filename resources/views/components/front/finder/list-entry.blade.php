@@ -18,7 +18,7 @@
 			</a>
 
 			<div class="p-2 flex gap-x-1 justify-center items-center rounded font-medium text-xs bg-mnw-orange">
-				{{ $watch->release_price }} €
+				{{ $watch->release_price }}€
 			</div>
 
 			<div class="p-2 flex gap-x-1 justify-center items-center rounded font-medium text-xs bg-mnw-orange">

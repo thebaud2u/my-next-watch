@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class DialTexture extends Model
+class CaseSurfaceTreatment extends Model
 {
 	use HasSlug, SoftDeletes;
 
 	protected $fillable = [
 		'name',
 		'slug',
+		'description',
 		'state',
 		'admin_id',
 		'created_at',

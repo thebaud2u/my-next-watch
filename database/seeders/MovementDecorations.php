@@ -21,31 +21,31 @@ class MovementDecorations extends Seeder
 		$movementDecorations = [
 			'Geneva Stripes' => [
 				'part' => 'Bridge',
-				'description' => 'blablabla'
+				'description' => 'A series of parallel decorative waves applied to movement bridges, enhancing visual appeal while showcasing traditional Swiss finishing.'
 			],
 			'Perlage' => [
 				'part' => 'Main Plate',
-				'description' => 'blablabla'
+				'description' => 'A decorative pattern of overlapping circular graining applied to the main plate, adding depth and refinement to the movement.'
 			],
 			'Anglage' => [
 				'part' => 'Edges',
-				'description' => 'blablabla'
+				'description' => 'The meticulous beveling and polishing of component edges by hand or machine, creating smooth reflective surfaces that demonstrate fine craftsmanship.'
 			],
 			'Black Polish' => [
 				'part' => 'Steel Parts',
-				'description' => 'blablabla'
+				'description' => 'An ultra-fine polishing technique that produces a mirror-like finish, appearing black from certain angles due to the way it reflects light.'
 			],
 			'Heat-blued Screws' => [
 				'part' => 'Screws',
-				'description' => 'blablabla'
+				'description' => 'Steel screws heated to a precise temperature to create a rich blue oxide layer, providing both corrosion resistance and an elegant finish.'
 			],
 			'Snailing' => [
 				'part' => 'Wheels',
-				'description' => 'blablabla'
+				'description' => 'A spiral decorative finish applied to wheels or ratchet components, creating concentric grooves that catch and reflect light beautifully.'
 			],
 			'Skeletonized Rotor' => [
 				'part' => 'Rotor',
-				'description' => 'blablabla'
+				'description' => 'A rotor with portions of its material removed to reveal more of the movement while maintaining efficient winding performance.'
 			],
 		];
 

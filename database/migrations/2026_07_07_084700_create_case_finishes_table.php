@@ -15,7 +15,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('dial_textures', function(Blueprint $table) {
+		Schema::create('case_finishes', function(Blueprint $table) {
 			$table->id();
 			$table->string('name', 255);
 			$table->string('slug');
@@ -33,6 +33,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('dial_textures');
+		Schema::dropIfExists('case_finishes');
 	}
 };

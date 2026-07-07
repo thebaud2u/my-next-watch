@@ -7,8 +7,8 @@ use Illuminate\Database\Seeder;
 use App\Models\{
 	Admin, Address,
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, Brand,
-	CaseColor, CaseMaterial, Complication, Collection, Country, CrownColor, CrownMaterial, CrystalMaterial,
-	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType, DialTexture, DialType,
+	CaseColor, CaseFinish, CaseMaterial, CaseSurfaceTreatment, Complication, Collection, Country, CrownColor, CrownMaterial, CrystalMaterial,
+	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType, DialFinish, DialType,
 	Movement,
 	Type,
 	Watch
@@ -66,7 +66,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -86,13 +89,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4730,
 					'current_price' => null,
@@ -129,7 +133,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -149,13 +156,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4620,
 					'current_price' => null,
@@ -192,7 +200,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -212,13 +223,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4400,
 					'current_price' => null,
@@ -255,7 +267,10 @@ class Watches extends Seeder
 						'open_case_back' => true,
 						'sapphire_crystal_case_back' => true,
 						'thickness' => 14.4,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['black'],
@@ -275,13 +290,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 5350,
 					'current_price' => null,
@@ -318,7 +334,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -338,13 +357,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4730,
 					'current_price' => null,
@@ -381,7 +401,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -401,13 +424,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4620,
 					'current_price' => null,
@@ -444,7 +468,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 13.6,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -464,13 +491,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4400,
 					'current_price' => null,
@@ -507,7 +535,10 @@ class Watches extends Seeder
 						'open_case_back' => false,
 						'sapphire_crystal_case_back' => false,
 						'thickness' => 14.7,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['steel'],
@@ -527,13 +558,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
 						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 4150,
 					'current_price' => null,
@@ -570,7 +602,10 @@ class Watches extends Seeder
 						'open_case_back' => true,
 						'sapphire_crystal_case_back' => true,
 						'thickness' => 14.4,
-						'waterproofness' => 200
+						'waterproofness' => 200,
+						'finish' => ['polished', 'brushed'],
+						'special_finish_technic' => null,
+						'surface_treatment' => []
 					],
 					'crown' => [
 						'color' => ['black'],
@@ -590,13 +625,14 @@ class Watches extends Seeder
 						'marker_lume_color' => ['green'],
 						'marker_type' => ['indexes'],
 						'type' => 'solid',
-						'textured' => false,
-						'textures' => []
+						'pattern' => null,
+						'finish' => []
 					],
 					'specificities' => [
 						'complication' => ['self-winding'],
 						'power_reserve' => 70,
-						'limited_edition' => false
+						'limited_edition' => false,
+						'pieces' => null
 					],
 					'release_price' => 5350,
 					'current_price' => null,
@@ -639,7 +675,8 @@ class Watches extends Seeder
 					'open_case_back' => $watch['case']['open_case_back'],
 					'sapphire_crystal_case_back' => $watch['case']['sapphire_crystal_case_back'],
 					'thickness' => $watch['case']['thickness'],
-					'waterproofness' => $watch['case']['waterproofness']
+					'waterproofness' => $watch['case']['waterproofness'],
+					'special_finish_technic' => $watch['case']['special_finish_technic']
 				];
 
 				// Crown
@@ -657,12 +694,14 @@ class Watches extends Seeder
 				$newWatch->dial = [
 					'domed' => $watch['dial']['domed'],
 					'marker_lume' =>$watch['dial']['marker_lume'],
-					'textured' => $watch['dial']['textured']
+					'pattern' => $watch['dial']['pattern']
 				];
 
 				// Specificities
 				$newWatch->specificities = [
-					'power_reserve' => $watch['specificities']['power_reserve']
+					'power_reserve' => $watch['specificities']['power_reserve'],
+					'limited_edition' => $watch['specificities']['limited_edition'],
+					'pieces' => $watch['specificities']['pieces']
 				];
 
 				$newWatch->release_price = $watch['release_price'];
@@ -694,9 +733,13 @@ class Watches extends Seeder
 				// Case
 				$caseColors = $this->getIds(CaseColor::class, $watch['case']['color']);
 				$caseMaterials = $this->getIds(CaseMaterial::class, $watch['case']['material']);
+				$caseFinishes = $this->getIds(CaseFinish::class, $watch['case']['finish']);
+				$caseSurfaceTreatments = $this->getIds(CaseSurfaceTreatment::class, $watch['case']['surface_treatment']);
 
 				$newWatch->caseColors()->sync($caseColors);
 				$newWatch->caseMaterials()->sync($caseMaterials);
+				$newWatch->caseFinishes()->sync($caseFinishes);
+				$newWatch->caseSurfaceTreatments()->sync($caseSurfaceTreatments);
 
 				// Complication
 				$complications = $this->getIds(Complication::class, $watch['specificities']['complication']);
@@ -720,13 +763,13 @@ class Watches extends Seeder
 				$dialMarkerColors = $this->getIds(DialMarkerColor::class, $watch['dial']['marker_color']);
 				$dialMarkerLumeColors = $this->getIds(DialMarkerLumeColor::class, $watch['dial']['marker_lume_color']);
 				$dialMarkerTypes = $this->getIds(DialMarkerType::class, $watch['dial']['marker_type']);
-				$dialTextures = $this->getIds(DialTexture::class, $watch['dial']['textures']);
+				$dialFinishes = $this->getIds(DialFinish::class, $watch['dial']['finish']);
 
 				$newWatch->dialColors()->sync($dialColors);
 				$newWatch->dialMarkerColors()->sync($dialMarkerColors);
 				$newWatch->dialMarkerLumeColors()->sync($dialMarkerLumeColors);
 				$newWatch->dialMarkerTypes()->sync($dialMarkerTypes);
-				$newWatch->dialTextures()->sync($dialTextures);
+				$newWatch->dialFinishes()->sync($dialFinishes);
 				// Dependencies created
 			}
 		}

@@ -9,7 +9,7 @@ use App\Models\{
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
 	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, BraceletType, Brand,
 	CaseColor, CaseMaterial, Collection, Complication, CrownColor, CrownMaterial, CrystalMaterial, Country,
-	DialColor, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
+	DialColor, DialFinish, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
 	Movement, MovementType,
 	Type,
 	Watch
@@ -209,12 +209,6 @@ class Index extends Component
 				->pluck('slug');
 		}
 
-		if(count($this->filters['crown_detail']) > 0) {
-			$this->watchSlugs = Watch::whereIn('slug', $this->watchSlugs)
-				->where('crown->detail', $this->filters['crown_detail'])
-				->pluck('slug');
-		}
-
 		if(count($this->filters['crown_material']) > 0) {
 			$this->watchSlugs = Watch::whereIn('slug', $this->watchSlugs)
 				->whereHas('crownMaterials', function($whereHas) {
@@ -274,9 +268,11 @@ class Index extends Component
 				->pluck('slug');
 		}
 
-		if(!is_null($this->filters['dial_textured'])) {
+		if(count($this->filters['dial_finishes']) > 0) {
 			$this->watchSlugs = Watch::whereIn('slug', $this->watchSlugs)
-				->where('dial->textured', (bool) $this->filters['dial_textured'])
+				->whereHas('dialFinishes', function($whereHas) {
+					$whereHas->whereIn('slug', $this->filters['dial_finishes']);
+				})
 				->pluck('slug');
 		}
 
@@ -496,10 +492,6 @@ class Index extends Component
 				'type' => 'entity',
 				'model' => CrownColor::class
 			],
-			'crown_detail' => [
-				'type' => 'json',
-				'field' => 'crown.detail'
-			],
 			'crown_material' => [
 				'type' => 'entity',
 				'model' => CrownMaterial::class
@@ -514,10 +506,9 @@ class Index extends Component
 				'field' => 'dial.domed',
 				'boolean' => true
 			],
-			'dial_textured' => [
-				'type' => 'json',
-				'field' => 'dial.textured',
-				'boolean' => true
+			'dial_finish' => [
+				'type' => 'entity',
+				'model' => DialFinish::class
 			],
 			'dial_color' => [
 				'type' => 'entity',
@@ -694,7 +685,6 @@ class Index extends Component
 
 		// Crown filters
 		$this->filters['crown_color'] = [];
-		$this->filters['crown_detail'] = [];
 		$this->filters['crown_material'] = [];
 		$this->filters['crown_screwed_down'] = null;
 
@@ -705,11 +695,11 @@ class Index extends Component
 		// Dial filters
 		$this->filters['dial_color'] = [];
 		$this->filters['dial_domed'] = null;
+		$this->filters['dial_finish'] = null;
 		$this->filters['dial_marker_color'] = [];
 		$this->filters['dial_marker_lume'] = null;
 		$this->filters['dial_marker_lume_color'] = [];
 		$this->filters['dial_marker_type'] = [];
-		$this->filters['dial_textured'] = null;
 
 		// Movement
 		$this->filters['movement_type'] = [];

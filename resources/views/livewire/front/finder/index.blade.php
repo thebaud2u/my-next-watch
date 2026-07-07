@@ -576,30 +576,7 @@
 					</div>
 				@endif
 
-				@if(count($filters['crown_color']) > 0 && count($data['crown_detail']) > 1)
-					<div class="finder-step flex flex-col gap-4 my-4">
-						<x-front.input-label for="filters.crown_detail" :value="__('What detail would like the crown to have ?')" :class="'pl-4'"/>
-
-						<div class="flex flex-row justify-center items-center">
-							@foreach($data['crown_detail'] as $index => $crownDetail)
-								<div class="w-full p-2">
-									<input type="checkbox" name="filters.crown_detail" value="{{ $crownDetail }}" id="watch-crown-detail-{{ $index }}" wire:model="filters.crown_detail" wire:change="finderUpdated('crown_detail')" class="peer hidden" />
-									<label for="watch-crown-detail-{{ $index }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
-										<div>
-											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
-												<span>
-													{{ __($crownDetail) }}
-												</span>
-											</h3>
-										</div>
-									</label>
-								</div>
-							@endforeach
-						</div>
-					</div>
-				@endif
-
-				@if(count($filters['crown_detail']) > 0 && count($data['crown_material']) > 1)
+				@if(count($filters['crown_color']) > 0 && count($data['crown_material']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.crown_material" :value="__('What about the crystal material ?')" :class="'pl-4'"/>
 
@@ -674,22 +651,19 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['dial_domed']) && count($data['dial_textured']) > 1)
+				@if(!is_null($filters['dial_domed']) && count($data['dial_finish']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
-						<x-front.input-label for="filters.dial_textured" :value="__('Do you want the dial to be textured ?')" :class="'pl-4'"/>
+						<x-front.input-label for="filters.dial_finish" :value="__('What dial finish would you like ?')" :class="'pl-4'"/>
 
 						<div class="flex flex-row justify-center items-center">
-							@foreach($data['dial_textured'] as $dialTextured)
-								@php
-									$value = $dialTextured ? '1' : '0';
-								@endphp
+							@foreach($data['dial_finish'] as $dialFinishSlug => $dialFinishName)
 								<div class="w-full p-2">
-									<input type="radio" name="filters.dial_textured" value="{{ $value }}" id="watch-dial-textured-{{ $value }}" wire:model.live="filters.dial_textured" wire:change="finderUpdated('dial_textured')" class="peer hidden" />
-									<label for="watch-dial-textured-{{ $value }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
+									<input type="checkbox" name="filters.dial_finish" value="{{ $dialFinishSlug }}" id="watch-dial-finish-{{ $dialFinishSlug }}" wire:model="filters.dial_finish" wire:change="finderUpdated('dial_finish')" class="peer hidden" />
+									<label for="watch-dial-finish-{{ $dialFinishSlug }}" class="block cursor-pointer border border-mnw-greige rounded-xl hover:bg-mnw-cream peer-checked:bg-mnw-cream peer-checked:border-breeder-cream">
 										<div>
 											<h3 class="flex flex-row p-4 s:flex-col items-center max-s:pl-4 s:justify-center text-base font-medium text-center h-[85px]">
 												<span>
-													{{ boolLabel($dialTextured) }}
+													{{ ucfirst(__($dialFinishName)) }}
 												</span>
 											</h3>
 										</div>

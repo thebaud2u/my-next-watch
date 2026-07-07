@@ -13,8 +13,8 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('dial_texture_watch', function (Blueprint $table) {
-			$table->foreignId('dial_texture_id')->constrained()->cascadeOnDelete();
+		Schema::create('case_finish_watch', function (Blueprint $table) {
+			$table->foreignId('case_finish_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('watch_id')->constrained()->cascadeOnDelete();
 		});
 	}
@@ -26,6 +26,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('dial_texture_watch');
+		Schema::dropIfExists('case_finish_watch');
 	}
 };

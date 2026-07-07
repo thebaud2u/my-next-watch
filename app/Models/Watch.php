@@ -169,9 +169,19 @@ class Watch extends Model implements Viewable, HasMedia
 		return $this->belongsToMany(CaseColor::class);
 	}
 
+	public function caseFinishes(): BelongsToMany
+	{
+		return $this->belongsToMany(CaseFinish::class);
+	}
+
 	public function caseMaterials(): BelongsToMany
 	{
 		return $this->belongsToMany(CaseMaterial::class);
+	}
+
+	public function caseSurfaceTreatments(): BelongsToMany
+	{
+		return $this->belongsToMany(CaseSurfaceTreatment::class);
 	}
 
 	public function collection(): BelongsTo
@@ -204,6 +214,11 @@ class Watch extends Model implements Viewable, HasMedia
 		return $this->belongsToMany(DialColor::class);
 	}
 
+	public function dialFinishes(): BelongsToMany
+	{
+		return $this->belongsToMany(DialFinish::class);
+	}
+
 	public function dialMarkerColors(): BelongsToMany
 	{
 		return $this->belongsToMany(DialMarkerColor::class);
@@ -217,11 +232,6 @@ class Watch extends Model implements Viewable, HasMedia
 	public function dialMarkerTypes(): BelongsToMany
 	{
 		return $this->belongsToMany(DialMarkerType::class);
-	}
-
-	public function dialTextures(): BelongsToMany
-	{
-		return $this->belongsToMany(DialTexture::class);
 	}
 
 	public function dialType(): BelongsTo
@@ -265,5 +275,10 @@ class Watch extends Model implements Viewable, HasMedia
 	function getBrand(): ?Brand
 	{
 		return $this->collection?->brand;
+	}
+
+	function getBraceletType(): ?BraceletType
+	{
+		return $this->braceletMaterials->first()?->braceletType;
 	}
 }
