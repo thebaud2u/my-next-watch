@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Watches;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 use Livewire\Component;

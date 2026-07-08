@@ -81,7 +81,7 @@ class Collection extends Model implements Viewable, HasMedia
 	{
 		return $this->belongsTo(Admin::class);
 	}
-	
+
 	public function brand(): BelongsTo
 	{
 		return $this->belongsTo(Brand::class);
@@ -89,7 +89,7 @@ class Collection extends Model implements Viewable, HasMedia
 
 	public function watches(): HasMany
 	{
-		return $this->hasMany(Watches::class);
+		return $this->hasMany(Watch::class);
 	}
 
 	// Functions

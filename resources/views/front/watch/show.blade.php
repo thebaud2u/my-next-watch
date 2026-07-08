@@ -14,7 +14,7 @@
 		<meta property="og:locale" content="fr_FR">
 	@endpush
 
-	<div class="flex flex-row max-xlsm:flex-col max-xlsm:items-center mt-2 max-w-[1200px] w-full text-mnw-deepblue">
+	<div class="flex flex-row max-xlsm:flex-col max-xlsm:items-center mt-2 max-w-[1200px] w-full text-mnw-deepblue border border-mnw-greige p-6 gap-4">
 		{{-- Content --}}
 		<div class="text-sm lg:text-base lg:max-w-[870px] max-lg:px-2 w-full">
 			<div class="flex flex-col max-md:px-4 md:pr-4 w-full mb-8">
@@ -23,7 +23,7 @@
 					<div class="flex flex-row gap-x-4">
 						<div class="flex flex-col gap-y-3 justify-center">
 							<h1 class="text-[28px] lg:text-[40px] font-bold mb-1 leading-8 lg:leading-10">
-								{{ $watch->name }}
+								{{ $watch->reference }}
 							</h1>
 
 							<div class="flex gap-2 flex-wrap">
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 
-				<div x-data="{ activeTab: '' }">
+				<div x-data="{ activeTab: 'generalities' }">
 					<div class="flex flex-row rounded-b-xl justify-between bg-mnw-cream border-t border-mnw-greige" >
 						<div class="flex-1 flex justify-center p-4 cursor-pointer font-medium rounded-bl-xl hover:bg-mnw-deepblue hover:text-mnw-cream" :class="{'bg-mnw-deepblue text-mnw-cream': activeTab === 'generalities'}" x-on:click="activeTab = 'generalities'">
 							{{ __('Generalities') }}
@@ -98,7 +98,7 @@
 						</div>
 					</div>
 
-					<div x-show="activeTab !== ''" x-cloak class="flex flex-row w-full mt-8 mb-4 border border-mnw-greige rounded-xl p-8 flex flex-col gap-4">
+					<div class="flex flex-row w-full mt-8 mb-4 border border-mnw-greige rounded-xl p-8 flex flex-col gap-4">
 						<div x-show="activeTab === 'generalities'" x-cloak>
 							<h2 class="text-[24px] lg:text-[28px] font-bold mb-4">
 								{{ __('Generalities') }}
@@ -176,7 +176,7 @@
 								<x-front.input-label for="" :value="__('Power reserve')" :class="'pl-4'"/>
 								{{ $watch->specificities['power_reserve'] }}h
 
-								<x-front.input-label for="" :value="count($complications) > 1 ? __('Complications') : __('Complication')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Complication', count($complications))" :class="'pl-4'"/>
 								{{ $complications->map(fn($complication) => ucfirst(__($complication->name)))->implode(', ') }}
 							</div>
 						</div>
@@ -199,13 +199,13 @@
 								<x-front.input-label for="" :value="__('Lug width')" :class="'pl-4'"/>
 								{{ $watch->case['lug_width'] }}mm
 
-								<x-front.input-label for="" :value="count($caseColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Color', count($caseColors))" :class="'pl-4'"/>
 								{{ $caseColors->map(fn($caseColor) => ucfirst(__($caseColor->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($caseMaterials) > 1 ? __('Materials') : __('Material')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Material', count($caseMaterials))" :class="'pl-4'"/>
 								{{ $caseMaterials->map(fn($caseMaterial) => ucfirst(__($caseMaterial->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($caseFinishes) > 1 ? __('Finishes') : __('Finish')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Finish', count($caseFinishes))" :class="'pl-4'"/>
 								@if(!is_null($watch->case['special_finish_technic']))
 									{{ __($watch->case['special_finish_technic']) }}
 								@else
@@ -213,7 +213,7 @@
 								@endif
 
 								@if($caseSurfaceTreatments->isNotEmpty())
-									<x-front.input-label for="" :value="count($caseSurfaceTreatments) > 1 ? __('Surface treatments') : __('Surface treatment')" :class="'pl-4'"/>
+									<x-front.input-label for="" :value="trans_choice('Surface treatment', count($caseSurfaceTreatments))" :class="'pl-4'"/>
 									{{ $caseSurfaceTreatments->map(fn($caseSurfaceTreatment) => ucfirst(__($caseSurfaceTreatment->name)))->implode(', ') }}
 								@endif
 
@@ -236,21 +236,21 @@
 							</h2>
 
 							<div class="grid grid-cols-2 gap-2">
-								<x-front.input-label for="" :value="count($dialColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Color', count($dialColors))" :class="'pl-4'"/>
 								{{ $dialColors->map(fn($dialColor) => ucfirst(__($dialColor->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($dialMarkerColors) > 1 ? __('Markers colors') : __('Markers color')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Markers color', count($dialMarkerColors))" :class="'pl-4'"/>
 								{{ $dialMarkerColors->map(fn($dialMarkerColor) => ucfirst(__($dialMarkerColor->name)))->implode(', ') }}
 
 								<x-front.input-label for="" :value="__('Marker lumed')" :class="'pl-4'"/>
 								{{ boolLabel($watch->dial['marker_lume']) }}
 
 								@if($watch->dial['marker_lume'])
-									<x-front.input-label for="" :value="count($dialMarkerLumeColors) > 1 ? __('Markers lume colors') : __('Markers lume color')" :class="'pl-4'"/>
+									<x-front.input-label for="" :value="trans_choice('Watch details : Markers lume color', count($dialMarkerLumeColors))" :class="'pl-4'"/>
 									{{ $dialMarkerLumeColors->map(fn($dialMarkerLumeColor) => ucfirst(__($dialMarkerLumeColor->name)))->implode(', ') }}
 								@endif
 
-								<x-front.input-label for="" :value="count($dialMarkerTypes) > 1 ? __('Markers types') : __('Markers type')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Markers type', count($dialMarkerTypes))" :class="'pl-4'"/>
 								{{ $dialMarkerTypes->map(fn($dialMarkerType) => ucfirst(__($dialMarkerType->name)))->implode(', ') }}
 
 								<x-front.input-label for="" :value="__('Domed')" :class="'pl-4'"/>
@@ -259,7 +259,7 @@
 								<x-front.input-label for="" :value="__('Type')" :class="'pl-4'"/>
 								{{ ucfirst(__($watch->dialType->name)) }}
 
-								<x-front.input-label for="" :value="count($dialFinishes) > 1 ? __('Finishes') : __('Finish')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Finish', count($dialFinishes))" :class="'pl-4'"/>
 								{{ $dialFinishes->map(fn($dialFinish) => ucfirst(__($dialFinish->name)))->implode(', ') }}
 
 								@if(!is_null($watch->dial['pattern']))
@@ -275,13 +275,13 @@
 							</h2>
 
 							<div class="grid grid-cols-2 gap-2">
-								<x-front.input-label for="" :value="count($bezelColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Color', count($bezelColors))" :class="'pl-4'"/>
 								{{ $bezelColors->map(fn($bezelColor) => ucfirst(__($bezelColor->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($bezelMaterials) > 1 ? __('Materials') : __('Material')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Material', count($bezelMaterials))" :class="'pl-4'"/>
 								{{ $bezelMaterials->map(fn($bezelMaterial) => ucfirst(__($bezelMaterial->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($bezelMarkings) > 1 ? __('Markers') : __('Markers')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Marker', count($bezelMarkings))" :class="'pl-4'"/>
 								{{ $bezelMarkings->map(fn($bezelMarking) => ucfirst(__($bezelMarking->name)))->implode(', ') }}
 
 								<x-front.input-label for="" :value="__('Type')" :class="'pl-4'"/>
@@ -295,7 +295,7 @@
 							</h2>
 
 							<div class="grid grid-cols-2 gap-2">
-								<x-front.input-label for="" :value="count($crystalMaterials) > 1 ? __('Materials') : __('Material')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Material', count($crystalMaterials))" :class="'pl-4'"/>
 								{{ $crystalMaterials->map(fn($crystalMaterial) => ucfirst(__($crystalMaterial->name)))->implode(', ') }}
 
 								<x-front.input-label for="" :value="__('Domed')" :class="'pl-4'"/>
@@ -309,10 +309,10 @@
 							</h2>
 
 							<div class="grid grid-cols-2 gap-2">
-								<x-front.input-label for="" :value="count($crownColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Color', count($crownColors))" :class="'pl-4'"/>
 								{{ $crownColors->map(fn($crownColor) => ucfirst(__($crownColor->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($crownMaterials) > 1 ? __('Materials') : __('Material')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Material', count($crownMaterials))" :class="'pl-4'"/>
 								{{ $crownMaterials->map(fn($crownMaterial) => ucfirst(__($crownMaterial->name)))->implode(', ') }}
 
 								<x-front.input-label for="" :value="__('Domed')" :class="'pl-4'"/>
@@ -335,16 +335,16 @@
 								<x-front.input-label for="" :value="__('Color')" :class="'pl-4'"/>
 								{{ ucfirst(__($braceletColor->name)) }}
 
-								<x-front.input-label for="" :value="count($braceletMaterials) > 1 ? __('Materials') : __('Material')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Material', count($braceletMaterials))" :class="'pl-4'"/>
 								{{ $braceletMaterials->map(fn($braceletMaterial) => ucfirst(__($braceletMaterial->name)))->implode(', ') }}
 
 								<x-front.input-label for="" :value="__('Clasp')" :class="'pl-4'"/>
 								{{ ucfirst(__($braceletClasp->name)) }}
 
-								<x-front.input-label for="" :value="count($braceletClaspColors) > 1 ? __('Clasp materials') : __('Clasp material')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="count($braceletClaspColors) > 1 ? __('Clasp colors') : __('Clasp color')" :class="'pl-4'"/>
 								{{ $braceletClaspColors->map(fn($braceletClaspColor) => ucfirst(__($braceletClaspColor->name)))->implode(', ') }}
 
-								<x-front.input-label for="" :value="count($braceletClaspMaterials) > 1 ? __('Clasp colors') : __('Clasp color')" :class="'pl-4'"/>
+								<x-front.input-label for="" :value="trans_choice('Watch details : Clasp material', count($braceletClaspMaterials))" :class="'pl-4'"/>
 								{{ $braceletClaspMaterials->map(fn($braceletClaspMaterial) => ucfirst(__($braceletClaspMaterial->name)))->implode(', ') }}
 
 								@if($braceletType == 'bracelet')
@@ -360,7 +360,7 @@
 									{{ boolLabel($watch->bracelet['stitching']) }}
 
 									@if($watch->bracelet['stitching'])
-										<x-front.input-label for="" :value="count($braceletStitchingColors) > 1 ? __('Colors') : __('Color')" :class="'pl-4'"/>
+										<x-front.input-label for="" :value="trans_choice('Watch details : Color', count($braceletStitchingColors))" :class="'pl-4'"/>
 										{{ $braceletStitchingColors->map(fn($braceletStitchingColor) => ucfirst(__($braceletStitchingColor->name)))->implode(', ') }}
 									@endif
 								@endif
@@ -393,6 +393,22 @@
 						</a>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="flex flex-col gap-4">
+		<div>
+			<livewire:widgets.related
+				:slug="$watch->slug"
+				:type="'collection'"
+				:wire:key="'related-watches-from-same-collection'" />
+		</div>
+
+		<div>
+			<livewire:widgets.related
+				:slug="$watch->slug"
+				:type="'brand'"
+				:wire:key="'related-watches-from-same-brand'" />
 		</div>
 	</div>
 

@@ -10,6 +10,8 @@ class WatchController extends Controller
 {
 	public function show(Watch $watch)
 	{
+		views($watch)->record();
+
 		return view('front.watch.show', [
 			'bezelColors' => $watch->bezelColors,
 			'bezelMarkings' => $watch->bezelMarkings,

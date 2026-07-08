@@ -308,5 +308,22 @@
 	"Log in to share your experience": "Connectez-vous pour partager votre expérience",
 	"What is it about ?": "Quel est le principe ?",
 	":site allows you to find the watch that matchs your criterias.": ":site vous permet de trouver la montre qui correspond à vos critères.",
-	"Follow our steps to help you find your next watch !": "Suivez nos étapes pour dénicher votre prochaine montre !"
+	"Follow our steps to help you find your next watch !": "Suivez nos étapes pour dénicher votre prochaine montre !",
+
+
+
+	"Last viewed watches": "Dernière montre consultée|Dernières montres consultées",
+	"Watch details : Color": "Couleur|Couleurs",
+	"Watch details : Material": "Matériau|Matériaux",
+	"Watch details : Finish": "Finition|Finitions",
+	"Watch details : Complication": "Complication|Complications",
+	"Watch details : Surface treatment": "Traitement de surface|Traitements de surface",
+	"Watch details : Markers color": "Couleur de marqueurs|Couleurs de marqueurs",
+	"Watch details : Markers lume color": "Couleur de lume des marqueurs|Couleurs de lume des marqueurs",
+	"Watch details : Markers type": "Type de marqueurs|Types de marqueurs",
+	"Watch details : Marker": "Marqueur|Marqueurs",
+	"Watch details : Clasp color": "Couleur de boucle|Couleurs de boucle",
+	"Watch details : Clasp material": "Matériau de boucle|Matériaux de boucle",
+	"Other watch from the brand": "Autre montre de la marque :typeName|Autres montres de la marque :typeName",
+	"Other watch from the collection": "Autre montre de la collection :typeName|Autres montres de la collection :typeName"
 }

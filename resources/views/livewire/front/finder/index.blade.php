@@ -674,7 +674,7 @@
 					</div>
 				@endif
 
-				@if(!is_null($filters['dial_textured']) && count($data['dial_color']) > 1)
+				@if(count($filters['dial_finish']) >0 && count($data['dial_color']) > 1)
 					<div class="finder-step flex flex-col gap-4 my-4">
 						<x-front.input-label for="filters.dial_color" :value="__('What dial color would you like ?')" :class="'pl-4'"/>
 

@@ -268,10 +268,10 @@ class Index extends Component
 				->pluck('slug');
 		}
 
-		if(count($this->filters['dial_finishes']) > 0) {
+		if(count($this->filters['dial_finish']) > 0) {
 			$this->watchSlugs = Watch::whereIn('slug', $this->watchSlugs)
 				->whereHas('dialFinishes', function($whereHas) {
-					$whereHas->whereIn('slug', $this->filters['dial_finishes']);
+					$whereHas->whereIn('slug', $this->filters['dial_finish']);
 				})
 				->pluck('slug');
 		}
@@ -695,7 +695,7 @@ class Index extends Component
 		// Dial filters
 		$this->filters['dial_color'] = [];
 		$this->filters['dial_domed'] = null;
-		$this->filters['dial_finish'] = null;
+		$this->filters['dial_finish'] = [];
 		$this->filters['dial_marker_color'] = [];
 		$this->filters['dial_marker_lume'] = null;
 		$this->filters['dial_marker_lume_color'] = [];
