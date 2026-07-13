@@ -48,6 +48,8 @@ class DatabaseSeeder extends Seeder
 			MovementParts::class,
 			MovementDecorations::class,
 			Watches::class,
+			Experiences::class,
+			Users::class,
 		]);
 	}
 }

@@ -16,6 +16,8 @@ use App\Models\{
 
 class Watches extends Seeder
 {
+	public $admin;
+
 	function getIds(string $modelClass, array $names): array
 	{
 		return collect($names)
@@ -29,10 +31,142 @@ class Watches extends Seeder
 		return $modelClass::where('name', $name)->value('id') ?? throw new \RuntimeException("$modelClass not found : $name");
 	}
 
-	public function run(): void
+	public function create($collection, $values)
 	{
-		$admin = Admin::first();
+		foreach($values as $index => $watch) {
+			// Watch creation
+			$newWatch = new Watch;
+			$newWatch->bracelet_clasp_id = $watch['bracelet']['clasp'] ? $this->getId(BraceletClasp::class, $watch['bracelet']['clasp']) : null;
+			$newWatch->bracelet_color_id = $watch['bracelet']['color'] ? $this->getId(BraceletColor::class, $watch['bracelet']['color']) : null;
+			$newWatch->bracelet_micro_adjustement_system_id = $watch['bracelet']['micro_adjustement_system'] ? $this->getId(BraceletMicroAdjustementSystem::class, $watch['bracelet']['micro_adjustement_system']) : null;
+			$newWatch->bracelet_style_id = $watch['bracelet']['style'] ? $this->getId(BraceletStyle::class, $watch['bracelet']['style']) : null;
+			$newWatch->collection_id = $this->getId(Collection::class, $collection);
+			$newWatch->dial_type_id = $this->getId(DialType::class, $watch['dial']['type']);
+			$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
+			$newWatch->type_id = $this->getId(Type::class, $watch['type']);
+			$newWatch->name = $watch['name'];
+			$newWatch->reference = $watch['reference'];
 
+			// Bezel
+			$newWatch->bezel = [
+				'direction' => $watch['bezel']['direction']
+			];
+
+			// Bracelet
+			$newWatch->bracelet = [
+				'micro_adjustement' => $watch['bracelet']['micro_adjustement'],
+				'stitching' => $watch['bracelet']['stitching'],
+			];
+
+			// Case
+			$newWatch->case = [
+				'diameter' => $watch['case']['diameter'],
+				'lug_to_lug' => $watch['case']['lug_to_lug'],
+				'lug_width' => $watch['case']['lug_width'],
+				'open_case_back' => $watch['case']['open_case_back'],
+				'sapphire_crystal_case_back' => $watch['case']['sapphire_crystal_case_back'],
+				'thickness' => $watch['case']['thickness'],
+				'waterproofness' => $watch['case']['waterproofness'],
+				'special_finish_technic' => $watch['case']['special_finish_technic']
+			];
+
+			// Crown
+			$newWatch->crown = [
+				'detail' => $watch['crown']['detail'],
+				'screwed_down' => $watch['crown']['screwed_down']
+			];
+
+			// Crystal
+			$newWatch->crystal = [
+				'domed' => $watch['crystal']['domed']
+			];
+
+			// Dial
+			$newWatch->dial = [
+				'domed' => $watch['dial']['domed'],
+				'marker_lume' =>$watch['dial']['marker_lume'],
+				'pattern' => $watch['dial']['pattern']
+			];
+
+			// Specificities
+			$newWatch->specificities = [
+				'power_reserve' => $watch['specificities']['power_reserve'],
+				'limited_edition' => $watch['specificities']['limited_edition'],
+				'pieces' => $watch['specificities']['pieces']
+			];
+
+			$newWatch->release_price = $watch['release_price'];
+			$newWatch->current_price = $watch['current_price'];
+			$newWatch->admin_id = $this->admin->id;
+			$newWatch->save();
+
+			// Watch created, create dependencies
+			// Bezel
+			$bezelColors = $this->getIds(BezelColor::class, $watch['bezel']['color']);
+			$bezelmarking = $this->getIds(BezelMarking::class, $watch['bezel']['marking']);
+			$bezelMaterials = $this->getIds(BezelMaterial::class, $watch['bezel']['material']);
+
+			$newWatch->bezelColors()->sync($bezelColors);
+			$newWatch->bezelMarkings()->sync($bezelmarking);
+			$newWatch->bezelMaterials()->sync($bezelMaterials);
+
+			// Bracelet
+			$braceletClaspColors = $this->getIds(BraceletClaspColor::class, $watch['bracelet']['clasp_color']);
+			$braceletClaspMaterials = $this->getIds(BraceletClaspMaterial::class, $watch['bracelet']['clasp_material']);
+			$braceletMaterials = $this->getIds(BraceletMaterial::class, $watch['bracelet']['material']);
+			$braceletStitchingColors = $this->getIds(BraceletStitchingColor::class, $watch['bracelet']['stitching_color']);
+
+			$newWatch->braceletClaspColors()->sync($braceletClaspColors);
+			$newWatch->braceletClaspMaterials()->sync($braceletClaspMaterials);
+			$newWatch->braceletMaterials()->sync($braceletMaterials);
+			$newWatch->braceletStitchingColors()->sync($braceletStitchingColors);
+
+			// Case
+			$caseColors = $this->getIds(CaseColor::class, $watch['case']['color']);
+			$caseMaterials = $this->getIds(CaseMaterial::class, $watch['case']['material']);
+			$caseFinishes = $this->getIds(CaseFinish::class, $watch['case']['finish']);
+			$caseSurfaceTreatments = $this->getIds(CaseSurfaceTreatment::class, $watch['case']['surface_treatment']);
+
+			$newWatch->caseColors()->sync($caseColors);
+			$newWatch->caseMaterials()->sync($caseMaterials);
+			$newWatch->caseFinishes()->sync($caseFinishes);
+			$newWatch->caseSurfaceTreatments()->sync($caseSurfaceTreatments);
+
+			// Complication
+			$complications = $this->getIds(Complication::class, $watch['specificities']['complication']);
+
+			$newWatch->complications()->sync($complications);
+
+			// Crown
+			$crownColors = $this->getIds(CrownColor::class, $watch['crown']['color']);
+			$crownMaterials = $this->getIds(CrownMaterial::class, $watch['crown']['material']);
+
+			$newWatch->crownColors()->sync($crownColors);
+			$newWatch->crownMaterials()->sync($crownMaterials);
+
+			// Crystal
+			$crystalMaterials = $this->getIds(CrystalMaterial::class, $watch['crystal']['material']);
+
+			$newWatch->crystalMaterials()->sync($crystalMaterials);
+
+			// Dial
+			$dialColors = $this->getIds(DialColor::class, $watch['dial']['color']);
+			$dialMarkerColors = $this->getIds(DialMarkerColor::class, $watch['dial']['marker_color']);
+			$dialMarkerLumeColors = $this->getIds(DialMarkerLumeColor::class, $watch['dial']['marker_lume_color']);
+			$dialMarkerTypes = $this->getIds(DialMarkerType::class, $watch['dial']['marker_type']);
+			$dialFinishes = $this->getIds(DialFinish::class, $watch['dial']['finish']);
+
+			$newWatch->dialColors()->sync($dialColors);
+			$newWatch->dialMarkerColors()->sync($dialMarkerColors);
+			$newWatch->dialMarkerLumeColors()->sync($dialMarkerLumeColors);
+			$newWatch->dialMarkerTypes()->sync($dialMarkerTypes);
+			$newWatch->dialFinishes()->sync($dialFinishes);
+			// Dependencies created
+		}
+	}
+
+	public function tudor()
+	{
 		$watches = [
 			'Black Bay' => [
 				0 => [
@@ -642,136 +776,14 @@ class Watches extends Seeder
 		];
 
 		foreach($watches as $collection => $values) {
-			foreach($values as $index => $watch) {
-				// Watch creation
-				$newWatch = new Watch;
-				$newWatch->bracelet_clasp_id = $watch['bracelet']['clasp'] ? $this->getId(BraceletClasp::class, $watch['bracelet']['clasp']) : null;
-				$newWatch->bracelet_color_id = $watch['bracelet']['color'] ? $this->getId(BraceletColor::class, $watch['bracelet']['color']) : null;
-				$newWatch->bracelet_micro_adjustement_system_id = $watch['bracelet']['micro_adjustement_system'] ? $this->getId(BraceletMicroAdjustementSystem::class, $watch['bracelet']['micro_adjustement_system']) : null;
-				$newWatch->bracelet_style_id = $watch['bracelet']['style'] ? $this->getId(BraceletStyle::class, $watch['bracelet']['style']) : null;
-				$newWatch->collection_id = $this->getId(Collection::class, $collection);
-				$newWatch->dial_type_id = $this->getId(DialType::class, $watch['dial']['type']);
-				$newWatch->movement_id = $this->getId(Movement::class, $watch['movement_id']);
-				$newWatch->type_id = $this->getId(Type::class, $watch['type']);
-				$newWatch->name = $watch['name'];
-				$newWatch->reference = $watch['reference'];
-
-				// Bezel
-				$newWatch->bezel = [
-					'direction' => $watch['bezel']['direction']
-				];
-
-				// Bracelet
-				$newWatch->bracelet = [
-					'micro_adjustement' => $watch['bracelet']['micro_adjustement'],
-					'stitching' => $watch['bracelet']['stitching'],
-				];
-
-				// Case
-				$newWatch->case = [
-					'diameter' => $watch['case']['diameter'],
-					'lug_to_lug' => $watch['case']['lug_to_lug'],
-					'lug_width' => $watch['case']['lug_width'],
-					'open_case_back' => $watch['case']['open_case_back'],
-					'sapphire_crystal_case_back' => $watch['case']['sapphire_crystal_case_back'],
-					'thickness' => $watch['case']['thickness'],
-					'waterproofness' => $watch['case']['waterproofness'],
-					'special_finish_technic' => $watch['case']['special_finish_technic']
-				];
-
-				// Crown
-				$newWatch->crown = [
-					'detail' => $watch['crown']['detail'],
-					'screwed_down' => $watch['crown']['screwed_down']
-				];
-
-				// Crystal
-				$newWatch->crystal = [
-					'domed' => $watch['crystal']['domed']
-				];
-
-				// Dial
-				$newWatch->dial = [
-					'domed' => $watch['dial']['domed'],
-					'marker_lume' =>$watch['dial']['marker_lume'],
-					'pattern' => $watch['dial']['pattern']
-				];
-
-				// Specificities
-				$newWatch->specificities = [
-					'power_reserve' => $watch['specificities']['power_reserve'],
-					'limited_edition' => $watch['specificities']['limited_edition'],
-					'pieces' => $watch['specificities']['pieces']
-				];
-
-				$newWatch->release_price = $watch['release_price'];
-				$newWatch->current_price = $watch['current_price'];
-				$newWatch->admin_id = $admin->id;
-				$newWatch->save();
-
-				// Watch created, create dependencies
-				// Bezel
-				$bezelColors = $this->getIds(BezelColor::class, $watch['bezel']['color']);
-				$bezelmarking = $this->getIds(BezelMarking::class, $watch['bezel']['marking']);
-				$bezelMaterials = $this->getIds(BezelMaterial::class, $watch['bezel']['material']);
-
-				$newWatch->bezelColors()->sync($bezelColors);
-				$newWatch->bezelMarkings()->sync($bezelmarking);
-				$newWatch->bezelMaterials()->sync($bezelMaterials);
-
-				// Bracelet
-				$braceletClaspColors = $this->getIds(BraceletClaspColor::class, $watch['bracelet']['clasp_color']);
-				$braceletClaspMaterials = $this->getIds(BraceletClaspMaterial::class, $watch['bracelet']['clasp_material']);
-				$braceletMaterials = $this->getIds(BraceletMaterial::class, $watch['bracelet']['material']);
-				$braceletStitchingColors = $this->getIds(BraceletStitchingColor::class, $watch['bracelet']['stitching_color']);
-
-				$newWatch->braceletClaspColors()->sync($braceletClaspColors);
-				$newWatch->braceletClaspMaterials()->sync($braceletClaspMaterials);
-				$newWatch->braceletMaterials()->sync($braceletMaterials);
-				$newWatch->braceletStitchingColors()->sync($braceletStitchingColors);
-
-				// Case
-				$caseColors = $this->getIds(CaseColor::class, $watch['case']['color']);
-				$caseMaterials = $this->getIds(CaseMaterial::class, $watch['case']['material']);
-				$caseFinishes = $this->getIds(CaseFinish::class, $watch['case']['finish']);
-				$caseSurfaceTreatments = $this->getIds(CaseSurfaceTreatment::class, $watch['case']['surface_treatment']);
-
-				$newWatch->caseColors()->sync($caseColors);
-				$newWatch->caseMaterials()->sync($caseMaterials);
-				$newWatch->caseFinishes()->sync($caseFinishes);
-				$newWatch->caseSurfaceTreatments()->sync($caseSurfaceTreatments);
-
-				// Complication
-				$complications = $this->getIds(Complication::class, $watch['specificities']['complication']);
-
-				$newWatch->complications()->sync($complications);
-
-				// Crown
-				$crownColors = $this->getIds(CrownColor::class, $watch['crown']['color']);
-				$crownMaterials = $this->getIds(CrownMaterial::class, $watch['crown']['material']);
-
-				$newWatch->crownColors()->sync($crownColors);
-				$newWatch->crownMaterials()->sync($crownMaterials);
-
-				// Crystal
-				$crystalMaterials = $this->getIds(CrystalMaterial::class, $watch['crystal']['material']);
-
-				$newWatch->crystalMaterials()->sync($crystalMaterials);
-
-				// Dial
-				$dialColors = $this->getIds(DialColor::class, $watch['dial']['color']);
-				$dialMarkerColors = $this->getIds(DialMarkerColor::class, $watch['dial']['marker_color']);
-				$dialMarkerLumeColors = $this->getIds(DialMarkerLumeColor::class, $watch['dial']['marker_lume_color']);
-				$dialMarkerTypes = $this->getIds(DialMarkerType::class, $watch['dial']['marker_type']);
-				$dialFinishes = $this->getIds(DialFinish::class, $watch['dial']['finish']);
-
-				$newWatch->dialColors()->sync($dialColors);
-				$newWatch->dialMarkerColors()->sync($dialMarkerColors);
-				$newWatch->dialMarkerLumeColors()->sync($dialMarkerLumeColors);
-				$newWatch->dialMarkerTypes()->sync($dialMarkerTypes);
-				$newWatch->dialFinishes()->sync($dialFinishes);
-				// Dependencies created
-			}
+			$this->create($collection, $values);
 		}
+	}
+
+	public function run(): void
+	{
+		$this->admin = Admin::first();
+
+		$this->tudor();
 	}
 }

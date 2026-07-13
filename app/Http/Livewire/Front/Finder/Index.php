@@ -5,11 +5,14 @@ namespace App\Http\Livewire\Front\Finder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\{
 	BezelColor, BezelMarking, BezelMaterial, BraceletClasp, BraceletClaspColor, BraceletClaspMaterial, BraceletColor, BraceletMaterial,
 	BraceletMicroAdjustementSystem, BraceletStitchingColor, BraceletStyle, BraceletType, Brand,
 	CaseColor, CaseMaterial, Collection, Complication, CrownColor, CrownMaterial, CrystalMaterial, Country,
 	DialColor, DialFinish, DialMarkerColor, DialMarkerLumeColor, DialMarkerType,
+	Experience,
 	Movement, MovementType,
 	Type,
 	Watch
@@ -19,9 +22,11 @@ class Index extends Component
 {
 	use WithPagination;
 
+	public $askExperience = false;
 	public $data = [];
 	public $filters = [];
 	public $mode = 'watches';
+	public $session = [];
 	public $showFoundWatch = false;
 	public $watchSlugs = [];
 
@@ -632,6 +637,12 @@ class Index extends Component
 		}
 	}
 
+	public function experienceChosen()
+	{
+		session()->put('session', $this->session);
+		$this->askExperience = false;
+	}
+
 	public function findMyWatch()
 	{
 		$this->showFoundWatch = true;
@@ -646,6 +657,7 @@ class Index extends Component
 
 	public function mount()
 	{
+		$this->session['user_experience'] = null;
 		$this->filters['country'] = [];
 		$this->filters['type'] = [];
 		$this->filters['min_price'] = null;
@@ -707,16 +719,21 @@ class Index extends Component
 		$this->filters['movement_METAS'] = null;
 		$this->filters['movement_manufactured_caliber'] = null;
 
-		$this->data['type'] = Type::orderBy('name', 'ASC')->get();
+		$this->data['type'] = Type::select('name', 'slug')->orderBy('name', 'ASC')->get();
 
-		if(session()->has('filters')) {
-			$sessionFilters = session()->get('filters');
+		if(Auth::guard('web')->check()) $this->session['user_experience'] = Auth::guard('web')->user()->experience->slug;
 
+		if(session()->has('session')) {
+			$sessions = session()->get('session');
 
-
-			foreach($sessionFilters as $key => $filter) {
-				if(!empty($sessionFilters[$key])) $this->filters[$key] = $sessionFilters[$key];
+			foreach($sessions as $key => $session) {
+				if(!empty($sessions[$key])) $this->session[$key] = $sessions[$key];
 			}
+		}
+
+		if(is_null($this->session['user_experience'])) {
+			$this->askExperience = true;
+			$this->data['experience'] = Experience::select('name', 'description', 'slug')->get();
 		}
 
 		$this->showFinder();

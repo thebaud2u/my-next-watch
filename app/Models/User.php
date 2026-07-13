@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -33,8 +34,8 @@ class User extends Authenticatable implements HasMedia
 	 */
 	protected $fillable = [
 		'gender',
-		'firstname',
-		'lastname',
+		'first_name',
+		'last_name',
 		'nickname',
 		'slug',
 		'email',
@@ -94,20 +95,22 @@ class User extends Authenticatable implements HasMedia
 			->height(360);
 	}
 
+	protected function fullName(): Attribute
+	{
+		return Attribute::make(
+			get: fn() => "{$this->first_name} {$this->last_name}",
+		);
+	}
+
 	// Relations
 	public function experience(): BelongsTo
 	{
 		return $this->belongsTo(Experience::class);
 	}
-	
+
 	public function gender(): BelongsTo
 	{
 		return $this->belongsTo(Gender::class);
-	}
-
-	public function title(): BelongsTo
-	{
-		return $this->belongsTo(Title::class);
 	}
 
 	// Functions

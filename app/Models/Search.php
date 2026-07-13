@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Search extends Model
 {
-	use LogsActivity; // HasUuids, 
+	use LogsActivity; // HasUuids,
 
 	/**
 	 * The attributes that are mass assignable.
@@ -40,11 +40,11 @@ class Search extends Model
 		];
 	}
 
-	protected static function boot(): void
+	// Tools
+	protected static function booted(): void
 	{
-		parent::boot();
-		static::creating(function ($model) {
-			$model->uuid = (string) Str::uuid();
+		static::creating(function(Search $search) {
+			$search->uuid = (string) Str::uuid();
 		});
 	}
 

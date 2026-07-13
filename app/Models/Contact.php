@@ -33,12 +33,11 @@ class Contact extends Model
 		'updated_at' => 'datetime'
 	];
 
-	// Functions
-	public static function boot()
+	// Tools
+	protected static function booted(): void
 	{
-		parent::boot();
-		static::created(function($model) {
-			$model->notify(new ContactCreated($model));
+		static::creating(function(Contact $contact) {
+			$contact->notify(new ContactCreated($contact));
 		});
 	}
 }
